@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Item, ResultCombo, RootData, WeightRow } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
@@ -8,7 +8,6 @@ import { filterAttributeTypes } from './utils/attributes';
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
   const [heroes, setHeroes] = useState<string[]>([]);
-  const [attrTypes, setAttrTypes] = useState<string[]>([]);
 
   const [hero, setHero] = useState('Ashe');
   const [cash, setCash] = useState(11000);
@@ -19,6 +18,16 @@ export default function Optimizer() {
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
   const [error, setError] = useState('');
+
+  const heroAttrTypes = useMemo(() => {
+    const set = new Set<string>();
+    data.forEach(it => {
+      if (!it.character || it.character === hero) {
+        it.attributes.forEach(a => set.add(a.type));
+      }
+    });
+    return Array.from(set).sort();
+  }, [data, hero]);
 
   useEffect(() => {
     fetch('/data.json')
@@ -42,7 +51,6 @@ export default function Optimizer() {
           it.attributes.forEach(a => types.add(a.type));
         });
         setHeroes(Array.from(heroesSet).sort());
-        setAttrTypes(Array.from(types).sort());
         setWeights([{ type: Array.from(types)[0] ?? '', weight: 1 }]);
       });
   }, []);
@@ -156,7 +164,7 @@ export default function Optimizer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <InputSection
           heroes={heroes}
-          attrTypes={attrTypes}
+          attrTypes={heroAttrTypes}
           filteredItems={filtered}
           hero={hero}
           cash={cash}
@@ -183,8 +191,8 @@ export default function Optimizer() {
             setWeights(copy);
           }}
           addWeightRow={() => {
-            const relevant = filterAttributeTypes(attrTypes, hero, heroes);
-            const def = relevant[0] ?? attrTypes[0] ?? '';
+            const relevant = filterAttributeTypes(heroAttrTypes, hero, heroes);
+            const def = relevant[0] ?? heroAttrTypes[0] ?? '';
             setWeights([...weights, { type: def, weight: 1 }]);
           }}
           removeWeightRow={(idx) => setWeights(weights.filter((_, i) => i !== idx))}
