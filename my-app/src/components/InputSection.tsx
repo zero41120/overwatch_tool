@@ -1,8 +1,8 @@
 import type { Item, WeightRow } from '../types';
 import { rarityColor } from '../utils/optimizer';
+import { relevantAttributes, filterAttributeTypes } from '../utils/attributes';
 import Dropdown from './Dropdown';
 import NumberInput from './NumberInput';
-import React from 'react';
 
 interface Props {
   heroes: string[];
@@ -47,6 +47,8 @@ export default function InputSection({
   onSubmit,
   validate,
 }: Props) {
+  const attrOptions = filterAttributeTypes(attrTypes, hero, heroes).map(t => ({ value: t, label: t }));
+
   return (
     <form
       onSubmit={(e) => {
@@ -99,11 +101,17 @@ export default function InputSection({
                 { value: '', label: 'None' },
                 ...filteredItems
                   .sort((a, b) => a.cost - b.cost)
-                  .map((it) => ({
-                    value: it.id || it.name,
-                    label: `${it.name} (${it.cost}) ${it.attributes.filter(a => a.type !== 'description').map(a => `${a.type}-${a.value}`).join(', ')}`,
-                    color: rarityColor(it.rarity),
-                  })),
+                  .map((it) => {
+                    const attrs = relevantAttributes(it, hero, heroes)
+                      .filter(a => a.type !== 'description')
+                      .map(a => `${a.type}-${a.value}`)
+                      .join(', ');
+                    return {
+                      value: it.id || it.name,
+                      label: `${it.name} (${it.cost}) ${attrs}`,
+                      color: rarityColor(it.rarity),
+                    };
+                  }),
               ]}
               value={id}
               onChange={(value) => onEquippedChange(idx, value)}
@@ -137,7 +145,7 @@ export default function InputSection({
               <Dropdown
                 label="Attribute Type"
                 placeholder="Select type"
-                options={attrTypes.map((t) => ({ value: t, label: t }))}
+                options={attrOptions}
                 value={w.type}
                 onChange={(value) => onWeightTypeChange(idx, value)}
                 className="flex-grow"

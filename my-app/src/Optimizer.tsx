@@ -3,6 +3,7 @@ import type { Item, ResultCombo, RootData, WeightRow } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import { aggregate, scoreFromMap } from './utils/optimizer';
+import { filterAttributeTypes } from './utils/attributes';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -81,8 +82,13 @@ export default function Optimizer() {
       setError('Equipped items cost exceeds total cash');
       return;
     }
+    const attrSet = new Set(weights.map(w => w.type).filter(Boolean));
     const candidate = data.filter(
-      it => (!it.character || it.character === hero) && !equipped.includes(it.id ?? '')
+      it => (
+        (!it.character || it.character === hero) &&
+        !equipped.includes(it.id ?? '') &&
+        (attrSet.size === 0 || it.attributes.some(a => attrSet.has(a.type)))
+      )
     );
     const needed = toBuy;
     if (needed === 0) {
@@ -176,12 +182,16 @@ export default function Optimizer() {
             copy[idx].weight = val;
             setWeights(copy);
           }}
-          addWeightRow={() => setWeights([...weights, { type: attrTypes[0], weight: 1 }])}
+          addWeightRow={() => {
+            const relevant = filterAttributeTypes(attrTypes, hero, heroes);
+            const def = relevant[0] ?? attrTypes[0] ?? '';
+            setWeights([...weights, { type: def, weight: 1 }]);
+          }}
           removeWeightRow={(idx) => setWeights(weights.filter((_, i) => i !== idx))}
           onSubmit={onCalculate}
           validate={validate}
         />
-        <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
+        <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} hero={hero} heroes={heroes} />
       </div>
     </div>
   );
