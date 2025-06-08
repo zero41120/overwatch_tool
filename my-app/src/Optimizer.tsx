@@ -11,6 +11,7 @@ interface Item {
   character?: string;
   id?: string;
   tab: string;
+  rarity: 'common' | 'rare' | 'epic';
 }
 interface RootData {
   tabs: {
@@ -35,11 +36,44 @@ interface ResultCombo {
   items: Item[];
   cost: number;
   score: number;
+  breakdown?: { type: string; sum: number; contrib: number }[];
 }
 
 function parseNumeric(value: string): number {
   const m = value.match(/[-+]?\d+(?:\.\d+)?/);
   return m ? parseFloat(m[0]) : 0;
+}
+
+function aggregate(items: Item[]): Map<string, number> {
+  const map = new Map<string, number>();
+  items.forEach(it => {
+    it.attributes.forEach(a => {
+      const v = parseNumeric(a.value);
+      map.set(a.type, (map.get(a.type) ?? 0) + v);
+    });
+  });
+  return map;
+}
+
+function scoreFromMap(map: Map<string, number>, weights: WeightRow[]) {
+  let total = 0;
+  weights.forEach(w => {
+    total += (map.get(w.type) ?? 0) * w.weight;
+  });
+  return total;
+}
+
+function rarityColor(r: Item['rarity']) {
+  switch (r) {
+    case 'common':
+      return 'green';
+    case 'rare':
+      return 'blue';
+    case 'epic':
+      return 'purple';
+    default:
+      return 'black';
+  }
 }
 
 export default function Optimizer() {
@@ -63,14 +97,14 @@ export default function Optimizer() {
       .then(r => r.json())
       .then((root: RootData) => {
         const items: Item[] = [];
-        const add = (tab: string, arr: Item[]) => {
-          arr.forEach(it => items.push({ ...it, tab }));
+        const add = (tab: string, rarity: 'common' | 'rare' | 'epic', arr: Item[]) => {
+          arr.forEach(it => items.push({ ...it, tab, rarity }));
         };
         (['weapon', 'ability', 'survival'] as const).forEach(tab => {
           const rar = root.tabs[tab];
-          add(tab, rar.common);
-          add(tab, rar.rare);
-          add(tab, rar.epic);
+          add(tab, 'common', rar.common);
+          add(tab, 'rare', rar.rare);
+          add(tab, 'epic', rar.epic);
         });
         setData(items);
         const heroesSet = new Set<string>();
@@ -108,18 +142,8 @@ export default function Optimizer() {
   }
 
   function calcScore(items: Item[]) {
-    const map = new Map<string, number>();
-    items.forEach(it => {
-      it.attributes.forEach(a => {
-        const v = parseNumeric(a.value);
-        map.set(a.type, (map.get(a.type) ?? 0) + v);
-      });
-    });
-    let score = 0;
-    weights.forEach(w => {
-      score += (map.get(w.type) ?? 0) * w.weight;
-    });
-    return score;
+    const map = aggregate(items);
+    return scoreFromMap(map, weights);
   }
 
   function onCalculate() {
@@ -185,7 +209,12 @@ export default function Optimizer() {
     }
     const [best, ...others] = bestCombos.sort((a,b) => a.cost - b.cost);
     const alt = others.filter(c => c.cost > best.cost).sort((a,b)=>a.cost-b.cost);
-    setResults({ items: best.items, cost: best.cost, score: calcScore([...best.items, ...eqItems]) });
+    const totalMap = aggregate([...best.items, ...eqItems]);
+    const breakdown = weights.map(w => {
+      const sum = totalMap.get(w.type) ?? 0;
+      return { type: w.type, sum, contrib: sum * w.weight };
+    });
+    setResults({ items: best.items, cost: best.cost, score: scoreFromMap(totalMap, weights), breakdown });
     setAlternatives(alt.map(c => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
   }
 
@@ -217,7 +246,9 @@ export default function Optimizer() {
             }}>
               <option value="">None</option>
               {filtered.sort((a,b)=>a.cost-b.cost).map(it=> (
-                <option key={it.id} value={it.id}>{`${it.name} (${it.cost})`}</option>
+                <option key={it.id} value={it.id} style={{color: rarityColor(it.rarity)}}>
+                  {`${it.name} (${it.cost})`}
+                </option>
               ))}
             </select>
           ))}
@@ -243,32 +274,55 @@ export default function Optimizer() {
           ))}
           <button className="mt-2 px-2 py-1 border rounded" onClick={()=>setWeights([...weights,{type:attrTypes[0],weight:1}])}>Add Row</button>
         </div>
-        <button className="px-4 py-2 bg-blue-600 text-white rounded" disabled={!validate()} onClick={onCalculate}>Calculate</button>
+        <button className="px-4 py-2 bg-teal-600 text-white rounded" disabled={!validate()} onClick={onCalculate}>Calculate</button>
         {error && <div className="text-red-600">{error}</div>}
       </div>
       <div className="space-y-4">
         <h2 className="text-xl font-bold">Results</h2>
         {results && (
           <div className="space-y-2">
-            <div>Weighted Score: {results.score.toFixed(2)}</div>
+            <div>
+              Weighted Score: {results.score.toFixed(2)}
+              {results.breakdown && (
+                <>
+                  {' ('}
+                  {results.breakdown.map((b,i) => (
+                    <span key={b.type}>
+                      {i>0 && ', '}
+                      {`${b.sum}${b.type}-${b.contrib.toFixed(2)}`}
+                    </span>
+                  ))}
+                  {')'}
+                </>
+              )}
+            </div>
             <div>Total Cost: {eqCost + results.cost}</div>
             <div>Remaining Cash: {cash - eqCost - results.cost}</div>
             <div className="border p-2 rounded">
               <div className="font-bold">Chosen Items:</div>
-              <ul className="list-disc ml-5">
-                {results.items.map(it=> <li key={it.id}>{it.name} ({it.cost})</li>)}
+              <ul className="space-y-2">
+                {[...eqItems, ...results.items].map(it => (
+                  <li key={it.id} className="border rounded p-2" style={{color: rarityColor(it.rarity)}}>
+                    <div className="font-semibold">{it.name} - {it.cost}</div>
+                    <ul className="text-sm list-disc ml-4">
+                      {it.attributes.map((a,idx) => (
+                        <li key={idx}>{a.type}: {a.value}</li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
               </ul>
             </div>
             {alternatives.length>0 && (
               <div>
                 <div className="font-bold">Alternative Builds</div>
-                <ul className="list-disc ml-5">
-                  {alternatives.map((alt,i)=>(
-                    <li key={i}>{alt.items.map(it=>it.name).join(', ')} - Cost: {alt.cost}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+                <ul className="list-disc ml-5 max-h-40 overflow-y-auto">
+                    {alternatives.map((alt,i)=>(
+                      <li key={i}>{alt.items.map(it=>it.name).join(', ')} - Cost: {alt.cost}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
         )}
       </div>
