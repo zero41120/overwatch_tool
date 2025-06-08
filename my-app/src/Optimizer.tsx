@@ -81,8 +81,12 @@ export default function Optimizer() {
       setError('Equipped items cost exceeds total cash');
       return;
     }
+    const selectedAttrs = new Set(weights.map(w => w.type));
     const candidate = data.filter(
-      it => (!it.character || it.character === hero) && !equipped.includes(it.id ?? '')
+      it =>
+        (!it.character || it.character === hero) &&
+        !equipped.includes(it.id ?? '') &&
+        it.attributes.some(a => selectedAttrs.has(a.type))
     );
     const needed = toBuy;
     if (needed === 0) {
@@ -100,19 +104,16 @@ export default function Optimizer() {
     let bestCombos: ResultCombo[] = [];
     const n = itemScores.length;
     function dfs(start: number, selected: Item[], cost: number, score: number) {
-      if (selected.length === needed) {
-        if (score > bestScore || (score === bestScore && cost < bestCost)) {
-          bestScore = score;
-          bestCost = cost;
-          bestCombos = [{ items: [...selected], cost, score }];
-        } else if (score === bestScore && cost >= bestCost) {
-          bestCombos.push({ items: [...selected], cost, score });
-        }
-        return;
+      if (score > bestScore || (score === bestScore && cost < bestCost)) {
+        bestScore = score;
+        bestCost = cost;
+        bestCombos = [{ items: [...selected], cost, score }];
+      } else if (score === bestScore && cost >= bestCost) {
+        bestCombos.push({ items: [...selected], cost, score });
       }
-      if (start >= n) return;
+      if (selected.length === needed || start >= n) return;
       const remaining = needed - selected.length;
-      const possible = score + (prefix[start + remaining] - prefix[start]);
+      const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
       if (possible < bestScore) return;
       for (let i = start; i < n; i++) {
         const info = itemScores[i];
