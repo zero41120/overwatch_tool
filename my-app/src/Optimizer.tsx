@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Attribute, Item, RootData, Rarity, WeightRow, ResultCombo } from './types';
+import type { Item, ResultCombo, RootData, WeightRow } from './types';
 
 
 function parseNumeric(value: string): number {
@@ -44,10 +44,10 @@ export default function Optimizer() {
   const [heroes, setHeroes] = useState<string[]>([]);
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
 
-  const [hero, setHero] = useState('');
-  const [cash, setCash] = useState(0);
+  const [hero, setHero] = useState('Ashe');
+  const [cash, setCash] = useState(11000);
   const [equipped, setEquipped] = useState<(string | '')[]>(Array(6).fill(''));
-  const [toBuy, setToBuy] = useState(1);
+  const [toBuy, setToBuy] = useState(6);
   const [weights, setWeights] = useState<WeightRow[]>([{ type: '', weight: 1 }]);
 
   const [results, setResults] = useState<ResultCombo | null>(null);
@@ -210,7 +210,7 @@ export default function Optimizer() {
               <option value="">None</option>
               {filtered.sort((a,b)=>a.cost-b.cost).map(it=> (
                 <option key={it.id} value={it.id} style={{color: rarityColor(it.rarity)}}>
-                  {`${it.name} (${it.cost})`}
+                  {`${it.name} (${it.cost}) ${it.attributes.filter(a=> a.type !== 'description').map(a=>`${a.type}-${a.value}`).join(', ')}`}
                 </option>
               ))}
             </select>
