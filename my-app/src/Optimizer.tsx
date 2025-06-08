@@ -188,8 +188,8 @@ export default function Optimizer() {
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
   return (
-    <div className="p-4 grid md:grid-cols-2 gap-4">
-      <div className="space-y-4">
+    <div className="grid md:grid-cols-2 gap-6">
+      <div className="space-y-4 bg-white rounded-lg shadow p-6">
         <div>
           <label className="block font-bold">Hero</label>
           <select className="border p-2 rounded w-full" value={hero} onChange={e=>setHero(e.target.value)}>
@@ -232,15 +232,15 @@ export default function Optimizer() {
               <input type="number" min={0} step={0.1} className="border p-2 rounded w-24" value={w.weight} onChange={e=>{
                 const copy=[...weights];copy[idx].weight=Number(e.target.value);setWeights(copy);
               }}/>
-              {weights.length>1 && <button className="px-2" onClick={()=>setWeights(weights.filter((_,i)=>i!==idx))}>Remove</button>}
+              {weights.length>1 && <button className="px-2 text-red-500 hover:text-red-700" onClick={()=>setWeights(weights.filter((_,i)=>i!==idx))}>Remove</button>}
             </div>
           ))}
-          <button className="mt-2 px-2 py-1 border rounded" onClick={()=>setWeights([...weights,{type:attrTypes[0],weight:1}])}>Add Row</button>
+          <button className="mt-2 px-3 py-1 bg-teal-500 text-white rounded hover:bg-teal-600" onClick={()=>setWeights([...weights,{type:attrTypes[0],weight:1}])}>Add Row</button>
         </div>
-        <button className="px-4 py-2 bg-teal-600 text-white rounded" disabled={!validate()} onClick={onCalculate}>Calculate</button>
+        <button className="w-full px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700" disabled={!validate()} onClick={onCalculate}>Calculate</button>
         {error && <div className="text-red-600">{error}</div>}
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-bold">Results</h2>
         {results && (
           <div className="space-y-2">
@@ -261,11 +261,11 @@ export default function Optimizer() {
             </div>
             <div>Total Cost: {eqCost + results.cost}</div>
             <div>Remaining Cash: {cash - eqCost - results.cost}</div>
-            <div className="border p-2 rounded">
+            <div className="bg-gray-50 p-4 rounded">
               <div className="font-bold">Chosen Items:</div>
               <ul className="space-y-2">
                 {[...eqItems, ...results.items].map(it => (
-                  <li key={it.id} className="border rounded p-2" style={{color: rarityColor(it.rarity)}}>
+                  <li key={it.id} className="border rounded p-2 bg-white" style={{color: rarityColor(it.rarity)}}>
                     <div className="font-semibold">{it.name} - {it.cost}</div>
                     <ul className="text-sm list-disc ml-4">
                       {it.attributes.map((a,idx) => (
@@ -279,7 +279,7 @@ export default function Optimizer() {
             {alternatives.length>0 && (
               <div>
                 <div className="font-bold">Alternative Builds</div>
-                <ul className="list-disc ml-5 max-h-40 overflow-y-auto">
+                <ul className="list-disc ml-5 max-h-40 overflow-y-auto bg-gray-50 p-2 rounded">
                     {alternatives.map((alt,i)=>(
                       <li key={i}>{alt.items.map(it=>it.name).join(', ')} - Cost: {alt.cost}</li>
                     ))}
