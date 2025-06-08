@@ -2,6 +2,7 @@ import type { Item, WeightRow } from '../types';
 import { rarityColor } from '../utils/optimizer';
 import Dropdown from './Dropdown';
 import NumberInput from './NumberInput';
+import { useState } from 'react';
 
 interface Props {
   heroes: string[];
@@ -46,6 +47,9 @@ export default function InputSection({
   onSubmit,
   validate,
 }: Props) {
+  // State for "Use Equipped Item" checkbox
+  const [useEquipped, setUseEquipped] = useState(false);
+
   return (
     <form
       onSubmit={(e) => {
@@ -88,28 +92,42 @@ export default function InputSection({
       {/* Equipped Items */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Equipped Items</label>
-        <div className="space-y-4 mt-1">
-          {equipped.map((id, idx) => (
-            <Dropdown
-              key={idx}
-              label={`Equipped Slot ${idx + 1}`}
-              placeholder="None"
-              options={[
-                { value: '', label: 'None' },
-                ...filteredItems
-                  .sort((a, b) => a.cost - b.cost)
-                  .map((it) => ({
-                    value: it.id || it.name,
-                    label: `${it.name} (${it.cost}) ${it.attributes.filter(a => a.type !== 'description').map(a => `${a.type}-${a.value}`).join(', ')}`,
-                    color: rarityColor(it.rarity),
-                  })),
-              ]}
-              value={id}
-              onChange={(value) => onEquippedChange(idx, value)}
-              className="w-full"
-            />
-          ))}
+        <div className="flex items-center gap-2 mt-1 mb-2">
+          <input
+            id="use-equipped-checkbox"
+            type="checkbox"
+            checked={useEquipped}
+            onChange={(e) => setUseEquipped(e.target.checked)}
+            className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
+          />
+          <label htmlFor="use-equipped-checkbox" className="text-sm text-gray-700 select-none">
+            Use Equipped Item
+          </label>
         </div>
+        {useEquipped && (
+          <div className="space-y-4 mt-1">
+            {equipped.map((id, idx) => (
+              <Dropdown
+                key={idx}
+                label={`Equipped Slot ${idx + 1}`}
+                placeholder="None"
+                options={[
+                  { value: '', label: 'None' },
+                  ...filteredItems
+                    .sort((a, b) => a.cost - b.cost)
+                    .map((it) => ({
+                      value: it.id || it.name,
+                      label: `${it.name} (${it.cost}) ${it.attributes.filter(a => a.type !== 'description').map(a => `${a.type}-${a.value}`).join(', ')}`,
+                      color: rarityColor(it.rarity),
+                    })),
+                ]}
+                value={id}
+                onChange={(value) => onEquippedChange(idx, value)}
+                className="w-full"
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Purchase Count */}
