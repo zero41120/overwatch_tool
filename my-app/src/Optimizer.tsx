@@ -3,6 +3,7 @@ import type { Item, ResultCombo, RootData, WeightRow } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import { aggregate, scoreFromMap } from './utils/optimizer';
+import rawData from './data.json?raw';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -20,9 +21,7 @@ export default function Optimizer() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('/data.json')
-      .then(r => r.json())
-      .then((root: RootData) => {
+    const root: RootData = JSON.parse(rawData);
         const items: Item[] = [];
         const add = (tab: string, rarity: 'common' | 'rare' | 'epic', arr: Item[]) => {
           arr.forEach(it => items.push({ ...it, tab, rarity }));
@@ -43,7 +42,6 @@ export default function Optimizer() {
         setHeroes(Array.from(heroesSet).sort());
         setAttrTypes(Array.from(types).sort());
         setWeights([{ type: Array.from(types)[0] ?? '', weight: 1 }]);
-      });
   }, []);
 
   useEffect(() => {
