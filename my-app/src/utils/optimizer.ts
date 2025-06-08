@@ -1,0 +1,38 @@
+export function parseNumeric(value: string): number {
+  const m = value.match(/[-+]?\d+(?:\.\d+)?/);
+  return m ? parseFloat(m[0]) : 0;
+}
+
+import type { Item, WeightRow } from '../types';
+
+export function aggregate(items: Item[]): Map<string, number> {
+  const map = new Map<string, number>();
+  items.forEach(it => {
+    it.attributes.forEach(a => {
+      const v = parseNumeric(a.value);
+      map.set(a.type, (map.get(a.type) ?? 0) + v);
+    });
+  });
+  return map;
+}
+
+export function scoreFromMap(map: Map<string, number>, weights: WeightRow[]) {
+  let total = 0;
+  weights.forEach(w => {
+    total += (map.get(w.type) ?? 0) * w.weight;
+  });
+  return total;
+}
+
+export function rarityColor(r: Item['rarity']) {
+  switch (r) {
+    case 'common':
+      return 'green';
+    case 'rare':
+      return 'blue';
+    case 'epic':
+      return 'purple';
+    default:
+      return 'black';
+  }
+}
