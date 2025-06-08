@@ -1,6 +1,5 @@
 import type { Item, ResultCombo } from '../types';
 import { rarityColor } from '../utils/optimizer';
-import { relevantAttributes } from '../utils/attributes';
 
 interface Props {
   eqItems: Item[];
@@ -8,11 +7,9 @@ interface Props {
   cash: number;
   results: ResultCombo | null;
   alternatives: ResultCombo[];
-  hero: string;
-  heroes: string[];
 }
 
-export default function ResultsSection({ eqItems, eqCost, cash, results, alternatives, hero, heroes }: Props) {
+export default function ResultsSection({ eqItems, eqCost, cash, results, alternatives }: Props) {
   return (
     <div className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8">
       <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Results</h2>
@@ -61,7 +58,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                     </span>
                   </div>
                   <ul className="mt-2 text-xs text-gray-600 space-y-1">
-                    {relevantAttributes(it, hero, heroes).map((a, idx) => (
+                    {it.attributes.map((a, idx) => (
                       <li key={idx} className="flex items-center">
                         <svg className="h-3 w-3 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
