@@ -2,7 +2,6 @@ import type { Item, WeightRow } from '../types';
 import { rarityColor } from '../utils/optimizer';
 import Dropdown from './Dropdown';
 import NumberInput from './NumberInput';
-import React from 'react';
 
 interface Props {
   heroes: string[];
