@@ -1,7 +1,9 @@
+import Optimizer from './Optimizer';
+
 function App() {
   return (
-    <div className="text-center mt-10">
-      <h1 className="text-3xl font-bold">It works</h1>
+    <div className="min-h-screen bg-teal-100 text-gray-900 p-4">
+      <Optimizer />
     </div>
   );
 }
