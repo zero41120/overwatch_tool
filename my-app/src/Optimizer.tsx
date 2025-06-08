@@ -3,6 +3,7 @@ import type { Item, ResultCombo, RootData, WeightRow } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import { aggregate, scoreFromMap } from './utils/optimizer';
+import { filterAttributeTypes } from './utils/attributes';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -181,7 +182,11 @@ export default function Optimizer() {
             copy[idx].weight = val;
             setWeights(copy);
           }}
-          addWeightRow={() => setWeights([...weights, { type: attrTypes[0], weight: 1 }])}
+          addWeightRow={() => {
+            const relevant = filterAttributeTypes(attrTypes, hero, heroes);
+            const def = relevant[0] ?? attrTypes[0] ?? '';
+            setWeights([...weights, { type: def, weight: 1 }]);
+          }}
           removeWeightRow={(idx) => setWeights(weights.filter((_, i) => i !== idx))}
           onSubmit={onCalculate}
           validate={validate}

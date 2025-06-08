@@ -9,3 +9,11 @@ import type { Item, Attribute } from '../types';
 export function relevantAttributes(item: Item, hero: string, heroes: string[]): Attribute[] {
   return item.attributes.filter(a => !heroes.includes(a.type) || a.type === hero);
 }
+
+/**
+ * Filter attribute type strings the same way `relevantAttributes` works for
+ * items. This hides hero specific attributes for other heroes.
+ */
+export function filterAttributeTypes(types: string[], hero: string, heroes: string[]): string[] {
+  return types.filter(t => !heroes.includes(t) || t === hero);
+}

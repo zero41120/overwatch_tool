@@ -1,6 +1,6 @@
 import type { Item, WeightRow } from '../types';
 import { rarityColor } from '../utils/optimizer';
-import { relevantAttributes } from '../utils/attributes';
+import { relevantAttributes, filterAttributeTypes } from '../utils/attributes';
 import Dropdown from './Dropdown';
 import NumberInput from './NumberInput';
 
@@ -47,6 +47,8 @@ export default function InputSection({
   onSubmit,
   validate,
 }: Props) {
+  const attrOptions = filterAttributeTypes(attrTypes, hero, heroes).map(t => ({ value: t, label: t }));
+
   return (
     <form
       onSubmit={(e) => {
@@ -143,7 +145,7 @@ export default function InputSection({
               <Dropdown
                 label="Attribute Type"
                 placeholder="Select type"
-                options={attrTypes.map((t) => ({ value: t, label: t }))}
+                options={attrOptions}
                 value={w.type}
                 onChange={(value) => onWeightTypeChange(idx, value)}
                 className="flex-grow"
