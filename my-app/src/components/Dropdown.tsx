@@ -17,7 +17,9 @@ interface DropdownProps {
 
 export default function Dropdown({ label, options, value, onChange, placeholder = "Select an option", className }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [openUpwards, setOpenUpwards] = useState(false); // New state for direction
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null); // Ref for the main trigger button
 
   const selectedOptionLabel = options.find(option => option.value === value)?.label || placeholder;
   const selectedOptionColor = options.find(option => option.value === value)?.color;
@@ -40,6 +42,31 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
     };
   }, []);
 
+  // Determine dropdown opening direction
+  useEffect(() => {
+    if (!isOpen || !triggerRef.current) return;
+
+    const triggerRect = triggerRef.current.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+    // Estimate dropdown height (e.g., 40vh as set in max-h)
+    // A more precise calculation would involve rendering, measuring, then re-rendering,
+    // but a reasonable estimate is usually sufficient for 'up vs down' decision.
+    const estimatedDropdownHeight = viewportHeight * 0.4; // Based on max-h-[40vh]
+
+    const spaceBelow = viewportHeight - triggerRect.bottom;
+    const spaceAbove = triggerRect.top;
+
+    // Open upwards if there's not enough space below AND there's more space above
+    if (spaceBelow < estimatedDropdownHeight && spaceAbove > spaceBelow) {
+      setOpenUpwards(true);
+    } else {
+      setOpenUpwards(false);
+    }
+  }, [isOpen]); // Recalculate when dropdown opens
+
+  const dropdownClasses = `absolute end-0 z-10 w-full divide-y divide-gray-200 overflow-hidden rounded border border-gray-300 bg-white shadow-lg max-h-[40vh] overflow-y-auto`;
+
   return (
     <div className={`relative block ${className}`} ref={dropdownRef}>
       <span
@@ -49,6 +76,7 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
           type="button"
           className="flex-grow px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative text-left"
           onClick={() => setIsOpen(!isOpen)}
+          ref={triggerRef} 
         >
           <span style={{ color: selectedOptionColor || 'inherit' }}>{selectedOptionLabel}</span>
         </button>
@@ -75,8 +103,7 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
       {isOpen && (
         <div
           role="menu"
-          // Added max-h-[40vh] and overflow-y-auto for max height and scrolling
-          className="absolute end-0 top-full z-10 mt-2 w-full divide-y divide-gray-200 overflow-hidden rounded border border-gray-300 bg-white shadow-lg max-h-[40vh] overflow-y-auto"
+          className={`${dropdownClasses} ${openUpwards ? 'bottom-full mb-2' : 'top-full mt-2'}`}
         >
           {options.length > 0 ? (
             <div>
