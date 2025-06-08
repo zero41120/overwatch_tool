@@ -187,108 +187,253 @@ export default function Optimizer() {
   const eqItems = equippedItems();
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
-  return (
-    <div className="p-4 grid md:grid-cols-2 gap-4">
-      <div className="space-y-4">
+
+
+return (
+  // Add a background color to the main container to make the white cards pop.
+  <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      {/* --- INPUT COLUMN --- */}
+      {/* We'll make this a <form> for better semantics. */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault(); // Prevent default form submission
+          if (validate()) onCalculate();
+        }}
+        className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8"
+      >
+        {/* Section for Hero Selection */}
         <div>
-          <label className="block font-bold">Hero</label>
-          <select className="border p-2 rounded w-full" value={hero} onChange={e=>setHero(e.target.value)}>
+          <label htmlFor="hero-select" className="block text-sm font-medium text-gray-700">
+            Hero
+          </label>
+          <select
+            id="hero-select"
+            className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            value={hero}
+            onChange={(e) => setHero(e.target.value)}
+          >
             <option value="">Select hero</option>
-            {heroes.map(h=> <option key={h} value={h}>{h}</option>)}
+            {heroes.map((h) => <option key={h} value={h}>{h}</option>)}
           </select>
         </div>
+
+        {/* Section for Cash Input */}
         <div>
-          <label className="block font-bold">Total Cash</label>
-          <input type="number" className="border p-2 rounded w-full" min={0} value={cash} onChange={e=>setCash(Number(e.target.value))}/>
+          <label htmlFor="total-cash" className="block text-sm font-medium text-gray-700">
+            Total Cash
+          </label>
+          <input
+            type="number"
+            id="total-cash"
+            className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            min={0}
+            value={cash}
+            onChange={(e) => setCash(Number(e.target.value))}
+          />
         </div>
+
+        {/* Section for Equipped Items */}
         <div>
-          <label className="block font-bold">Equipped Items</label>
-          {equipped.map((id, idx) => (
-            <select key={idx} className="border p-2 rounded w-full mt-1" value={id} onChange={e=>{
-              const copy=[...equipped];copy[idx]=e.target.value;setEquipped(copy);
-            }}>
-              <option value="">None</option>
-              {filtered.sort((a,b)=>a.cost-b.cost).map(it=> (
-                <option key={it.id} value={it.id} style={{color: rarityColor(it.rarity)}}>
-                  {`${it.name} (${it.cost}) ${it.attributes.filter(a=> a.type !== 'description').map(a=>`${a.type}-${a.value}`).join(', ')}`}
-                </option>
-              ))}
-            </select>
-          ))}
-        </div>
-        <div>
-          <label className="block font-bold">Items to Purchase</label>
-          <input type="number" className="border p-2 rounded w-full" min={0} max={6} value={toBuy} onChange={e=>setToBuy(Number(e.target.value))}/>
-        </div>
-        <div>
-          <label className="block font-bold">Attribute Weights</label>
-          {weights.map((w,idx)=>(
-            <div key={idx} className="flex items-center gap-2 mt-1">
-              <select className="border p-2 rounded flex-1" value={w.type} onChange={e=>{
-                const copy=[...weights];copy[idx].type=e.target.value;setWeights(copy);
-              }}>
-                {attrTypes.map(t=> <option key={t} value={t}>{t}</option>)}
+          <label className="block text-sm font-medium text-gray-700">Equipped Items</label>
+          <div className="space-y-2 mt-1">
+            {equipped.map((id, idx) => (
+              <select
+                key={idx}
+                className="block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={id}
+                onChange={(e) => {
+                  const copy = [...equipped];
+                  copy[idx] = e.target.value;
+                  setEquipped(copy);
+                }}
+              >
+                <option value="">None</option>
+                {filtered.sort((a,b)=>a.cost-b.cost).map((it) => (
+                  <option key={it.id} value={it.id} style={{ color: rarityColor(it.rarity) }}>
+                    {`${it.name} (${it.cost}) ${it.attributes.filter(a => a.type !== 'description').map(a => `${a.type}-${a.value}`).join(', ')}`}
+                  </option>
+                ))}
               </select>
-              <input type="number" min={0} step={0.1} className="border p-2 rounded w-24" value={w.weight} onChange={e=>{
-                const copy=[...weights];copy[idx].weight=Number(e.target.value);setWeights(copy);
-              }}/>
-              {weights.length>1 && <button className="px-2" onClick={()=>setWeights(weights.filter((_,i)=>i!==idx))}>Remove</button>}
-            </div>
-          ))}
-          <button className="mt-2 px-2 py-1 border rounded" onClick={()=>setWeights([...weights,{type:attrTypes[0],weight:1}])}>Add Row</button>
+            ))}
+          </div>
         </div>
-        <button className="px-4 py-2 bg-teal-600 text-white rounded" disabled={!validate()} onClick={onCalculate}>Calculate</button>
-        {error && <div className="text-red-600">{error}</div>}
-      </div>
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Results</h2>
-        {results && (
-          <div className="space-y-2">
-            <div>
-              Weighted Score: {results.score.toFixed(2)}
-              {results.breakdown && (
-                <>
-                  {' ('}
-                  {results.breakdown.map((b,i) => (
-                    <span key={b.type}>
-                      {i>0 && ', '}
-                      {`${b.sum}${b.type}-${b.contrib.toFixed(2)}`}
-                    </span>
-                  ))}
-                  {')'}
-                </>
-              )}
+        
+        {/* Section for Purchase Count */}
+        <div>
+          <label htmlFor="items-to-buy" className="block text-sm font-medium text-gray-700">
+            Items to Purchase
+          </label>
+          <input
+            type="number"
+            id="items-to-buy"
+            className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            min={0}
+            max={6}
+            value={toBuy}
+            onChange={(e) => setToBuy(Number(e.target.value))}
+          />
+        </div>
+
+        {/* Section for Attribute Weights with improved styling */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Attribute Weights</label>
+          <div className="space-y-2 mt-1">
+            {weights.map((w, idx) => (
+              <div key={idx} className="flex items-center gap-2">
+                <select
+                  className="block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  value={w.type}
+                  onChange={(e) => {
+                    const copy = [...weights];
+                    copy[idx].type = e.target.value;
+                    setWeights(copy);
+                  }}
+                >
+                  {attrTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                </select>
+                <input
+                  type="number"
+                  min={0}
+                  step={0.1}
+                  className="block w-24 rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  value={w.weight}
+                  onChange={(e) => {
+                    const copy = [...weights];
+                    copy[idx].weight = Number(e.target.value);
+                    setWeights(copy);
+                  }}
+                />
+                {weights.length > 1 && (
+                  // Improved remove button styling
+                  <button
+                    type="button"
+                    className="flex-shrink-0 rounded p-2 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                    onClick={() => setWeights(weights.filter((_, i) => i !== idx))}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+          {/* Secondary button style for "Add Row" */}
+          <button
+            type="button"
+            className="mt-3 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            onClick={() => setWeights([...weights, { type: attrTypes[0], weight: 1 }])}
+          >
+            Add Row
+          </button>
+        </div>
+
+        <div className="!mt-8 border-t pt-6">
+          {/* Primary action button with richer styling */}
+          <button
+            type="submit"
+            className="w-full inline-flex items-center justify-center rounded-lg bg-teal-600 px-5 py-3 text-white text-base font-medium shadow-lg transition hover:bg-teal-700 disabled:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+            disabled={!validate()}
+          >
+            Calculate Optimal Build
+          </button>
+          
+          {/* HyperUI-style alert for errors */}
+          {error && (
+             <div role="alert" className="mt-4 rounded border-s-4 border-red-500 bg-red-50 p-4 text-sm font-medium text-red-800">
+               {error}
+             </div>
+          )}
+        </div>
+      </form>
+
+      {/* --- RESULTS COLUMN --- */}
+      <div className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8">
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Results</h2>
+        
+        {results ? (
+          <div className="space-y-6">
+            {/* Using a "Stat Card" layout for key metrics */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col rounded-lg border border-gray-100 bg-white p-4">
+                <dt className="order-2 text-sm font-medium text-gray-500">Weighted Score</dt>
+                <dd className="order-1 text-2xl font-extrabold text-teal-600">{results.score.toFixed(2)}</dd>
+              </div>
+              <div className="flex flex-col rounded-lg border border-gray-100 bg-white p-4">
+                <dt className="order-2 text-sm font-medium text-gray-500">Total Cost</dt>
+                <dd className="order-1 text-2xl font-extrabold text-indigo-600">{eqCost + results.cost}</dd>
+              </div>
+              <div className="flex flex-col rounded-lg border border-gray-100 bg-white p-4">
+                <dt className="order-2 text-sm font-medium text-gray-500">Cash Remaining</dt>
+                <dd className="order-1 text-2xl font-extrabold text-green-600">{cash - eqCost - results.cost}</dd>
+              </div>
             </div>
-            <div>Total Cost: {eqCost + results.cost}</div>
-            <div>Remaining Cash: {cash - eqCost - results.cost}</div>
-            <div className="border p-2 rounded">
-              <div className="font-bold">Chosen Items:</div>
-              <ul className="space-y-2">
-                {[...eqItems, ...results.items].map(it => (
-                  <li key={it.id} className="border rounded p-2" style={{color: rarityColor(it.rarity)}}>
-                    <div className="font-semibold">{it.name} - {it.cost}</div>
-                    <ul className="text-sm list-disc ml-4">
-                      {it.attributes.map((a,idx) => (
-                        <li key={idx}>{a.type}: {a.value}</li>
+            
+             {/* Score breakdown with cleaner formatting */}
+            {results.breakdown && (
+                <div className="text-sm text-gray-600">
+                    <strong>Breakdown:</strong> {results.breakdown.map((b, i) => (
+                      <span key={b.type} className="mr-2">
+                        {i > 0 && '• '}
+                        {`${b.sum}${b.type} → ${b.contrib.toFixed(2)}`}
+                      </span>
+                    ))}
+                </div>
+            )}
+
+
+            {/* Section for Chosen Items */}
+            <div>
+              <h3 className="text-lg font-bold text-gray-800">Final Build</h3>
+              <ul className="mt-2 space-y-3">
+                {[...eqItems, ...results.items].map((it) => (
+                  <li key={it.id} className="block rounded-lg border border-gray-200 p-4 transition hover:shadow-sm" style={{ borderLeftColor: rarityColor(it.rarity), borderLeftWidth: '4px' }}>
+                    <div className="flex justify-between items-center">
+                       <strong className="font-semibold" style={{ color: rarityColor(it.rarity) }}>{it.name}</strong>
+                       <span className="text-sm font-mono rounded-full bg-indigo-50 text-indigo-600 px-2 py-0.5">{it.cost} G</span>
+                    </div>
+                    <ul className="mt-2 text-xs text-gray-600 space-y-1">
+                      {it.attributes.map((a, idx) => (
+                        <li key={idx} className="flex items-center">
+                           <svg className="h-3 w-3 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                           {a.type}: <strong>{a.value}</strong>
+                        </li>
                       ))}
                     </ul>
                   </li>
                 ))}
               </ul>
             </div>
-            {alternatives.length>0 && (
+            
+            {/* Section for Alternative Builds */}
+            {alternatives.length > 0 && (
               <div>
-                <div className="font-bold">Alternative Builds</div>
-                <ul className="list-disc ml-5 max-h-40 overflow-y-auto">
-                    {alternatives.map((alt,i)=>(
-                      <li key={i}>{alt.items.map(it=>it.name).join(', ')} - Cost: {alt.cost}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+                <h3 className="text-lg font-bold text-gray-800">Alternative Builds</h3>
+                <ul className="mt-2 space-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3 max-h-48 overflow-y-auto">
+                  {alternatives.map((alt, i) => (
+                    <li key={i} className="text-sm text-gray-700 p-2 rounded-md hover:bg-gray-100">
+                       <strong>Cost: {alt.cost}</strong> - {alt.items.map(it => it.name).join(', ')}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+          </div>
+        ) : (
+          // A placeholder for when there are no results yet.
+          <div className="text-center rounded-lg border-2 border-dashed border-gray-200 p-12">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">No results yet</h3>
+            <p className="mt-1 text-sm text-gray-500">Fill out the form and click calculate to see the magic.</p>
           </div>
         )}
       </div>
     </div>
-  );
+  </div>
+);
 }
