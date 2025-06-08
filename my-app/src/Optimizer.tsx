@@ -22,26 +22,32 @@ export default function Optimizer() {
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
-        const items: Item[] = [];
-        const add = (tab: string, rarity: 'common' | 'rare' | 'epic', arr: Item[]) => {
-          arr.forEach(it => items.push({ ...it, tab, rarity }));
-        };
-        (['weapon', 'ability', 'survival'] as const).forEach(tab => {
-          const rar = root.tabs[tab];
-          add(tab, 'common', rar.common);
-          add(tab, 'rare', rar.rare);
-          add(tab, 'epic', rar.epic);
-        });
-        setData(items);
-        const heroesSet = new Set<string>();
-        const types = new Set<string>();
-        items.forEach(it => {
-          if (it.character) heroesSet.add(it.character);
-          it.attributes.forEach(a => types.add(a.type));
-        });
-        setHeroes(Array.from(heroesSet).sort());
-        setAttrTypes(Array.from(types).sort());
-        setWeights([{ type: Array.from(types)[0] ?? '', weight: 1 }]);
+    const items: Item[] = [];
+    const add = (tab: string, rarity: 'common' | 'rare' | 'epic', arr: Item[]) => {
+      arr.forEach(it => items.push({ ...it, tab, rarity }));
+    };
+    (['weapon', 'ability', 'survival'] as const).forEach(tab => {
+      const rar = root.tabs[tab];
+      add(tab, 'common', rar.common);
+      add(tab, 'rare', rar.rare);
+      add(tab, 'epic', rar.epic);
+    });
+    setData(items);
+    const heroesSet = new Set<string>();
+    const seen = new Map<string, number>();
+    const types = new Set<string>();
+    items.forEach(it => {
+      if (it.character) heroesSet.add(it.character);
+      it.attributes.forEach(a => {
+        const count = (seen.get(a.type) ?? 0) + 1;
+        seen.set(a.type, count);
+        if (count === 2) types.add(a.type); // Only add if seen more than once
+      });
+    });
+    types.delete('description');
+    setHeroes(Array.from(heroesSet).sort());
+    setAttrTypes(Array.from(types).sort());
+    setWeights([{ type: Array.from(types)[0] ?? '', weight: 1 }]);
   }, []);
 
   useEffect(() => {
