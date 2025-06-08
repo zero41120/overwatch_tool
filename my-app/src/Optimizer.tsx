@@ -1,43 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Attribute, Item, RootData, Rarity, WeightRow, ResultCombo } from './types';
 
-interface Attribute {
-  type: string;
-  value: string;
-}
-interface Item {
-  name: string;
-  attributes: Attribute[];
-  cost: number;
-  character?: string;
-  id?: string;
-  tab: string;
-  rarity: 'common' | 'rare' | 'epic';
-}
-interface RootData {
-  tabs: {
-    weapon: Rarity;
-    ability: Rarity;
-    survival: Rarity;
-    powers: Record<string, unknown>;
-  };
-}
-interface Rarity {
-  common: Item[];
-  rare: Item[];
-  epic: Item[];
-}
-
-interface WeightRow {
-  type: string;
-  weight: number;
-}
-
-interface ResultCombo {
-  items: Item[];
-  cost: number;
-  score: number;
-  breakdown?: { type: string; sum: number; contrib: number }[];
-}
 
 function parseNumeric(value: string): number {
   const m = value.match(/[-+]?\d+(?:\.\d+)?/);
