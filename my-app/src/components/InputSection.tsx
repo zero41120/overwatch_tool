@@ -1,5 +1,7 @@
 import type { Item, WeightRow } from '../types';
-import { rarityColor } from '../utils/optimizer';
+import { rarityColor } from '../utils/optimizer'; // Make sure this utility is correctly imported
+import Dropdown from './Dropdown'; // Import the new Dropdown component
+import React from 'react'; // Explicitly import React for JSX
 
 interface Props {
   heroes: string[];
@@ -54,20 +56,19 @@ export default function InputSection({
     >
       {/* Hero Selection */}
       <div>
-        <label htmlFor="hero-select" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="hero-select" className="block text-sm font-medium text-gray-700 mb-1">
           Hero
         </label>
-        <select
-          id="hero-select"
-          className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        <Dropdown
+          label="Hero"
+          placeholder="Select hero"
+          options={[
+            { value: '', label: 'Select hero' }, // Add a default option
+            ...heroes.map((h) => ({ value: h, label: h })),
+          ]}
           value={hero}
-          onChange={(e) => onHeroChange(e.target.value)}
-        >
-          <option value="">Select hero</option>
-          {heroes.map((h) => (
-            <option key={h} value={h}>{h}</option>
-          ))}
-        </select>
+          onChange={onHeroChange}
+        />
       </div>
 
       {/* Cash Input */}
@@ -88,21 +89,26 @@ export default function InputSection({
       {/* Equipped Items */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Equipped Items</label>
-        <div className="space-y-2 mt-1">
+        <div className="space-y-4 mt-1"> {/* Increased space for better visual separation */}
           {equipped.map((id, idx) => (
-            <select
+            <Dropdown
               key={idx}
-              className="block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              label={`Equipped Slot ${idx + 1}`}
+              placeholder="None"
+              options={[
+                { value: '', label: 'None' }, // Default "None" option
+                ...filteredItems
+                  .sort((a, b) => a.cost - b.cost)
+                  .map((it) => ({
+                    value: it.id || it.name,
+                    label: `${it.name} (${it.cost}) ${it.attributes.filter(a => a.type !== 'description').map(a => `${a.type}-${a.value}`).join(', ')}`,
+                    color: rarityColor(it.rarity), // Pass rarity color for styling
+                  })),
+              ]}
               value={id}
-              onChange={(e) => onEquippedChange(idx, e.target.value)}
-            >
-              <option value="">None</option>
-              {filteredItems.sort((a, b) => a.cost - b.cost).map((it) => (
-                <option key={it.id} value={it.id} style={{ color: rarityColor(it.rarity) }}>
-                  {`${it.name} (${it.cost}) ${it.attributes.filter(a => a.type !== 'description').map(a => `${a.type}-${a.value}`).join(', ')}`}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => onEquippedChange(idx, value)}
+              className="w-full" // Ensure the dropdown takes full width in this context
+            />
           ))}
         </div>
       </div>
@@ -126,9 +132,14 @@ export default function InputSection({
       {/* Attribute Weights */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Attribute Weights</label>
-        <div className="space-y-2 mt-1">
+        <div className="space-y-4 mt-1"> {/* Increased space */}
           {weights.map((w, idx) => (
             <div key={idx} className="flex items-center gap-2">
+              {/* Using a regular select for weight type for now, as integrating Dropdown here
+                  would require more complex positioning within the flex container.
+                  If you want this to also be the custom dropdown, it would require more
+                  tailoring of the Dropdown component's positioning logic or adjustments
+                  to this flex container's styling. */}
               <select
                 className="block w-full rounded-md border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 value={w.type}
