@@ -33,6 +33,10 @@ export interface WeightRow {
   weight: number;
 }
 
+export interface ItemOverride {
+  attributes?: Attribute[];
+}
+
 export interface ResultCombo {
   items: Item[];
   cost: number;

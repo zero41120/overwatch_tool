@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import type { Item, ResultCombo, RootData, WeightRow } from './types';
+import type { Item, ResultCombo, RootData, WeightRow, ItemOverride } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import { aggregate, scoreFromMap } from './utils/optimizer';
 import rawData from './data.json?raw';
+import overridesRaw from './overrides.json?raw';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -22,9 +23,17 @@ export default function Optimizer() {
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
+    const overrides: Record<string, ItemOverride> = overridesRaw
+      ? JSON.parse(overridesRaw)
+      : {};
     const items: Item[] = [];
     const add = (tab: string, rarity: 'common' | 'rare' | 'epic', arr: Item[]) => {
-      arr.forEach(it => items.push({ ...it, tab, rarity }));
+      arr.forEach(it => {
+        const override = overrides[it.name];
+        const item = { ...it, tab, rarity };
+        if (override?.attributes) item.attributes = override.attributes;
+        items.push(item);
+      });
     };
     (['weapon', 'ability', 'survival'] as const).forEach(tab => {
       const rar = root.tabs[tab];

@@ -1,0 +1,61 @@
+{
+  "IRONSIGHTS": {
+    "attributes": [
+      {
+        "type": "AS",
+        "value": "10%"
+      },
+      {
+        "type": "WP",
+        "value": "17%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "On average, you are about 30m away from your taget, giving you somewhere between a 10-20% weapon power bonus. 17% is a fair estimate."
+      }
+    ]
+  },
+  "TRIPOD": {
+    "attributes": [
+      {
+        "type": "WP",
+        "value": "13%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "You gain 10% weapon power when above. With the base 5%, estimate 8% gain, a total of 13% WP."
+      }
+    ]
+  },
+  "INFRARED LENSES": {
+    "attributes": [
+      {
+        "type": "AP",
+        "value": "25%"
+      },
+      {
+        "type": "WP",
+        "value": "5%"
+      },
+      {
+        "Editor's Note": "Item itself provides 15AP. Since dynamite and power-based effect also triggers burning, while themself don't trigger burning damage bonus, we estimate +10AP and +5WP that benefits from burning damage bonus."
+      }
+    ]
+  },
+  "FIRESTARTER": {
+    "attributes": [
+      {
+        "type": "Health",
+        "value": "50"
+      },
+      {
+        "type": "ALS",
+        "value": "30%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Only life steal from burning damage, so estimate 5% ALS is missing from Bob and coach gun"
+      }
+    ]
+  }
+}
