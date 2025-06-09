@@ -76,7 +76,7 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
           type="button"
           className="flex-grow px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative text-left"
           onClick={() => setIsOpen(!isOpen)}
-          ref={triggerRef} 
+          ref={triggerRef}
         >
           <span style={{ color: selectedOptionColor || 'inherit' }}>{selectedOptionLabel}</span>
         </button>

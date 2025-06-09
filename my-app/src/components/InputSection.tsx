@@ -1,4 +1,5 @@
 import type { Item, WeightRow } from '../types';
+import { attributeValueToLabel } from '../utils/attribute';
 import { rarityColor } from '../utils/optimizer';
 import Dropdown from './Dropdown';
 import NumberInput from './NumberInput';
@@ -49,6 +50,19 @@ export default function InputSection({
 }: Props) {
   // State for "Use Equipped Item" checkbox
   const [useEquipped, setUseEquipped] = useState(false);
+
+  const attributeOptions = attrTypes
+    .slice()
+    .sort((a, b) => {
+      const priority = ['WP', 'AP', 'AS'];
+      const aIdx = priority.indexOf(a);
+      const bIdx = priority.indexOf(b);
+      if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+      if (aIdx !== -1) return -1;
+      if (bIdx !== -1) return 1;
+      return a.localeCompare(b);
+    })
+    .map((t) => ({ value: t, label: attributeValueToLabel(t) }));
 
   return (
     <form
@@ -154,7 +168,7 @@ export default function InputSection({
               <Dropdown
                 label="Attribute Type"
                 placeholder="Select type"
-                options={attrTypes.map((t) => ({ value: t, label: t }))}
+                options={attributeOptions}
                 value={w.type}
                 onChange={(value) => onWeightTypeChange(idx, value)}
                 className="flex-grow"
