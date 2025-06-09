@@ -164,7 +164,7 @@ export default function InputSection({
                 onChange={(val) => onWeightValueChange(idx, val)}
                 min={0}
                 max={100} // Added max limit
-                step={0.1}
+                step={0.01}
                 label={`Weight for ${w.type}`}
                 className="w-24" // This will now correctly apply and limit the width
               />

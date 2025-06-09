@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 
 interface NumberInputProps {
   value: number;
@@ -6,8 +7,8 @@ interface NumberInputProps {
   max?: number;
   step?: number;
   placeholder?: string;
-  className?: string; // This className will now control the overall width of the component
-  label?: string; // Optional label for accessibility
+  className?: string;
+  label?: string;
 }
 
 export default function NumberInput({
@@ -20,16 +21,35 @@ export default function NumberInput({
   className,
   label
 }: NumberInputProps) {
+  const [inputValue, setInputValue] = useState<string>(value.toString());
+
+  useEffect(() => {
+    // Sync internal state if parent value changes
+    setInputValue(value.toString());
+  }, [value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setInputValue(val);
+
+    // Only call onChange if val is a valid number (not empty or just "-")
+    if (val === "" || val === "-") return;
+    const num = Number(val);
+    if (!isNaN(num)) {
+      onChange(num);
+    }
+  };
+
   return (
-    // Removed 'w-full' from this outer div. Its width will now be determined by the 'className' prop passed to it.
     <div className={`relative inline-block ${className || ''}`}>
       <input
         type="number"
-        // 'w-full' here ensures the input element itself fills the width of its parent div.
         className={`block w-full px-3 py-2 text-sm font-medium text-gray-700 rounded border border-gray-300 bg-white shadow-sm
                     transition-colors focus:border-indigo-500 focus:ring-indigo-500`}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
+        value={inputValue}
+        onChange={handleChange}
+        inputMode="decimal"
+        pattern=".*"
         min={min}
         max={max}
         step={step}
