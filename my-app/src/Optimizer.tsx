@@ -5,6 +5,7 @@ import ResultsSection from './components/ResultsSection';
 import { aggregate, scoreFromMap } from './utils/optimizer';
 import rawData from './data.json?raw';
 import overridesRaw from './overrides.json?raw';
+import { sortAttributes } from './utils/attribute';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -54,9 +55,11 @@ export default function Optimizer() {
       });
     });
     types.delete('description');
+    types.delete("Editor's Note");
+    const sortedTypes = Array.from(types).sort(sortAttributes);
     setHeroes(Array.from(heroesSet).sort());
-    setAttrTypes(Array.from(types).sort());
-    setWeights([{ type: Array.from(types)[0] ?? '', weight: 1 }]);
+    setAttrTypes(sortedTypes);
+    setWeights([{ type: sortedTypes[0], weight: 1 }]);
   }, []);
 
   useEffect(() => {

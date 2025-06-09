@@ -17,3 +17,14 @@ export function attributeValueToLabel(value: string): string {
     };
     return map[value] || value;
 }
+
+
+export function sortAttributes(a: string, b: string) {
+    const priority = ['WP', 'AP', 'AS'];
+    const aIdx = priority.indexOf(a);
+    const bIdx = priority.indexOf(b);
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
+    return a.localeCompare(b);
+}
