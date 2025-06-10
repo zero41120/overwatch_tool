@@ -19,6 +19,9 @@ interface Props {
   onCashChange: (v: number) => void;
   onEquippedChange: (idx: number, id: string) => void;
   onToBuyChange: (v: number) => void;
+  avoid: string[];
+  onAddAvoid: (id: string) => void;
+  onRemoveAvoid: (id: string) => void;
   onWeightTypeChange: (idx: number, type: string) => void;
   onWeightValueChange: (idx: number, val: number) => void;
   addWeightRow: () => void;
@@ -41,6 +44,9 @@ export default function InputSection({
   onCashChange,
   onEquippedChange,
   onToBuyChange,
+  avoid,
+  onAddAvoid,
+  onRemoveAvoid,
   onWeightTypeChange,
   onWeightValueChange,
   addWeightRow,
@@ -50,6 +56,14 @@ export default function InputSection({
 }: Props) {
   // State for "Use Equipped Item" checkbox
   const [useEquipped, setUseEquipped] = useState(false);
+  const handleUseEquippedChange = (checked: boolean) => {
+    setUseEquipped(checked);
+    if (!checked) {
+      equipped.forEach((_, idx) => onEquippedChange(idx, ''));
+    }
+  };
+
+  const [selectedAvoid, setSelectedAvoid] = useState('');
 
   const attributeOptions = attrTypes.map((t) => ({ value: t, label: attributeValueToLabel(t) }));
 
@@ -100,7 +114,7 @@ export default function InputSection({
             id="use-equipped-checkbox"
             type="checkbox"
             checked={useEquipped}
-            onChange={(e) => setUseEquipped(e.target.checked)}
+            onChange={(e) => handleUseEquippedChange(e.target.checked)}
             className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
           />
           <label htmlFor="use-equipped-checkbox" className="text-sm text-gray-700 select-none">
@@ -133,20 +147,65 @@ export default function InputSection({
         )}
       </div>
 
-      {/* Purchase Count */}
+      {/* Avoid Items */}
       <div>
-        <label htmlFor="items-to-buy" className="block text-sm font-medium text-gray-700">
-          Items to Purchase
-        </label>
-        <NumberInput
-          value={toBuy}
-          onChange={onToBuyChange}
-          min={0}
-          max={6}
-          label="Items to Purchase"
-          className="mt-1"
-        />
+        <label className="block text-sm font-medium text-gray-700">Avoid Item</label>
+        <div className="flex items-center gap-2 mt-1">
+          <SearchableDropdown
+            label="Avoid Item"
+            placeholder="Select item"
+            options={[
+              { value: '', label: 'Select item' },
+              ...filteredItems
+                .sort((a, b) => a.cost - b.cost)
+                .map((it) => ({
+                  value: it.id || it.name,
+                  label: `${it.name} (${it.cost})`,
+                  color: rarityColor(it.rarity),
+                })),
+            ]}
+            value={selectedAvoid}
+            onChange={setSelectedAvoid}
+            className="flex-grow"
+          />
+          <button
+            type="button"
+            className="rounded bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+            onClick={() => {
+              if (selectedAvoid) {
+                onAddAvoid(selectedAvoid);
+                setSelectedAvoid('');
+              }
+            }}
+          >
+            Add
+          </button>
+        </div>
+        {avoid.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {avoid.map((id) => {
+              const item = filteredItems.find((it) => (it.id || it.name) === id);
+              return (
+                <span
+                  key={id}
+                  className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-800"
+                >
+                  {item ? item.name : id}
+                  <button
+                    type="button"
+                    className="ml-1 text-red-500 hover:text-red-700"
+                    onClick={() => onRemoveAvoid(id)}
+                  >
+                    &times;
+                  </button>
+                </span>
+              );
+            })}
+          </div>
+        )}
       </div>
+
+
 
       {/* Attribute Weights */}
       <div>
@@ -202,6 +261,18 @@ export default function InputSection({
         >
           Calculate Optimal Build
         </button>
+        <div className="mt-4 grid grid-cols-5 gap-2">
+          {[2,3,4,5,6].map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => onToBuyChange(n)}
+              className={`rounded-lg py-2 text-sm font-medium ${toBuy === n ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
         {error && (
           <div role="alert" className="mt-4 rounded border-s-4 border-red-500 bg-red-50 p-4 text-sm font-medium text-red-800">
             {error}
