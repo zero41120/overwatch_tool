@@ -16,6 +16,7 @@ export default function Optimizer() {
   const [cash, setCash] = useState(11000);
   const [equipped, setEquipped] = useState<(string | '')[]>(Array(6).fill(''));
   const [toBuy, setToBuy] = useState(6);
+  const [avoid, setAvoid] = useState<string[]>([]);
   const [weights, setWeights] = useState<WeightRow[]>([{ type: '', weight: 1 }]);
 
   const [results, setResults] = useState<ResultCombo | null>(null);
@@ -102,6 +103,7 @@ export default function Optimizer() {
       it =>
         (!it.character || it.character === hero) &&
         !equipped.includes(it.id ?? '') &&
+        !avoid.includes(it.id ?? '') &&
         it.attributes.some(a => selectedAttrs.has(a.type))
     );
     const needed = toBuy;
@@ -118,13 +120,20 @@ export default function Optimizer() {
     let bestScore = -Infinity;
     let bestCost = 0;
     let bestCombos: ResultCombo[] = [];
+    const preferHighCost = eqItems.length + needed === 6;
     const n = itemScores.length;
     function dfs(start: number, selected: Item[], cost: number, score: number) {
-      if (score > bestScore || (score === bestScore && cost < bestCost)) {
+      if (
+        score > bestScore ||
+        (score === bestScore && (preferHighCost ? cost > bestCost : cost < bestCost))
+      ) {
         bestScore = score;
         bestCost = cost;
         bestCombos = [{ items: [...selected], cost, score }];
-      } else if (score === bestScore && cost >= bestCost) {
+      } else if (
+        score === bestScore &&
+        (preferHighCost ? cost <= bestCost : cost >= bestCost)
+      ) {
         bestCombos.push({ items: [...selected], cost, score });
       }
       if (selected.length === needed || start >= n) return;
@@ -145,8 +154,12 @@ export default function Optimizer() {
       setError('Insufficient cash for any purchase');
       return;
     }
-    const [best, ...others] = bestCombos.sort((a, b) => a.cost - b.cost);
-    const alt = others.filter(c => c.cost > best.cost).sort((a, b) => a.cost - b.cost);
+    const [best, ...others] = bestCombos.sort((a, b) =>
+      preferHighCost ? b.cost - a.cost : a.cost - b.cost
+    );
+    const alt = others
+      .filter(c => (preferHighCost ? c.cost < best.cost : c.cost > best.cost))
+      .sort((a, b) => preferHighCost ? b.cost - a.cost : a.cost - b.cost);
     const totalMap = aggregate([...best.items, ...eqItems]);
     const breakdown = weights.map(w => {
       const sum = totalMap.get(w.type) ?? 0;
@@ -173,6 +186,7 @@ export default function Optimizer() {
           cash={cash}
           equipped={equipped}
           toBuy={toBuy}
+          avoid={avoid}
           weights={weights}
           error={error}
           onHeroChange={setHero}
@@ -183,6 +197,10 @@ export default function Optimizer() {
             setEquipped(copy);
           }}
           onToBuyChange={setToBuy}
+          onAddAvoid={(id) => {
+            if (!avoid.includes(id)) setAvoid([...avoid, id]);
+          }}
+          onRemoveAvoid={(id) => setAvoid(avoid.filter((a) => a !== id))}
           onWeightTypeChange={(idx, type) => {
             const copy = [...weights];
             copy[idx].type = type;
