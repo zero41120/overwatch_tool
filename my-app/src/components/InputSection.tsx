@@ -1,7 +1,7 @@
 import type { Item, WeightRow } from '../types';
-import { attributeValueToLabel, sortAttributes } from '../utils/attribute';
+import { attributeValueToLabel } from '../utils/attribute';
 import { rarityColor } from '../utils/optimizer';
-import Dropdown from './Dropdown';
+import SearchableDropdown from './SearchableDropdown';
 import NumberInput from './NumberInput';
 import { useState } from 'react';
 
@@ -66,7 +66,7 @@ export default function InputSection({
         <label htmlFor="hero-select" className="block text-sm font-medium text-gray-700 mb-1">
           Hero
         </label>
-        <Dropdown
+        <SearchableDropdown
           label="Hero"
           placeholder="Select hero"
           options={[
@@ -110,7 +110,7 @@ export default function InputSection({
         {useEquipped && (
           <div className="space-y-4 mt-1">
             {equipped.map((id, idx) => (
-              <Dropdown
+              <SearchableDropdown
                 key={idx}
                 label={`Equipped Slot ${idx + 1}`}
                 placeholder="None"
@@ -154,7 +154,7 @@ export default function InputSection({
         <div className="space-y-4 mt-1">
           {weights.map((w, idx) => (
             <div key={idx} className="flex items-center gap-2">
-              <Dropdown
+              <SearchableDropdown
                 label="Attribute Type"
                 placeholder="Select type"
                 options={attributeOptions}
