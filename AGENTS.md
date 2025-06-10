@@ -2,6 +2,8 @@
 
 - Code lives in `my-app/src`.
 - Run `npm install` and `npm run build` to verify changes are ready before each PR.
+- After building, run `npm run deploy` to publish the `dist` directory to the
+  `github_pages_deployment` branch before submitting a PR.
 - **Do not open `my-app/data.json`**. Use `src/types.ts` for the data shape.
 
 - This project uses Typescript, Vite, TailwindCSS
