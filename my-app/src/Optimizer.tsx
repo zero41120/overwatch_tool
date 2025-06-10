@@ -1,27 +1,25 @@
 import { useEffect, useState } from 'react';
-import type { Item, ResultCombo, RootData, WeightRow, ItemOverride } from './types';
+import type { Item, ResultCombo, RootData, ItemOverride } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import { aggregate, scoreFromMap } from './utils/optimizer';
 import rawData from './data.json?raw';
 import overridesRaw from './overrides.json?raw';
 import { sortAttributes } from './utils/attribute';
+import { useAppSelector, useAppDispatch } from './hooks';
+import { setWeightType, setToBuy, setError } from './slices/inputSlice';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
   const [heroes, setHeroes] = useState<string[]>([]);
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
 
-  const [hero, setHero] = useState('Ashe');
-  const [cash, setCash] = useState(11000);
-  const [equipped, setEquipped] = useState<(string | '')[]>(Array(6).fill(''));
-  const [toBuy, setToBuy] = useState(6);
-  const [avoid, setAvoid] = useState<string[]>([]);
-  const [weights, setWeights] = useState<WeightRow[]>([{ type: '', weight: 1 }]);
+  const dispatch = useAppDispatch();
+  const state = useAppSelector(s => s.input.present);
+  const { hero, cash, equipped, toBuy, avoid, weights } = state;
 
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
@@ -60,13 +58,13 @@ export default function Optimizer() {
     const sortedTypes = Array.from(types).sort(sortAttributes);
     setHeroes(Array.from(heroesSet).sort());
     setAttrTypes(sortedTypes);
-    setWeights([{ type: sortedTypes[0], weight: 1 }]);
+    dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
   }, []);
 
   useEffect(() => {
     const count = equipped.filter(id => id).length;
-    if (toBuy + count > 6) setToBuy(Math.max(0, 6 - count));
-  }, [equipped, toBuy]);
+    if (toBuy + count > 6) dispatch(setToBuy(Math.max(0, 6 - count)));
+  }, [dispatch, equipped, toBuy]);
 
   function equippedItems() {
     return equipped
@@ -90,12 +88,12 @@ export default function Optimizer() {
   }
 
   function onCalculate() {
-    setError('');
+    dispatch(setError(''));
     const eqItems = equippedItems();
     const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
     const remainingCash = cash - eqCost;
     if (remainingCash < 0) {
-      setError('Equipped items cost exceeds total cash');
+      dispatch(setError('Equipped items cost exceeds total cash'));
       return;
     }
     const selectedAttrs = new Set(weights.map(w => w.type));
@@ -151,7 +149,7 @@ export default function Optimizer() {
     dfs(0, [], 0, 0);
 
     if (bestCombos.length === 0) {
-      setError('Insufficient cash for any purchase');
+      dispatch(setError('Insufficient cash for any purchase'));
       return;
     }
     const [best, ...others] = bestCombos.sort((a, b) =>
@@ -182,39 +180,6 @@ export default function Optimizer() {
           heroes={heroes}
           attrTypes={attrTypes}
           filteredItems={filtered}
-          hero={hero}
-          cash={cash}
-          equipped={equipped}
-          toBuy={toBuy}
-          avoid={avoid}
-          weights={weights}
-          error={error}
-          onHeroChange={setHero}
-          onCashChange={setCash}
-          onEquippedChange={(idx, id) => {
-            setEquipped(prev => {
-              const copy = [...prev];
-              copy[idx] = id;
-              return copy;
-            });
-          }}
-          onToBuyChange={setToBuy}
-          onAddAvoid={(id) => {
-            if (!avoid.includes(id)) setAvoid([...avoid, id]);
-          }}
-          onRemoveAvoid={(id) => setAvoid(avoid.filter((a) => a !== id))}
-          onWeightTypeChange={(idx, type) => {
-            const copy = [...weights];
-            copy[idx].type = type;
-            setWeights(copy);
-          }}
-          onWeightValueChange={(idx, val) => {
-            const copy = [...weights];
-            copy[idx].weight = val;
-            setWeights(copy);
-          }}
-          addWeightRow={() => setWeights([...weights, { type: attrTypes[0], weight: 1 }])}
-          removeWeightRow={(idx) => setWeights(weights.filter((_, i) => i !== idx))}
           onSubmit={onCalculate}
           validate={validate}
         />
