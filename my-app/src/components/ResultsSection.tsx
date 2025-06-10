@@ -1,5 +1,6 @@
 import type { Item, ResultCombo } from '../types';
 import { rarityColor } from '../utils/optimizer';
+import { stripHtmlTags } from '../utils/util';
 
 interface Props {
   eqItems: Item[];
@@ -31,13 +32,25 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
           </div>
           {results.breakdown && (
             <div className="text-sm text-gray-600">
-              <strong>Breakdown:</strong>{' '}
-              {results.breakdown.map((b, i) => (
-                <span key={b.type} className="mr-2">
-                  {i > 0 && '• '}
-                  {`${b.sum}${b.type} → ${b.contrib.toFixed(2)}`}
-                </span>
-              ))}
+              <strong>Breakdown:</strong>
+              <table className="mt-2 w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th className="px-2 py-1 border-b font-medium">Type</th>
+                    <th className="px-2 py-1 border-b font-medium">Sum</th>
+                    <th className="px-2 py-1 border-b font-medium">Contribution</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.breakdown.map((b) => (
+                    <tr key={b.type}>
+                      <td className="px-2 py-1">{b.type}</td>
+                      <td className="px-2 py-1">{b.sum}</td>
+                      <td className="px-2 py-1">{b.contrib.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
           <div>
@@ -59,11 +72,11 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                   </div>
                   <ul className="mt-2 text-xs text-gray-600 space-y-1">
                     {it.attributes.map((a, idx) => (
-                      <li key={idx} className="flex items-center">
-                        <svg className="h-3 w-3 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {a.type}: <strong>{a.value}</strong>
+                      <li key={idx} className="flex items-start">
+                        <span>
+                          <span className="font-medium">{a.type}:</span>
+                          <span className="ml-1 text-gray-800 break-words"><strong>{stripHtmlTags(a.value)}</strong></span>
+                        </span>
                       </li>
                     ))}
                   </ul>

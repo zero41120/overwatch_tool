@@ -31,14 +31,15 @@
     "attributes": [
       {
         "type": "AP",
-        "value": "25%"
+        "value": "18%"
       },
       {
         "type": "WP",
         "value": "5%"
       },
       {
-        "Editor's Note": "Item itself provides 15AP. Since dynamite and power-based effect also triggers burning, while themself don't trigger burning damage bonus, we estimate +10AP and +5WP that benefits from burning damage bonus."
+        "type": "Editor's Note",
+        "value": "Item itself provides 15AP. Since dynamite and power-based effect also triggers burning, while themself don't trigger burning damage bonus, we estimate +10AP and +5WP that benefits from burning damage bonus."
       }
     ]
   },
