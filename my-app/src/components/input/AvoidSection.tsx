@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addAvoid, removeAvoid } from '../../slices/inputSlice';
 import type { Item } from '../../types';
 import { rarityColor } from '../../utils/optimizer';
+import { sortItemsByRarityAndName } from '../../utils/item';
 
 interface Props {
   items: Item[];
@@ -23,7 +24,7 @@ export default function AvoidSection({ items }: Props) {
           placeholder="Select item"
           options={[
             { value: '', label: 'Select item' },
-            ...items.sort((a, b) => a.cost - b.cost).map(it => ({
+            ...items.sort(sortItemsByRarityAndName).map(it => ({
               value: it.id || it.name,
               label: `${it.name} (${it.cost})`,
               color: rarityColor(it.rarity),

@@ -5,6 +5,7 @@ import { setEquipped } from '../../slices/inputSlice';
 import type { Item } from '../../types';
 import { rarityColor } from '../../utils/optimizer';
 import { attributeValueToLabel } from '../../utils/attribute';
+import { sortItemsByRarityAndName } from '../../utils/item';
 
 interface Props {
   items: Item[];
@@ -47,7 +48,7 @@ export default function EquippedSection({ items }: Props) {
               options={[
                 { value: '', label: 'None' },
                 ...items
-                  .sort((a, b) => a.cost - b.cost)
+                  .sort(sortItemsByRarityAndName)
                   .map(it => ({
                     value: it.id || it.name,
                     label: `${it.name} (${it.cost}) ${it.attributes
