@@ -192,9 +192,11 @@ export default function Optimizer() {
           onHeroChange={setHero}
           onCashChange={setCash}
           onEquippedChange={(idx, id) => {
-            const copy = [...equipped];
-            copy[idx] = id;
-            setEquipped(copy);
+            setEquipped(prev => {
+              const copy = [...prev];
+              copy[idx] = id;
+              return copy;
+            });
           }}
           onToBuyChange={setToBuy}
           onAddAvoid={(id) => {
