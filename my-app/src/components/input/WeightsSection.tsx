@@ -7,6 +7,7 @@ import {
   addWeightRow,
   removeWeightRow,
 } from '../../slices/inputSlice';
+import { attributeValueToLabel } from '../../utils/attribute';
 
 interface Props {
   attrTypes: string[];
@@ -15,7 +16,7 @@ interface Props {
 export default function WeightsSection({ attrTypes }: Props) {
   const weights = useAppSelector(state => state.input.present.weights);
   const dispatch = useAppDispatch();
-  const options = attrTypes.map(t => ({ value: t, label: t }));
+  const options = attrTypes.map(t => ({ value: t, label: attributeValueToLabel(t) }));
 
   return (
     <div>
@@ -37,7 +38,7 @@ export default function WeightsSection({ attrTypes }: Props) {
               min={0}
               max={100}
               step={0.01}
-              label={`Weight for ${w.type}`}
+              label={`Weight for ${attributeValueToLabel(w.type)}`}
               className="w-24"
             />
             {weights.length > 1 && (

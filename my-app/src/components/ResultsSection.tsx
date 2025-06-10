@@ -1,6 +1,7 @@
 import type { Item, ResultCombo } from '../types';
 import { rarityColor } from '../utils/optimizer';
 import { stripHtmlTags } from '../utils/util';
+import { attributeValueToLabel } from '../utils/attribute';
 
 interface Props {
   eqItems: Item[];
@@ -44,7 +45,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                 <tbody>
                   {results.breakdown.map((b) => (
                     <tr key={b.type}>
-                      <td className="px-2 py-1">{b.type}</td>
+                      <td className="px-2 py-1">{attributeValueToLabel(b.type)}</td>
                       <td className="px-2 py-1">{b.sum}</td>
                       <td className="px-2 py-1">{b.contrib.toFixed(2)}</td>
                     </tr>
@@ -74,7 +75,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                     {it.attributes.map((a, idx) => (
                       <li key={idx} className="flex items-start">
                         <span>
-                          <span className="font-medium">{a.type}:</span>
+                          <span className="font-medium">{attributeValueToLabel(a.type)}:</span>
                           <span className="ml-1 text-gray-800 break-words"><strong>{stripHtmlTags(a.value)}</strong></span>
                         </span>
                       </li>

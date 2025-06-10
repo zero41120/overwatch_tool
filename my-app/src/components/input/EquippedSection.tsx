@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setEquipped } from '../../slices/inputSlice';
 import type { Item } from '../../types';
 import { rarityColor } from '../../utils/optimizer';
+import { attributeValueToLabel } from '../../utils/attribute';
 
 interface Props {
   items: Item[];
@@ -51,7 +52,7 @@ export default function EquippedSection({ items }: Props) {
                     value: it.id || it.name,
                     label: `${it.name} (${it.cost}) ${it.attributes
                       .filter(a => a.type !== 'description')
-                      .map(a => `${a.type}-${a.value}`)
+                      .map(a => `${attributeValueToLabel(a.type)}-${a.value}`)
                       .join(', ')}`,
                     color: rarityColor(it.rarity),
                   })),
