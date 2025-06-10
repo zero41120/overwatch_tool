@@ -32,13 +32,25 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
           </div>
           {results.breakdown && (
             <div className="text-sm text-gray-600">
-              <strong>Breakdown:</strong>{' '}
-              {results.breakdown.map((b, i) => (
-                <span key={b.type} className="mr-2">
-                  {i > 0 && '• '}
-                  {`${b.sum}${b.type} → ${b.contrib.toFixed(2)}`}
-                </span>
-              ))}
+              <strong>Breakdown:</strong>
+              <table className="mt-2 w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th className="px-2 py-1 border-b font-medium">Type</th>
+                    <th className="px-2 py-1 border-b font-medium">Sum</th>
+                    <th className="px-2 py-1 border-b font-medium">Contribution</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.breakdown.map((b) => (
+                    <tr key={b.type}>
+                      <td className="px-2 py-1">{b.type}</td>
+                      <td className="px-2 py-1">{b.sum}</td>
+                      <td className="px-2 py-1">{b.contrib.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
           <div>
