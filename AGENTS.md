@@ -19,9 +19,14 @@ This app is an Overwatch tool that helps users optimize their in-game item build
 
 # File Overview
 
-- **src/Optimizer.tsx** – top level React component that loads item data, manages form state and performs the optimization search.
-- **src/components/InputSection.tsx** – handles all user inputs such as hero, cash, equipped items and attribute weights.
+- **src/Optimizer.tsx** – top level React component that loads item data, performs the optimization search and reads input state from Redux.
+- **src/components/InputSection.tsx** – orchestrates user input by composing smaller components located under `src/components/input/`.
 - **src/components/ResultsSection.tsx** – displays the selected and recommended items as well as alternative builds.
+- **src/components/Toolbar.tsx** – provides Undo/Redo buttons and listens for `Ctrl+Z`/`Ctrl+Shift+Z`.
+- **src/components/input/** – contains smaller input related components such as `HeroSelect`, `CashInput`, `EquippedSection`, `AvoidSection`, `WeightsSection` and `SubmitSection`.
+- **src/store.ts** – Redux store configured with `redux-undo`.
+- **src/slices/inputSlice.ts** – slice that stores form values such as hero, cash, equipped items and weights.
+- **src/hooks.ts** – typed `useAppDispatch` and `useAppSelector` helpers for Redux.
 - **src/utils/optimizer.ts** – helper functions for scoring and aggregating attributes.
 - **src/utils/attribute.ts** – utilities to format and sort attribute names.
 - **src/types.ts** – TypeScript interfaces describing items and result shapes.
