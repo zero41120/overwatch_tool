@@ -15,10 +15,11 @@ export default function BreakPointCalculator() {
     setRows(calculateBreakpoints(damage, bullets, hp, armor, penetrate))
   }
 
-  const maxShots = Math.max(...rows.map(r => r.shots), 1)
-  const points = rows
-    .map((r, idx) => {
-      const x = (idx / (rows.length - 1)) * 100
+  const finiteRows = rows.filter(r => Number.isFinite(r.shots))
+  const maxShots = Math.max(...finiteRows.map(r => r.shots), 1)
+  const points = finiteRows
+    .map(r => {
+      const x = r.percent
       const y = 100 - (r.shots / maxShots) * 100
       return `${x},${y}`
     })

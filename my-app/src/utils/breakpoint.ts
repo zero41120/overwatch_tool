@@ -18,6 +18,9 @@ export function shotsToKill(
   armor: number,
   penetrate: boolean
 ): { shots: number; totalDamage: number } {
+  if (damage <= 0 || bulletsPerShot <= 0) {
+    return { shots: Infinity, totalDamage: 0 };
+  }
   let remainingHp = hp;
   let remainingArmor = armor;
   let shots = 0;
