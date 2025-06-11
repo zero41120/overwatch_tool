@@ -44,3 +44,18 @@ export function meetsMinGroups(items: Item[], groups: MinAttrGroup[]) {
     return sum >= g.value;
   });
 }
+
+export function collectRelevantAttributes(
+  weights: WeightRow[],
+  enabled: boolean,
+  groups: MinAttrGroup[]
+) {
+  const set = new Set(weights.map(w => w.type));
+  if (enabled) {
+    groups.forEach(g => {
+      g.attrs.forEach(a => set.add(a));
+    });
+  }
+  set.delete('');
+  return set;
+}

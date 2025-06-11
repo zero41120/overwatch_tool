@@ -3,7 +3,12 @@ import type { Item, ResultCombo, RootData, ItemOverride } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import BreakPointCalculator from './components/BreakPointCalculator';
-import { aggregate, scoreFromMap, meetsMinGroups } from './utils/optimizer';
+import {
+  aggregate,
+  scoreFromMap,
+  meetsMinGroups,
+  collectRelevantAttributes,
+} from './utils/optimizer';
 import rawData from './data.json?raw';
 import overridesRaw from './overrides.json?raw';
 import { sortAttributes } from './utils/attribute';
@@ -120,7 +125,11 @@ export default function Optimizer() {
       dispatch(setError('Equipped items cost exceeds total cash'));
       return;
     }
-    const selectedAttrs = new Set(weights.map(w => w.type));
+    const selectedAttrs = collectRelevantAttributes(
+      weights,
+      minValueEnabled,
+      minAttrGroups
+    );
     const candidate = data.filter(
       it =>
         (!it.character || it.character === hero) &&
