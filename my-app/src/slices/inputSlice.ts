@@ -46,6 +46,11 @@ const inputSlice = createSlice({
         state.equipped.push('');
       }
     },
+    removeEquippedSlot(state, action: PayloadAction<number>) {
+      if (state.equipped.length > 2) {
+        state.equipped.splice(action.payload, 1);
+      }
+    },
     setToBuy(state, action: PayloadAction<number>) {
       state.toBuy = action.payload;
     },
@@ -132,6 +137,7 @@ export const {
   addAttrToGroup,
   removeAttrFromGroup,
   addEquippedSlot,
+  removeEquippedSlot,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;
