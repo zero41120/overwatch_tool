@@ -11,6 +11,8 @@ import reducer, {
   addAttrToGroup,
   removeAttrFromGroup,
   removeMinGroup,
+  addEquippedSlot,
+  removeEquippedSlot,
 } from '../inputSlice';
 
 const initialState = reducer(undefined, { type: 'init' } as any);
@@ -55,4 +57,11 @@ test('min attribute group reducers modify groups', () => {
   expect(state.minAttrGroups[0].attrs).not.toContain('AP');
   state = reducer(state, removeMinGroup(0));
   expect(state.minAttrGroups).toHaveLength(0);
+});
+
+test('addEquippedSlot and removeEquippedSlot modify equipped array', () => {
+  let state = reducer(initialState, addEquippedSlot());
+  expect(state.equipped).toHaveLength(3);
+  state = reducer(state, removeEquippedSlot(2));
+  expect(state.equipped).toHaveLength(2);
 });

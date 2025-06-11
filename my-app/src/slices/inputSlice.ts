@@ -18,7 +18,7 @@ export interface InputState {
 const initialState: InputState = {
   hero: 'Ashe',
   cash: 11000,
-  equipped: Array(6).fill(''),
+  equipped: Array(2).fill(''),
   toBuy: 6,
   avoid: [],
   avoidEnabled: false,
@@ -40,6 +40,16 @@ const inputSlice = createSlice({
     },
     setEquipped(state, action: PayloadAction<{ index: number; id: string }>) {
       state.equipped[action.payload.index] = action.payload.id;
+    },
+    addEquippedSlot(state) {
+      if (state.equipped.length < 6) {
+        state.equipped.push('');
+      }
+    },
+    removeEquippedSlot(state, action: PayloadAction<number>) {
+      if (state.equipped.length > 2) {
+        state.equipped.splice(action.payload, 1);
+      }
     },
     setToBuy(state, action: PayloadAction<number>) {
       state.toBuy = action.payload;
@@ -126,6 +136,8 @@ export const {
   setMinGroupValue,
   addAttrToGroup,
   removeAttrFromGroup,
+  addEquippedSlot,
+  removeEquippedSlot,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

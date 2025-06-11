@@ -6,6 +6,7 @@
 - Deployment is manual only; you can skip `npm run deploy` in this environment.
 - **Do not open `my-app/data.json`**. Use `src/types.ts` for the data shape.
 - When add new features, update AGENTS.md with a brief description of the feature and its location in the codebase.
+- For any user-facing **add** operation, implement a corresponding **remove** action in the UI and Redux slice.
 
 
 # Project Overview
@@ -39,3 +40,10 @@ This app is an Overwatch tool that helps users optimize their in-game item build
 - **src/utils/breakpoint.ts** – helper logic for the break point calculator.
 - **src/utils/attribute.ts** – utilities to format and sort attribute names.
 - **src/types.ts** – TypeScript interfaces describing items and result shapes.
+
+## Recent Features
+
+- Equipped item rows now start with two slots and users can add up to six using
+  the "Add Slot" button in `src/components/input/EquippedSection.tsx`. The
+  Redux action `addEquippedSlot` lives in `src/slices/inputSlice.ts`.
+- Each equipped row shows a remove button to delete slots via `removeEquippedSlot`.
