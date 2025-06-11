@@ -2,6 +2,7 @@ import reducer, {
   setHero,
   addAvoid,
   removeAvoid,
+  toggleAvoidEnabled,
   addWeightRow,
   setWeightType,
   toggleMinValueEnabled,
@@ -36,6 +37,11 @@ test('addWeightRow and setWeightType modify weights', () => {
 test('toggleMinValueEnabled switches boolean', () => {
   const state = reducer(initialState, toggleMinValueEnabled());
   expect(state.minValueEnabled).toBe(true);
+});
+
+test('toggleAvoidEnabled switches boolean', () => {
+  const state = reducer(initialState, toggleAvoidEnabled());
+  expect(state.avoidEnabled).toBe(true);
 });
 
 test('min attribute group reducers modify groups', () => {
