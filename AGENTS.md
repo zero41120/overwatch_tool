@@ -2,6 +2,7 @@
 
 - Code lives in `my-app/src`.
 - Run `npm install` and `npm run build` to verify changes are ready before each PR.
+- Ensure tests pass with `npm run coverage`; coverage must stay above 80%.
 - Deployment is manual only; you can skip `npm run deploy` in this environment.
 - **Do not open `my-app/data.json`**. Use `src/types.ts` for the data shape.
 
