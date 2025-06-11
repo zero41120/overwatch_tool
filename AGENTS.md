@@ -17,6 +17,9 @@ This app is an Overwatch tool that helps users optimize their in-game item build
 - View the results, including the final build, total cost, remaining cash, and alternative builds.
   - The main logic for optimization is in `src/Optimizer.tsx`, and the UI components for displaying results and inputs are in `src/components/ResultsSection.tsx` and `src/components/InputSection.tsx`.
   - Item data are loaded from `src/data.json` and can be overridden via `src/overrides.json`. Do not edit `data.json` directly.
+  - Custom item attribute overrides live in `src/overrides.json` so that balance adjustments can be tested without changing the base data file.
+  - Minimum attribute totals can be enforced from `src/components/input/MinValueSection.tsx`.
+  - A break point calculator in `src/components/BreakPointCalculator.tsx` helps analyze bullet damage thresholds.
 
 # File Overview
 
@@ -24,10 +27,14 @@ This app is an Overwatch tool that helps users optimize their in-game item build
 - **src/components/InputSection.tsx** – orchestrates user input by composing smaller components located under `src/components/input/`.
 - **src/components/ResultsSection.tsx** – displays the selected and recommended items as well as alternative builds.
 - **src/components/Toolbar.tsx** – provides Undo/Redo buttons and listens for `Ctrl+Z`/`Ctrl+Shift+Z`.
-- **src/components/input/** – contains smaller input related components such as `HeroSelect`, `CashInput`, `EquippedSection`, `AvoidSection`, `WeightsSection` and `SubmitSection`.
+- **src/components/HistoryDropdown.tsx** – dropdown showing past input states recorded by `redux-undo`.
+- **src/components/SearchableDropdown.tsx** – dropdown with search used for most selection inputs.
+- **src/components/BreakPointCalculator.tsx** – optional damage calculator displayed below the results.
+- **src/components/input/** – contains smaller input related components such as `HeroSelect`, `CashInput`, `EquippedSection`, `AvoidSection`, `WeightsSection`, `MinValueSection` and `SubmitSection`.
 - **src/store.ts** – Redux store configured with `redux-undo`.
-- **src/slices/inputSlice.ts** – slice that stores form values such as hero, cash, equipped items and weights.
+- **src/slices/inputSlice.ts** – slice that stores form values such as hero, cash, equipped items, weights and minimum value groups.
 - **src/hooks.ts** – typed `useAppDispatch` and `useAppSelector` helpers for Redux.
 - **src/utils/optimizer.ts** – helper functions for scoring and aggregating attributes.
+- **src/utils/breakpoint.ts** – helper logic for the break point calculator.
 - **src/utils/attribute.ts** – utilities to format and sort attribute names.
 - **src/types.ts** – TypeScript interfaces describing items and result shapes.
