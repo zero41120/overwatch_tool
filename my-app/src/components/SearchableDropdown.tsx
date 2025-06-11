@@ -21,6 +21,7 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
   const [search, setSearch] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const selected = options.find(o => o.value === value);
   const displayedLabel = selected?.label || placeholder;
@@ -44,6 +45,13 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Focus the search input when dropdown opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen || !triggerRef.current) return;
     const triggerRect = triggerRef.current.getBoundingClientRect();
@@ -66,7 +74,11 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
         <button
           type="button"
           className="flex-grow px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative text-left"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            const next = !isOpen;
+            setIsOpen(next);
+            if (next) setSearch('');
+          }}
           ref={triggerRef}
         >
           <span style={{ color: displayedColor || 'inherit' }}>{displayedLabel}</span>
@@ -75,7 +87,11 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
           type="button"
           className="flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative"
           aria-label="Menu"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            const next = !isOpen;
+            setIsOpen(next);
+            if (next) setSearch('');
+          }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -89,10 +105,17 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
               <p className="sticky top-0 bg-white px-3 py-2 text-xs uppercase text-gray-500 border-b border-gray-200 z-20">{label}</p>
               <input
                 type="text"
+                ref={inputRef}
                 className="mx-3 my-2 w-[calc(100%-1.5rem)] rounded border border-gray-300 px-2 py-1 text-sm"
                 placeholder="Search..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && filteredOptions.length === 1) {
+                    e.preventDefault();
+                    handleSelect(filteredOptions[0].value);
+                  }
+                }}
               />
               {filteredOptions.map(option => (
                 <a
