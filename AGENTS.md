@@ -2,16 +2,16 @@
 
 - Code lives in `my-app/src`.
 - Run `npm install` and `npm run build` to verify changes are ready before each PR.
-- Ensure tests pass with `npm run coverage`; coverage must stay above 80%.
+- Ensure tests pass with `npm test`; coverage should stay above 80%.
 - Deployment is manual only; you can skip `npm run deploy` in this environment.
 - **Do not open `my-app/data.json`**. Use `src/types.ts` for the data shape.
+- When add new features, update AGENTS.md with a brief description of the feature and its location in the codebase.
 
-- This project uses Typescript, Vite, TailwindCSS
-- When editing, prefers to create new small files, sub-modules, and components. Recommanded to have about 150 lines of code per file.
 
 # Project Overview
 This app is an Overwatch tool that helps users optimize their in-game item builds. It allows users to:
-
+- This project uses Typescript, Vite, TailwindCSS
+- When editing, prefers to create new small files, sub-modules, and components. Recommanded to have about 150 lines of code per file.
 - Select equipped items and available cash.
 - Calculate the best combination of items to maximize a weighted score, considering item costs and character restrictions.
 - View the results, including the final build, total cost, remaining cash, and alternative builds.
