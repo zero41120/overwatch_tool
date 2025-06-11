@@ -8,6 +8,7 @@ export interface InputState {
   equipped: (string | '')[];
   toBuy: number;
   avoid: string[];
+  avoidEnabled: boolean;
   weights: WeightRow[];
   error: string;
   minValueEnabled: boolean;
@@ -20,6 +21,7 @@ const initialState: InputState = {
   equipped: Array(6).fill(''),
   toBuy: 6,
   avoid: [],
+  avoidEnabled: false,
   weights: [{ type: '', weight: 1 }],
   error: '',
   minValueEnabled: false,
@@ -49,6 +51,9 @@ const inputSlice = createSlice({
     },
     removeAvoid(state, action: PayloadAction<string>) {
       state.avoid = state.avoid.filter((id) => id !== action.payload);
+    },
+    toggleAvoidEnabled(state) {
+      state.avoidEnabled = !state.avoidEnabled;
     },
     setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
@@ -109,6 +114,7 @@ export const {
   setToBuy,
   addAvoid,
   removeAvoid,
+  toggleAvoidEnabled,
   setWeightType,
   setWeightValue,
   addWeightRow,

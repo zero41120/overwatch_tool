@@ -23,6 +23,7 @@ export default function Optimizer() {
     equipped,
     toBuy,
     avoid,
+    avoidEnabled,
     weights,
     minValueEnabled,
     minAttrGroups,
@@ -124,7 +125,7 @@ export default function Optimizer() {
       it =>
         (!it.character || it.character === hero) &&
         !equipped.includes(it.id ?? '') &&
-        !avoid.includes(it.id ?? '') &&
+        (!avoidEnabled || !avoid.includes(it.id ?? '')) &&
         it.attributes.some(a => selectedAttrs.has(a.type))
     );
     const needed = toBuy;
