@@ -33,6 +33,11 @@ export interface WeightRow {
   weight: number;
 }
 
+export interface MinAttrGroup {
+  attrs: string[];
+  value: number;
+}
+
 export interface ItemOverride {
   attributes?: Attribute[];
 }
