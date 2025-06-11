@@ -27,11 +27,11 @@ export function scoreFromMap(map: Map<string, number>, weights: WeightRow[]) {
 export function rarityColor(r: Item['rarity']) {
   switch (r) {
     case 'common':
-      return 'green';
+      return '#17a631';
     case 'rare':
-      return 'blue';
+      return '#217dbe';
     case 'epic':
-      return 'purple';
+      return '#8727d6';
     default:
       return 'black';
   }
