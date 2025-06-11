@@ -1,5 +1,4 @@
 import type { Item, ResultCombo } from '../types';
-import { rarityColor } from '../utils/optimizer';
 import { stripHtmlTags } from '../utils/util';
 import { attributeValueToLabel } from '../utils/attribute';
 import ItemCard from './ItemCard';

@@ -1,5 +1,4 @@
 import parse from 'html-react-parser'
-import React from 'react';
 import type { Item } from '../types';
 import { rarityColor } from '../utils/optimizer';
 
