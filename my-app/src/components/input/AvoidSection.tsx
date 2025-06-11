@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SearchableDropdown from '../SearchableDropdown';
+import Chip from '../Chip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addAvoid, removeAvoid } from '../../slices/inputSlice';
 import type { Item } from '../../types';
@@ -52,19 +53,11 @@ export default function AvoidSection({ items }: Props) {
           {avoid.map(id => {
             const item = items.find(it => (it.id || it.name) === id);
             return (
-              <span
+              <Chip
                 key={id}
-                className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-800"
-              >
-                {item ? item.name : id}
-                <button
-                  type="button"
-                  className="ml-1 text-red-500 hover:text-red-700"
-                  onClick={() => dispatch(removeAvoid(id))}
-                >
-                  &times;
-                </button>
-              </span>
+                label={item ? item.name : id}
+                onRemove={() => dispatch(removeAvoid(id))}
+              />
             );
           })}
         </div>

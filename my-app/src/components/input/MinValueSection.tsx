@@ -1,5 +1,6 @@
 import SearchableDropdown from '../SearchableDropdown';
 import NumberInput from '../NumberInput';
+import Chip from '../Chip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   toggleMinValueEnabled,
@@ -41,14 +42,7 @@ export default function MinValueSection({ attrTypes }: Props) {
           {groups.map((g, idx) => (
             <div key={idx} className="rounded border p-3 space-y-2">
               <div className="flex items-center gap-2">
-                <SearchableDropdown
-                  label="Add Attribute"
-                  placeholder="Add attribute"
-                  options={options.filter(o => !g.attrs.includes(o.value))}
-                  value=""
-                  onChange={val => dispatch(addAttrToGroup({ index: idx, attr: val }))}
-                  className="flex-grow"
-                />
+                <span className="text-sm font-medium text-gray-700">Target Value:</span>
                 <NumberInput
                   value={g.value}
                   onChange={val => dispatch(setMinGroupValue({ index: idx, value: val }))}
@@ -68,19 +62,22 @@ export default function MinValueSection({ attrTypes }: Props) {
                   </button>
                 )}
               </div>
+              <SearchableDropdown
+                label="Add Attribute"
+                placeholder="Add attribute"
+                options={options.filter(o => !g.attrs.includes(o.value))}
+                value=""
+                onChange={val => dispatch(addAttrToGroup({ index: idx, attr: val }))}
+                className="w-full"
+              />
               {g.attrs.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {g.attrs.map(a => (
-                    <span key={a} className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-800">
-                      {attributeValueToLabel(a)}
-                      <button
-                        type="button"
-                        className="ml-1 text-red-500 hover:text-red-700"
-                        onClick={() => dispatch(removeAttrFromGroup({ index: idx, attr: a }))}
-                      >
-                        &times;
-                      </button>
-                    </span>
+                    <Chip
+                      key={a}
+                      label={attributeValueToLabel(a)}
+                      onRemove={() => dispatch(removeAttrFromGroup({ index: idx, attr: a }))}
+                    />
                   ))}
                 </div>
               )}
