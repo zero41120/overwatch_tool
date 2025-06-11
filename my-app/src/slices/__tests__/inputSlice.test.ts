@@ -1,4 +1,16 @@
-import reducer, { setHero, addAvoid, removeAvoid, addWeightRow, setWeightType } from '../inputSlice';
+import reducer, {
+  setHero,
+  addAvoid,
+  removeAvoid,
+  addWeightRow,
+  setWeightType,
+  toggleMinValueEnabled,
+  addMinGroup,
+  setMinGroupValue,
+  addAttrToGroup,
+  removeAttrFromGroup,
+  removeMinGroup,
+} from '../inputSlice';
 
 const initialState = reducer(undefined, { type: 'init' } as any);
 
@@ -19,4 +31,22 @@ test('addWeightRow and setWeightType modify weights', () => {
   expect(state.weights.at(-1)).toEqual({ type: 'WP', weight: 1 });
   state = reducer(state, setWeightType({ index: 0, type: 'AP' }));
   expect(state.weights[0].type).toBe('AP');
+});
+
+test('toggleMinValueEnabled switches boolean', () => {
+  const state = reducer(initialState, toggleMinValueEnabled());
+  expect(state.minValueEnabled).toBe(true);
+});
+
+test('min attribute group reducers modify groups', () => {
+  let state = reducer(initialState, addMinGroup());
+  expect(state.minAttrGroups).toHaveLength(1);
+  state = reducer(state, setMinGroupValue({ index: 0, value: 5 }));
+  expect(state.minAttrGroups[0].value).toBe(5);
+  state = reducer(state, addAttrToGroup({ index: 0, attr: 'AP' }));
+  expect(state.minAttrGroups[0].attrs).toContain('AP');
+  state = reducer(state, removeAttrFromGroup({ index: 0, attr: 'AP' }));
+  expect(state.minAttrGroups[0].attrs).not.toContain('AP');
+  state = reducer(state, removeMinGroup(0));
+  expect(state.minAttrGroups).toHaveLength(0);
 });

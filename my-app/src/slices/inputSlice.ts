@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { WeightRow } from '../types';
+import type { WeightRow, MinAttrGroup } from '../types';
 
 export interface InputState {
   hero: string;
@@ -10,6 +10,8 @@ export interface InputState {
   avoid: string[];
   weights: WeightRow[];
   error: string;
+  minValueEnabled: boolean;
+  minAttrGroups: MinAttrGroup[];
 }
 
 const initialState: InputState = {
@@ -20,6 +22,8 @@ const initialState: InputState = {
   avoid: [],
   weights: [{ type: '', weight: 1 }],
   error: '',
+  minValueEnabled: false,
+  minAttrGroups: [],
 };
 
 const inputSlice = createSlice({
@@ -64,6 +68,37 @@ const inputSlice = createSlice({
     setError(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
+    toggleMinValueEnabled(state) {
+      state.minValueEnabled = !state.minValueEnabled;
+    },
+    addMinGroup(state) {
+      state.minAttrGroups.push({ attrs: [], value: 0 });
+    },
+    removeMinGroup(state, action: PayloadAction<number>) {
+      state.minAttrGroups.splice(action.payload, 1);
+    },
+    setMinGroupValue(
+      state,
+      action: PayloadAction<{ index: number; value: number }>
+    ) {
+      state.minAttrGroups[action.payload.index].value = action.payload.value;
+    },
+    addAttrToGroup(
+      state,
+      action: PayloadAction<{ index: number; attr: string }>
+    ) {
+      const group = state.minAttrGroups[action.payload.index];
+      if (!group.attrs.includes(action.payload.attr)) {
+        group.attrs.push(action.payload.attr);
+      }
+    },
+    removeAttrFromGroup(
+      state,
+      action: PayloadAction<{ index: number; attr: string }>
+    ) {
+      const group = state.minAttrGroups[action.payload.index];
+      group.attrs = group.attrs.filter(a => a !== action.payload.attr);
+    },
   },
 });
 
@@ -79,6 +114,12 @@ export const {
   addWeightRow,
   removeWeightRow,
   setError,
+  toggleMinValueEnabled,
+  addMinGroup,
+  removeMinGroup,
+  setMinGroupValue,
+  addAttrToGroup,
+  removeAttrFromGroup,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

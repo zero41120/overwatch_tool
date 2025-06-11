@@ -4,6 +4,7 @@ import CashInput from './input/CashInput';
 import EquippedSection from './input/EquippedSection';
 import AvoidSection from './input/AvoidSection';
 import WeightsSection from './input/WeightsSection';
+import MinValueSection from './input/MinValueSection';
 import SubmitSection from './input/SubmitSection';
 
 interface Props {
@@ -27,6 +28,7 @@ export default function InputSection({ heroes, attrTypes, filteredItems, onSubmi
       <CashInput />
       <EquippedSection items={filteredItems} />
       <AvoidSection items={filteredItems} />
+      <MinValueSection attrTypes={attrTypes} />
       <WeightsSection attrTypes={attrTypes} />
       <SubmitSection onSubmit={onSubmit} validate={validate} />
     </form>

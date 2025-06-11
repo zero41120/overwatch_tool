@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Item, ResultCombo, RootData, ItemOverride } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
-import { aggregate, scoreFromMap } from './utils/optimizer';
+import { aggregate, scoreFromMap, meetsMinGroups } from './utils/optimizer';
 import rawData from './data.json?raw';
 import overridesRaw from './overrides.json?raw';
 import { sortAttributes } from './utils/attribute';
@@ -16,7 +16,16 @@ export default function Optimizer() {
 
   const dispatch = useAppDispatch();
   const state = useAppSelector(s => s.input.present);
-  const { hero, cash, equipped, toBuy, avoid, weights } = state;
+  const {
+    hero,
+    cash,
+    equipped,
+    toBuy,
+    avoid,
+    weights,
+    minValueEnabled,
+    minAttrGroups,
+  } = state;
 
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
@@ -79,12 +88,25 @@ export default function Optimizer() {
     if (eqCost > cash) return false;
     if (toBuy + equippedItems().length > 6) return false;
     if (weights.length === 0) return false;
+    if (minValueEnabled) {
+      for (const g of minAttrGroups) {
+        if (g.attrs.length === 0) return false;
+        if (g.value < 0) return false;
+      }
+    }
     return true;
   }
 
   function calcScore(items: Item[]) {
     const map = aggregate(items);
     return scoreFromMap(map, weights);
+  }
+
+  function meetsMinRequirements(items: Item[]) {
+    return (
+      !minValueEnabled ||
+      meetsMinGroups([...items, ...equippedItems()], minAttrGroups)
+    );
   }
 
   function onCalculate() {
@@ -106,6 +128,10 @@ export default function Optimizer() {
     );
     const needed = toBuy;
     if (needed === 0) {
+      if (!meetsMinRequirements([])) {
+        dispatch(setError('Minimum attribute values not met'));
+        return;
+      }
       const score = calcScore(eqItems);
       setResults({ items: [], cost: 0, score });
       setAlternatives([]);
@@ -121,18 +147,20 @@ export default function Optimizer() {
     const preferHighCost = eqItems.length + needed === 6;
     const n = itemScores.length;
     function dfs(start: number, selected: Item[], cost: number, score: number) {
-      if (
-        score > bestScore ||
-        (score === bestScore && (preferHighCost ? cost > bestCost : cost < bestCost))
-      ) {
-        bestScore = score;
-        bestCost = cost;
-        bestCombos = [{ items: [...selected], cost, score }];
-      } else if (
-        score === bestScore &&
-        (preferHighCost ? cost <= bestCost : cost >= bestCost)
-      ) {
-        bestCombos.push({ items: [...selected], cost, score });
+      if (meetsMinRequirements(selected)) {
+        if (
+          score > bestScore ||
+          (score === bestScore && (preferHighCost ? cost > bestCost : cost < bestCost))
+        ) {
+          bestScore = score;
+          bestCost = cost;
+          bestCombos = [{ items: [...selected], cost, score }];
+        } else if (
+          score === bestScore &&
+          (preferHighCost ? cost <= bestCost : cost >= bestCost)
+        ) {
+          bestCombos.push({ items: [...selected], cost, score });
+        }
       }
       if (selected.length === needed || start >= n) return;
       const remaining = needed - selected.length;

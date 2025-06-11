@@ -1,6 +1,6 @@
-import { aggregate, scoreFromMap, rarityColor } from '../optimizer';
+import { aggregate, scoreFromMap, rarityColor, meetsMinGroups } from '../optimizer';
 import { attributeValueToLabel, sortAttributes } from '../attribute';
-import type { Item, WeightRow } from '../../types';
+import type { Item, WeightRow, MinAttrGroup } from '../../types';
 
 describe('optimizer utils', () => {
   test('aggregate sums attributes correctly', () => {
@@ -28,6 +28,17 @@ describe('optimizer utils', () => {
     expect(rarityColor('epic')).toBe('purple');
     // @ts-expect-error testing default case
     expect(rarityColor('legendary')).toBe('black');
+  });
+
+  test('meetsMinGroups validates totals', () => {
+    const items: Item[] = [
+      { name: 'A', attributes: [{ type: 'AP', value: '5' }], cost: 0, tab: 'w', rarity: 'common' },
+      { name: 'B', attributes: [{ type: 'WP', value: '3' }], cost: 0, tab: 'w', rarity: 'common' },
+    ];
+    const groups: MinAttrGroup[] = [{ attrs: ['AP', 'WP'], value: 8 }];
+    expect(meetsMinGroups(items, groups)).toBe(true);
+    groups[0].value = 9;
+    expect(meetsMinGroups(items, groups)).toBe(false);
   });
 });
 

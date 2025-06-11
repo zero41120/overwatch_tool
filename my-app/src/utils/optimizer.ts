@@ -3,7 +3,7 @@ export function parseNumeric(value: string): number {
   return m ? parseFloat(m[0]) : 0;
 }
 
-import type { Item, WeightRow } from '../types';
+import type { Item, WeightRow, MinAttrGroup } from '../types';
 
 export function aggregate(items: Item[]): Map<string, number> {
   const map = new Map<string, number>();
@@ -35,4 +35,12 @@ export function rarityColor(r: Item['rarity']) {
     default:
       return 'black';
   }
+}
+
+export function meetsMinGroups(items: Item[], groups: MinAttrGroup[]) {
+  const map = aggregate(items);
+  return groups.every(g => {
+    const sum = g.attrs.reduce((s, a) => s + (map.get(a) ?? 0), 0);
+    return sum >= g.value;
+  });
 }
