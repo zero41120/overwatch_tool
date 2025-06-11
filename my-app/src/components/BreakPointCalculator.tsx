@@ -5,9 +5,9 @@ import type { BreakPointResult } from '../utils/breakpoint'
 
 export default function BreakPointCalculator() {
   const [collapsed, setCollapsed] = useState(true)
-  const [damage, setDamage] = useState(10)
+  const [damage, setDamage] = useState(75) // ashe rifle default damage
   const [bullets, setBullets] = useState(1)
-  const [hp, setHp] = useState(100)
+  const [hp, setHp] = useState(300) // reaper default HP
   const [armor, setArmor] = useState(0)
   const [penetrate, setPenetrate] = useState(false)
   const [rows, setRows] = useState<BreakPointResult[]>([])
