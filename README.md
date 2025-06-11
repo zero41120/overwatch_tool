@@ -1,7 +1,11 @@
-# Overwatch Tool
+# [Overwatch Item Optimization Tool](https://zero41120.github.io/overwatch_tool/)
 
-This tool calculates optimal item builds. A new `overrides.json` file under `my-app/src` allows customizing item attributes. The JSON maps item names to replacement attribute arrays. Any matching item will use the provided attributes during calculation.
+Overwatch Tool helps you optimize item builds for your hero in Overwatch.
 
-## Minimum Attribute Values
+**Features:**
+- Input your hero, equipped items, available cash, and items to avoid.
+- Set minimum attribute requirements based on your available cash.
+- Assign weights to attributes to prioritize your optimization.
+- Includes a breakpoint calculator for analyzing damage thresholds.
 
-The input form now includes a *Minimum Attribute Totals* section. When enabled, you can define one or more groups of attributes along with a required minimum sum. The optimizer will only consider item combinations that meet each group's threshold when combined with currently equipped items.
+
