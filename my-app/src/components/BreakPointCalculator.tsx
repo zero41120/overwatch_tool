@@ -15,16 +15,6 @@ export default function BreakPointCalculator() {
     setRows(calculateBreakpoints(damage, bullets, hp, armor, penetrate))
   }
 
-  const finiteRows = rows.filter(r => Number.isFinite(r.shots))
-  const maxShots = Math.max(...finiteRows.map(r => r.shots), 1)
-  const points = finiteRows
-    .map(r => {
-      const x = r.percent
-      const y = 100 - (r.shots / maxShots) * 100
-      return `${x},${y}`
-    })
-    .join(' ')
-
   return (
     <div className="bg-white rounded-xl shadow-lg">
       <button
@@ -59,35 +49,34 @@ export default function BreakPointCalculator() {
           </div>
           <button onClick={onCalc} className="bg-indigo-600 text-white px-4 py-1 rounded">Calculate</button>
           {rows.length > 0 && (
-            <>
-              <div className="h-64">
-                <svg viewBox="0 0 100 100" className="w-full h-full bg-gray-50">
-                  <polyline fill="none" stroke="teal" strokeWidth="2" points={points} />
-                </svg>
-              </div>
-              <table className="w-full text-sm mt-4 border" >
-                <thead>
-                  <tr>
-                    <th className="border px-2 py-1">Damage %</th>
-                    <th className="border px-2 py-1">Shots</th>
-                    <th className="border px-2 py-1">Accumulated Damage</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map((r, idx) => {
-                    const prev = idx > 0 ? rows[idx - 1].shots : r.shots
-                    const highlight = r.shots < prev
-                    return (
-                      <tr key={r.percent} className={highlight ? 'bg-yellow-100' : ''}>
-                        <td className="border px-2 py-1">{r.percent}%</td>
-                        <td className="border px-2 py-1">{r.shots}</td>
-                        <td className="border px-2 py-1">{r.totalDamage.toFixed(1)}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </>
+            <table className="w-full text-sm mt-4 border">
+              <thead>
+                <tr>
+                  <th className="border px-2 py-1">Damage %</th>
+                  <th className="border px-2 py-1">Per Bullet</th>
+                  <th className="border px-2 py-1">Per Shot</th>
+                  <th className="border px-2 py-1">Shots</th>
+                  <th className="border px-2 py-1">Accumulated</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r, idx) => {
+                  const prev = idx > 0 ? rows[idx - 1].shots : r.shots
+                  const highlight = r.shots < prev
+                  const dmgPerBullet = (damage * r.percent) / 100
+                  const dmgPerShot = dmgPerBullet * bullets
+                  return (
+                    <tr key={r.percent} className={highlight ? 'bg-yellow-100' : ''}>
+                      <td className="border px-2 py-1">{r.percent}%</td>
+                      <td className="border px-2 py-1">{dmgPerBullet.toFixed(1)}</td>
+                      <td className="border px-2 py-1">{dmgPerShot.toFixed(1)}</td>
+                      <td className="border px-2 py-1">{r.shots}</td>
+                      <td className="border px-2 py-1">{r.totalDamage.toFixed(1)}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
           )}
         </div>
       )}

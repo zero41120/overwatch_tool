@@ -51,7 +51,7 @@ export function calculateBreakpoints(
   penetrate: boolean
 ): BreakPointResult[] {
   const results: BreakPointResult[] = [];
-  for (let p = 0; p <= 100; p += 5) {
+  for (let p = 100; p <= 200; p += 5) {
     const scale = damage * (p / 100);
     const { shots, totalDamage } = shotsToKill(scale, bulletsPerShot, hp, armor, penetrate);
     results.push({ percent: p, shots, totalDamage });
