@@ -9,4 +9,6 @@
 2025-06-10  Redux-powered undo/redo and input history dropdown  src/store
 2025-06-10  Searchable dropdowns for item and hero selection  src/components/Dropdowns
 2025-06-10  Support for custom item overrides via overrides.json  src/overrides.json
+
 2025-06-10  Modular React component structure with TypeScript, Vite, and TailwindCSS  src/
+2025-06-11  Add avoid button in results list  src/components/ResultsSection.tsx
