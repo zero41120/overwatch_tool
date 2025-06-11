@@ -35,7 +35,7 @@ export default function EquippedSection({ items }: Props) {
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
         <label htmlFor="use-equipped-checkbox" className="text-sm text-gray-700 select-none">
-          Use Equipped Item
+          Use Equipped Items
         </label>
       </div>
       {useEquipped && (
