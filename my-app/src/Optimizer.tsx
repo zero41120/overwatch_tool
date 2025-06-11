@@ -3,7 +3,13 @@ import type { Item, ResultCombo, RootData, ItemOverride } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
 import BreakPointCalculator from './components/BreakPointCalculator';
-import { aggregate, scoreFromMap, meetsMinGroups } from './utils/optimizer';
+import {
+  aggregate,
+  scoreFromMap,
+  meetsMinGroups,
+  collectRelevantAttributes,
+  buildBreakdown,
+} from './utils/optimizer';
 import rawData from './data.json?raw';
 import overridesRaw from './overrides.json?raw';
 import { sortAttributes } from './utils/attribute';
@@ -120,7 +126,11 @@ export default function Optimizer() {
       dispatch(setError('Equipped items cost exceeds total cash'));
       return;
     }
-    const selectedAttrs = new Set(weights.map(w => w.type));
+    const selectedAttrs = collectRelevantAttributes(
+      weights,
+      minValueEnabled,
+      minAttrGroups
+    );
     const candidate = data.filter(
       it =>
         (!it.character || it.character === hero) &&
@@ -189,11 +199,18 @@ export default function Optimizer() {
       .filter(c => (preferHighCost ? c.cost < best.cost : c.cost > best.cost))
       .sort((a, b) => preferHighCost ? b.cost - a.cost : a.cost - b.cost);
     const totalMap = aggregate([...best.items, ...eqItems]);
-    const breakdown = weights.map(w => {
-      const sum = totalMap.get(w.type) ?? 0;
-      return { type: w.type, sum, contrib: sum * w.weight };
+    const breakdown = buildBreakdown(
+      totalMap,
+      weights,
+      minValueEnabled,
+      minAttrGroups
+    );
+    setResults({
+      items: best.items,
+      cost: best.cost,
+      score: scoreFromMap(totalMap, weights),
+      breakdown,
     });
-    setResults({ items: best.items, cost: best.cost, score: scoreFromMap(totalMap, weights), breakdown });
     setAlternatives(alt.map(c => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
   }
 

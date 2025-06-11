@@ -44,3 +44,38 @@ export function meetsMinGroups(items: Item[], groups: MinAttrGroup[]) {
     return sum >= g.value;
   });
 }
+
+export function collectRelevantAttributes(
+  weights: WeightRow[],
+  enabled: boolean,
+  groups: MinAttrGroup[]
+) {
+  const set = new Set(weights.map(w => w.type));
+  if (enabled) {
+    groups.forEach(g => {
+      g.attrs.forEach(a => set.add(a));
+    });
+  }
+  set.delete('');
+  return set;
+}
+
+export function buildBreakdown(
+  map: Map<string, number>,
+  weights: WeightRow[],
+  enabled: boolean,
+  groups: MinAttrGroup[]
+) {
+  const attrs = collectRelevantAttributes(weights, enabled, groups);
+  const rows: { type: string; sum: number; contrib: number }[] = [];
+  weights.forEach(w => {
+    const sum = map.get(w.type) ?? 0;
+    rows.push({ type: w.type, sum, contrib: sum * w.weight });
+    attrs.delete(w.type);
+  });
+  attrs.forEach(type => {
+    const sum = map.get(type) ?? 0;
+    rows.push({ type, sum, contrib: 0 });
+  });
+  return rows;
+}

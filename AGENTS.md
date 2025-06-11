@@ -19,6 +19,7 @@ This app is an Overwatch tool that helps users optimize their in-game item build
   - Item data are loaded from `src/data.json` and can be overridden via `src/overrides.json`. Do not edit `data.json` directly.
   - Custom item attribute overrides live in `src/overrides.json` so that balance adjustments can be tested without changing the base data file.
   - Minimum attribute totals can be enforced from `src/components/input/MinValueSection.tsx`.
+  - The result breakdown includes attributes referenced in Minimum Attribute groups, implemented via `buildBreakdown` in `src/utils/optimizer.ts`.
   - A break point calculator in `src/components/BreakPointCalculator.tsx` helps analyze bullet damage thresholds.
 
 # File Overview
