@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchableDropdown from '../SearchableDropdown';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setEquipped } from '../../slices/inputSlice';
+import { setEquipped, addEquippedSlot } from '../../slices/inputSlice';
 import type { Item } from '../../types';
 import { rarityColor } from '../../utils/optimizer';
 import { attributeValueToLabel } from '../../utils/attribute';
@@ -63,6 +63,15 @@ export default function EquippedSection({ items }: Props) {
               className="w-full"
             />
           ))}
+          {equipped.length < 6 && (
+            <button
+              type="button"
+              onClick={() => dispatch(addEquippedSlot())}
+              className="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
+            >
+              Add Slot
+            </button>
+          )}
         </div>
       )}
     </div>

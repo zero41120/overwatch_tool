@@ -38,3 +38,9 @@ This app is an Overwatch tool that helps users optimize their in-game item build
 - **src/utils/breakpoint.ts** – helper logic for the break point calculator.
 - **src/utils/attribute.ts** – utilities to format and sort attribute names.
 - **src/types.ts** – TypeScript interfaces describing items and result shapes.
+
+## Recent Features
+
+- Equipped item rows now start with two slots and users can add up to six using
+  the "Add Slot" button in `src/components/input/EquippedSection.tsx`. The
+  Redux action `addEquippedSlot` lives in `src/slices/inputSlice.ts`.
