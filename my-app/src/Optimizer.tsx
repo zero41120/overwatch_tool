@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Item, ResultCombo, RootData, ItemOverride } from './types';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
+import BreakPointCalculator from './components/BreakPointCalculator';
 import { aggregate, scoreFromMap, meetsMinGroups } from './utils/optimizer';
 import rawData from './data.json?raw';
 import overridesRaw from './overrides.json?raw';
@@ -202,7 +203,7 @@ export default function Optimizer() {
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
   return (
-    <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8">
+    <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8 space-y-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <InputSection
           heroes={heroes}
@@ -212,6 +213,9 @@ export default function Optimizer() {
           validate={validate}
         />
         <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
+      </div>
+      <div className="max-w-7xl mx-auto">
+        <BreakPointCalculator />
       </div>
     </div>
   );
