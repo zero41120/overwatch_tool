@@ -58,5 +58,25 @@
         "value": "Only life steal from burning damage, so estimate 5% ALS is missing from Bob and coach gun"
       }
     ]
+  },
+  "SUPERFLEXOR": {
+    "attributes": [
+      {
+        "type": "Health",
+        "value": "25"
+      },
+      {
+        "type": "WP",
+        "value": "10%"
+      },
+      {
+        "type": "AP",
+        "value": "15%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "AP can stack up to 25%, estimate having 15% AP up time."
+      }
+    ]
   }
 }
