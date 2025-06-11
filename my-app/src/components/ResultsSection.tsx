@@ -2,6 +2,8 @@ import type { Item, ResultCombo } from '../types';
 import { rarityColor } from '../utils/optimizer';
 import { stripHtmlTags } from '../utils/util';
 import { attributeValueToLabel } from '../utils/attribute';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { addAvoid, toggleAvoidEnabled } from '../slices/inputSlice';
 
 interface Props {
   eqItems: Item[];
@@ -12,6 +14,8 @@ interface Props {
 }
 
 export default function ResultsSection({ eqItems, eqCost, cash, results, alternatives }: Props) {
+  const dispatch = useAppDispatch();
+  const avoidEnabled = useAppSelector(state => state.input.present.avoidEnabled);
   return (
     <div className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8">
       <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Results</h2>
@@ -67,9 +71,22 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                     <strong className="font-semibold" style={{ color: rarityColor(it.rarity) }}>
                       {it.name}
                     </strong>
-                    <span className="text-sm font-mono rounded-full bg-indigo-50 text-indigo-600 px-2 py-0.5">
-                      {it.cost} G
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-mono rounded-full bg-indigo-50 text-indigo-600 px-2 py-0.5">
+                        {it.cost} G
+                      </span>
+                      <button
+                        type="button"
+                        aria-label={`Avoid ${it.name}`}
+                        className="text-xs text-red-600 hover:underline"
+                        onClick={() => {
+                          if (!avoidEnabled) dispatch(toggleAvoidEnabled());
+                          dispatch(addAvoid(it.id || it.name));
+                        }}
+                      >
+                        Avoid
+                      </button>
+                    </div>
                   </div>
                   <ul className="mt-2 text-xs text-gray-600 space-y-1">
                     {it.attributes.map((a, idx) => (

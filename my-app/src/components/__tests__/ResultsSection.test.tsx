@@ -1,7 +1,9 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom"
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import store from '../../store'
 import ResultsSection from '../ResultsSection'
 import type { Item, ResultCombo } from '../../types'
 
@@ -22,17 +24,33 @@ const alternatives: ResultCombo[] = [
 describe('ResultsSection', () => {
   it('renders placeholder when no results', () => {
     const { getByText } = render(
-      <ResultsSection eqItems={[]} eqCost={0} cash={0} results={null} alternatives={[]} />
+      <Provider store={store}>
+        <ResultsSection eqItems={[]} eqCost={0} cash={0} results={null} alternatives={[]} />
+      </Provider>
     )
     expect(getByText('No results yet')).toBeInTheDocument()
   })
 
   it('shows result details', () => {
     const { getByText } = render(
-      <ResultsSection eqItems={eqItems} eqCost={100} cash={200} results={results} alternatives={alternatives} />
+      <Provider store={store}>
+        <ResultsSection eqItems={eqItems} eqCost={100} cash={200} results={results} alternatives={alternatives} />
+      </Provider>
     )
     expect(getByText('Final Build')).toBeInTheDocument()
     expect(getByText('Alternative Builds')).toBeInTheDocument()
     expect(getByText('Cost: 40')).toBeInTheDocument()
+  })
+
+  it('adds item to avoid list on click', () => {
+    const { getByLabelText } = render(
+      <Provider store={store}>
+        <ResultsSection eqItems={eqItems} eqCost={100} cash={200} results={results} alternatives={[]} />
+      </Provider>
+    )
+    fireEvent.click(getByLabelText('Avoid Shield'))
+    const state = store.getState()
+    expect(state.input.present.avoid).toContain('2')
+    expect(state.input.present.avoidEnabled).toBe(true)
   })
 })
