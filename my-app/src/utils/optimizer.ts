@@ -59,3 +59,23 @@ export function collectRelevantAttributes(
   set.delete('');
   return set;
 }
+
+export function buildBreakdown(
+  map: Map<string, number>,
+  weights: WeightRow[],
+  enabled: boolean,
+  groups: MinAttrGroup[]
+) {
+  const attrs = collectRelevantAttributes(weights, enabled, groups);
+  const rows: { type: string; sum: number; contrib: number }[] = [];
+  weights.forEach(w => {
+    const sum = map.get(w.type) ?? 0;
+    rows.push({ type: w.type, sum, contrib: sum * w.weight });
+    attrs.delete(w.type);
+  });
+  attrs.forEach(type => {
+    const sum = map.get(type) ?? 0;
+    rows.push({ type, sum, contrib: 0 });
+  });
+  return rows;
+}
