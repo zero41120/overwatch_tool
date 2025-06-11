@@ -4,7 +4,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        noto: ['"Noto Sans Display"', 'sans-serif'],
+        merriweather: ['"Merriweather Sans"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
