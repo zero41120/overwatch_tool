@@ -10,6 +10,8 @@ interface ItemCardProps {
   iconUrl?: string;
   content: { iconUrl?: string; text: string }[];
   price: number | string;
+  onAvoid?: () => void;
+  showAvoidButton?: boolean;
 }
 
 export default function ItemCard({
@@ -19,6 +21,8 @@ export default function ItemCard({
   content,
   price,
   rarity,
+  onAvoid,
+  showAvoidButton,
 }: ItemCardProps) {
   return (
     <div
@@ -76,10 +80,20 @@ export default function ItemCard({
       {/* Divider */}
       <div className="h-px mx-4" style={{ background: '#264268' }} />
       {/* Footer Section */}
-      <div className="flex px-5 py-3">
+      <div className="flex items-center justify-between px-5 py-3">
         <span className="font-mono text-base font-bold" style={{ color: '#fdfdfd' }}>
           {price}
         </span>
+        {showAvoidButton && (
+          <button
+            type="button"
+            aria-label={`Avoid ${title}`}
+            className="text-xs text-red-500 hover:underline"
+            onClick={onAvoid}
+          >
+            Avoid
+          </button>
+        )}
       </div>
     </div>
   );

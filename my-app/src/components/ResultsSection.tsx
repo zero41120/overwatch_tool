@@ -2,6 +2,7 @@ import type { Item, ResultCombo } from '../types';
 import { rarityColor } from '../utils/optimizer';
 import { stripHtmlTags } from '../utils/util';
 import { attributeValueToLabel } from '../utils/attribute';
+import ItemCard from './ItemCard';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addAvoid, toggleAvoidEnabled } from '../slices/inputSlice';
 
@@ -61,43 +62,21 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
           <div>
             <h3 className="text-lg font-bold text-gray-800">Final Build</h3>
             <ul className="mt-2 space-y-3">
-              {[...eqItems, ...results.items].map((it) => (
-                <li
-                  key={it.id}
-                  className="block rounded-lg border border-gray-200 p-4 transition hover:shadow-sm"
-                  style={{ borderLeftColor: rarityColor(it.rarity), borderLeftWidth: '4px' }}
-                >
-                  <div className="flex justify-between items-center">
-                    <strong className="font-semibold" style={{ color: rarityColor(it.rarity) }}>
-                      {it.name}
-                    </strong>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-mono rounded-full bg-indigo-50 text-indigo-600 px-2 py-0.5">
-                        {it.cost} G
-                      </span>
-                      <button
-                        type="button"
-                        aria-label={`Avoid ${it.name}`}
-                        className="text-xs text-red-600 hover:underline"
-                        onClick={() => {
-                          if (!avoidEnabled) dispatch(toggleAvoidEnabled());
-                          dispatch(addAvoid(it.id || it.name));
-                        }}
-                      >
-                        Avoid
-                      </button>
-                    </div>
-                  </div>
-                  <ul className="mt-2 text-xs text-gray-600 space-y-1">
-                    {it.attributes.map((a, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span>
-                          <span className="font-medium">{attributeValueToLabel(a.type)}:</span>
-                          <span className="ml-1 text-gray-800 break-words"><strong>{stripHtmlTags(a.value)}</strong></span>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+              {[...eqItems, ...results.items].map(it => (
+                <li key={it.id}>
+                  <ItemCard
+                    title={it.name}
+                    rarity={it.rarity}
+                    content={it.attributes.map(a => ({
+                      text: `<span class='font-medium'>${attributeValueToLabel(a.type)}</span> <strong>${stripHtmlTags(a.value)}</strong>`,
+                    }))}
+                    price={`${it.cost} G`}
+                    showAvoidButton
+                    onAvoid={() => {
+                      if (!avoidEnabled) dispatch(toggleAvoidEnabled());
+                      dispatch(addAvoid(it.id || it.name));
+                    }}
+                  />
                 </li>
               ))}
             </ul>

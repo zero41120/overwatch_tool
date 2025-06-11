@@ -23,9 +23,9 @@ describe('optimizer utils', () => {
   });
 
   test('rarityColor returns expected color', () => {
-    expect(rarityColor('common')).toBe('green');
-    expect(rarityColor('rare')).toBe('blue');
-    expect(rarityColor('epic')).toBe('purple');
+    expect(rarityColor('common')).toBe('#17a631');
+    expect(rarityColor('rare')).toBe('#217dbe');
+    expect(rarityColor('epic')).toBe('#8727d6');
     // @ts-expect-error testing default case
     expect(rarityColor('legendary')).toBe('black');
   });
