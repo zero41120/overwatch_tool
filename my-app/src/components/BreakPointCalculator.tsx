@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { calculateBreakpoints } from '../utils/breakpoint'
 import type { BreakPointResult } from '../utils/breakpoint'
+import { calculateBreakpoints } from '../utils/breakpoint'
 
 export default function BreakPointCalculator() {
   const [collapsed, setCollapsed] = useState(true)
@@ -51,32 +51,32 @@ export default function BreakPointCalculator() {
           {rows.length > 0 && (
             <div className="overflow-x-auto mt-4">
               <table className="min-w-max w-full text-sm border">
-              <thead>
-                <tr>
-                  <th className="border px-2 py-1">Damage %</th>
-                  <th className="border px-2 py-1">Per Bullet</th>
-                  <th className="border px-2 py-1">Per Shot</th>
-                  <th className="border px-2 py-1">Shots</th>
-                  <th className="border px-2 py-1">Accumulated</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((r, idx) => {
-                  const prev = idx > 0 ? rows[idx - 1].shots : r.shots
-                  const highlight = r.shots < prev
-                  const dmgPerBullet = (damage * r.percent) / 100
-                  const dmgPerShot = dmgPerBullet * bullets
-                  return (
-                    <tr key={r.percent} className={highlight ? 'bg-yellow-100' : ''}>
-                      <td className="border px-2 py-1">{r.percent}%</td>
-                      <td className="border px-2 py-1">{dmgPerBullet.toFixed(1)}</td>
-                      <td className="border px-2 py-1">{dmgPerShot.toFixed(1)}</td>
-                      <td className="border px-2 py-1">{r.shots}</td>
-                      <td className="border px-2 py-1">{r.totalDamage.toFixed(1)}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
+                <thead>
+                  <tr>
+                    <th className="border px-2 py-1">Damage %</th>
+                    <th className="border px-2 py-1">Per Bullet</th>
+                    <th className="border px-2 py-1">Per Shot</th>
+                    <th className="border px-2 py-1">Shots</th>
+                    <th className="border px-2 py-1">Accumulated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((r, idx) => {
+                    const prev = idx > 0 ? rows[idx - 1].shots : r.shots
+                    const highlight = r.shots < prev
+                    const dmgPerBullet = (damage * r.percent) / 100
+                    const dmgPerShot = dmgPerBullet * bullets
+                    return (
+                      <tr key={r.percent} className={highlight ? 'bg-yellow-100' : ''}>
+                        <td className="border px-2 py-1">{r.percent}%</td>
+                        <td className="border px-2 py-1">{dmgPerBullet.toFixed(1)}</td>
+                        <td className="border px-2 py-1">{dmgPerShot.toFixed(1)}</td>
+                        <td className="border px-2 py-1">{r.shots}</td>
+                        <td className="border px-2 py-1">{r.totalDamage.toFixed(1)}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
               </table>
             </div>
           )}

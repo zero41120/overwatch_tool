@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import BreakPointCalculator from './components/BreakPointCalculator';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
+import Toolbar from './components/Toolbar';
 import rawData from './data.json?raw';
 import { useAppDispatch, useAppSelector } from './hooks';
 import overridesRaw from './overrides.json?raw';
@@ -220,8 +222,9 @@ export default function Optimizer() {
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
   return (
-    <div className="bg-gray-50 p-4 sm:p-6 lg:p-8 space-y-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-8">
+      <Toolbar />
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
         <InputSection
           heroes={heroes}
           attrTypes={attrTypes}
@@ -230,6 +233,7 @@ export default function Optimizer() {
           validate={validate}
         />
         <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
+        <BreakPointCalculator />
       </div>
     </div>
   );
