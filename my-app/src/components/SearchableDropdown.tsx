@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface DropdownOption {
   value: string;
@@ -66,14 +66,14 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
     }
   }, [isOpen]);
 
-  const dropdownClasses = `absolute end-0 z-10 w-full divide-y divide-gray-200 overflow-hidden rounded border border-gray-300 bg-white shadow-lg max-h-[40vh] overflow-y-auto`;
+  const dropdownClasses = `absolute end-0 z-10 w-full divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg max-h-[40vh] overflow-y-auto`;
 
   return (
     <div className={`relative block ${className || ''}`} ref={dropdownRef}>
-      <span className="flex w-full divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm">
+      <span className="flex w-full divide-x divide-gray-300 dark:divide-gray-700 overflow-hidden rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
         <button
           type="button"
-          className="flex-grow px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative text-left"
+          className="flex-grow px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white focus:relative text-left"
           onClick={() => {
             const next = !isOpen;
             setIsOpen(next);
@@ -81,11 +81,11 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
           }}
           ref={triggerRef}
         >
-          <span style={{ color: displayedColor || 'inherit' }}>{displayedLabel}</span>
+          <span style={{ color: displayedColor || 'inherit', minWidth: '135px', display: 'inline-block' }}>{displayedLabel}</span>
         </button>
         <button
           type="button"
-          className="flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative"
+          className="flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white focus:relative"
           aria-label="Menu"
           onClick={() => {
             const next = !isOpen;
@@ -102,11 +102,11 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
         <div role="menu" className={`${dropdownClasses} ${openUpwards ? 'bottom-full mb-2' : 'top-full mt-2'}`}>
           {options.length > 0 ? (
             <div>
-              <p className="sticky top-0 bg-white px-3 py-2 text-xs uppercase text-gray-500 border-b border-gray-200 z-20">{label}</p>
+              <p className="sticky top-0 bg-white dark:bg-gray-900 px-3 py-2 text-xs uppercase text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 z-20">{label}</p>
               <input
                 type="text"
                 ref={inputRef}
-                className="mx-3 my-2 w-[calc(100%-1.5rem)] rounded border border-gray-300 px-2 py-1 text-sm"
+                className="mx-3 my-2 w-[calc(100%-1.5rem)] rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 px-2 py-1 text-sm placeholder-gray-400 dark:placeholder-gray-500"
                 placeholder="Search..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
@@ -121,7 +121,7 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
                 <a
                   key={option.value}
                   href="#"
-                  className="block px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
+                  className="block px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
                   role="menuitem"
                   onClick={e => {
                     e.preventDefault();
@@ -132,11 +132,11 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
                 </a>
               ))}
               {filteredOptions.length === 0 && (
-                <p className="block px-3 py-2 text-sm text-gray-500">No matching options</p>
+                <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400">No matching options</p>
               )}
             </div>
           ) : (
-            <p className="block px-3 py-2 text-sm text-gray-500">No options available</p>
+            <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400">No options available</p>
           )}
         </div>
       )}

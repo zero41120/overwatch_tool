@@ -1,16 +1,17 @@
-import SearchableDropdown from '../SearchableDropdown';
-import NumberInput from '../NumberInput';
-import Chip from '../Chip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
-  toggleMinValueEnabled,
+  addAttrToGroup,
   addMinGroup,
+  removeAttrFromGroup,
   removeMinGroup,
   setMinGroupValue,
-  addAttrToGroup,
-  removeAttrFromGroup,
+  toggleMinValueEnabled,
 } from '../../slices/inputSlice';
 import { attributeValueToLabel } from '../../utils/attribute';
+import Chip from '../Chip';
+import NumberInput from '../NumberInput';
+import SearchableDropdown from '../SearchableDropdown';
+import SimpleButton from '../SimpleButton';
 
 interface Props {
   attrTypes: string[];
@@ -24,7 +25,7 @@ export default function MinValueSection({ attrTypes }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700">Minimum Attribute Totals</label>
+      <label className="block text-sm font-medium dark:text-gray-300">Minimum Attribute Totals</label>
       <div className="flex items-center gap-2 mt-1 mb-2">
         <input
           id="min-value-toggle"
@@ -33,7 +34,7 @@ export default function MinValueSection({ attrTypes }: Props) {
           onChange={() => dispatch(toggleMinValueEnabled())}
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
-        <label htmlFor="min-value-toggle" className="text-sm text-gray-700 select-none">
+        <label htmlFor="min-value-toggle" className="text-sm dark:text-gray-300 select-none">
           Enable Minimum Values
         </label>
       </div>
@@ -42,7 +43,7 @@ export default function MinValueSection({ attrTypes }: Props) {
           {groups.map((g, idx) => (
             <div key={idx} className="rounded border p-3 space-y-2">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-700">Target Value:</span>
+                <span className="text-sm font-medium dark:text-gray-300">Target Value:</span>
                 <NumberInput
                   value={g.value}
                   onChange={val => dispatch(setMinGroupValue({ index: idx, value: val }))}
@@ -83,13 +84,7 @@ export default function MinValueSection({ attrTypes }: Props) {
               )}
             </div>
           ))}
-          <button
-            type="button"
-            className="mt-3 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            onClick={() => dispatch(addMinGroup())}
-          >
-            Add Group
-          </button>
+          <SimpleButton text="Add Group" onClick={() => dispatch(addMinGroup())} />
         </div>
       )}
     </div>

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import SearchableDropdown from '../SearchableDropdown';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setEquipped, addEquippedSlot, removeEquippedSlot } from '../../slices/inputSlice';
+import { addEquippedSlot, removeEquippedSlot, setEquipped } from '../../slices/inputSlice';
 import type { Item } from '../../types';
-import { rarityColor } from '../../utils/optimizer';
 import { attributeValueToLabel } from '../../utils/attribute';
 import { sortItemsByRarityAndName } from '../../utils/item';
+import { rarityColor } from '../../utils/optimizer';
+import SearchableDropdown from '../SearchableDropdown';
+import SimpleButton from '../SimpleButton';
 
 interface Props {
   items: Item[];
@@ -25,7 +26,7 @@ export default function EquippedSection({ items }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700">Equipped Items</label>
+      <label className="block text-sm font-medium dark:text-gray-300">Equipped Items</label>
       <div className="flex items-center gap-2 mt-1 mb-2">
         <input
           id="use-equipped-checkbox"
@@ -34,7 +35,7 @@ export default function EquippedSection({ items }: Props) {
           onChange={e => handleToggle(e.target.checked)}
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
-        <label htmlFor="use-equipped-checkbox" className="text-sm text-gray-700 select-none">
+        <label htmlFor="use-equipped-checkbox" className="text-sm dark:text-gray-300 select-none">
           Use Equipped Items
         </label>
       </div>
@@ -76,13 +77,7 @@ export default function EquippedSection({ items }: Props) {
             </div>
           ))}
           {equipped.length < 6 && (
-            <button
-              type="button"
-              onClick={() => dispatch(addEquippedSlot())}
-              className="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
-            >
-              Add Slot
-            </button>
+            <SimpleButton text="Add Slot" onClick={() => dispatch(addEquippedSlot())} />
           )}
         </div>
       )}

@@ -1,13 +1,14 @@
-import SearchableDropdown from '../SearchableDropdown';
-import NumberInput from '../NumberInput';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
-  setWeightType,
-  setWeightValue,
   addWeightRow,
   removeWeightRow,
+  setWeightType,
+  setWeightValue,
 } from '../../slices/inputSlice';
 import { attributeValueToLabel } from '../../utils/attribute';
+import NumberInput from '../NumberInput';
+import SearchableDropdown from '../SearchableDropdown';
+import SimpleButton from '../SimpleButton';
 
 interface Props {
   attrTypes: string[];
@@ -20,8 +21,8 @@ export default function WeightsSection({ attrTypes }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700">Attribute Weights</label>
-      <div className="space-y-4 mt-1">
+      <label className="block text-sm font-medium dark:text-gray-300">Attribute Weights</label>
+      <div className="space-y-4 mt-1 mb-4">
         {weights.map((w, idx) => (
           <div key={idx} className="flex items-center gap-2">
             <SearchableDropdown
@@ -44,7 +45,7 @@ export default function WeightsSection({ attrTypes }: Props) {
             {weights.length > 1 && (
               <button
                 type="button"
-                className="flex-shrink-0 rounded p-2 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                className="flex-shrink-0 rounded p-2 text-gray-400 dark:text-gray-500 hover:bg-red-50 dark:hover:bg-gray-900 hover:text-red-600 dark:hover:text-red-400"
                 onClick={() => dispatch(removeWeightRow(idx))}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -55,13 +56,8 @@ export default function WeightsSection({ attrTypes }: Props) {
           </div>
         ))}
       </div>
-      <button
-        type="button"
-        className="mt-3 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        onClick={() => dispatch(addWeightRow(attrTypes[0]))}
-      >
-        Add Row
-      </button>
+      <SimpleButton onClick={() => dispatch(addWeightRow(attrTypes[0]))} text='Add Row' />
+
     </div>
   );
 }

@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
-import type { Item, ResultCombo, RootData, ItemOverride } from './types';
+import BreakPointCalculator from './components/BreakPointCalculator';
 import InputSection from './components/InputSection';
 import ResultsSection from './components/ResultsSection';
-import BreakPointCalculator from './components/BreakPointCalculator';
+import Toolbar from './components/Toolbar';
+import rawData from './data.json?raw';
+import { useAppDispatch, useAppSelector } from './hooks';
+import overridesRaw from './overrides.json?raw';
+import { setError, setToBuy, setWeightType } from './slices/inputSlice';
+import type { Item, ItemOverride, ResultCombo, RootData } from './types';
+import { sortAttributes } from './utils/attribute';
 import {
   aggregate,
-  scoreFromMap,
-  meetsMinGroups,
-  collectRelevantAttributes,
   buildBreakdown,
+  collectRelevantAttributes,
+  meetsMinGroups,
+  scoreFromMap,
 } from './utils/optimizer';
-import rawData from './data.json?raw';
-import overridesRaw from './overrides.json?raw';
-import { sortAttributes } from './utils/attribute';
-import { useAppSelector, useAppDispatch } from './hooks';
-import { setWeightType, setToBuy, setError } from './slices/inputSlice';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -221,8 +222,9 @@ export default function Optimizer() {
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
   return (
-    <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8 space-y-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-2">
+      <Toolbar />
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
         <InputSection
           heroes={heroes}
           attrTypes={attrTypes}
@@ -231,8 +233,6 @@ export default function Optimizer() {
           validate={validate}
         />
         <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
-      </div>
-      <div className="max-w-7xl mx-auto">
         <BreakPointCalculator />
       </div>
     </div>
