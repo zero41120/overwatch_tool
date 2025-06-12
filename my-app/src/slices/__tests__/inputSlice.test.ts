@@ -14,8 +14,9 @@ import reducer, {
   addEquippedSlot,
   removeEquippedSlot,
 } from '../inputSlice';
+import type { AnyAction } from '@reduxjs/toolkit';
 
-const initialState = reducer(undefined, { type: 'init' } as any);
+const initialState = reducer(undefined, { type: 'init' } as AnyAction);
 
 test('setHero updates hero field', () => {
   const state = reducer(initialState, setHero('Reaper'));

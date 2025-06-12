@@ -16,3 +16,4 @@
 2025-06-11  Add default minimum value group for Health/Armor/Shield  src/slices/inputSlice.ts
 2025-06-11  Fix mobile overflow in damage calculator table  src/components/BreakPointCalculator.tsx
 2025-06-12  Display item descriptions without label  src/components/ResultsSection.tsx
+2025-06-12  Expand results panel space on xl screens  src/Optimizer.tsx
