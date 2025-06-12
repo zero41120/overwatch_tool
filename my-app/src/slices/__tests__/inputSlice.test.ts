@@ -36,9 +36,14 @@ test('addWeightRow and setWeightType modify weights', () => {
   expect(state.weights[0].type).toBe('AP');
 });
 
-test('toggleMinValueEnabled switches boolean', () => {
+test('toggleMinValueEnabled adds default group and switches boolean', () => {
   const state = reducer(initialState, toggleMinValueEnabled());
   expect(state.minValueEnabled).toBe(true);
+  expect(state.minAttrGroups).toHaveLength(1);
+  expect(state.minAttrGroups[0]).toEqual({
+    attrs: ['Health', 'Armor', 'Shield'],
+    value: 50,
+  });
 });
 
 test('toggleAvoidEnabled switches boolean', () => {

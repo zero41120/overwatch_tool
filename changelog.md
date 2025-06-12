@@ -13,3 +13,4 @@
 2025-06-10  Modular React component structure with TypeScript, Vite, and TailwindCSS  src/
 2025-06-11  Add avoid button in results list  src/components/ResultsSection.tsx
 2025-06-11  Integrate ItemCard with avoid button  src/components
+2025-06-11  Add default minimum value group for Health/Armor/Shield  src/slices/inputSlice.ts

@@ -85,6 +85,12 @@ const inputSlice = createSlice({
     },
     toggleMinValueEnabled(state) {
       state.minValueEnabled = !state.minValueEnabled;
+      if (state.minValueEnabled && state.minAttrGroups.length === 0) {
+        state.minAttrGroups.push({
+          attrs: ['Health', 'Armor', 'Shield'],
+          value: 50,
+        });
+      }
     },
     addMinGroup(state) {
       state.minAttrGroups.push({ attrs: [], value: 0 });
