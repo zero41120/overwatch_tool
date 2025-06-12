@@ -17,21 +17,28 @@ interface Props {
 
 export default function InputSection({ heroes, attrTypes, filteredItems, onSubmit, validate }: Props) {
   return (
-    <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8   dark:border-gray-700">
+    <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8  dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
-
       <form
         onSubmit={e => {
           e.preventDefault();
           if (validate()) onSubmit();
         }}
+        className="grid"
       >
-        <HeroSelect heroes={heroes} />
-        <CashInput />
+        <div className="flex flex-row gap-4">
+          <HeroSelect heroes={heroes} />
+          <CashInput />
+        </div>
+        <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <EquippedSection items={filteredItems} />
+        <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <AvoidSection items={filteredItems} />
+        <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <MinValueSection attrTypes={attrTypes} />
+        <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <WeightsSection attrTypes={attrTypes} />
+        <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <SubmitSection onSubmit={onSubmit} validate={validate} />
       </form>
     </div>

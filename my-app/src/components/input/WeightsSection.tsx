@@ -22,7 +22,7 @@ export default function WeightsSection({ attrTypes }: Props) {
   return (
     <div>
       <label className="block text-sm font-medium dark:text-gray-300">Attribute Weights</label>
-      <div className="space-y-4 mt-1">
+      <div className="space-y-4 mt-1 mb-4">
         {weights.map((w, idx) => (
           <div key={idx} className="flex items-center gap-2">
             <SearchableDropdown

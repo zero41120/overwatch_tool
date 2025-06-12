@@ -81,7 +81,7 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
           }}
           ref={triggerRef}
         >
-          <span style={{ color: displayedColor || 'inherit' }}>{displayedLabel}</span>
+          <span style={{ color: displayedColor || 'inherit', minWidth: '135px', display: 'inline-block' }}>{displayedLabel}</span>
         </button>
         <button
           type="button"
