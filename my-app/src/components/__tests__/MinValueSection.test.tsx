@@ -8,7 +8,7 @@ import MinValueSection from '../input/MinValueSection';
 
 const attrTypes = ['AP', 'WP'];
 
-test('renders add group when enabled', () => {
+test('renders default group when enabled', () => {
   const { getByLabelText, getByText } = render(
     <Provider store={store}>
       <MinValueSection attrTypes={attrTypes} />
@@ -17,4 +17,7 @@ test('renders add group when enabled', () => {
   const checkbox = getByLabelText('Enable Minimum Values');
   fireEvent.click(checkbox);
   expect(getByText('Add Group')).toBeInTheDocument();
+  expect(getByText('Health')).toBeInTheDocument();
+  expect(getByText('Armor')).toBeInTheDocument();
+  expect(getByText('Shield')).toBeInTheDocument();
 });
