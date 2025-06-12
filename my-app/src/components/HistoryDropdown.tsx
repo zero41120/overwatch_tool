@@ -28,7 +28,7 @@ export default function HistoryDropdown({ history }: Props) {
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium dark:text-gray-300 shadow-sm hover:bg-gray-50"
+        className="flex items-center gap-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800"
       >
         History
         <svg
@@ -43,17 +43,17 @@ export default function HistoryDropdown({ history }: Props) {
         </svg>
       </button>
       {open && (
-        <div className="absolute z-10 mt-2 w-48 max-h-40 overflow-y-auto rounded border border-gray-300 bg-white text-sm shadow-lg">
+        <div className="absolute z-10 mt-2 w-48 max-h-40 overflow-y-auto rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm shadow-lg">
           {history.length > 0 ? (
             <ul>
               {history.map((h, idx) => (
-                <li key={idx} className="border-b px-3 py-2 last:border-none">
+                <li key={idx} className="border-b border-gray-200 dark:border-gray-700 px-3 py-2 last:border-none dark:text-gray-100">
                   {summary(h)}
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="p-3 text-gray-500">No history</p>
+            <p className="p-3 text-gray-500 dark:text-gray-400">No history</p>
           )}
         </div>
       )}

@@ -222,7 +222,7 @@ export default function Optimizer() {
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-8">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-2">
       <Toolbar />
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
         <InputSection

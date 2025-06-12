@@ -21,13 +21,13 @@ export default function Toolbar() {
   }, [dispatch]);
 
   return (
-    <div className="mb-6 flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-4">
       <div className="flex gap-2">
         <button
           type="button"
           disabled={past.length === 0}
           onClick={() => dispatch(ActionCreators.undo())}
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700 disabled:bg-gray-400"
+          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700 disabled:bg-gray-400 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:disabled:bg-gray-700"
         >
           Undo
         </button>
@@ -35,12 +35,12 @@ export default function Toolbar() {
           type="button"
           disabled={future.length === 0}
           onClick={() => dispatch(ActionCreators.redo())}
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700 disabled:bg-gray-400"
+          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700 disabled:bg-gray-400 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:disabled:bg-gray-700"
         >
           Redo
         </button>
+        <HistoryDropdown history={past} />
       </div>
-      <HistoryDropdown history={past} />
     </div>
   );
 }
