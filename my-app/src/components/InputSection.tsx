@@ -1,11 +1,11 @@
 import type { Item } from '../types';
-import HeroSelect from './input/HeroSelect';
+import AvoidSection from './input/AvoidSection';
 import CashInput from './input/CashInput';
 import EquippedSection from './input/EquippedSection';
-import AvoidSection from './input/AvoidSection';
-import WeightsSection from './input/WeightsSection';
+import HeroSelect from './input/HeroSelect';
 import MinValueSection from './input/MinValueSection';
 import SubmitSection from './input/SubmitSection';
+import WeightsSection from './input/WeightsSection';
 
 interface Props {
   heroes: string[];
@@ -22,7 +22,7 @@ export default function InputSection({ heroes, attrTypes, filteredItems, onSubmi
         e.preventDefault();
         if (validate()) onSubmit();
       }}
-      className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8"
+      className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8"
     >
       <HeroSelect heroes={heroes} />
       <CashInput />

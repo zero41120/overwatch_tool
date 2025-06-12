@@ -18,7 +18,7 @@ export default function SubmitSection({ onSubmit, validate }: Props) {
         onClick={() => {
           if (validate()) onSubmit();
         }}
-        className="w-full inline-flex items-center justify-center rounded-lg bg-teal-600 px-5 py-3 text-white text-base font-medium shadow-lg transition hover:bg-teal-700 disabled:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+        className="w-full inline-flex items-center justify-center rounded-lg bg-teal-600 dark:bg-teal-700 px-5 py-3 text-white text-base font-medium shadow-lg transition hover:bg-teal-700 dark:hover:bg-teal-800 disabled:bg-gray-400 dark:disabled:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
         disabled={!validate()}
       >
         Calculate Optimal Build
@@ -29,14 +29,14 @@ export default function SubmitSection({ onSubmit, validate }: Props) {
             key={n}
             type="button"
             onClick={() => dispatch(setToBuy(n))}
-            className={`rounded-lg py-2 text-sm font-medium ${toBuy === n ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            className={`rounded-lg py-2 text-sm font-medium ${toBuy === n ? 'bg-indigo-600 dark:bg-indigo-700 text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700'}`}
           >
             {n}
           </button>
         ))}
       </div>
       {error && (
-        <div role="alert" className="mt-4 rounded border-s-4 border-red-500 bg-red-50 p-4 text-sm font-medium text-red-800">
+        <div role="alert" className="mt-4 rounded border-s-4 border-red-500 dark:border-red-700 bg-red-50 dark:bg-gray-900 p-4 text-sm font-medium text-red-800 dark:text-red-300">
           {error}
         </div>
       )}

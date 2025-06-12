@@ -7,3 +7,25 @@
 body {
   background: linear-gradient(136deg, #1f395e 0%, #212435 40%, #212435 60%, #1a9dc8 100%);
 }
+
+
+.glass-card {
+  --border-width: 2px;
+  border-radius: 1rem;
+  position: relative;
+  background: hsl(from 0.60 0.45 0.29 h s l / 0.25);
+  backdrop-filter: blur(12px);
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--border-width) solid transparent;
+  background: linear-gradient(#346291, #1f395e) border-box;
+  mask: linear-gradient(black, black) border-box,
+    linear-gradient(black, black) padding-box;
+  mask-composite: subtract;
+}

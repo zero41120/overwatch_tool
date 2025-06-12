@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import SearchableDropdown from '../SearchableDropdown';
-import Chip from '../Chip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addAvoid, removeAvoid, toggleAvoidEnabled } from '../../slices/inputSlice';
 import type { Item } from '../../types';
-import { rarityColor } from '../../utils/optimizer';
 import { sortItemsByRarityAndName } from '../../utils/item';
+import { rarityColor } from '../../utils/optimizer';
+import Chip from '../Chip';
+import SearchableDropdown from '../SearchableDropdown';
+import SimpleButton from '../SimpleButton';
 
 interface Props {
   items: Item[];
@@ -19,7 +20,7 @@ export default function AvoidSection({ items }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700">Avoid Items</label>
+      <label className="block text-sm font-medium dark:text-gray-300">Avoid Items</label>
       <div className="flex items-center gap-2 mt-1 mb-2">
         <input
           id="avoid-toggle"
@@ -28,7 +29,7 @@ export default function AvoidSection({ items }: Props) {
           onChange={() => dispatch(toggleAvoidEnabled())}
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
-        <label htmlFor="avoid-toggle" className="text-sm text-gray-700 select-none">
+        <label htmlFor="avoid-toggle" className="text-sm dark:text-gray-300 select-none">
           Enable Avoid Items
         </label>
       </div>
@@ -50,18 +51,12 @@ export default function AvoidSection({ items }: Props) {
               onChange={setSelected}
               className="flex-grow"
             />
-            <button
-              type="button"
-              className="rounded bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
-              onClick={() => {
-                if (selected) {
-                  dispatch(addAvoid(selected));
-                  setSelected('');
-                }
-              }}
-            >
-              Add
-            </button>
+            <SimpleButton text="Add" onClick={() => {
+              if (selected) {
+                dispatch(addAvoid(selected));
+                setSelected('');
+              }
+            }} />
           </div>
           {avoid.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-2">

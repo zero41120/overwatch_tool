@@ -1,6 +1,6 @@
-import SearchableDropdown from '../SearchableDropdown';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setHero } from '../../slices/inputSlice';
+import SearchableDropdown from '../SearchableDropdown';
 
 interface Props {
   heroes: string[];
@@ -11,7 +11,7 @@ export default function HeroSelect({ heroes }: Props) {
   const dispatch = useAppDispatch();
   return (
     <div>
-      <label htmlFor="hero-select" className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor="hero-select" className="block text-sm font-medium mb-1 dark:text-gray-300">
         Hero
       </label>
       <SearchableDropdown

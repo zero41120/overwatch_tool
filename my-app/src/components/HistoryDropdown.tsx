@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { InputState } from '../slices/inputSlice';
 
 interface Props {
@@ -28,7 +28,7 @@ export default function HistoryDropdown({ history }: Props) {
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+        className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium dark:text-gray-300 shadow-sm hover:bg-gray-50"
       >
         History
         <svg

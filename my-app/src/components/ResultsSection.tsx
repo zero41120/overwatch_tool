@@ -1,9 +1,9 @@
-import type { Item, ResultCombo } from '../types';
-import { stripHtmlTags } from '../utils/util';
-import { attributeValueToLabel } from '../utils/attribute';
-import ItemCard from './ItemCard';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addAvoid, toggleAvoidEnabled } from '../slices/inputSlice';
+import type { Item, ResultCombo } from '../types';
+import { attributeValueToLabel } from '../utils/attribute';
+import { stripHtmlTags } from '../utils/util';
+import ItemCard from './ItemCard';
 
 interface Props {
   eqItems: Item[];
@@ -59,7 +59,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
             </div>
           )}
           <div>
-            <h3 className="text-lg font-bold text-gray-800">Final Build</h3>
+            <h3 className="text-lg font-bold dark:text-gray-300">Final Build</h3>
             <ul className="mt-2 space-y-3">
               {[...eqItems, ...results.items].map(it => (
                 <li key={it.id}>
@@ -70,8 +70,8 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                       a.type === 'description'
                         ? { text: stripHtmlTags(a.value) }
                         : {
-                            text: `<span class='font-medium'>${attributeValueToLabel(a.type)}</span> <strong>${stripHtmlTags(a.value)}</strong>`,
-                          }
+                          text: `<span class='font-medium'>${attributeValueToLabel(a.type)}</span> <strong>${stripHtmlTags(a.value)}</strong>`,
+                        }
                     )}
                     price={`${it.cost} G`}
                     showAvoidButton
@@ -86,10 +86,10 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
           </div>
           {alternatives.length > 0 && (
             <div>
-              <h3 className="text-lg font-bold text-gray-800">Alternative Builds</h3>
+              <h3 className="text-lg font-bold dark:text-gray-300">Alternative Builds</h3>
               <ul className="mt-2 space-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3 max-h-48 overflow-y-auto">
                 {alternatives.map((alt, i) => (
-                  <li key={i} className="text-sm text-gray-700 p-2 rounded-md hover:bg-gray-100">
+                  <li key={i} className="text-sm dark:text-gray-300 p-2 rounded-md hover:bg-gray-100">
                     <strong>Cost: {alt.cost}</strong> - {alt.items.map((it) => it.name).join(', ')}
                   </li>
                 ))}
