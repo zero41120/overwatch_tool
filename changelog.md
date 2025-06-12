@@ -17,3 +17,4 @@
 2025-06-11  Fix mobile overflow in damage calculator table  src/components/BreakPointCalculator.tsx
 2025-06-12  Display item descriptions without label  src/components/ResultsSection.tsx
 2025-06-12  Final build list uses grid layout  src/components/ResultsSection.tsx
+2025-06-12  Widen results layout for three-column build  src/Optimizer.tsx

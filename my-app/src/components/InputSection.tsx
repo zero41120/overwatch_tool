@@ -22,7 +22,7 @@ export default function InputSection({ heroes, attrTypes, filteredItems, onSubmi
         e.preventDefault();
         if (validate()) onSubmit();
       }}
-      className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8"
+      className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:col-span-1"
     >
       <HeroSelect heroes={heroes} />
       <CashInput />

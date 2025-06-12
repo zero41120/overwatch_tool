@@ -17,7 +17,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
   const dispatch = useAppDispatch();
   const avoidEnabled = useAppSelector(state => state.input.present.avoidEnabled);
   return (
-    <div className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8">
+    <div className="space-y-6 bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:col-span-2">
       <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Results</h2>
       {results ? (
         <div className="space-y-6">

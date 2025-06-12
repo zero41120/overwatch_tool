@@ -222,7 +222,7 @@ export default function Optimizer() {
 
   return (
     <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8 space-y-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         <InputSection
           heroes={heroes}
           attrTypes={attrTypes}
