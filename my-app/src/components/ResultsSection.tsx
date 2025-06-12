@@ -66,9 +66,13 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
                   <ItemCard
                     title={it.name}
                     rarity={it.rarity}
-                    content={it.attributes.map(a => ({
-                      text: `<span class='font-medium'>${attributeValueToLabel(a.type)}</span> <strong>${stripHtmlTags(a.value)}</strong>`,
-                    }))}
+                    content={it.attributes.map(a =>
+                      a.type === 'description'
+                        ? { text: stripHtmlTags(a.value) }
+                        : {
+                            text: `<span class='font-medium'>${attributeValueToLabel(a.type)}</span> <strong>${stripHtmlTags(a.value)}</strong>`,
+                          }
+                    )}
                     price={`${it.cost} G`}
                     showAvoidButton
                     onAvoid={() => {
