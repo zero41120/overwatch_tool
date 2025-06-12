@@ -60,7 +60,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, results, alterna
           )}
           <div>
             <h3 className="text-lg font-bold text-gray-800">Final Build</h3>
-            <ul className="mt-2 space-y-3">
+            <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {[...eqItems, ...results.items].map(it => (
                 <li key={it.id}>
                   <ItemCard

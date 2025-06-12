@@ -37,7 +37,11 @@ describe('ResultsSection', () => {
         <ResultsSection eqItems={eqItems} eqCost={100} cash={200} results={results} alternatives={alternatives} />
       </Provider>
     )
-    expect(getByText('Final Build')).toBeInTheDocument()
+    const list = getByText('Final Build').nextElementSibling as HTMLUListElement
+    expect(list).toHaveClass('grid')
+    expect(list).toHaveClass('grid-cols-1')
+    expect(list).toHaveClass('sm:grid-cols-2')
+    expect(list).toHaveClass('lg:grid-cols-3')
     expect(getByText('Alternative Builds')).toBeInTheDocument()
     expect(getByText('Cost: 40')).toBeInTheDocument()
   })
