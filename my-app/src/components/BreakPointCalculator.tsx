@@ -49,7 +49,8 @@ export default function BreakPointCalculator() {
           </div>
           <button onClick={onCalc} className="bg-indigo-600 text-white px-4 py-1 rounded">Calculate</button>
           {rows.length > 0 && (
-            <table className="w-full text-sm mt-4 border">
+            <div className="overflow-x-auto mt-4">
+              <table className="min-w-max w-full text-sm border">
               <thead>
                 <tr>
                   <th className="border px-2 py-1">Damage %</th>
@@ -76,7 +77,8 @@ export default function BreakPointCalculator() {
                   )
                 })}
               </tbody>
-            </table>
+              </table>
+            </div>
           )}
         </div>
       )}
