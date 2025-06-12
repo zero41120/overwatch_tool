@@ -1,4 +1,4 @@
-import parse from 'html-react-parser'
+import parse from 'html-react-parser';
 import type { Item } from '../types';
 import { rarityColor } from '../utils/optimizer';
 
@@ -25,12 +25,7 @@ export default function ItemCard({
 }: ItemCardProps) {
   return (
     <div
-      className="flex flex-col font-noto font-bold opacity-90 rounded-[10px] overflow-hidden"
-      style={{
-        borderTop: `7px solid ${rarityColor(rarity)}`,
-        borderBottom: `3px solid ${rarityColor(rarity)}`,
-        background: '#0e1325', // Custom color, consider adding to Tailwind config
-      }}
+      className="glass-card flex flex-col font-noto rounded-[10px] overflow-hidden dark:bg-gray-800 dark:border-gray-700"
     >
       {/* Title Section */}
       <div className="flex items-center gap-4 px-5 py-4">
@@ -44,7 +39,7 @@ export default function ItemCard({
           />
         )}
         <div>
-          <div className="text-lg font-bold" style={{ color: '#fdfdfd' }}>
+          <div className="text-lg font-bold" style={{ color: rarityColor(rarity) }}>
             {title}
           </div>
           {subtitle && (
@@ -70,7 +65,7 @@ export default function ItemCard({
                 style={{ borderRadius: 4 }} // Tailwind doesn't have rounded-[4px] by default
               />
             )}
-            <span className="font-normal font-merriweather" style={{ color: '#fdfdfd' }}>
+            <span className="text-sm font-merriweather" style={{ color: '#fdfdfd' }}>
               {parse(row.text)}
             </span>
           </div>
