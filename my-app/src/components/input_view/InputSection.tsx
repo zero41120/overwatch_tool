@@ -1,11 +1,11 @@
-import type { Item } from '../types';
-import AvoidSection from './input/AvoidSection';
-import CashInput from './input/CashInput';
-import EquippedSection from './input/EquippedSection';
-import HeroSelect from './input/HeroSelect';
-import MinValueSection from './input/MinValueSection';
-import SubmitSection from './input/SubmitSection';
-import WeightsSection from './input/WeightsSection';
+import type { Item } from '../../types';
+import AvoidSection from './AvoidSection';
+import CashInput from './CashInput';
+import EquippedSection from './EquippedSection';
+import HeroSelect from './HeroSelect';
+import MinValueSection from './MinValueSection';
+import SubmitSection from './SubmitSection';
+import WeightsSection from './WeightsSection';
 
 interface Props {
   heroes: string[];
