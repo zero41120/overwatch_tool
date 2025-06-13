@@ -1,8 +1,8 @@
 /* @vitest-environment jsdom */
 import '@testing-library/jest-dom';
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import SearchableDropdown from '../SearchableDropdown';
+import { fireEvent, render } from '@testing-library/react';
+import { vi } from 'vitest';
+import SearchableDropdown from '../shared/SearchableDropdown';
 
 describe('SearchableDropdown', () => {
   const options = [
@@ -12,7 +12,7 @@ describe('SearchableDropdown', () => {
 
   it('focuses search input when opened', () => {
     const { getAllByRole, getByPlaceholderText } = render(
-      <SearchableDropdown label="Test" options={options} value="" onChange={() => {}} />
+      <SearchableDropdown label="Test" options={options} value="" onChange={() => { }} />
     );
     fireEvent.click(getAllByRole('button')[0]);
     const input = getByPlaceholderText('Search...');

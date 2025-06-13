@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setHero } from '../../slices/inputSlice';
-import SearchableDropdown from '../SearchableDropdown';
+import SearchableDropdown from '../shared/SearchableDropdown';
 
 interface Props {
   heroes: string[];

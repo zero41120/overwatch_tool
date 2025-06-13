@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addEquippedSlot, removeEquippedSlot, setEquipped } from '../../slices/inputSlice';
 import type { Item } from '../../types';
-import { attributeValueToLabel } from '../../utils/attribute';
+import { attributeValueToLabel } from '../../utils/attributeUtils';
 import { sortItemsByRarityAndName } from '../../utils/item';
-import { rarityColor } from '../../utils/optimizer';
-import SearchableDropdown from '../SearchableDropdown';
-import SimpleButton from '../SimpleButton';
+import { rarityColor } from '../../utils/utils';
+import SearchableDropdown from '../shared/SearchableDropdown';
+import SimpleButton from '../shared/SimpleButton';
 
 interface Props {
   items: Item[];

@@ -3,10 +3,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addAvoid, removeAvoid, toggleAvoidEnabled } from '../../slices/inputSlice';
 import type { Item } from '../../types';
 import { sortItemsByRarityAndName } from '../../utils/item';
-import { rarityColor } from '../../utils/optimizer';
-import Chip from '../Chip';
-import SearchableDropdown from '../SearchableDropdown';
-import SimpleButton from '../SimpleButton';
+import { rarityColor } from '../../utils/utils';
+import Chip from '../shared/Chip';
+import SearchableDropdown from '../shared/SearchableDropdown';
+import SimpleButton from '../shared/SimpleButton';
 
 interface Props {
   items: Item[];

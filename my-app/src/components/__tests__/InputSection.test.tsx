@@ -1,11 +1,11 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom"
-import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { Provider } from 'react-redux'
+import { vi } from 'vitest'
 import store from '../../store'
-import InputSection from '../InputSection'
 import type { Item } from '../../types'
+import InputSection from '../input_view/InputSection'
 
 const heroes = ['Tracer', 'Mercy']
 const attrTypes = ['AP', 'WP']

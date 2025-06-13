@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import BreakPointCalculator from './components/BreakPointCalculator';
-import InputSection from './components/InputSection';
-import ResultsSection from './components/ResultsSection';
+import InputSection from './components/input_view/InputSection';
+import ResultsSection from './components/results_view/ResultsSection';
 import Toolbar from './components/Toolbar';
 import rawData from './data.json?raw';
 import { useAppDispatch, useAppSelector } from './hooks';
 import overridesRaw from './overrides.json?raw';
 import { setError, setToBuy, setWeightType } from './slices/inputSlice';
 import type { Item, ItemOverride, ResultCombo, RootData } from './types';
-import { sortAttributes } from './utils/attribute';
+import { sortAttributes } from './utils/attributeUtils';
 import {
   aggregate,
   buildBreakdown,
   collectRelevantAttributes,
   meetsMinGroups,
   scoreFromMap,
-} from './utils/optimizer';
+} from './utils/utils';
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -35,9 +35,12 @@ export default function Optimizer() {
     minValueEnabled,
     minAttrGroups,
   } = state;
-
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
+  // Memoize expensive calculations
+  const memoizedScores = useState(new Map<string, number>())[0];
+  const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
+  const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
@@ -78,16 +81,31 @@ export default function Optimizer() {
     setAttrTypes(sortedTypes);
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
   }, []);
-
   useEffect(() => {
     const count = equipped.filter(id => id).length;
     if (toBuy + count > 6) dispatch(setToBuy(Math.max(0, 6 - count)));
   }, [dispatch, equipped, toBuy]);
+  // Clear memoization when weights change
+  useEffect(() => {
+    memoizedScores.clear();
+    memoizedAggregates.clear();
+  }, [weights, memoizedScores, memoizedAggregates]);
 
-  function equippedItems() {
-    return equipped
+  // Clear equipped items memoization when equipped items change
+  useEffect(() => {
+    memoizedEquippedItems.clear();
+  }, [equipped, memoizedEquippedItems]); function equippedItems() {
+    const key = equipped.filter(id => id).sort().join(',');
+    if (memoizedEquippedItems.has(key)) {
+      return memoizedEquippedItems.get(key)!;
+    }
+
+    const items = equipped
       .map(id => data.find(i => i.id === id))
       .filter((i): i is Item => Boolean(i));
+
+    memoizedEquippedItems.set(key, items);
+    return items;
   }
 
   function validate() {
@@ -105,10 +123,21 @@ export default function Optimizer() {
     }
     return true;
   }
-
   function calcScore(items: Item[]) {
-    const map = aggregate(items);
-    return scoreFromMap(map, weights);
+    const key = items.map(i => i.id || i.name).sort().join(',');
+    if (memoizedScores.has(key)) {
+      return memoizedScores.get(key)!;
+    }
+
+    let aggregateMap = memoizedAggregates.get(key);
+    if (!aggregateMap) {
+      aggregateMap = aggregate(items);
+      memoizedAggregates.set(key, aggregateMap);
+    }
+
+    const score = scoreFromMap(aggregateMap, weights);
+    memoizedScores.set(key, score);
+    return score;
   }
 
   function meetsMinRequirements(items: Item[]) {
@@ -117,21 +146,30 @@ export default function Optimizer() {
       meetsMinGroups([...items, ...equippedItems()], minAttrGroups)
     );
   }
-
   function onCalculate() {
     dispatch(setError(''));
+
+    // Validate inputs before processing
+    if (!validate()) {
+      dispatch(setError('Please check your inputs - ensure all required fields are filled'));
+      return;
+    }
+
     const eqItems = equippedItems();
     const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
     const remainingCash = cash - eqCost;
+
     if (remainingCash < 0) {
       dispatch(setError('Equipped items cost exceeds total cash'));
       return;
     }
+
     const selectedAttrs = collectRelevantAttributes(
       weights,
       minValueEnabled,
       minAttrGroups
     );
+
     const candidate = data.filter(
       it =>
         (!it.character || it.character === hero) &&
@@ -139,7 +177,9 @@ export default function Optimizer() {
         (!avoidEnabled || !avoid.includes(it.id ?? '')) &&
         it.attributes.some(a => selectedAttrs.has(a.type))
     );
+
     const needed = toBuy;
+
     if (needed === 0) {
       if (!meetsMinRequirements([])) {
         dispatch(setError('Minimum attribute values not met'));
@@ -150,16 +190,41 @@ export default function Optimizer() {
       setAlternatives([]);
       return;
     }
-    const itemScores = candidate.map(it => ({ item: it, score: calcScore([it]) }));
+
+    if (candidate.length === 0) {
+      dispatch(setError('No items available that match your criteria'));
+      return;
+    } const itemScores = candidate.map(it => ({ item: it, score: calcScore([it]) }));
     itemScores.sort((a, b) => b.score - a.score);
+
+    // Pre-filter items that are too expensive
+    const affordableItems = itemScores.filter(info => info.item.cost <= remainingCash);
+    if (affordableItems.length === 0) {
+      dispatch(setError('No affordable items available'));
+      return;
+    }
+
+    // Limit search space for performance - use only top items if there are too many
+    const maxItems = 50; // Reasonable limit for DFS
+    const searchItems = affordableItems.slice(0, maxItems);
+
     const prefix: number[] = [0];
-    for (const i of itemScores) prefix.push(prefix[prefix.length - 1] + i.score);
+    for (const i of searchItems) prefix.push(prefix[prefix.length - 1] + i.score);
     let bestScore = -Infinity;
     let bestCost = 0;
-    let bestCombos: ResultCombo[] = [];
-    const preferHighCost = eqItems.length + needed === 6;
-    const n = itemScores.length;
+    let bestCombos: ResultCombo[] = []; const preferHighCost = eqItems.length + needed === 6;
+
+    const n = searchItems.length;
+
+    // Add memoization for performance
+    const memo = new Map<string, boolean>();
+
     function dfs(start: number, selected: Item[], cost: number, score: number) {
+      // Early termination for large search spaces
+      if (n > 100 && selected.length === 0 && start > 50) {
+        return; // Limit search scope for performance
+      }
+
       if (meetsMinRequirements(selected)) {
         if (
           score > bestScore ||
@@ -175,12 +240,18 @@ export default function Optimizer() {
           bestCombos.push({ items: [...selected], cost, score });
         }
       }
+
       if (selected.length === needed || start >= n) return;
+
       const remaining = needed - selected.length;
       const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
       if (possible < bestScore) return;
-      for (let i = start; i < n; i++) {
-        const info = itemScores[i];
+
+      // Memoization key for pruning
+      const key = `${start}-${selected.length}-${cost}-${Math.floor(score)}`;
+      if (memo.has(key)) return;
+      memo.set(key, true); for (let i = start; i < n; i++) {
+        const info = searchItems[i];
         if (cost + info.item.cost > remainingCash) continue;
         selected.push(info.item);
         dfs(i + 1, selected, cost + info.item.cost, score + info.score);

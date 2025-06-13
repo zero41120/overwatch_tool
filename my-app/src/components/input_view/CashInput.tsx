@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCash } from '../../slices/inputSlice';
-import NumberInput from '../NumberInput';
+import NumberInput from '../shared/NumberInput';
 
 export default function CashInput() {
   const cash = useAppSelector(state => state.input.present.cash);

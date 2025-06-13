@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
-import type { Item } from '../types';
-import { rarityColor } from '../utils/optimizer';
+import type { Item } from '../../types';
+import { rarityColor } from '../../utils/utils';
 
 interface ItemCardProps {
   title: string;

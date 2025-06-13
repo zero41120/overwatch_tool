@@ -7,11 +7,11 @@ import {
   setMinGroupValue,
   toggleMinValueEnabled,
 } from '../../slices/inputSlice';
-import { attributeValueToLabel } from '../../utils/attribute';
-import Chip from '../Chip';
-import NumberInput from '../NumberInput';
-import SearchableDropdown from '../SearchableDropdown';
-import SimpleButton from '../SimpleButton';
+import { attributeValueToLabel } from '../../utils/attributeUtils';
+import Chip from '../shared/Chip';
+import NumberInput from '../shared/NumberInput';
+import SearchableDropdown from '../shared/SearchableDropdown';
+import SimpleButton from '../shared/SimpleButton';
 
 interface Props {
   attrTypes: string[];

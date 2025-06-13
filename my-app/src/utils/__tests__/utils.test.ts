@@ -1,6 +1,6 @@
-import { aggregate, scoreFromMap, rarityColor, meetsMinGroups } from '../optimizer';
-import { attributeValueToLabel, sortAttributes } from '../attribute';
-import type { Item, WeightRow, MinAttrGroup } from '../../types';
+import type { Item, MinAttrGroup, WeightRow } from '../../types';
+import { attributeValueToLabel, sortAttributes } from '../attributeUtils';
+import { aggregate, meetsMinGroups, rarityColor, scoreFromMap } from '../utils';
 
 describe('optimizer utils', () => {
   test('aggregate sums attributes correctly', () => {
