@@ -1,10 +1,9 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import store from '../../store';
-import MinValueSection from '../input/MinValueSection';
+import MinValueSection from '../input_view/MinValueSection';
 
 const attrTypes = ['AP', 'WP'];
 

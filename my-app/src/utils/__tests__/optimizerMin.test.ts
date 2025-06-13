@@ -1,5 +1,5 @@
-import { meetsMinGroups } from '../optimizer';
 import type { Item, MinAttrGroup } from '../../types';
+import { meetsMinGroups } from '../utils';
 
 test('optimizer respects minimum values with equipped items', () => {
   const eq: Item[] = [

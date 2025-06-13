@@ -1,5 +1,5 @@
-import { buildBreakdown } from '../optimizer';
-import type { WeightRow, MinAttrGroup } from '../../types';
+import type { MinAttrGroup, WeightRow } from '../../types';
+import { buildBreakdown } from '../utils';
 
 test('buildBreakdown adds min attributes', () => {
   const map = new Map<string, number>([

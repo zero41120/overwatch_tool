@@ -1,11 +1,10 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom"
-import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import store from '../../store'
-import ResultsSection from '../ResultsSection'
 import type { Item, ResultCombo } from '../../types'
+import ResultsSection from '../results_view/ResultsSection'
 
 const eqItems: Item[] = [
   { id: '1', name: 'Sword', cost: 100, tab: 'weapon', rarity: 'common', attributes: [] }

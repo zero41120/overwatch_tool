@@ -1,5 +1,5 @@
-import { collectRelevantAttributes } from '../optimizer';
-import type { WeightRow, MinAttrGroup } from '../../types';
+import type { MinAttrGroup, WeightRow } from '../../types';
+import { collectRelevantAttributes } from '../utils';
 
 test('collectRelevantAttributes merges weights and min groups', () => {
   const weights: WeightRow[] = [{ type: 'AP', weight: 1 }];

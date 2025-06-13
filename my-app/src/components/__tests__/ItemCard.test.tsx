@@ -1,8 +1,8 @@
 /* @vitest-environment jsdom */
 import '@testing-library/jest-dom'
-import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
-import ItemCard from '../ItemCard'
+import { fireEvent, render } from '@testing-library/react'
+import { vi } from 'vitest'
+import ItemCard from '../shared/ItemCard'
 
 describe('ItemCard', () => {
   it('calls onAvoid when button clicked', () => {
