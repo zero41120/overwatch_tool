@@ -7,7 +7,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      include: ["src/utils/**/*.{ts,tsx}", "src/slices/**/*.{ts,tsx}"],
+      include: ["src/**/*.{ts,tsx}"],
       thresholds: {
         lines: 80,
       },
