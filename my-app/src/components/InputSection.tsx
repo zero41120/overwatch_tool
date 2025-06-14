@@ -26,7 +26,7 @@ export default function InputSection({ heroes, attrTypes, filteredItems, onSubmi
         }}
         className="grid"
       >
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
           <HeroSelect heroes={heroes} />
           <CashInput />
         </div>

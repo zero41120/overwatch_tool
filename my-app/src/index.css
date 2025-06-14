@@ -29,3 +29,15 @@ body {
     linear-gradient(black, black) padding-box;
   mask-composite: subtract;
 }
+
+/* Hide number input arrows for Chrome, Safari, Edge */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide number input arrows for Firefox */
+.no-spinner[type='number'] {
+  -moz-appearance: textfield;
+}
