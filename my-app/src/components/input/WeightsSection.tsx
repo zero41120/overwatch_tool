@@ -24,14 +24,14 @@ export default function WeightsSection({ attrTypes }: Props) {
       <label className="block text-sm font-medium dark:text-gray-300">Attribute Weights</label>
       <div className="space-y-4 mt-1 mb-4">
         {weights.map((w, idx) => (
-          <div key={idx} className="flex items-center gap-2">
+          <div key={idx} className="flex flex-col sm:flex-row items-center gap-2">
             <SearchableDropdown
               label="Attribute Type"
               placeholder="Select type"
               options={options}
               value={w.type}
               onChange={value => dispatch(setWeightType({ index: idx, type: value }))}
-              className="flex-grow"
+              className="flex-grow w-full"
             />
             <NumberInput
               value={w.weight}
@@ -40,7 +40,7 @@ export default function WeightsSection({ attrTypes }: Props) {
               max={100}
               step={0.01}
               label={`Weight for ${attributeValueToLabel(w.type)}`}
-              className="w-24"
+              className="w-full sm:w-24"
             />
             {weights.length > 1 && (
               <button
