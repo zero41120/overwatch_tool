@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import type { InputState } from '../slices/inputSlice';
+import { useEffect, useRef, useState } from "react";
+import type { InputState } from "../slices/inputSlice";
 
 interface Props {
   history: InputState[];
@@ -19,15 +19,15 @@ export default function HistoryDropdown({ history }: Props) {
         setOpen(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   return (
     <div className="relative" ref={ref}>
       <button
         type="button"
-        onClick={() => setOpen(v => !v)}
+        onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800"
       >
         History
@@ -39,7 +39,11 @@ export default function HistoryDropdown({ history }: Props) {
           stroke="currentColor"
           className="size-4"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+          />
         </svg>
       </button>
       {open && (
@@ -47,7 +51,10 @@ export default function HistoryDropdown({ history }: Props) {
           {history.length > 0 ? (
             <ul>
               {history.map((h, idx) => (
-                <li key={idx} className="border-b border-gray-200 dark:border-gray-700 px-3 py-2 last:border-none dark:text-gray-100">
+                <li
+                  key={idx}
+                  className="border-b border-gray-200 dark:border-gray-700 px-3 py-2 last:border-none dark:text-gray-100"
+                >
                   {summary(h)}
                 </li>
               ))}

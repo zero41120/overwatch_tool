@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface DropdownOption {
   value: string;
@@ -15,14 +15,24 @@ interface DropdownProps {
   className?: string; // For additional styling on the main button/display
 }
 
-export default function Dropdown({ label, options, value, onChange, placeholder = "Select an option", className }: DropdownProps) {
+export default function Dropdown({
+  label,
+  options,
+  value,
+  onChange,
+  placeholder = "Select an option",
+  className,
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [openUpwards, setOpenUpwards] = useState(false); // New state for direction
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null); // Ref for the main trigger button
 
-  const selectedOptionLabel = options.find(option => option.value === value)?.label || placeholder;
-  const selectedOptionColor = options.find(option => option.value === value)?.color;
+  const selectedOptionLabel =
+    options.find((option) => option.value === value)?.label || placeholder;
+  const selectedOptionColor = options.find(
+    (option) => option.value === value,
+  )?.color;
 
   const handleSelect = (optionValue: string) => {
     onChange(optionValue);
@@ -32,13 +42,16 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -47,7 +60,8 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
     if (!isOpen || !triggerRef.current) return;
 
     const triggerRect = triggerRef.current.getBoundingClientRect();
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const viewportHeight =
+      window.innerHeight || document.documentElement.clientHeight;
 
     // Estimate dropdown height (e.g., 40vh as set in max-h)
     // A more precise calculation would involve rendering, measuring, then re-rendering,
@@ -69,16 +83,16 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
 
   return (
     <div className={`relative block ${className}`} ref={dropdownRef}>
-      <span
-        className="flex w-full divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm"
-      >
+      <span className="flex w-full divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm">
         <button
           type="button"
           className="flex-grow px-3 py-2 text-sm font-medium dark:text-gray-300 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative text-left"
           onClick={() => setIsOpen(!isOpen)}
           ref={triggerRef}
         >
-          <span style={{ color: selectedOptionColor || 'inherit' }}>{selectedOptionLabel}</span>
+          <span style={{ color: selectedOptionColor || "inherit" }}>
+            {selectedOptionLabel}
+          </span>
         </button>
 
         <button
@@ -95,7 +109,11 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
             stroke="currentColor"
             className="size-4"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
           </svg>
         </button>
       </span>
@@ -103,7 +121,7 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
       {isOpen && (
         <div
           role="menu"
-          className={`${dropdownClasses} ${openUpwards ? 'bottom-full mb-2' : 'top-full mt-2'}`}
+          className={`${dropdownClasses} ${openUpwards ? "bottom-full mb-2" : "top-full mt-2"}`}
         >
           {options.length > 0 ? (
             <div>
@@ -121,12 +139,16 @@ export default function Dropdown({ label, options, value, onChange, placeholder 
                     handleSelect(option.value);
                   }}
                 >
-                  <span style={{ color: option.color || 'inherit' }}>{option.label}</span>
+                  <span style={{ color: option.color || "inherit" }}>
+                    {option.label}
+                  </span>
                 </a>
               ))}
             </div>
           ) : (
-            <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900">No options available</p>
+            <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900">
+              No options available
+            </p>
           )}
         </div>
       )}

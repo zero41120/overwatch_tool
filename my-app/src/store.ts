@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import undoable from 'redux-undo';
-import inputReducer from './slices/inputSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import undoable from "redux-undo";
+import inputReducer from "./slices/inputSlice";
 
 const store = configureStore({
   reducer: {

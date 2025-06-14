@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import BreakPointCalculator from './components/BreakPointCalculator';
-import InputSection from './components/input_view/InputSection';
-import ResultsSection from './components/results_view/ResultsSection';
-import Toolbar from './components/Toolbar';
-import rawData from './data.json?raw';
-import { useAppDispatch, useAppSelector } from './hooks';
-import overridesRaw from './overrides.json?raw';
-import { setError, setToBuy, setWeightType } from './slices/inputSlice';
-import type { Item, ItemOverride, ResultCombo, RootData } from './types';
-import { sortAttributes } from './utils/attributeUtils';
+import { useEffect, useState } from "react";
+import BreakPointCalculator from "./components/BreakPointCalculator";
+import InputSection from "./components/input_view/InputSection";
+import ResultsSection from "./components/results_view/ResultsSection";
+import Toolbar from "./components/Toolbar";
+import rawData from "./data.json?raw";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import overridesRaw from "./overrides.json?raw";
+import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
+import type { Item, ItemOverride, ResultCombo, RootData } from "./types";
+import { sortAttributes } from "./utils/attributeUtils";
 import {
   aggregate,
   buildBreakdown,
   collectRelevantAttributes,
   meetsMinGroups,
   scoreFromMap,
-} from './utils/utils';
+} from "./utils/utils";
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -23,7 +23,7 @@ export default function Optimizer() {
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
 
   const dispatch = useAppDispatch();
-  const state = useAppSelector(s => s.input.present);
+  const state = useAppSelector((s) => s.input.present);
   const {
     hero,
     cash,
@@ -39,7 +39,9 @@ export default function Optimizer() {
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
   // Memoize expensive calculations
   const memoizedScores = useState(new Map<string, number>())[0];
-  const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
+  const memoizedAggregates = useState(
+    new Map<string, Map<string, number>>(),
+  )[0];
   const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
   useEffect(() => {
@@ -48,33 +50,37 @@ export default function Optimizer() {
       ? JSON.parse(overridesRaw)
       : {};
     const items: Item[] = [];
-    const add = (tab: string, rarity: 'common' | 'rare' | 'epic', arr: Item[]) => {
-      arr.forEach(it => {
+    const add = (
+      tab: string,
+      rarity: "common" | "rare" | "epic",
+      arr: Item[],
+    ) => {
+      arr.forEach((it) => {
         const override = overrides[it.name];
         const item = { ...it, tab, rarity };
         if (override?.attributes) item.attributes = override.attributes;
         items.push(item);
       });
     };
-    (['weapon', 'ability', 'survival'] as const).forEach(tab => {
+    (["weapon", "ability", "survival"] as const).forEach((tab) => {
       const rar = root.tabs[tab];
-      add(tab, 'common', rar.common);
-      add(tab, 'rare', rar.rare);
-      add(tab, 'epic', rar.epic);
+      add(tab, "common", rar.common);
+      add(tab, "rare", rar.rare);
+      add(tab, "epic", rar.epic);
     });
     setData(items);
     const heroesSet = new Set<string>();
     const seen = new Map<string, number>();
     const types = new Set<string>();
-    items.forEach(it => {
+    items.forEach((it) => {
       if (it.character) heroesSet.add(it.character);
-      it.attributes.forEach(a => {
+      it.attributes.forEach((a) => {
         const count = (seen.get(a.type) ?? 0) + 1;
         seen.set(a.type, count);
         if (count === 2) types.add(a.type); // Only add if seen more than once
       });
     });
-    types.delete('description');
+    types.delete("description");
     types.delete("Editor's Note");
     const sortedTypes = Array.from(types).sort(sortAttributes);
     setHeroes(Array.from(heroesSet).sort());
@@ -82,7 +88,7 @@ export default function Optimizer() {
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
   }, []);
   useEffect(() => {
-    const count = equipped.filter(id => id).length;
+    const count = equipped.filter((id) => id).length;
     if (toBuy + count > 6) dispatch(setToBuy(Math.max(0, 6 - count)));
   }, [dispatch, equipped, toBuy]);
   // Clear memoization when weights change
@@ -94,14 +100,18 @@ export default function Optimizer() {
   // Clear equipped items memoization when equipped items change
   useEffect(() => {
     memoizedEquippedItems.clear();
-  }, [equipped, memoizedEquippedItems]); function equippedItems() {
-    const key = equipped.filter(id => id).sort().join(',');
+  }, [equipped, memoizedEquippedItems]);
+  function equippedItems() {
+    const key = equipped
+      .filter((id) => id)
+      .sort()
+      .join(",");
     if (memoizedEquippedItems.has(key)) {
       return memoizedEquippedItems.get(key)!;
     }
 
     const items = equipped
-      .map(id => data.find(i => i.id === id))
+      .map((id) => data.find((i) => i.id === id))
       .filter((i): i is Item => Boolean(i));
 
     memoizedEquippedItems.set(key, items);
@@ -124,7 +134,10 @@ export default function Optimizer() {
     return true;
   }
   function calcScore(items: Item[]) {
-    const key = items.map(i => i.id || i.name).sort().join(',');
+    const key = items
+      .map((i) => i.id || i.name)
+      .sort()
+      .join(",");
     if (memoizedScores.has(key)) {
       return memoizedScores.get(key)!;
     }
@@ -147,11 +160,15 @@ export default function Optimizer() {
     );
   }
   function onCalculate() {
-    dispatch(setError(''));
+    dispatch(setError(""));
 
     // Validate inputs before processing
     if (!validate()) {
-      dispatch(setError('Please check your inputs - ensure all required fields are filled'));
+      dispatch(
+        setError(
+          "Please check your inputs - ensure all required fields are filled",
+        ),
+      );
       return;
     }
 
@@ -160,29 +177,29 @@ export default function Optimizer() {
     const remainingCash = cash - eqCost;
 
     if (remainingCash < 0) {
-      dispatch(setError('Equipped items cost exceeds total cash'));
+      dispatch(setError("Equipped items cost exceeds total cash"));
       return;
     }
 
     const selectedAttrs = collectRelevantAttributes(
       weights,
       minValueEnabled,
-      minAttrGroups
+      minAttrGroups,
     );
 
     const candidate = data.filter(
-      it =>
+      (it) =>
         (!it.character || it.character === hero) &&
-        !equipped.includes(it.id ?? '') &&
-        (!avoidEnabled || !avoid.includes(it.id ?? '')) &&
-        it.attributes.some(a => selectedAttrs.has(a.type))
+        !equipped.includes(it.id ?? "") &&
+        (!avoidEnabled || !avoid.includes(it.id ?? "")) &&
+        it.attributes.some((a) => selectedAttrs.has(a.type)),
     );
 
     const needed = toBuy;
 
     if (needed === 0) {
       if (!meetsMinRequirements([])) {
-        dispatch(setError('Minimum attribute values not met'));
+        dispatch(setError("Minimum attribute values not met"));
         return;
       }
       const score = calcScore(eqItems);
@@ -192,15 +209,21 @@ export default function Optimizer() {
     }
 
     if (candidate.length === 0) {
-      dispatch(setError('No items available that match your criteria'));
+      dispatch(setError("No items available that match your criteria"));
       return;
-    } const itemScores = candidate.map(it => ({ item: it, score: calcScore([it]) }));
+    }
+    const itemScores = candidate.map((it) => ({
+      item: it,
+      score: calcScore([it]),
+    }));
     itemScores.sort((a, b) => b.score - a.score);
 
     // Pre-filter items that are too expensive
-    const affordableItems = itemScores.filter(info => info.item.cost <= remainingCash);
+    const affordableItems = itemScores.filter(
+      (info) => info.item.cost <= remainingCash,
+    );
     if (affordableItems.length === 0) {
-      dispatch(setError('No affordable items available'));
+      dispatch(setError("No affordable items available"));
       return;
     }
 
@@ -209,10 +232,12 @@ export default function Optimizer() {
     const searchItems = affordableItems.slice(0, maxItems);
 
     const prefix: number[] = [0];
-    for (const i of searchItems) prefix.push(prefix[prefix.length - 1] + i.score);
+    for (const i of searchItems)
+      prefix.push(prefix[prefix.length - 1] + i.score);
     let bestScore = -Infinity;
     let bestCost = 0;
-    let bestCombos: ResultCombo[] = []; const preferHighCost = eqItems.length + needed === 6;
+    let bestCombos: ResultCombo[] = [];
+    const preferHighCost = eqItems.length + needed === 6;
 
     const n = searchItems.length;
 
@@ -228,7 +253,8 @@ export default function Optimizer() {
       if (meetsMinRequirements(selected)) {
         if (
           score > bestScore ||
-          (score === bestScore && (preferHighCost ? cost > bestCost : cost < bestCost))
+          (score === bestScore &&
+            (preferHighCost ? cost > bestCost : cost < bestCost))
         ) {
           bestScore = score;
           bestCost = cost;
@@ -244,13 +270,15 @@ export default function Optimizer() {
       if (selected.length === needed || start >= n) return;
 
       const remaining = needed - selected.length;
-      const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
+      const possible =
+        score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
       if (possible < bestScore) return;
 
       // Memoization key for pruning
       const key = `${start}-${selected.length}-${cost}-${Math.floor(score)}`;
       if (memo.has(key)) return;
-      memo.set(key, true); for (let i = start; i < n; i++) {
+      memo.set(key, true);
+      for (let i = start; i < n; i++) {
         const info = searchItems[i];
         if (cost + info.item.cost > remainingCash) continue;
         selected.push(info.item);
@@ -261,21 +289,21 @@ export default function Optimizer() {
     dfs(0, [], 0, 0);
 
     if (bestCombos.length === 0) {
-      dispatch(setError('Insufficient cash for any purchase'));
+      dispatch(setError("Insufficient cash for any purchase"));
       return;
     }
     const [best, ...others] = bestCombos.sort((a, b) =>
-      preferHighCost ? b.cost - a.cost : a.cost - b.cost
+      preferHighCost ? b.cost - a.cost : a.cost - b.cost,
     );
     const alt = others
-      .filter(c => (preferHighCost ? c.cost < best.cost : c.cost > best.cost))
-      .sort((a, b) => preferHighCost ? b.cost - a.cost : a.cost - b.cost);
+      .filter((c) => (preferHighCost ? c.cost < best.cost : c.cost > best.cost))
+      .sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
     const totalMap = aggregate([...best.items, ...eqItems]);
     const breakdown = buildBreakdown(
       totalMap,
       weights,
       minValueEnabled,
-      minAttrGroups
+      minAttrGroups,
     );
     setResults({
       items: best.items,
@@ -283,12 +311,16 @@ export default function Optimizer() {
       score: scoreFromMap(totalMap, weights),
       breakdown,
     });
-    setAlternatives(alt.map(c => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
+    setAlternatives(
+      alt.map((c) => ({ ...c, score: calcScore([...c.items, ...eqItems]) })),
+    );
   }
 
   if (data.length === 0) return <div className="p-4">Loading...</div>;
 
-  const filtered = data.filter(it => !hero || !it.character || it.character === hero);
+  const filtered = data.filter(
+    (it) => !hero || !it.character || it.character === hero,
+  );
   const eqItems = equippedItems();
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
@@ -303,7 +335,13 @@ export default function Optimizer() {
           onSubmit={onCalculate}
           validate={validate}
         />
-        <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
+        <ResultsSection
+          eqItems={eqItems}
+          eqCost={eqCost}
+          cash={cash}
+          results={results}
+          alternatives={alternatives}
+        />
         <BreakPointCalculator />
       </div>
     </div>

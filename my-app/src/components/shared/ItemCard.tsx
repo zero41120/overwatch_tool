@@ -1,10 +1,10 @@
-import parse from 'html-react-parser';
-import type { Item } from '../../types';
-import { rarityColor } from '../../utils/utils';
+import parse from "html-react-parser";
+import type { Item } from "../../types";
+import { rarityColor } from "../../utils/utils";
 
 interface ItemCardProps {
   title: string;
-  rarity: Item['rarity'];
+  rarity: Item["rarity"];
   subtitle?: string;
   iconUrl?: string;
   content: { iconUrl?: string; text: string }[];
@@ -24,9 +24,7 @@ export default function ItemCard({
   showAvoidButton,
 }: ItemCardProps) {
   return (
-    <div
-      className="glass-card flex flex-col font-noto rounded-[10px] overflow-hidden dark:bg-gray-800 dark:border-gray-700"
-    >
+    <div className="glass-card flex flex-col font-noto rounded-[10px] overflow-hidden dark:bg-gray-800 dark:border-gray-700">
       {/* Title Section */}
       <div className="flex items-center gap-4 px-5 py-4">
         {iconUrl && (
@@ -39,18 +37,21 @@ export default function ItemCard({
           />
         )}
         <div>
-          <div className="text-lg font-bold" style={{ color: rarityColor(rarity) }}>
+          <div
+            className="text-lg font-bold"
+            style={{ color: rarityColor(rarity) }}
+          >
             {title}
           </div>
           {subtitle && (
-            <div className="text-sm font-semibold" style={{ color: '#f67422' }}>
+            <div className="text-sm font-semibold" style={{ color: "#f67422" }}>
               {subtitle}
             </div>
           )}
         </div>
       </div>
       {/* Divider */}
-      <div className="h-px mx-4" style={{ background: '#264268' }} />
+      <div className="h-px mx-4" style={{ background: "#264268" }} />
       {/* Content Section */}
       <div className="flex flex-col gap-2 px-5 py-4">
         {content.map((row, idx) => (
@@ -65,17 +66,23 @@ export default function ItemCard({
                 style={{ borderRadius: 4 }} // Tailwind doesn't have rounded-[4px] by default
               />
             )}
-            <span className="text-sm font-merriweather" style={{ color: '#fdfdfd' }}>
+            <span
+              className="text-sm font-merriweather"
+              style={{ color: "#fdfdfd" }}
+            >
               {parse(row.text)}
             </span>
           </div>
         ))}
       </div>
       {/* Divider */}
-      <div className="h-px mx-4" style={{ background: '#264268' }} />
+      <div className="h-px mx-4" style={{ background: "#264268" }} />
       {/* Footer Section */}
       <div className="flex items-center justify-between px-5 py-3">
-        <span className="font-mono text-base font-bold" style={{ color: '#fdfdfd' }}>
+        <span
+          className="font-mono text-base font-bold"
+          style={{ color: "#fdfdfd" }}
+        >
           {price}
         </span>
         {showAvoidButton && (

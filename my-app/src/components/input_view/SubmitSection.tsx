@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setToBuy } from '../../slices/inputSlice';
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setToBuy } from "../../slices/inputSlice";
 
 interface Props {
   onSubmit: () => void;
@@ -8,8 +8,8 @@ interface Props {
 
 export default function SubmitSection({ onSubmit, validate }: Props) {
   const dispatch = useAppDispatch();
-  const toBuy = useAppSelector(state => state.input.present.toBuy);
-  const error = useAppSelector(state => state.input.present.error);
+  const toBuy = useAppSelector((state) => state.input.present.toBuy);
+  const error = useAppSelector((state) => state.input.present.error);
 
   return (
     <div className="!mt-8 border-t pt-6">
@@ -24,19 +24,22 @@ export default function SubmitSection({ onSubmit, validate }: Props) {
         Calculate Optimal Build
       </button>
       <div className="mt-4 grid grid-cols-5 gap-2">
-        {[2, 3, 4, 5, 6].map(n => (
+        {[2, 3, 4, 5, 6].map((n) => (
           <button
             key={n}
             type="button"
             onClick={() => dispatch(setToBuy(n))}
-            className={`rounded-lg py-2 text-sm font-medium ${toBuy === n ? 'bg-indigo-600 dark:bg-indigo-700 text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700'}`}
+            className={`rounded-lg py-2 text-sm font-medium ${toBuy === n ? "bg-indigo-600 dark:bg-indigo-700 text-white" : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700"}`}
           >
             {n}
           </button>
         ))}
       </div>
       {error && (
-        <div role="alert" className="mt-4 rounded border-s-4 border-red-500 dark:border-red-700 bg-red-50 dark:bg-gray-900 p-4 text-sm font-medium text-red-800 dark:text-red-300">
+        <div
+          role="alert"
+          className="mt-4 rounded border-s-4 border-red-500 dark:border-red-700 bg-red-50 dark:bg-gray-900 p-4 text-sm font-medium text-red-800 dark:text-red-300"
+        >
           {error}
         </div>
       )}
