@@ -17,3 +17,5 @@
 2025-06-11 Fix mobile overflow in damage calculator table src/components/BreakPointCalculator.tsx
 2025-06-12 Display item descriptions without label src/components/ResultsSection.tsx
 2025-06-12 Fix mobile layout issues and disable iOS input zoom src/components
+
+2025-06-14  add tests for dropdown, toolbar, and calculator  src/components
