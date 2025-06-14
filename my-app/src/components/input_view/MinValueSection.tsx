@@ -28,10 +28,8 @@ export default function MinValueSection({ attrTypes }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium dark:text-gray-300">
-        Minimum Attribute Totals
-      </label>
-      <div className="flex items-center gap-2 mt-1 mb-2">
+
+      <div className="flex items-center gap-2">
         <input
           id="min-value-toggle"
           type="checkbox"
@@ -47,7 +45,7 @@ export default function MinValueSection({ attrTypes }: Props) {
         </label>
       </div>
       {enabled && (
-        <div className="space-y-4">
+        <div className="space-y-4  mt-2">
           {groups.map((g, idx) => (
             <div key={idx} className="rounded border p-3 space-y-2">
               <div className="flex flex-col sm:flex-row items-center gap-2">

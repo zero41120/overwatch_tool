@@ -32,10 +32,7 @@ export default function EquippedSection({ items }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium dark:text-gray-300">
-        Equipped Items
-      </label>
-      <div className="flex flex-wrap items-center gap-2 mt-1 mb-2">
+      <div className="flex items-center gap-2">
         <input
           id="use-equipped-checkbox"
           type="checkbox"
@@ -51,7 +48,7 @@ export default function EquippedSection({ items }: Props) {
         </label>
       </div>
       {useEquipped && (
-        <div className="space-y-4 mt-1">
+        <div className="space-y-4 mt-2">
           {equipped.map((id, idx) => (
             <div key={idx} className="flex items-center gap-2">
               <SearchableDropdown
@@ -74,7 +71,7 @@ export default function EquippedSection({ items }: Props) {
                 }
                 className="flex-grow"
               />
-              {equipped.length > 2 && (
+              {equipped.length > 1 && (
                 <button
                   type="button"
                   className="flex-shrink-0 rounded p-2 text-gray-400 hover:bg-red-50 hover:text-red-600"

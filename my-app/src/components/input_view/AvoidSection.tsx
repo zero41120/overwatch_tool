@@ -24,10 +24,7 @@ export default function AvoidSection({ items }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium dark:text-gray-300">
-        Avoid Items
-      </label>
-      <div className="flex items-center gap-2 mt-1 mb-2">
+      <div className="flex items-center gap-2">
         <input
           id="avoid-toggle"
           type="checkbox"
@@ -44,7 +41,7 @@ export default function AvoidSection({ items }: Props) {
       </div>
       {enabled && (
         <>
-          <div className="flex flex-col sm:flex-row items-stretch gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch gap-2 mt-2">
             <SearchableDropdown
               label="Avoid Item"
               placeholder="Select item"
