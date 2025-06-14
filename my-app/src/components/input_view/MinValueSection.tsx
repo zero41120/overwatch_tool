@@ -42,14 +42,14 @@ export default function MinValueSection({ attrTypes }: Props) {
         <div className="space-y-4">
           {groups.map((g, idx) => (
             <div key={idx} className="rounded border p-3 space-y-2">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center gap-2">
                 <span className="text-sm font-medium dark:text-gray-300">Target Value:</span>
                 <NumberInput
                   value={g.value}
                   onChange={val => dispatch(setMinGroupValue({ index: idx, value: val }))}
                   min={0}
                   label="Minimum Value"
-                  className="w-24"
+                  className="w-full sm:w-24"
                 />
                 {groups.length > 1 && (
                   <button

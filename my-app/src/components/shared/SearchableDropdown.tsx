@@ -81,7 +81,12 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
           }}
           ref={triggerRef}
         >
-          <span style={{ color: displayedColor || 'inherit', minWidth: '135px', display: 'inline-block' }}>{displayedLabel}</span>
+          <span
+            style={{ color: displayedColor || 'inherit' }}
+            className="truncate"
+          >
+            {displayedLabel}
+          </span>
         </button>
         <button
           type="button"
@@ -106,7 +111,7 @@ export default function SearchableDropdown({ label, options, value, onChange, pl
               <input
                 type="text"
                 ref={inputRef}
-                className="mx-3 my-2 w-[calc(100%-1.5rem)] rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 px-2 py-1 text-sm placeholder-gray-400 dark:placeholder-gray-500"
+                className="mx-3 my-2 w-[calc(100%-1.5rem)] rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 px-2 py-1 text-base placeholder-gray-400 dark:placeholder-gray-500"
                 placeholder="Search..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
