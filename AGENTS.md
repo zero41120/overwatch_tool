@@ -17,7 +17,7 @@ Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindC
 
 ## Coding Conventions
 
-- Test coverage should stay at or above 80 percent.
+- Test coverage should stay at or above 80 percent. Use `test:coverage` script to check.
 - Keep files small (target < 150 logical lines).
 - Use functional React components with hooks.
 - Use Tailwind utility classes; avoid inline style props.
@@ -32,12 +32,3 @@ Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindC
 ```
 YYYY-MM-DD  feature description  main file or folder
 ```
-
-## Core Module Pointers
-
-- src/Optimizer.tsx main optimization routine
-- src/utils/optimizer.ts scoring and search helpers
-- src/components/InputSection.tsx user inputs
-- src/components/ResultsSection.tsx result display
-- src/components/BreakPointCalculator.tsx bullet breakpoint calculator
-- src/components/input/MinValueSection.tsx minimum attribute inputs
