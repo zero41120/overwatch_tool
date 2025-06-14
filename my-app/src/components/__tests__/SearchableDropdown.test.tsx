@@ -16,7 +16,7 @@ describe("SearchableDropdown", () => {
         label="Test"
         options={options}
         value=""
-        onChange={() => {}}
+        onChange={() => { }}
       />,
     );
     fireEvent.click(getAllByRole("button")[0]);
