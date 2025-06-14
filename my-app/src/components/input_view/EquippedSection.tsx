@@ -35,7 +35,7 @@ export default function EquippedSection({ items }: Props) {
       <label className="block text-sm font-medium dark:text-gray-300">
         Equipped Items
       </label>
-      <div className="flex items-center gap-2 mt-1 mb-2">
+      <div className="flex flex-wrap items-center gap-2 mt-1 mb-2">
         <input
           id="use-equipped-checkbox"
           type="checkbox"
