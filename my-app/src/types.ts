@@ -10,7 +10,7 @@ export interface Item {
   character?: string;
   id?: string;
   tab: string;
-  rarity: 'common' | 'rare' | 'epic';
+  rarity: "common" | "rare" | "epic";
 }
 
 export interface RootData {

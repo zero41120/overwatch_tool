@@ -1,22 +1,22 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
-import { fireEvent, render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from '../../store';
-import MinValueSection from '../input_view/MinValueSection';
+import { fireEvent, render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import store from "../../store";
+import MinValueSection from "../input_view/MinValueSection";
 
-const attrTypes = ['AP', 'WP'];
+const attrTypes = ["AP", "WP"];
 
-test('renders default group when enabled', () => {
+test("renders default group when enabled", () => {
   const { getByLabelText, getByText } = render(
     <Provider store={store}>
       <MinValueSection attrTypes={attrTypes} />
-    </Provider>
+    </Provider>,
   );
-  const checkbox = getByLabelText('Enable Minimum Values');
+  const checkbox = getByLabelText("Enable Minimum Values");
   fireEvent.click(checkbox);
-  expect(getByText('Add Group')).toBeInTheDocument();
-  expect(getByText('Health')).toBeInTheDocument();
-  expect(getByText('Armor')).toBeInTheDocument();
-  expect(getByText('Shield')).toBeInTheDocument();
+  expect(getByText("Add Group")).toBeInTheDocument();
+  expect(getByText("Health")).toBeInTheDocument();
+  expect(getByText("Armor")).toBeInTheDocument();
+  expect(getByText("Shield")).toBeInTheDocument();
 });

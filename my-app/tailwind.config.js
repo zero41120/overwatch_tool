@@ -1,16 +1,13 @@
 export default {
-  darkMode: 'class',
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
-  ],
+  darkMode: "class",
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        noto: ['"Noto Sans Display"', 'sans-serif'],
-        merriweather: ['"Merriweather Sans"', 'sans-serif'],
+        noto: ['"Noto Sans Display"', "sans-serif"],
+        merriweather: ['"Merriweather Sans"', "sans-serif"],
       },
     },
   },
   plugins: [],
-}
+};

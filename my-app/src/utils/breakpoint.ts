@@ -16,7 +16,7 @@ export function shotsToKill(
   bulletsPerShot: number,
   hp: number,
   armor: number,
-  penetrate: boolean
+  penetrate: boolean,
 ): { shots: number; totalDamage: number } {
   if (damage <= 0 || bulletsPerShot <= 0) {
     return { shots: Infinity, totalDamage: 0 };
@@ -48,12 +48,18 @@ export function calculateBreakpoints(
   bulletsPerShot: number,
   hp: number,
   armor: number,
-  penetrate: boolean
+  penetrate: boolean,
 ): BreakPointResult[] {
   const results: BreakPointResult[] = [];
   for (let p = 100; p <= 200; p += 5) {
     const scale = damage * (p / 100);
-    const { shots, totalDamage } = shotsToKill(scale, bulletsPerShot, hp, armor, penetrate);
+    const { shots, totalDamage } = shotsToKill(
+      scale,
+      bulletsPerShot,
+      hp,
+      armor,
+      penetrate,
+    );
     results.push({ percent: p, shots, totalDamage });
   }
   return results;

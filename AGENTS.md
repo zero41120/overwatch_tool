@@ -8,21 +8,20 @@ Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindC
 
 ## Directory Map
 
-* my-app/src                 application source code
-* my-app/src/components      UI components
-* my-app/src/utils           helpers and pure functions
-* my-app/data.json           canonical item data, avoid reading this file
-* my-app/overrides.json      local balance overrides
-* my-app/src/types.ts        shared type definitions
-
+- my-app/src application source code
+- my-app/src/components UI components
+- my-app/src/utils helpers and pure functions
+- my-app/data.json canonical item data, avoid reading this file
+- my-app/overrides.json local balance overrides
+- my-app/src/types.ts shared type definitions
 
 ## Coding Conventions
 
-* Test coverage should stay at or above 80 percent.
-* Keep files small (target < 150 logical lines).
-* Use functional React components with hooks.
-* Use Tailwind utility classes; avoid inline style props.
-* Use Conventional Commits (feat, fix, chore, docs).
+- Test coverage should stay at or above 80 percent.
+- Keep files small (target < 150 logical lines).
+- Use functional React components with hooks.
+- Use Tailwind utility classes; avoid inline style props.
+- Use Conventional Commits (feat, fix, chore, docs).
 
 ## Feature Development Checklist
 
@@ -36,12 +35,9 @@ YYYY-MM-DD  feature description  main file or folder
 
 ## Core Module Pointers
 
-* src/Optimizer.tsx                 main optimization routine
-* src/utils/optimizer.ts            scoring and search helpers
-* src/components/InputSection.tsx   user inputs
-* src/components/ResultsSection.tsx result display
-* src/components/BreakPointCalculator.tsx bullet breakpoint calculator
-* src/components/input/MinValueSection.tsx minimum attribute inputs
-
-
-
+- src/Optimizer.tsx main optimization routine
+- src/utils/optimizer.ts scoring and search helpers
+- src/components/InputSection.tsx user inputs
+- src/components/ResultsSection.tsx result display
+- src/components/BreakPointCalculator.tsx bullet breakpoint calculator
+- src/components/input/MinValueSection.tsx minimum attribute inputs

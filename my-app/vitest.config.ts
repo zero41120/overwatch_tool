@@ -1,16 +1,16 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     globals: true,
-    environment: 'node',
+    environment: "node",
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'html'],
-      include: ['src/utils/**/*.{ts,tsx}', 'src/slices/**/*.{ts,tsx}'],
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["src/**/*.{ts,tsx}"],
       thresholds: {
         lines: 80,
       },
     },
   },
-})
+});

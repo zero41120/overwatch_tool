@@ -1,11 +1,11 @@
-import type { Item } from '../../types';
-import AvoidSection from './AvoidSection';
-import CashInput from './CashInput';
-import EquippedSection from './EquippedSection';
-import HeroSelect from './HeroSelect';
-import MinValueSection from './MinValueSection';
-import SubmitSection from './SubmitSection';
-import WeightsSection from './WeightsSection';
+import type { Item } from "../../types";
+import AvoidSection from "./AvoidSection";
+import CashInput from "./CashInput";
+import EquippedSection from "./EquippedSection";
+import HeroSelect from "./HeroSelect";
+import MinValueSection from "./MinValueSection";
+import SubmitSection from "./SubmitSection";
+import WeightsSection from "./WeightsSection";
 
 interface Props {
   heroes: string[];
@@ -15,12 +15,20 @@ interface Props {
   validate: () => boolean;
 }
 
-export default function InputSection({ heroes, attrTypes, filteredItems, onSubmit, validate }: Props) {
+export default function InputSection({
+  heroes,
+  attrTypes,
+  filteredItems,
+  onSubmit,
+  validate,
+}: Props) {
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8  dark:border-gray-700">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">
+        Configuration
+      </h2>
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           if (validate()) onSubmit();
         }}

@@ -21,7 +21,7 @@ export default function SliderRange({
   className,
   label,
   showValue = true,
-  disabled = false
+  disabled = false,
 }: SliderRangeProps) {
   const [sliderValue, setSliderValue] = useState<number>(value);
 
@@ -30,17 +30,20 @@ export default function SliderRange({
     setSliderValue(value);
   }, [value]);
 
-  const handleSliderChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(e.target.value);
-    setSliderValue(newValue);
-    onChange(newValue);
-  }, [onChange]);
+  const handleSliderChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = Number(e.target.value);
+      setSliderValue(newValue);
+      onChange(newValue);
+    },
+    [onChange],
+  );
 
   // Calculate percentage for styling
   const percentage = ((sliderValue - min) / (max - min)) * 100;
 
   return (
-    <div className={`relative ${className || ''}`}>
+    <div className={`relative ${className || ""}`}>
       {label && (
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           {label}
@@ -71,13 +74,12 @@ export default function SliderRange({
           value={sliderValue}
           onChange={handleSliderChange}
           disabled={disabled}
-          className={`absolute top-1/2 left-0 w-full h-6 -translate-y-1/2 z-20 appearance-none bg-transparent focus:outline-none ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          className={`absolute top-1/2 left-0 w-full h-6 -translate-y-1/2 z-20 appearance-none bg-transparent focus:outline-none ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
           aria-label={label || `Slider from ${min} to ${max}`}
-          style={{ pointerEvents: disabled ? 'none' : 'auto' }}
+          style={{ pointerEvents: disabled ? "none" : "auto" }}
         />
 
         {/* Slider thumb (visual only) */}
-
       </div>
 
       {/* Min/Max labels */}

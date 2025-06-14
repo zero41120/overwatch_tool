@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { WeightRow, MinAttrGroup } from '../types';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { WeightRow, MinAttrGroup } from "../types";
 
 export interface InputState {
   hero: string;
   cash: number;
-  equipped: (string | '')[];
+  equipped: (string | "")[];
   toBuy: number;
   avoid: string[];
   avoidEnabled: boolean;
@@ -16,20 +16,20 @@ export interface InputState {
 }
 
 const initialState: InputState = {
-  hero: 'Ashe',
+  hero: "Ashe",
   cash: 11000,
-  equipped: Array(2).fill(''),
+  equipped: Array(2).fill(""),
   toBuy: 6,
   avoid: [],
   avoidEnabled: false,
-  weights: [{ type: '', weight: 1 }],
-  error: '',
+  weights: [{ type: "", weight: 1 }],
+  error: "",
   minValueEnabled: false,
   minAttrGroups: [],
 };
 
 const inputSlice = createSlice({
-  name: 'input',
+  name: "input",
   initialState,
   reducers: {
     setHero(state, action: PayloadAction<string>) {
@@ -43,7 +43,7 @@ const inputSlice = createSlice({
     },
     addEquippedSlot(state) {
       if (state.equipped.length < 6) {
-        state.equipped.push('');
+        state.equipped.push("");
       }
     },
     removeEquippedSlot(state, action: PayloadAction<number>) {
@@ -65,12 +65,15 @@ const inputSlice = createSlice({
     toggleAvoidEnabled(state) {
       state.avoidEnabled = !state.avoidEnabled;
     },
-    setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
+    setWeightType(
+      state,
+      action: PayloadAction<{ index: number; type: string }>,
+    ) {
       state.weights[action.payload.index].type = action.payload.type;
     },
     setWeightValue(
       state,
-      action: PayloadAction<{ index: number; value: number }>
+      action: PayloadAction<{ index: number; value: number }>,
     ) {
       state.weights[action.payload.index].weight = action.payload.value;
     },
@@ -87,7 +90,7 @@ const inputSlice = createSlice({
       state.minValueEnabled = !state.minValueEnabled;
       if (state.minValueEnabled && state.minAttrGroups.length === 0) {
         state.minAttrGroups.push({
-          attrs: ['Health', 'Armor', 'Shield'],
+          attrs: ["Health", "Armor", "Shield"],
           value: 50,
         });
       }
@@ -100,13 +103,13 @@ const inputSlice = createSlice({
     },
     setMinGroupValue(
       state,
-      action: PayloadAction<{ index: number; value: number }>
+      action: PayloadAction<{ index: number; value: number }>,
     ) {
       state.minAttrGroups[action.payload.index].value = action.payload.value;
     },
     addAttrToGroup(
       state,
-      action: PayloadAction<{ index: number; attr: string }>
+      action: PayloadAction<{ index: number; attr: string }>,
     ) {
       const group = state.minAttrGroups[action.payload.index];
       if (!group.attrs.includes(action.payload.attr)) {
@@ -115,10 +118,10 @@ const inputSlice = createSlice({
     },
     removeAttrFromGroup(
       state,
-      action: PayloadAction<{ index: number; attr: string }>
+      action: PayloadAction<{ index: number; attr: string }>,
     ) {
       const group = state.minAttrGroups[action.payload.index];
-      group.attrs = group.attrs.filter(a => a !== action.payload.attr);
+      group.attrs = group.attrs.filter((a) => a !== action.payload.attr);
     },
   },
 });

@@ -3,12 +3,12 @@ export function parseNumeric(value: string): number {
   return m ? parseFloat(m[0]) : 0;
 }
 
-import type { Item, WeightRow, MinAttrGroup } from '../types';
+import type { Item, WeightRow, MinAttrGroup } from "../types";
 
 export function aggregate(items: Item[]): Map<string, number> {
   const map = new Map<string, number>();
-  items.forEach(it => {
-    it.attributes.forEach(a => {
+  items.forEach((it) => {
+    it.attributes.forEach((a) => {
       const v = parseNumeric(a.value);
       map.set(a.type, (map.get(a.type) ?? 0) + v);
     });
@@ -18,28 +18,28 @@ export function aggregate(items: Item[]): Map<string, number> {
 
 export function scoreFromMap(map: Map<string, number>, weights: WeightRow[]) {
   let total = 0;
-  weights.forEach(w => {
+  weights.forEach((w) => {
     total += (map.get(w.type) ?? 0) * w.weight;
   });
   return total;
 }
 
-export function rarityColor(r: Item['rarity']) {
+export function rarityColor(r: Item["rarity"]) {
   switch (r) {
-    case 'common':
-      return '#17a631';
-    case 'rare':
-      return '#217dbe';
-    case 'epic':
-      return '#8727d6';
+    case "common":
+      return "#17a631";
+    case "rare":
+      return "#217dbe";
+    case "epic":
+      return "#8727d6";
     default:
-      return 'black';
+      return "black";
   }
 }
 
 export function meetsMinGroups(items: Item[], groups: MinAttrGroup[]) {
   const map = aggregate(items);
-  return groups.every(g => {
+  return groups.every((g) => {
     const sum = g.attrs.reduce((s, a) => s + (map.get(a) ?? 0), 0);
     return sum >= g.value;
   });
@@ -48,15 +48,15 @@ export function meetsMinGroups(items: Item[], groups: MinAttrGroup[]) {
 export function collectRelevantAttributes(
   weights: WeightRow[],
   enabled: boolean,
-  groups: MinAttrGroup[]
+  groups: MinAttrGroup[],
 ) {
-  const set = new Set(weights.map(w => w.type));
+  const set = new Set(weights.map((w) => w.type));
   if (enabled) {
-    groups.forEach(g => {
-      g.attrs.forEach(a => set.add(a));
+    groups.forEach((g) => {
+      g.attrs.forEach((a) => set.add(a));
     });
   }
-  set.delete('');
+  set.delete("");
   return set;
 }
 
@@ -64,16 +64,16 @@ export function buildBreakdown(
   map: Map<string, number>,
   weights: WeightRow[],
   enabled: boolean,
-  groups: MinAttrGroup[]
+  groups: MinAttrGroup[],
 ) {
   const attrs = collectRelevantAttributes(weights, enabled, groups);
   const rows: { type: string; sum: number; contrib: number }[] = [];
-  weights.forEach(w => {
+  weights.forEach((w) => {
     const sum = map.get(w.type) ?? 0;
     rows.push({ type: w.type, sum, contrib: sum * w.weight });
     attrs.delete(w.type);
   });
-  attrs.forEach(type => {
+  attrs.forEach((type) => {
     const sum = map.get(type) ?? 0;
     rows.push({ type, sum, contrib: 0 });
   });

@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
-import { ActionCreators } from 'redux-undo';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import HistoryDropdown from './HistoryDropdown';
+import { useEffect } from "react";
+import { ActionCreators } from "redux-undo";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import HistoryDropdown from "./HistoryDropdown";
 
 export default function Toolbar() {
   const dispatch = useAppDispatch();
-  const past = useAppSelector(s => s.input.past);
-  const future = useAppSelector(s => s.input.future);
+  const past = useAppSelector((s) => s.input.past);
+  const future = useAppSelector((s) => s.input.future);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key.toLowerCase() === 'z') {
+      if (e.ctrlKey && e.key.toLowerCase() === "z") {
         e.preventDefault();
         if (e.shiftKey) dispatch(ActionCreators.redo());
         else dispatch(ActionCreators.undo());
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, [dispatch]);
 
   return (
