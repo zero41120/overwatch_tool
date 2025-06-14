@@ -96,7 +96,6 @@ export default function SearchableDropdown({
         >
           <span
             style={{ color: displayedColor || "inherit" }}
-            className="truncate"
           >
             {displayedLabel}
           </span>
