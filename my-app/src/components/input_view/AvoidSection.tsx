@@ -35,7 +35,7 @@ export default function AvoidSection({ items }: Props) {
       </div>
       {enabled && (
         <>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch gap-2">
             <SearchableDropdown
               label="Avoid Item"
               placeholder="Select item"
@@ -49,7 +49,7 @@ export default function AvoidSection({ items }: Props) {
               ]}
               value={selected}
               onChange={setSelected}
-              className="flex-grow"
+              className="flex-grow w-full"
             />
             <SimpleButton text="Add" onClick={() => {
               if (selected) {
