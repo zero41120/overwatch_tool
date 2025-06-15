@@ -23,4 +23,18 @@ describe("Toolbar", () => {
     expect(spy).toHaveBeenCalledWith(ActionCreators.redo());
     spy.mockRestore();
   });
+
+  it("imports state from JSON", () => {
+    const { getByText, getByPlaceholderText, getAllByText } = render(
+      <Provider store={store}>
+        <Toolbar />
+      </Provider>,
+    );
+    fireEvent.click(getByText("Import"));
+    fireEvent.change(getByPlaceholderText("Paste JSON here"), {
+      target: { value: JSON.stringify({ ...store.getState().input.present, hero: "Pharah" }) },
+    });
+    fireEvent.click(getAllByText("Import")[1]);
+    expect(store.getState().input.present.hero).toBe("Pharah");
+  });
 });
