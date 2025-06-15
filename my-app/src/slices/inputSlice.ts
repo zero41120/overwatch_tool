@@ -65,16 +65,10 @@ const inputSlice = createSlice({
     toggleAvoidEnabled(state) {
       state.avoidEnabled = !state.avoidEnabled;
     },
-    setWeightType(
-      state,
-      action: PayloadAction<{ index: number; type: string }>,
-    ) {
+    setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
     },
-    setWeightValue(
-      state,
-      action: PayloadAction<{ index: number; value: number }>,
-    ) {
+    setWeightValue(state, action: PayloadAction<{ index: number; value: number }>) {
       state.weights[action.payload.index].weight = action.payload.value;
     },
     addWeightRow(state, action: PayloadAction<string>) {
@@ -101,27 +95,21 @@ const inputSlice = createSlice({
     removeMinGroup(state, action: PayloadAction<number>) {
       state.minAttrGroups.splice(action.payload, 1);
     },
-    setMinGroupValue(
-      state,
-      action: PayloadAction<{ index: number; value: number }>,
-    ) {
+    setMinGroupValue(state, action: PayloadAction<{ index: number; value: number }>) {
       state.minAttrGroups[action.payload.index].value = action.payload.value;
     },
-    addAttrToGroup(
-      state,
-      action: PayloadAction<{ index: number; attr: string }>,
-    ) {
+    addAttrToGroup(state, action: PayloadAction<{ index: number; attr: string }>) {
       const group = state.minAttrGroups[action.payload.index];
       if (!group.attrs.includes(action.payload.attr)) {
         group.attrs.push(action.payload.attr);
       }
     },
-    removeAttrFromGroup(
-      state,
-      action: PayloadAction<{ index: number; attr: string }>,
-    ) {
+    removeAttrFromGroup(state, action: PayloadAction<{ index: number; attr: string }>) {
       const group = state.minAttrGroups[action.payload.index];
       group.attrs = group.attrs.filter((a) => a !== action.payload.attr);
+    },
+    importState(_, action: PayloadAction<InputState>) {
+      return action.payload;
     },
   },
 });
@@ -147,6 +135,7 @@ export const {
   removeAttrFromGroup,
   addEquippedSlot,
   removeEquippedSlot,
+  importState,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

@@ -19,3 +19,4 @@
 2025-06-12 Fix mobile layout issues and disable iOS input zoom src/components
 
 2025-06-14  add tests for dropdown, toolbar, and calculator  src/components
+2025-06-15  add import/export modal for state management  src/components/ImportExportModal.tsx
