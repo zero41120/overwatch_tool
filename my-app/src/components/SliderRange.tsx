@@ -74,7 +74,7 @@ export default function SliderRange({
           value={sliderValue}
           onChange={handleSliderChange}
           disabled={disabled}
-          className={`absolute top-1/2 left-0 w-full h-6 -translate-y-1/2 z-20 appearance-none bg-transparent focus:outline-none ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
+          className={`absolute top-1/2 left-0 w-full h-6 -translate-y-1/2 appearance-none bg-transparent focus:outline-none ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
           aria-label={label || `Slider from ${min} to ${max}`}
           style={{ pointerEvents: disabled ? "none" : "auto" }}
         />
