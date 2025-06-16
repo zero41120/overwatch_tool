@@ -6,6 +6,7 @@ export interface InputState {
   hero: string;
   cash: number;
   equipped: (string | "")[];
+  equippedEnabled: boolean;
   toBuy: number;
   avoid: string[];
   avoidEnabled: boolean;
@@ -19,6 +20,7 @@ const initialState: InputState = {
   hero: "Ashe",
   cash: 11000,
   equipped: Array(2).fill(""),
+  equippedEnabled: false,
   toBuy: 6,
   avoid: [],
   avoidEnabled: false,
@@ -65,16 +67,16 @@ const inputSlice = createSlice({
     toggleAvoidEnabled(state) {
       state.avoidEnabled = !state.avoidEnabled;
     },
-    setWeightType(
-      state,
-      action: PayloadAction<{ index: number; type: string }>,
-    ) {
+    toggleEquippedEnabled(state) {
+      state.equippedEnabled = !state.equippedEnabled;
+      if (!state.equippedEnabled) {
+        state.equipped = Array(2).fill("");
+      }
+    },
+    setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
     },
-    setWeightValue(
-      state,
-      action: PayloadAction<{ index: number; value: number }>,
-    ) {
+    setWeightValue(state, action: PayloadAction<{ index: number; value: number }>) {
       state.weights[action.payload.index].weight = action.payload.value;
     },
     addWeightRow(state, action: PayloadAction<string>) {
@@ -101,27 +103,21 @@ const inputSlice = createSlice({
     removeMinGroup(state, action: PayloadAction<number>) {
       state.minAttrGroups.splice(action.payload, 1);
     },
-    setMinGroupValue(
-      state,
-      action: PayloadAction<{ index: number; value: number }>,
-    ) {
+    setMinGroupValue(state, action: PayloadAction<{ index: number; value: number }>) {
       state.minAttrGroups[action.payload.index].value = action.payload.value;
     },
-    addAttrToGroup(
-      state,
-      action: PayloadAction<{ index: number; attr: string }>,
-    ) {
+    addAttrToGroup(state, action: PayloadAction<{ index: number; attr: string }>) {
       const group = state.minAttrGroups[action.payload.index];
       if (!group.attrs.includes(action.payload.attr)) {
         group.attrs.push(action.payload.attr);
       }
     },
-    removeAttrFromGroup(
-      state,
-      action: PayloadAction<{ index: number; attr: string }>,
-    ) {
+    removeAttrFromGroup(state, action: PayloadAction<{ index: number; attr: string }>) {
       const group = state.minAttrGroups[action.payload.index];
       group.attrs = group.attrs.filter((a) => a !== action.payload.attr);
+    },
+    importState(_, action: PayloadAction<InputState>) {
+      return action.payload;
     },
   },
 });
@@ -134,6 +130,7 @@ export const {
   addAvoid,
   removeAvoid,
   toggleAvoidEnabled,
+  toggleEquippedEnabled,
   setWeightType,
   setWeightValue,
   addWeightRow,
@@ -147,6 +144,7 @@ export const {
   removeAttrFromGroup,
   addEquippedSlot,
   removeEquippedSlot,
+  importState,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

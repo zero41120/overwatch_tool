@@ -13,6 +13,9 @@ import reducer, {
   removeMinGroup,
   addEquippedSlot,
   removeEquippedSlot,
+  setEquipped,
+  toggleEquippedEnabled,
+  importState,
 } from "../inputSlice";
 
 const initialState = reducer(undefined, { type: "init" } as any);
@@ -69,4 +72,24 @@ test("addEquippedSlot and removeEquippedSlot modify equipped array", () => {
   expect(state.equipped).toHaveLength(3);
   state = reducer(state, removeEquippedSlot(2));
   expect(state.equipped).toHaveLength(2);
+});
+
+test("toggleEquippedEnabled toggles flag and clears items when disabling", () => {
+  let state = reducer(initialState, toggleEquippedEnabled());
+  expect(state.equippedEnabled).toBe(true);
+  state = reducer(state, setEquipped({ index: 0, id: "item1" }));
+  state = reducer(state, toggleEquippedEnabled());
+  expect(state.equippedEnabled).toBe(false);
+  expect(state.equipped).toEqual(["", ""]);
+});
+
+test("importState replaces entire state", () => {
+  const newState = {
+    ...initialState,
+    hero: "Tracer",
+    cash: 5000,
+  };
+  const state = reducer(initialState, importState(newState));
+  expect(state.hero).toBe("Tracer");
+  expect(state.cash).toBe(5000);
 });
