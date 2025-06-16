@@ -6,6 +6,7 @@ export interface InputState {
   hero: string;
   cash: number;
   equipped: (string | "")[];
+  equippedEnabled: boolean;
   toBuy: number;
   avoid: string[];
   avoidEnabled: boolean;
@@ -19,6 +20,7 @@ const initialState: InputState = {
   hero: "Ashe",
   cash: 11000,
   equipped: Array(2).fill(""),
+  equippedEnabled: false,
   toBuy: 6,
   avoid: [],
   avoidEnabled: false,
@@ -64,6 +66,12 @@ const inputSlice = createSlice({
     },
     toggleAvoidEnabled(state) {
       state.avoidEnabled = !state.avoidEnabled;
+    },
+    toggleEquippedEnabled(state) {
+      state.equippedEnabled = !state.equippedEnabled;
+      if (!state.equippedEnabled) {
+        state.equipped = Array(2).fill("");
+      }
     },
     setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
@@ -122,6 +130,7 @@ export const {
   addAvoid,
   removeAvoid,
   toggleAvoidEnabled,
+  toggleEquippedEnabled,
   setWeightType,
   setWeightValue,
   addWeightRow,

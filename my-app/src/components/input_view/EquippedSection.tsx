@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   addEquippedSlot,
   removeEquippedSlot,
   setEquipped,
+  toggleEquippedEnabled,
 } from "../../slices/inputSlice";
 import type { Item } from "../../types";
 import { attributeValueToLabel } from "../../utils/attributeUtils";
@@ -18,17 +18,8 @@ interface Props {
 
 export default function EquippedSection({ items }: Props) {
   const equipped = useAppSelector((state) => state.input.present.equipped);
+  const enabled = useAppSelector((s) => s.input.present.equippedEnabled);
   const dispatch = useAppDispatch();
-  const [useEquipped, setUseEquipped] = useState(false);
-
-  const handleToggle = (checked: boolean) => {
-    setUseEquipped(checked);
-    if (!checked) {
-      equipped.forEach((_, idx) =>
-        dispatch(setEquipped({ index: idx, id: "" })),
-      );
-    }
-  };
 
   return (
     <div>
@@ -36,8 +27,8 @@ export default function EquippedSection({ items }: Props) {
         <input
           id="use-equipped-checkbox"
           type="checkbox"
-          checked={useEquipped}
-          onChange={(e) => handleToggle(e.target.checked)}
+          checked={enabled}
+          onChange={() => dispatch(toggleEquippedEnabled())}
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
         <label
@@ -47,7 +38,7 @@ export default function EquippedSection({ items }: Props) {
           Use Equipped Items
         </label>
       </div>
-      {useEquipped && (
+      {enabled && (
         <div className="space-y-4 mt-2">
           {equipped.map((id, idx) => (
             <div key={idx} className="flex items-center gap-2">

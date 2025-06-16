@@ -20,3 +20,4 @@
 
 2025-06-14  add tests for dropdown, toolbar, and calculator  src/components
 2025-06-15  add import/export modal for state management  src/components/ImportExportModal.tsx
+2025-06-15  fix import modal usability issues and persist equipped toggle  src/components/ImportExportModal.tsx

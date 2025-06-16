@@ -25,16 +25,19 @@ describe("Toolbar", () => {
   });
 
   it("imports state from JSON", () => {
-    const { getByText, getByPlaceholderText, getAllByText } = render(
+    const { getByText, getByLabelText, getAllByText } = render(
       <Provider store={store}>
         <Toolbar />
       </Provider>,
     );
     fireEvent.click(getByText("Import"));
-    fireEvent.change(getByPlaceholderText("Paste JSON here"), {
+    const confirm = getAllByText("Import")[1];
+    expect(confirm).toBeDisabled();
+    fireEvent.change(getByLabelText("Import JSON"), {
       target: { value: JSON.stringify({ ...store.getState().input.present, hero: "Pharah" }) },
     });
-    fireEvent.click(getAllByText("Import")[1]);
+    expect(confirm).not.toBeDisabled();
+    fireEvent.click(confirm);
     expect(store.getState().input.present.hero).toBe("Pharah");
   });
 });
