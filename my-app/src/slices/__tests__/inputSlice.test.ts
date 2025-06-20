@@ -15,6 +15,7 @@ import reducer, {
   removeEquippedSlot,
   setEquipped,
   toggleEquippedEnabled,
+  toggleUseOverrides,
   importState,
 } from "../inputSlice";
 
@@ -81,6 +82,11 @@ test("toggleEquippedEnabled toggles flag and clears items when disabling", () =>
   state = reducer(state, toggleEquippedEnabled());
   expect(state.equippedEnabled).toBe(false);
   expect(state.equipped).toEqual(["", ""]);
+});
+
+test("toggleUseOverrides flips boolean", () => {
+  const state = reducer(initialState, toggleUseOverrides());
+  expect(state.useOverrides).toBe(false);
 });
 
 test("importState replaces entire state", () => {

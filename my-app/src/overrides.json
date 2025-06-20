@@ -1,6 +1,7 @@
 {
   "IRONSIGHTS": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "AS",
         "value": "10%"
@@ -16,7 +17,8 @@
     ]
   },
   "TRIPOD": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "WP",
         "value": "13%"
@@ -28,7 +30,8 @@
     ]
   },
   "INFRARED LENSES": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "AP",
         "value": "18%"
@@ -44,7 +47,8 @@
     ]
   },
   "FIRESTARTER": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "Health",
         "value": "50"
@@ -60,7 +64,8 @@
     ]
   },
   "SUPERFLEXOR": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "Health",
         "value": "25"
@@ -80,7 +85,8 @@
     ]
   },
   "WEAPON JAMMER": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "Armor",
         "value": "25"
@@ -100,7 +106,8 @@
     ]
   },
   "BLOODHOUND MASK": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "WP",
         "value": "20%"
@@ -116,7 +123,8 @@
     ]
   },
   "SLICING SPREE": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "MS",
         "value": "10%"
@@ -136,7 +144,8 @@
     ]
   },
   "SHRED AND LEAD": {
-    "attributes": [
+    "attributes": [],
+    "Ashe": [
       {
         "type": "MA",
         "value": "33%"
