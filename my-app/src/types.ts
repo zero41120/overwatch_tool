@@ -11,6 +11,7 @@ export interface Item {
   id?: string;
   tab: string;
   rarity: "common" | "rare" | "epic";
+  iconUrl?: string;
 }
 
 export interface RootData {

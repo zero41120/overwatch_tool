@@ -12,9 +12,7 @@ export default function ItemsOverviewTable({ eqItems, resultItems }: Props) {
 
   return (
     <div>
-      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200 mb-2">
-        Items Overview
-      </h3>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200 mb-2">Items Overview</h3>
       <table className="w-full text-left border-collapse mb-4">
         <tbody>
           {Array.from({ length: 2 }).map((_, rowIdx) => (
@@ -25,7 +23,12 @@ export default function ItemsOverviewTable({ eqItems, resultItems }: Props) {
                   className="px-2 py-1 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-800 dark:text-gray-100 min-w-[80px]"
                   style={{ color: it ? rarityColor(it.rarity) : undefined }}
                 >
-                  {it ? it.name : ""}
+                  {it && (
+                    <span className="flex items-center gap-1">
+                      {it.iconUrl && <img src={it.iconUrl} alt="" width={20} height={20} className="inline-block" />}
+                      {it.name}
+                    </span>
+                  )}
                 </td>
               ))}
             </tr>
