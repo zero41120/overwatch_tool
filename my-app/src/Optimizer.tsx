@@ -9,13 +9,8 @@ import overridesRaw from "./overrides.json?raw";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { Item, ItemOverride, ResultCombo, RootData } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
-import {
-  aggregate,
-  buildBreakdown,
-  collectRelevantAttributes,
-  meetsMinGroups,
-  scoreFromMap,
-} from "./utils/utils";
+import { iconUrlForName } from "./utils/item";
+import { aggregate, buildBreakdown, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils/utils";
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -24,42 +19,24 @@ export default function Optimizer() {
 
   const dispatch = useAppDispatch();
   const state = useAppSelector((s) => s.input.present);
-  const {
-    hero,
-    cash,
-    equipped,
-    toBuy,
-    avoid,
-    avoidEnabled,
-    weights,
-    minValueEnabled,
-    minAttrGroups,
-    useOverrides,
-  } = state;
+  const { hero, cash, equipped, toBuy, avoid, avoidEnabled, weights, minValueEnabled, minAttrGroups, useOverrides } =
+    state;
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
   // Memoize expensive calculations
   const memoizedScores = useState(new Map<string, number>())[0];
-  const memoizedAggregates = useState(
-    new Map<string, Map<string, number>>(),
-  )[0];
+  const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
   const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
-  const overrides: Record<string, ItemOverride> = overridesRaw
-    ? JSON.parse(overridesRaw)
-    : {};
+  const overrides: Record<string, ItemOverride> = overridesRaw ? JSON.parse(overridesRaw) : {};
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
     const items: Item[] = [];
-    const add = (
-      tab: string,
-      rarity: "common" | "rare" | "epic",
-      arr: Item[],
-    ) => {
+    const add = (tab: string, rarity: "common" | "rare" | "epic", arr: Item[]) => {
       arr.forEach((it) => {
         const override = useOverrides ? overrides[it.name] : undefined;
-        const item = { ...it, tab, rarity };
+        const item = { ...it, tab, rarity, iconUrl: iconUrlForName(it.name) };
         if (override) {
           const attrs = override[hero] || override.attributes;
           if (attrs) item.attributes = attrs;
@@ -115,9 +92,7 @@ export default function Optimizer() {
       return memoizedEquippedItems.get(key)!;
     }
 
-    const items = equipped
-      .map((id) => data.find((i) => i.id === id))
-      .filter((i): i is Item => Boolean(i));
+    const items = equipped.map((id) => data.find((i) => i.id === id)).filter((i): i is Item => Boolean(i));
 
     memoizedEquippedItems.set(key, items);
     return items;
@@ -159,21 +134,14 @@ export default function Optimizer() {
   }
 
   function meetsMinRequirements(items: Item[]) {
-    return (
-      !minValueEnabled ||
-      meetsMinGroups([...items, ...equippedItems()], minAttrGroups)
-    );
+    return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups);
   }
   function onCalculate() {
     dispatch(setError(""));
 
     // Validate inputs before processing
     if (!validate()) {
-      dispatch(
-        setError(
-          "Please check your inputs - ensure all required fields are filled",
-        ),
-      );
+      dispatch(setError("Please check your inputs - ensure all required fields are filled"));
       return;
     }
 
@@ -186,11 +154,7 @@ export default function Optimizer() {
       return;
     }
 
-    const selectedAttrs = collectRelevantAttributes(
-      weights,
-      minValueEnabled,
-      minAttrGroups,
-    );
+    const selectedAttrs = collectRelevantAttributes(weights, minValueEnabled, minAttrGroups);
 
     const candidate = data.filter(
       (it) =>
@@ -224,9 +188,7 @@ export default function Optimizer() {
     itemScores.sort((a, b) => b.score - a.score);
 
     // Pre-filter items that are too expensive
-    const affordableItems = itemScores.filter(
-      (info) => info.item.cost <= remainingCash,
-    );
+    const affordableItems = itemScores.filter((info) => info.item.cost <= remainingCash);
     if (affordableItems.length === 0) {
       dispatch(setError("No affordable items available"));
       return;
@@ -237,8 +199,7 @@ export default function Optimizer() {
     const searchItems = affordableItems.slice(0, maxItems);
 
     const prefix: number[] = [0];
-    for (const i of searchItems)
-      prefix.push(prefix[prefix.length - 1] + i.score);
+    for (const i of searchItems) prefix.push(prefix[prefix.length - 1] + i.score);
     let bestScore = -Infinity;
     let bestCost = 0;
     let bestCombos: ResultCombo[] = [];
@@ -273,8 +234,7 @@ export default function Optimizer() {
       if (selected.length === needed || start >= n) return;
 
       const remaining = needed - selected.length;
-      const possible =
-        score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
+      const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
       if (possible < bestScore) return;
 
       // Memoization key for pruning
@@ -295,35 +255,22 @@ export default function Optimizer() {
       dispatch(setError("Insufficient cash for any purchase"));
       return;
     }
-    const [best, ...others] = bestCombos.sort((a, b) =>
-      preferHighCost ? b.cost - a.cost : a.cost - b.cost,
-    );
-    const alt = others.sort((a, b) =>
-      preferHighCost ? b.cost - a.cost : a.cost - b.cost,
-    );
+    const [best, ...others] = bestCombos.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
+    const alt = others.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
     const totalMap = aggregate([...best.items, ...eqItems]);
-    const breakdown = buildBreakdown(
-      totalMap,
-      weights,
-      minValueEnabled,
-      minAttrGroups,
-    );
+    const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
     setResults({
       items: best.items,
       cost: best.cost,
       score: scoreFromMap(totalMap, weights),
       breakdown,
     });
-    setAlternatives(
-      alt.map((c) => ({ ...c, score: calcScore([...c.items, ...eqItems]) })),
-    );
+    setAlternatives(alt.map((c) => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
   }
 
   if (data.length === 0) return <div className="p-4">Loading...</div>;
 
-  const filtered = data.filter(
-    (it) => !hero || !it.character || it.character === hero,
-  );
+  const filtered = data.filter((it) => !hero || !it.character || it.character === hero);
   const eqItems = equippedItems();
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
@@ -338,13 +285,7 @@ export default function Optimizer() {
           onSubmit={onCalculate}
           validate={validate}
         />
-        <ResultsSection
-          eqItems={eqItems}
-          eqCost={eqCost}
-          cash={cash}
-          results={results}
-          alternatives={alternatives}
-        />
+        <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
         <BreakPointCalculator />
       </div>
     </div>

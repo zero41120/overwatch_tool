@@ -12,17 +12,13 @@ interface Props {
 
 export default function FinalBuildList({ eqItems, resultItems }: Props) {
   const dispatch = useAppDispatch();
-  const avoidEnabled = useAppSelector(
-    (state) => state.input.present.avoidEnabled,
-  );
+  const avoidEnabled = useAppSelector((state) => state.input.present.avoidEnabled);
 
   const sortedItems = [...eqItems, ...resultItems].sort(sortItemsOverview);
 
   return (
     <div>
-      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200">
-        Final Build
-      </h3>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200">Final Build</h3>
       <ul className="mt-2 space-y-3 max-h-fit overflow-y-auto pr-2">
         {sortedItems.map((it) => (
           <li key={it.id}>
@@ -30,6 +26,7 @@ export default function FinalBuildList({ eqItems, resultItems }: Props) {
               title={it.name}
               subtitle={it.tab}
               rarity={it.rarity}
+              iconUrl={it.iconUrl}
               content={it.attributes.map((a) =>
                 a.type === "description"
                   ? {

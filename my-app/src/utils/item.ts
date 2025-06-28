@@ -4,9 +4,10 @@ import type { Item } from "../types";
  * Sorts items by rarity (common < rare < epic), then by name (alphabetically).
  * Matches the logic in ItemSelectModal.
  */
-export function sortItemsByRarityAndName<
-  ItemType extends { rarity: "common" | "rare" | "epic"; name: string },
->(a: ItemType, b: ItemType) {
+export function sortItemsByRarityAndName<ItemType extends { rarity: "common" | "rare" | "epic"; name: string }>(
+  a: ItemType,
+  b: ItemType,
+) {
   const order: Record<"common" | "rare" | "epic", number> = {
     common: 0,
     rare: 1,
@@ -31,4 +32,31 @@ export function sortItemsOverview(a: Item, b: Item) {
   const tabB = tabOrder[b.tab as keyof typeof tabOrder] || 99;
   if (tabA !== tabB) return tabA - tabB;
   return (a.cost || 0) - (b.cost || 0);
+}
+
+export function itemSlug(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/-/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
+}
+
+const iconImports = import.meta.glob("../../data_dump/*.png", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+const iconMap: Record<string, string> = {};
+for (const [path, url] of Object.entries(iconImports)) {
+  const name = path
+    .split("/")
+    .pop()!
+    .replace(/\.png$/, "");
+  iconMap[name] = url as string;
+}
+
+export function iconUrlForName(name: string) {
+  return iconMap[itemSlug(name)];
 }
