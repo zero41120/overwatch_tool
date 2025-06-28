@@ -256,19 +256,17 @@ export default function Optimizer() {
       }
 
       if (meetsMinRequirements(selected)) {
-        if (
-          score > bestScore ||
-          (score === bestScore &&
-            (preferHighCost ? cost > bestCost : cost < bestCost))
-        ) {
+        if (score > bestScore) {
           bestScore = score;
           bestCost = cost;
           bestCombos = [{ items: [...selected], cost, score }];
-        } else if (
-          score === bestScore &&
-          (preferHighCost ? cost <= bestCost : cost >= bestCost)
-        ) {
+        } else if (score === bestScore) {
           bestCombos.push({ items: [...selected], cost, score });
+          if (preferHighCost) {
+            bestCost = Math.max(bestCost, cost);
+          } else {
+            bestCost = Math.min(bestCost, cost);
+          }
         }
       }
 
@@ -300,9 +298,9 @@ export default function Optimizer() {
     const [best, ...others] = bestCombos.sort((a, b) =>
       preferHighCost ? b.cost - a.cost : a.cost - b.cost,
     );
-    const alt = others
-      .filter((c) => (preferHighCost ? c.cost < best.cost : c.cost > best.cost))
-      .sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
+    const alt = others.sort((a, b) =>
+      preferHighCost ? b.cost - a.cost : a.cost - b.cost,
+    );
     const totalMap = aggregate([...best.items, ...eqItems]);
     const breakdown = buildBreakdown(
       totalMap,
