@@ -34,6 +34,7 @@ export default function Optimizer() {
     weights,
     minValueEnabled,
     minAttrGroups,
+    useOverrides,
   } = state;
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
@@ -44,11 +45,12 @@ export default function Optimizer() {
   )[0];
   const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
+  const overrides: Record<string, ItemOverride> = overridesRaw
+    ? JSON.parse(overridesRaw)
+    : {};
+
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
-    const overrides: Record<string, ItemOverride> = overridesRaw
-      ? JSON.parse(overridesRaw)
-      : {};
     const items: Item[] = [];
     const add = (
       tab: string,
@@ -56,9 +58,12 @@ export default function Optimizer() {
       arr: Item[],
     ) => {
       arr.forEach((it) => {
-        const override = overrides[it.name];
+        const override = useOverrides ? overrides[it.name] : undefined;
         const item = { ...it, tab, rarity };
-        if (override?.attributes) item.attributes = override.attributes;
+        if (override) {
+          const attrs = override[hero] || override.attributes;
+          if (attrs) item.attributes = attrs;
+        }
         items.push(item);
       });
     };
@@ -86,7 +91,7 @@ export default function Optimizer() {
     setHeroes(Array.from(heroesSet).sort());
     setAttrTypes(sortedTypes);
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
-  }, []);
+  }, [hero, useOverrides]);
   useEffect(() => {
     const count = equipped.filter((id) => id).length;
     if (toBuy + count > 6) dispatch(setToBuy(Math.max(0, 6 - count)));

@@ -40,6 +40,7 @@ export interface MinAttrGroup {
 
 export interface ItemOverride {
   attributes?: Attribute[];
+  [hero: string]: Attribute[] | undefined;
 }
 
 export interface ResultCombo {

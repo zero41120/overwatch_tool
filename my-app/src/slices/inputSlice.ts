@@ -14,6 +14,7 @@ export interface InputState {
   error: string;
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
+  useOverrides: boolean;
 }
 
 const initialState: InputState = {
@@ -28,6 +29,7 @@ const initialState: InputState = {
   error: "",
   minValueEnabled: false,
   minAttrGroups: [],
+  useOverrides: true,
 };
 
 const inputSlice = createSlice({
@@ -72,6 +74,9 @@ const inputSlice = createSlice({
       if (!state.equippedEnabled) {
         state.equipped = Array(2).fill("");
       }
+    },
+    toggleUseOverrides(state) {
+      state.useOverrides = !state.useOverrides;
     },
     setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
@@ -144,6 +149,7 @@ export const {
   removeAttrFromGroup,
   addEquippedSlot,
   removeEquippedSlot,
+  toggleUseOverrides,
   importState,
 } = inputSlice.actions;
 
