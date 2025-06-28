@@ -79,3 +79,21 @@ export function buildBreakdown(
   });
   return rows;
 }
+
+export interface ResultComboBasic {
+  cost: number;
+  score: number;
+}
+
+export function rankBestCombos<T extends ResultComboBasic>(
+  combos: T[],
+  preferHighCost: boolean,
+) {
+  const [best, ...others] = combos
+    .slice()
+    .sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
+  const alternatives = others.sort((a, b) =>
+    preferHighCost ? b.cost - a.cost : a.cost - b.cost,
+  );
+  return { best, alternatives };
+}
