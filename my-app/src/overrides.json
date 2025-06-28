@@ -76,7 +76,7 @@
       },
       {
         "type": "AP",
-        "value": "15%"
+        "value": "25%"
       },
       {
         "type": "Editor's Note",
@@ -85,8 +85,7 @@
     ]
   },
   "WEAPON JAMMER": {
-    "attributes": [],
-    "Ashe": [
+    "attributes": [
       {
         "type": "Armor",
         "value": "25"
