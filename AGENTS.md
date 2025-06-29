@@ -23,6 +23,13 @@ Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindC
 - Use Tailwind utility classes; avoid inline style props.
 - Use Conventional Commits (feat, fix, chore, docs).
 
+## Memory Bank
+
+All project context lives in the `memory-bank/` folder. Always read every file in
+that folder at the start of a session to understand the current state and
+decisions. Keep these files up to date when you make significant changes or
+learn new information.
+
 ## Feature Development Checklist
 
 1. For every new add operation, create a matching remove action in both the UI and the Redux slice.
