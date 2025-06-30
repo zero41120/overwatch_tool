@@ -23,3 +23,4 @@
 2025-06-15  fix import modal usability issues and persist equipped toggle  src/components/ImportExportModal.tsx
 2025-06-28  fix DFS selection logic for build ranking  src/Optimizer.tsx
 2025-06-30  add All Hero and No Hero options for hero selection  src/components/input_view/HeroSelect.tsx
+2025-06-30  add toggle to enable/disable editor overrides  src/components/input_view/OverrideToggle.tsx
