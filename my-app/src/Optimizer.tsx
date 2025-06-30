@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
 import InputSection from "./components/input_view/InputSection";
 import ResultsSection from "./components/results_view/ResultsSection";
+import ItemGallery from "./components/ItemGallery";
 import Toolbar from "./components/Toolbar";
 import rawData from "./data.json?raw";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -12,6 +13,7 @@ import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { iconUrlForName } from "./utils/item";
 import { aggregate, buildBreakdown, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils/utils";
+import { loadOverrides as loadLocalOverrides } from "./utils/localOverrides";
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -30,6 +32,7 @@ export default function Optimizer() {
   const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
   const overrides: Record<string, ItemOverride> = overridesRaw ? JSON.parse(overridesRaw) : {};
+  const localOverrides = loadLocalOverrides();
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
@@ -37,10 +40,15 @@ export default function Optimizer() {
     const add = (tab: string, rarity: "common" | "rare" | "epic", arr: Item[]) => {
       arr.forEach((it) => {
         const override = useOverrides ? overrides[it.name] : undefined;
+        const local = localOverrides[it.name];
         const item = { ...it, tab, rarity, iconUrl: iconUrlForName(it.name) };
         if (override) {
           const attrs = override[hero] || override.attributes;
           if (attrs) item.attributes = attrs;
+        }
+        if (local) {
+          if (local.attributes) item.attributes = local.attributes as any;
+          if (typeof local.cost === "number") item.cost = local.cost;
         }
         items.push(item);
       });
@@ -285,7 +293,7 @@ export default function Optimizer() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-2">
       <Toolbar />
-      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-8">
         <InputSection
           heroes={heroes}
           attrTypes={attrTypes}
@@ -295,6 +303,7 @@ export default function Optimizer() {
         />
         <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
         <BreakPointCalculator />
+        <ItemGallery items={filtered} />
       </div>
     </div>
   );
