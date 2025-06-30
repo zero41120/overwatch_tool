@@ -6,3 +6,4 @@
 - Memory bank initialized with project overview and active context.
 - Added toggle for editor overrides in configuration panel.
 - Added Item Gallery panel for local item edits.
+- Improved Item Gallery with search functionality.

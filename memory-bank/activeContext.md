@@ -6,3 +6,4 @@ Future updates should note current work, open issues, and memory bank changes.
 Added hero options for "All Heroes" and "No Hero" in selection dropdown.
 Added UI toggle to enable or disable editor overrides.
 Implemented Item Gallery for editing items with local storage.
+Improved Item Gallery with searchable dropdown.

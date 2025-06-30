@@ -12,11 +12,15 @@ const items: Item[] = [
 ];
 
 test("edits item and saves to storage", () => {
-  const { getByText, getByDisplayValue } = render(<ItemGallery items={items} />);
-  fireEvent.click(getByText("Edit"));
+  const { getAllByRole, getByPlaceholderText, getByDisplayValue } = render(
+    <ItemGallery items={items} />,
+  );
+  fireEvent.click(getAllByRole("button")[1]);
+  const search = getByPlaceholderText("Search...");
+  fireEvent.change(search, { target: { value: "Sword" } });
+  fireEvent.keyDown(search, { key: "Enter" });
   const input = getByDisplayValue("100");
   fireEvent.change(input, { target: { value: "150" } });
-  fireEvent.click(getByText("Done"));
   const stored = JSON.parse(localStorage.getItem(STORAGE_KEY)!);
   expect(stored["1"].cost).toBe(150);
 });

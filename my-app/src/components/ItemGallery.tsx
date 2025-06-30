@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Item } from "../types";
+import SearchableDropdown from "./shared/SearchableDropdown";
 import { loadOverrides, saveOverrides, ItemOverrideEntry } from "../utils/localOverrides";
 
 interface Props {
@@ -10,7 +11,7 @@ export default function ItemGallery({ items }: Props) {
   const [overrides, setOverrides] = useState<Record<string, ItemOverrideEntry>>(
     () => loadOverrides(),
   );
-  const [editing, setEditing] = useState<Record<string, boolean>>({});
+  const [selected, setSelected] = useState<string>("");
 
   const update = (key: string, entry: ItemOverrideEntry) => {
     const next = { ...overrides, [key]: { ...overrides[key], ...entry } };
@@ -39,55 +40,55 @@ export default function ItemGallery({ items }: Props) {
           View JSON
         </button>
       </div>
-      <ul className="max-h-64 overflow-y-auto space-y-2 text-sm">
-        {items.map((it) => {
-          const key = it.id || it.name;
-          const entry = overrides[key] || {};
-          const edit = editing[key];
+      <SearchableDropdown
+        label="Select Item"
+        placeholder="Search items"
+        options={items.map((it) => ({ value: it.id || it.name, label: it.name }))}
+        value={selected}
+        onChange={setSelected}
+        className="w-full"
+      />
+      {selected && (
+        (() => {
+          const it = items.find((x) => (x.id || x.name) === selected);
+          if (!it) return null;
+          const entry = overrides[selected] || {};
           const cost = entry.cost ?? it.cost;
           const attrs = entry.attributes ?? it.attributes;
           return (
-            <li key={key} className="border-b border-gray-300 dark:border-gray-600 pb-2">
-              <div className="flex justify-between items-center">
-                <span>{it.name}</span>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold dark:text-gray-200">{it.name}</h3>
                 <button
                   type="button"
-                  className="text-indigo-500 hover:underline text-xs"
-                  onClick={() => setEditing((e) => ({ ...e, [key]: !e[key] }))}
+                  className="text-xs text-red-500 hover:underline"
+                  onClick={() => setSelected("")}
                 >
-                  {edit ? "Done" : "Edit"}
+                  Close
                 </button>
               </div>
-              {edit ? (
-                <div className="mt-1 space-y-1">
-                  <input
-                    type="number"
-                    value={cost}
-                    onChange={(e) => update(key, { cost: Number(e.target.value) })}
-                    className="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-800 p-1"
-                  />
-                  {attrs.map((a, i) => (
-                    <input
-                      key={i}
-                      value={a.value}
-                      onChange={(e) => {
-                        const list = [...attrs];
-                        list[i] = { ...a, value: e.target.value };
-                        update(key, { attributes: list });
-                      }}
-                      className="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-800 p-1"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-gray-700 dark:text-gray-300 mt-1">
-                  Cost: {cost}
-                </div>
-              )}
-            </li>
+              <input
+                type="number"
+                value={cost}
+                onChange={(e) => update(selected, { cost: Number(e.target.value) })}
+                className="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-800 p-1"
+              />
+              {attrs.map((a, i) => (
+                <input
+                  key={i}
+                  value={a.value}
+                  onChange={(e) => {
+                    const list = [...attrs];
+                    list[i] = { ...a, value: e.target.value };
+                    update(selected, { attributes: list });
+                  }}
+                  className="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-800 p-1"
+                />
+              ))}
+            </div>
           );
-        })}
-      </ul>
+        })()
+      )}
     </div>
   );
 }

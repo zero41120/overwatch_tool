@@ -11,4 +11,4 @@ Overwatch Tool helps you optimize item builds for your hero in Overwatch.
 - Assign weights to attributes to prioritize your optimization.
 - Toggle editor overrides on or off for item attributes.
 - Includes a breakpoint calculator for analyzing damage thresholds.
-- Edit items locally in the Item Gallery with values saved to browser storage.
+- Search and edit items locally in the Item Gallery with values saved to browser storage.

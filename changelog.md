@@ -25,3 +25,4 @@
 2025-06-30  add All Hero and No Hero options for hero selection  src/components/input_view/HeroSelect.tsx
 2025-06-30  add toggle to enable/disable editor overrides  src/components/input_view/OverrideToggle.tsx
 2025-06-30  add item gallery for local overrides  src/components/ItemGallery.tsx
+2025-06-30  improve item gallery with search  src/components/ItemGallery.tsx
