@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import overridesRaw from "./overrides.json?raw";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { Item, ItemOverride, ResultCombo, RootData } from "./types";
+import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { iconUrlForName } from "./utils/item";
 import { aggregate, buildBreakdown, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils/utils";
@@ -65,7 +66,8 @@ export default function Optimizer() {
     types.delete("description");
     types.delete("Editor's Note");
     const sortedTypes = Array.from(types).sort(sortAttributes);
-    setHeroes(Array.from(heroesSet).sort());
+    const heroList = [NO_HERO, ALL_HEROES, ...Array.from(heroesSet).sort()];
+    setHeroes(heroList);
     setAttrTypes(sortedTypes);
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
   }, [hero, useOverrides]);
@@ -96,6 +98,12 @@ export default function Optimizer() {
 
     memoizedEquippedItems.set(key, items);
     return items;
+  }
+
+  function allowItem(it: Item) {
+    if (hero === NO_HERO) return !it.character;
+    if (hero === ALL_HEROES) return true;
+    return !it.character || it.character === hero;
   }
 
   function validate() {
@@ -158,7 +166,7 @@ export default function Optimizer() {
 
     const candidate = data.filter(
       (it) =>
-        (!it.character || it.character === hero) &&
+        allowItem(it) &&
         !equipped.includes(it.id ?? "") &&
         (!avoidEnabled || !avoid.includes(it.id ?? "")) &&
         it.attributes.some((a) => selectedAttrs.has(a.type)),
@@ -270,7 +278,7 @@ export default function Optimizer() {
 
   if (data.length === 0) return <div className="p-4">Loading...</div>;
 
-  const filtered = data.filter((it) => !hero || !it.character || it.character === hero);
+  const filtered = data.filter(allowItem);
   const eqItems = equippedItems();
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
 
