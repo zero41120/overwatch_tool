@@ -50,3 +50,6 @@ export interface ResultCombo {
   score: number;
   breakdown?: { type: string; sum: number; contrib: number }[];
 }
+
+export const ALL_HEROES = "All Heroes";
+export const NO_HERO = "No Hero";
