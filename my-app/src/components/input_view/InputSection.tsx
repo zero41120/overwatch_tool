@@ -3,6 +3,7 @@ import AvoidSection from "./AvoidSection";
 import CashInput from "./CashInput";
 import EquippedSection from "./EquippedSection";
 import HeroSelect from "./HeroSelect";
+import OverrideToggle from "./OverrideToggle";
 import MinValueSection from "./MinValueSection";
 import SubmitSection from "./SubmitSection";
 import WeightsSection from "./WeightsSection";
@@ -15,18 +16,10 @@ interface Props {
   validate: () => boolean;
 }
 
-export default function InputSection({
-  heroes,
-  attrTypes,
-  filteredItems,
-  onSubmit,
-  validate,
-}: Props) {
+export default function InputSection({ heroes, attrTypes, filteredItems, onSubmit, validate }: Props) {
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8  dark:border-gray-700">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">
-        Configuration
-      </h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -42,6 +35,9 @@ export default function InputSection({
         <EquippedSection items={filteredItems} />
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <AvoidSection items={filteredItems} />
+        <div className="my-4">
+          <OverrideToggle />
+        </div>
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <MinValueSection attrTypes={attrTypes} />
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
