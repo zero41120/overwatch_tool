@@ -6,3 +6,4 @@
 - Memory bank initialized with project overview and active context.
 - Added toggle for editor overrides in configuration panel.
 - Integrated ItemGallery component into Optimizer view for browsing items.
+- Enhanced ItemGallery with search, hover tooltip, fold button, and scrollable grid.

@@ -17,10 +17,10 @@ describe("ItemGallery", () => {
   });
 
   it("shows preview on hover", () => {
-    const { getAllByText, getByText } = render(<ItemGallery items={items} />);
+    const { getAllByText } = render(<ItemGallery items={items} />);
     const icon = getAllByText("Two")[0];
-    fireEvent.mouseOver(icon);
-    expect(getByText("ability")).toBeInTheDocument();
+    fireEvent.mouseOver(icon, { clientX: 20, clientY: 30 });
+    expect(getAllByText("ability").length).toBeGreaterThan(0);
     fireEvent.mouseLeave(icon);
   });
 
@@ -28,5 +28,19 @@ describe("ItemGallery", () => {
     const { getByText } = render(<ItemGallery items={items} />);
     fireEvent.click(getByText("Customize"));
     expect(getByText("Edit mode enabled")).toBeInTheDocument();
+  });
+
+  it("filters and folds gallery", () => {
+    const { getByText, queryByRole, getAllByRole, getByPlaceholderText, getAllByText } = render(
+      <ItemGallery items={items} />,
+    );
+    fireEvent.click(getByText("Hide"));
+    expect(queryByRole("button", { name: "Two" })).not.toBeInTheDocument();
+    fireEvent.click(getByText("Show"));
+    fireEvent.click(getByText("All Items"));
+    const input = getByPlaceholderText("Search...");
+    fireEvent.change(input, { target: { value: "Two" } });
+    fireEvent.click(getAllByRole("menuitem")[0]);
+    expect(queryByRole("button", { name: "One" })).not.toBeInTheDocument();
   });
 });
