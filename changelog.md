@@ -24,3 +24,5 @@
 2025-06-28  fix DFS selection logic for build ranking  src/Optimizer.tsx
 2025-06-30  add All Hero and No Hero options for hero selection  src/components/input_view/HeroSelect.tsx
 2025-06-30  add toggle to enable/disable editor overrides  src/components/input_view/OverrideToggle.tsx
+
+2025-06-30  add ItemGallery grid with attribute editor  src/components/ItemGallery.tsx
