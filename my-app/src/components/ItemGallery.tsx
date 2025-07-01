@@ -17,17 +17,46 @@ export default function ItemGallery({ items }: Props) {
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
 
-  const display = hovered || selected;
   const filtered = items.filter((it) =>
     it.name.toLowerCase().includes(search.toLowerCase()),
   );
 
+  // Tooltip size estimate
+  const TOOLTIP_HEIGHT = 180;
+  const TOOLTIP_WIDTH = 320;
+  const OFFSET = 12;
+
+  function getTooltipStyle(x: number, y: number): React.CSSProperties {
+    const winW = window.innerWidth;
+    const winH = window.innerHeight;
+    let left = x + OFFSET;
+    let top = y + OFFSET;
+    // If overflow right, anchor to left of cursor
+    if (left + TOOLTIP_WIDTH > winW) {
+      left = x - TOOLTIP_WIDTH - OFFSET;
+    }
+    // If overflow bottom, anchor above cursor
+    if (top + TOOLTIP_HEIGHT > winH) {
+      top = y - TOOLTIP_HEIGHT - OFFSET;
+    }
+    return {
+      left,
+      top,
+      minWidth: "220px",
+      maxWidth: "320px",
+      position: "fixed" as const,
+      zIndex: 20,
+      pointerEvents: "none",
+      overflow: "hidden",
+    };
+  }
+
   return (
-    <div className="relative space-y-4">
+    <div className="relative">
       {hovered && pos && (
         <div
-          className="absolute z-20 pointer-events-none"
-          style={{ left: pos.x + 10, top: pos.y + 10 }}
+          style={getTooltipStyle(pos.x, pos.y)}
+          className="shadow-lg rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
         >
           <ItemCard
             title={hovered.name}
@@ -35,23 +64,28 @@ export default function ItemGallery({ items }: Props) {
             rarity={hovered.rarity}
             iconUrl={hovered.iconUrl}
             content={hovered.attributes.map((a) => ({
-              text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(a.type)}</span>`,
+              text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
+                a.type,
+              )}</span>`,
             }))}
             price={`${hovered.cost} G`}
+            width={320}
           />
         </div>
       )}
       <div>
-        {display && (
+        {selected && (
           <ItemCard
-            title={display.name}
-            subtitle={display.tab}
-            rarity={display.rarity}
-            iconUrl={display.iconUrl}
-            content={display.attributes.map((a) => ({
-              text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(a.type)}</span>`,
+            title={selected.name}
+            subtitle={selected.tab}
+            rarity={selected.rarity}
+            iconUrl={selected.iconUrl}
+            content={selected.attributes.map((a) => ({
+              text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
+                a.type,
+              )}</span>`,
             }))}
-            price={`${display.cost} G`}
+            price={`${selected.cost} G`}
           />
         )}
         <div className="mt-2 flex items-center gap-2">
@@ -90,7 +124,7 @@ export default function ItemGallery({ items }: Props) {
             onChange={setSearch}
             className="w-full"
           />
-          <div className="grid grid-cols-3 gap-4 overflow-y-auto max-h-96">
+          <div className="grid grid-cols-3 gap-4 overflow-y-auto max-h-96 pt-4">
             {filtered.map((it, idx) => (
               <button
                 key={idx}
