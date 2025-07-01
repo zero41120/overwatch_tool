@@ -11,6 +11,7 @@ interface ItemCardProps {
   price: number | string;
   onAvoid?: () => void;
   showAvoidButton?: boolean;
+  width?: string | number; // Optional width prop
 }
 
 export default function ItemCard({
@@ -22,9 +23,13 @@ export default function ItemCard({
   rarity,
   onAvoid,
   showAvoidButton,
+  width, // Destructure width
 }: ItemCardProps) {
   return (
-    <div className="glass-card flex flex-col font-noto rounded-[10px] overflow-hidden dark:bg-gray-800 dark:border-gray-700">
+    <div
+      className="glass-card flex flex-col font-noto rounded-[10px] overflow-hidden dark:bg-gray-800 dark:border-gray-700"
+      style={width ? { width, maxWidth: width, minWidth: width } : undefined}
+    >
       {/* Title Section */}
       <div className="flex items-center gap-4 px-5 py-4">
         {iconUrl && (
