@@ -1,4 +1,5 @@
 import Optimizer from "./Optimizer";
+import Tooltip from "./components/shared/Tooltip";
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
         <div className="mx-auto grid gap-6 h-full overflow-y-auto">
           <Optimizer />
         </div>
+        <Tooltip />
       </div>
     </div>
   );
