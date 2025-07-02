@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
 import InputSection from "./components/input_view/InputSection";
 import ResultsSection from "./components/results_view/ResultsSection";
+import ItemGallery from "./components/ItemGallery";
 import Toolbar from "./components/Toolbar";
 import rawData from "./data.json?raw";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -327,6 +328,7 @@ export default function Optimizer() {
           onSelect={onSelectBuild}
         />
         <BreakPointCalculator />
+        <ItemGallery items={filtered} />
       </div>
     </div>
   );
