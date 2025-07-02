@@ -106,7 +106,7 @@
   },
   "BLOODHOUND MASK": {
     "attributes": [],
-    "Ashe": [
+    "Junker Queen": [
       {
         "type": "WP",
         "value": "20%"
@@ -123,7 +123,7 @@
   },
   "SLICING SPREE": {
     "attributes": [],
-    "Ashe": [
+    "Junker Queen": [
       {
         "type": "MS",
         "value": "10%"
@@ -164,7 +164,7 @@
   },
   "SHRED AND LEAD": {
     "attributes": [],
-    "Ashe": [
+    "Junker Queen": [
       {
         "type": "MA",
         "value": "33%"

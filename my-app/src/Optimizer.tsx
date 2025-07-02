@@ -43,6 +43,7 @@ export default function Optimizer() {
         if (override) {
           const attrs = override[hero] || override.attributes;
           if (attrs) item.attributes = attrs;
+          if (!item.id) item.id = it.name; // Ensure id is set if not present
         }
         items.push(item);
       });
