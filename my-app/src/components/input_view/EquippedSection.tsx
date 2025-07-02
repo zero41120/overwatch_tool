@@ -54,6 +54,7 @@ export default function EquippedSection({ items }: Props) {
                       .map((a) => `${attributeValueToLabel(a.type)}-${a.value}`)
                       .join(", ")}`,
                     color: rarityColor(it.rarity),
+                    iconUrl: it.iconUrl,
                   })),
                 ]}
                 value={id}

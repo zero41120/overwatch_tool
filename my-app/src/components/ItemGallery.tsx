@@ -92,6 +92,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                   value: it.name,
                   label: it.name,
                   color: rarityColor(it.rarity),
+                  iconUrl: it.iconUrl,
                 })),
               ]}
               value={search}

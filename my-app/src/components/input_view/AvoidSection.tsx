@@ -51,6 +51,7 @@ export default function AvoidSection({ items }: Props) {
                   value: it.id || it.name,
                   label: `${it.name} (${it.cost})`,
                   color: rarityColor(it.rarity),
+                  iconUrl: it.iconUrl,
                 })),
               ]}
               value={selected}
