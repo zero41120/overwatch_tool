@@ -8,3 +8,4 @@ Added UI toggle to enable or disable editor overrides.
 Added ItemGallery into main optimizer layout.
 Implemented hover tooltip, search filter, folding, and scrolling for gallery.
 Implemented hoverable item overview grid and radio-based build selection in Results section.
+
