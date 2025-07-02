@@ -10,3 +10,4 @@
 - Added local override editor to ItemGallery with save/delete using localStorage.
 - Implemented hoverable item overview grid and selectable build list.
 - Refactored item lists into reusable components.
+- Local overrides now reload via redux flag; gallery shows override markers.

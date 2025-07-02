@@ -75,4 +75,20 @@ describe("ItemGallery", () => {
     const stored = JSON.parse(localStorage.getItem("localOverrides") || "{}");
     expect(stored).toHaveProperty("One");
   });
+
+  it("shows override indicator and restore", () => {
+    localStorage.setItem(
+      "localOverrides",
+      JSON.stringify({ One: { attributes: [] } }),
+    );
+    const { getByLabelText, getByText } = render(
+      <Provider store={store}>
+        <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
+      </Provider>,
+    );
+    expect(getByLabelText("One override mark")).toBeInTheDocument();
+    fireEvent.click(getByText("Restore"));
+    const stored = localStorage.getItem("localOverrides");
+    expect(stored).toBe("{}");
+  });
 });
