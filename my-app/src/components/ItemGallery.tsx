@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../hooks";
-import { setTooltip, clearTooltip } from "../slices/tooltipSlice";
+import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
 import type { Item } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
 import { rarityColor } from "../utils/utils";
@@ -125,7 +125,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                     />
                   ) : (
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-xs text-gray-500">
-                      no icon :(
+                      no icon
                     </div>
                   )}
                   <span className="text-sm text-gray-800 dark:text-gray-200">

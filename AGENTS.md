@@ -7,13 +7,16 @@ These rules apply from the repository root downward. Child AGENTS.md files overr
 Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindCSS. The app helps players select an optimal combination of items given gold and character limits.
 
 ## Directory Map
+Root directory is overwatch_tool/
+- overwatch_tool/AGENTS.md this file, project rules and guidelines, there is only 1 AGENTS.md file
+- overwatch_tool/my-app/ main application code
+- overwatch_tool/memory-bank/ project context and decisions
+- overwatch_tool/changelog.md change log for features and fixes
 
-- my-app/src application source code
-- my-app/src/components UI components
-- my-app/src/utils helpers and pure functions
-- my-app/data.json canonical item data, avoid reading this file
-- my-app/overrides.json local balance overrides
-- my-app/src/types.ts shared type definitions
+
+Data files, do not edit or read directly unless the task requires it:
+- overwatch_tool/my-app/my-app/data.json canonical item data, avoid reading this file
+- overwatch_tool/my-app/my-app/overrides.json local balance overrides
 
 ## Coding Conventions
 
@@ -29,6 +32,10 @@ All project context lives in the `memory-bank/` folder. Always read every file i
 that folder at the start of a session to understand the current state and
 decisions. Keep these files up to date when you make significant changes or
 learn new information.
+
+Consider memory-bank as a method to inform future coding agents about the system.
+That is not a human file, so feel free to make it as technically as needed for coding agents to run efficiently.
+Cross reference the changelog.md and condense the memory-bank if needed.
 
 ## Feature Development Checklist
 
