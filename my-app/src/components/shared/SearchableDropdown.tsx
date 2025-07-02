@@ -95,10 +95,26 @@ export default function SearchableDropdown({
           }}
           ref={triggerRef}
         >
-          <span
-            style={{ color: displayedColor || "inherit" }}
-          >
-            {displayedLabel}
+          <span className="flex items-center gap-2">
+            {selected?.iconUrl && (
+              <img src={selected.iconUrl} alt="" className="size-8" />
+            )}
+            <span
+              style={{
+                color: displayedColor || "inherit",
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "normal",
+                maxHeight: "4.5em",
+                lineHeight: "1.5em",
+              }}
+              className="break-words"
+            >
+              {displayedLabel}
+            </span>
           </span>
         </button>
         <button
@@ -163,7 +179,7 @@ export default function SearchableDropdown({
                   }}
                 >
                   {option.iconUrl && (
-                    <img src={option.iconUrl} alt="" className="size-5" />
+                    <img src={option.iconUrl} alt="" className="size-8" />
                   )}
                   <span style={{ color: option.color || "inherit" }}>
                     {option.label}
