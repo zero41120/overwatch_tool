@@ -1,4 +1,11 @@
 {
+  "scripts": {
+    "start": "cd my-app && npm run dev",
+    "dev": "cd my-app && npm run dev",
+    "vite": "cd my-app && npm run vite",
+    "test": "cd my-app && npm run test:coverage",
+    "test:coverage": "cd my-app && npm run test:coverage"
+  },
   "devDependencies": {
     "prettier": "^3.5.3"
   }

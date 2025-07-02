@@ -35,7 +35,11 @@ export function sortItemsOverview(a: Item, b: Item) {
 }
 
 export function itemSlug(name: string) {
+  // Special case: treat any name containing 'B.O.B' as 'bob'
+  if (name.toLowerCase().includes('b.o.b')) name = name.replace(/b\.o\.b/i, "bob");
   return name
+    .normalize("NFD") // decompose accents
+    .replace(/[\u0300-\u036f]/g, "") // remove diacritics
     .toLowerCase()
     .replace(/[’']/g, "")
     .replace(/-/g, "")
@@ -54,7 +58,7 @@ for (const [path, url] of Object.entries(iconImports)) {
     .split("/")
     .pop()!
     .replace(/\.png$/, "");
-  iconMap[name] = url as string;
+  iconMap[itemSlug(name)] = url as string;
 }
 
 export function iconUrlForName(name: string) {

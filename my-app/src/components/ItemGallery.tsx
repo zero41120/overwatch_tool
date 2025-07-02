@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { useAppDispatch } from "../hooks";
-import { setTooltip, clearTooltip } from "../slices/tooltipSlice";
+import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
 import type { Item } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
 import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
 import SearchableDropdown from "./shared/SearchableDropdown";
+import ItemOverrideEditor from "./ItemOverrideEditor";
 
 interface Props {
   items: Item[];
+  heroes: string[];
+  attrTypes: string[];
 }
 
-export default function ItemGallery({ items }: Props) {
+export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [selected, setSelected] = useState(items[0]);
   const [editMode, setEditMode] = useState(false);
+  const [showSaved, setShowSaved] = useState(false);
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
   const dispatch = useAppDispatch();
@@ -58,7 +62,24 @@ export default function ItemGallery({ items }: Props) {
             </button>
           </div>
           {editMode && (
-            <div className="mt-1 text-sm text-indigo-500">Edit mode enabled</div>
+            <ItemOverrideEditor
+              item={selected}
+              heroes={heroes}
+              attrTypes={attrTypes}
+              onClose={() => setEditMode(false)}
+            />
+          )}
+          <button
+            type="button"
+            className="mt-2 text-sm underline"
+            onClick={() => setShowSaved((v) => !v)}
+          >
+            {showSaved ? "Hide" : "View"} locally saved
+          </button>
+          {showSaved && (
+            <pre className="mt-2 max-h-40 overflow-y-auto border p-2 text-xs">
+              {localStorage.getItem("localOverrides") || "{}"}
+            </pre>
           )}
         </div>
         {!folded && (
@@ -104,7 +125,7 @@ export default function ItemGallery({ items }: Props) {
                     />
                   ) : (
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-xs text-gray-500">
-                      no icon :(
+                      no icon
                     </div>
                   )}
                   <span className="text-sm text-gray-800 dark:text-gray-200">
