@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Item } from "../../types";
 import { sortItemsOverview } from "../../utils/item";
+import { getTooltipStyle } from "../../utils/tooltipUtils";
 import { rarityColor } from "../../utils/utils";
 import ItemCard from "../shared/ItemCard";
 
@@ -23,31 +24,28 @@ export default function ItemsOverviewTable({ eqItems, resultItems, showHeader = 
   const TOOLTIP_WIDTH = 320;
   const OFFSET = 12;
 
-  function getTooltipStyle(x: number, y: number): React.CSSProperties {
-    const winW = window.innerWidth;
-    const winH = window.innerHeight;
-    let left = x + OFFSET;
-    let top = y + OFFSET;
-    if (left + TOOLTIP_WIDTH > winW) {
-      left = x - TOOLTIP_WIDTH - OFFSET;
-    }
-    if (top + TOOLTIP_HEIGHT > winH) {
-      top = y - TOOLTIP_HEIGHT - OFFSET;
-    }
-    return {
-      left,
-      top,
-      minWidth: "220px",
-      maxWidth: "320px",
-      position: "fixed",
-      zIndex: 20,
-      pointerEvents: "none",
-      overflow: "hidden",
-    };
-  }
-
   return (
     <div className="relative">
+      {hover && (
+        <div
+          style={getTooltipStyle(hover.x, hover.y, {
+            width: TOOLTIP_WIDTH,
+            height: TOOLTIP_HEIGHT,
+            offset: OFFSET,
+          })}
+          className="transform-none shadow-lg rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+        >
+          <ItemCard
+            title={hover.item.name}
+            subtitle={hover.item.tab}
+            rarity={hover.item.rarity}
+            iconUrl={hover.item.iconUrl}
+            content={hover.item.attributes.map((a) => ({ text: a.value }))}
+            price={hover.item.cost}
+            width={320}
+          />
+        </div>
+      )}
       {showHeader && (
         <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-gray-200">Items Overview</h3>
       )}
@@ -61,7 +59,7 @@ export default function ItemsOverviewTable({ eqItems, resultItems, showHeader = 
               style={{ color: it ? rarityColor(it.rarity) : undefined }}
               onMouseEnter={(e) => it && setHover({ item: it, x: e.clientX, y: e.clientY })}
               onMouseMove={(e) => it && setHover({ item: it, x: e.clientX, y: e.clientY })}
-              onMouseLeave={() => setHover(null)}
+            // onMouseLeave={() => setHover(null)}
             >
               {it && (
                 <>
@@ -73,19 +71,7 @@ export default function ItemsOverviewTable({ eqItems, resultItems, showHeader = 
           );
         })}
       </div>
-      {hover && (
-        <div style={getTooltipStyle(hover.x, hover.y)} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-          <ItemCard
-            title={hover.item.name}
-            subtitle={hover.item.tab}
-            rarity={hover.item.rarity}
-            iconUrl={hover.item.iconUrl}
-            content={hover.item.attributes.map((a) => ({ text: a.value }))}
-            price={hover.item.cost}
-            width={320}
-          />
-        </div>
-      )}
+
     </div>
   );
 }

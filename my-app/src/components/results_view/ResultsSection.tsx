@@ -26,8 +26,8 @@ export default function ResultsSection({ eqItems, eqCost, cash, builds, selected
           <StatsGrid results={current} eqCost={eqCost} cash={cash} />
           <ItemsOverviewTable eqItems={eqItems} resultItems={current.items} />
           <BreakdownTable results={current} />
-          <FinalBuildList eqItems={eqItems} resultItems={current.items} />
           <AllBuilds eqItems={eqItems} builds={builds} selected={selected} onSelect={onSelect} />
+          <FinalBuildList eqItems={eqItems} resultItems={current.items} />
         </div>
       ) : (
         <NoResultsState />
