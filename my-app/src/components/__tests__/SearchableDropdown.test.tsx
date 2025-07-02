@@ -40,4 +40,13 @@ describe("SearchableDropdown", () => {
     fireEvent.keyDown(input, { key: "Enter" });
     expect(handleChange).toHaveBeenCalledWith("1");
   });
+
+  it("shows an icon when provided", () => {
+    const opts = [{ value: "1", label: "One", iconUrl: "icon.png" }];
+    const { getAllByRole } = render(
+      <SearchableDropdown label="Test" options={opts} value="" onChange={() => { }} />,
+    );
+    fireEvent.click(getAllByRole("button")[0]);
+    expect(getAllByRole("presentation")[0]).toHaveAttribute("src", "icon.png");
+  });
 });

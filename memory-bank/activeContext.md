@@ -11,3 +11,4 @@ Added local override editor in ItemGallery with hero dropdown, attribute rows, a
 Implemented hoverable item overview grid and radio-based build selection in Results section.
 Moved tooltip state to Redux for global usage.
 Refactored item lists into reusable ItemCardList and BuildList components.
+Displayed item icons in SearchableDropdown options.
