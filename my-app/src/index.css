@@ -5,13 +5,11 @@
 @tailwind utilities;
 
 body {
-  background: linear-gradient(
-    136deg,
-    #1f395e 0%,
-    #212435 40%,
-    #212435 60%,
-    #1a9dc8 100%
-  );
+  background: linear-gradient(136deg,
+      #1f395e 0%,
+      #212435 40%,
+      #212435 60%,
+      #1a9dc8 100%);
 }
 
 .glass-card {

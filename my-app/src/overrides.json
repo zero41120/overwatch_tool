@@ -106,7 +106,7 @@
   },
   "BLOODHOUND MASK": {
     "attributes": [],
-    "Ashe": [
+    "Junker Queen": [
       {
         "type": "WP",
         "value": "20%"
@@ -123,7 +123,7 @@
   },
   "SLICING SPREE": {
     "attributes": [],
-    "Ashe": [
+    "Junker Queen": [
       {
         "type": "MS",
         "value": "10%"
@@ -142,9 +142,29 @@
       }
     ]
   },
+  "AERIAL DISTRESSER": {
+    "attributes": [
+      {
+        "type": "Shield",
+        "value": "25"
+      },
+      {
+        "type": "AS",
+        "value": "10%"
+      },
+      {
+        "type": "WP",
+        "value": "25%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Best value item for Juno/Mercy. Use avoid item if not applicable. (Weapon dealing damage to airborne enemies deal <b>25%</b> bonus damage over <b>3s</b>.)"
+      }
+    ]
+  },
   "SHRED AND LEAD": {
     "attributes": [],
-    "Ashe": [
+    "Junker Queen": [
       {
         "type": "MA",
         "value": "33%"

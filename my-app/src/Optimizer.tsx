@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
 import InputSection from "./components/input_view/InputSection";
-import ResultsSection from "./components/results_view/ResultsSection";
 import ItemGallery from "./components/ItemGallery";
+import ResultsSection from "./components/results_view/ResultsSection";
 import Toolbar from "./components/Toolbar";
 import rawData from "./data.json?raw";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -24,7 +24,8 @@ export default function Optimizer() {
   const { hero, cash, equipped, toBuy, avoid, avoidEnabled, weights, minValueEnabled, minAttrGroups, useOverrides } =
     state;
   const [results, setResults] = useState<ResultCombo | null>(null);
-  const [alternatives, setAlternatives] = useState<ResultCombo[]>([]);
+  const [builds, setBuilds] = useState<ResultCombo[]>([]);
+  const [buildIndex, setBuildIndex] = useState(0);
   // Memoize expensive calculations
   const memoizedScores = useState(new Map<string, number>())[0];
   const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
@@ -42,6 +43,7 @@ export default function Optimizer() {
         if (override) {
           const attrs = override[hero] || override.attributes;
           if (attrs) item.attributes = attrs;
+          if (!item.id) item.id = it.name; // Ensure id is set if not present
         }
         items.push(item);
       });
@@ -181,8 +183,9 @@ export default function Optimizer() {
         return;
       }
       const score = calcScore(eqItems);
+      setBuilds([{ items: [], cost: 0, score }]);
+      setBuildIndex(0);
       setResults({ items: [], cost: 0, score });
-      setAlternatives([]);
       return;
     }
 
@@ -266,15 +269,38 @@ export default function Optimizer() {
     }
     const [best, ...others] = bestCombos.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
     const alt = others.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
-    const totalMap = aggregate([...best.items, ...eqItems]);
+    const combos = [best, ...alt].sort((a, b) => {
+      const costDiff = a.cost - b.cost;
+      if (costDiff !== 0) return costDiff;
+      return b.items.length - a.items.length;
+    });
+    const index = combos.indexOf(best);
+    const build = combos[index];
+    const totalMap = aggregate([...build.items, ...eqItems]);
     const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
+    setBuilds(combos.map((c) => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
+    setBuildIndex(index);
     setResults({
-      items: best.items,
-      cost: best.cost,
+      items: build.items,
+      cost: build.cost,
       score: scoreFromMap(totalMap, weights),
       breakdown,
     });
-    setAlternatives(alt.map((c) => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
+    // alternatives no longer separately stored
+  }
+
+  function onSelectBuild(idx: number) {
+    const build = builds[idx];
+    if (!build) return;
+    setBuildIndex(idx);
+    const totalMap = aggregate([...build.items, ...equippedItems()]);
+    const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
+    setResults({
+      items: build.items,
+      cost: build.cost,
+      score: scoreFromMap(totalMap, weights),
+      breakdown,
+    });
   }
 
   if (data.length === 0) return <div className="p-4">Loading...</div>;
@@ -294,9 +320,17 @@ export default function Optimizer() {
           onSubmit={onCalculate}
           validate={validate}
         />
-        <ResultsSection eqItems={eqItems} eqCost={eqCost} cash={cash} results={results} alternatives={alternatives} />
+        <ResultsSection
+          eqItems={eqItems}
+          eqCost={eqCost}
+          cash={cash}
+          builds={builds}
+          selected={buildIndex}
+          results={results}
+          onSelect={onSelectBuild}
+        />
         <BreakPointCalculator />
-        <ItemGallery items={filtered} />
+        <ItemGallery items={filtered} heroes={heroes} attrTypes={attrTypes} />
       </div>
     </div>
   );

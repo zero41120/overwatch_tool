@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setHero } from "../../slices/inputSlice";
-import SearchableDropdown from "../shared/SearchableDropdown";
 import { ALL_HEROES, NO_HERO } from "../../types";
+import SearchableDropdown from "../shared/SearchableDropdown";
 
 interface Props {
   heroes: string[];
@@ -10,6 +10,7 @@ interface Props {
 export default function HeroSelect({ heroes }: Props) {
   const hero = useAppSelector((state) => state.input.present.hero);
   const dispatch = useAppDispatch();
+  const options = [NO_HERO, ALL_HEROES, ...heroes].map((h) => ({ value: h, label: h }));
   return (
     <div>
       <label
@@ -18,18 +19,13 @@ export default function HeroSelect({ heroes }: Props) {
       >
         Hero
       </label>
-      <SearchableDropdown
-        label="Hero"
-        placeholder="Select hero"
-        options={[
-          { value: "", label: "Select hero" },
-          { value: NO_HERO, label: NO_HERO },
-          { value: ALL_HEROES, label: ALL_HEROES },
-          ...heroes.map((h) => ({ value: h, label: h })),
-        ]}
-        value={hero}
-        onChange={(v) => dispatch(setHero(v))}
-      />
+        <SearchableDropdown
+          label="Hero"
+          placeholder="Select hero"
+          options={options}
+          value={hero}
+          onChange={(v) => dispatch(setHero(v))}
+        />
     </div>
   );
 }

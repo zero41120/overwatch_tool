@@ -2,11 +2,11 @@ import type { ResultCombo } from "../../types";
 import { attributeValueToLabel } from "../../utils/attributeUtils";
 
 interface Props {
-  results: ResultCombo;
+  results: ResultCombo | null;
 }
 
 export default function BreakdownTable({ results }: Props) {
-  if (!results.breakdown) return null;
+  if (!results?.breakdown) return null;
 
   return (
     <div className="text-sm text-gray-600 dark:text-gray-300">
