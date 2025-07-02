@@ -1,10 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
-  addEquippedSlot,
-  removeEquippedSlot,
-  setEquipped,
-  toggleEquippedEnabled,
-} from "../../slices/inputSlice";
+import { addEquippedSlot, removeEquippedSlot, setEquipped, toggleEquippedEnabled } from "../../slices/inputSlice";
 import type { Item } from "../../types";
 import { attributeValueToLabel } from "../../utils/attributeUtils";
 import { sortItemsByRarityAndName } from "../../utils/item";
@@ -31,10 +26,7 @@ export default function EquippedSection({ items }: Props) {
           onChange={() => dispatch(toggleEquippedEnabled())}
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
-        <label
-          htmlFor="use-equipped-checkbox"
-          className="text-sm dark:text-gray-300 select-none"
-        >
+        <label htmlFor="use-equipped-checkbox" className="text-sm dark:text-gray-300 select-none">
           Use Equipped Items
         </label>
       </div>
@@ -54,12 +46,11 @@ export default function EquippedSection({ items }: Props) {
                       .map((a) => `${attributeValueToLabel(a.type)}-${a.value}`)
                       .join(", ")}`,
                     color: rarityColor(it.rarity),
+                    iconUrl: it.iconUrl,
                   })),
                 ]}
                 value={id}
-                onChange={(value) =>
-                  dispatch(setEquipped({ index: idx, id: value }))
-                }
+                onChange={(value) => dispatch(setEquipped({ index: idx, id: value }))}
                 className="flex-grow"
               />
               {equipped.length > 1 && (
@@ -86,12 +77,7 @@ export default function EquippedSection({ items }: Props) {
               )}
             </div>
           ))}
-          {equipped.length < 6 && (
-            <SimpleButton
-              text="Add Slot"
-              onClick={() => dispatch(addEquippedSlot())}
-            />
-          )}
+          {equipped.length < 6 && <SimpleButton text="Add Slot" onClick={() => dispatch(addEquippedSlot())} />}
         </div>
       )}
     </div>

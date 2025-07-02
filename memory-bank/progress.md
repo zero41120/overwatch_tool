@@ -9,3 +9,4 @@
 - Enhanced ItemGallery with search, hover tooltip, fold button, and scrollable grid.
 - Implemented hoverable item overview grid and selectable build list.
 - Refactored item lists into reusable components.
+- Added item icons to dropdown lists using SearchableDropdown.

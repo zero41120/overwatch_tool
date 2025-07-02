@@ -10,14 +10,18 @@ describe("SearchableDropdown", () => {
     { value: "2", label: "Two" },
   ];
 
+  it("renders icon when provided", () => {
+    const opts = [{ value: "1", label: "One", iconUrl: "icon.png" }];
+    const { getAllByRole, getByRole } = render(
+      <SearchableDropdown label="Icon" options={opts} value="" onChange={() => {}} />,
+    );
+    fireEvent.click(getAllByRole("button")[0]);
+    expect(getByRole("presentation")).toHaveAttribute("src", "icon.png");
+  });
+
   it("focuses search input when opened", () => {
     const { getAllByRole, getByPlaceholderText } = render(
-      <SearchableDropdown
-        label="Test"
-        options={options}
-        value=""
-        onChange={() => { }}
-      />,
+      <SearchableDropdown label="Test" options={options} value="" onChange={() => {}} />,
     );
     fireEvent.click(getAllByRole("button")[0]);
     const input = getByPlaceholderText("Search...");
@@ -27,12 +31,7 @@ describe("SearchableDropdown", () => {
   it("accepts single result with enter key", () => {
     const handleChange = vi.fn();
     const { getAllByRole, getByPlaceholderText } = render(
-      <SearchableDropdown
-        label="Test"
-        options={options}
-        value=""
-        onChange={handleChange}
-      />,
+      <SearchableDropdown label="Test" options={options} value="" onChange={handleChange} />,
     );
     fireEvent.click(getAllByRole("button")[0]);
     const input = getByPlaceholderText("Search...");

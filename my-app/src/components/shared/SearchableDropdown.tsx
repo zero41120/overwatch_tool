@@ -4,6 +4,7 @@ interface DropdownOption {
   value: string;
   label: string;
   color?: string;
+  iconUrl?: string;
 }
 
 interface DropdownProps {
@@ -34,9 +35,7 @@ export default function SearchableDropdown({
   const displayedLabel = selected?.label || placeholder;
   const displayedColor = selected?.color;
 
-  const filteredOptions = options.filter((o) =>
-    o.label.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredOptions = options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()));
 
   const handleSelect = (optionValue: string) => {
     onChange(optionValue);
@@ -46,10 +45,7 @@ export default function SearchableDropdown({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -67,8 +63,7 @@ export default function SearchableDropdown({
   useEffect(() => {
     if (!isOpen || !triggerRef.current) return;
     const triggerRect = triggerRef.current.getBoundingClientRect();
-    const viewportHeight =
-      window.innerHeight || document.documentElement.clientHeight;
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     const estimatedDropdownHeight = viewportHeight * 0.4;
     const spaceBelow = viewportHeight - triggerRect.bottom;
     const spaceAbove = triggerRect.top;
@@ -94,11 +89,7 @@ export default function SearchableDropdown({
           }}
           ref={triggerRef}
         >
-          <span
-            style={{ color: displayedColor || "inherit" }}
-          >
-            {displayedLabel}
-          </span>
+          <span style={{ color: displayedColor || "inherit" }}>{displayedLabel}</span>
         </button>
         <button
           type="button"
@@ -118,19 +109,12 @@ export default function SearchableDropdown({
             stroke="currentColor"
             className="size-4"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m19.5 8.25-7.5 7.5-7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </button>
       </span>
       {isOpen && (
-        <div
-          role="menu"
-          className={`${dropdownClasses} ${openUpwards ? "bottom-full mb-2" : "top-full mt-2"}`}
-        >
+        <div role="menu" className={`${dropdownClasses} ${openUpwards ? "bottom-full mb-2" : "top-full mt-2"}`}>
           {options.length > 0 ? (
             <div>
               <p className="sticky top-0 bg-white dark:bg-gray-900 px-3 py-2 text-xs uppercase text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 z-20">
@@ -161,21 +145,18 @@ export default function SearchableDropdown({
                     handleSelect(option.value);
                   }}
                 >
-                  <span style={{ color: option.color || "inherit" }}>
+                  <span className="flex items-center gap-2" style={{ color: option.color || "inherit" }}>
+                    {option.iconUrl && <img src={option.iconUrl} alt="" className="h-4 w-4 rounded" />}
                     {option.label}
                   </span>
                 </a>
               ))}
               {filteredOptions.length === 0 && (
-                <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
-                  No matching options
-                </p>
+                <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400">No matching options</p>
               )}
             </div>
           ) : (
-            <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
-              No options available
-            </p>
+            <p className="block px-3 py-2 text-sm text-gray-500 dark:text-gray-400">No options available</p>
           )}
         </div>
       )}

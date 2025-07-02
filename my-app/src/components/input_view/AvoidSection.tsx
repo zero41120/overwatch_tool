@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
-  addAvoid,
-  removeAvoid,
-  toggleAvoidEnabled,
-} from "../../slices/inputSlice";
+import { addAvoid, removeAvoid, toggleAvoidEnabled } from "../../slices/inputSlice";
 import type { Item } from "../../types";
 import { sortItemsByRarityAndName } from "../../utils/item";
 import { rarityColor } from "../../utils/utils";
@@ -32,10 +28,7 @@ export default function AvoidSection({ items }: Props) {
           onChange={() => dispatch(toggleAvoidEnabled())}
           className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
         />
-        <label
-          htmlFor="avoid-toggle"
-          className="text-sm dark:text-gray-300 select-none"
-        >
+        <label htmlFor="avoid-toggle" className="text-sm dark:text-gray-300 select-none">
           Enable Avoid Items
         </label>
       </div>
@@ -51,6 +44,7 @@ export default function AvoidSection({ items }: Props) {
                   value: it.id || it.name,
                   label: `${it.name} (${it.cost})`,
                   color: rarityColor(it.rarity),
+                  iconUrl: it.iconUrl,
                 })),
               ]}
               value={selected}
@@ -71,13 +65,7 @@ export default function AvoidSection({ items }: Props) {
             <div className="flex flex-wrap gap-2 mt-2">
               {avoid.map((id) => {
                 const item = items.find((it) => (it.id || it.name) === id);
-                return (
-                  <Chip
-                    key={id}
-                    label={item ? item.name : id}
-                    onRemove={() => dispatch(removeAvoid(id))}
-                  />
-                );
+                return <Chip key={id} label={item ? item.name : id} onRemove={() => dispatch(removeAvoid(id))} />;
               })}
             </div>
           )}

@@ -11,3 +11,4 @@ Implemented hoverable item overview grid and radio-based build selection in Resu
 
 Moved tooltip state to Redux for global usage.
 Refactored item lists into reusable ItemCardList and BuildList components.
+Added item icons to SearchableDropdown lists for item selections.

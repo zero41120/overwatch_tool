@@ -18,15 +18,16 @@
 2025-06-12 Display item descriptions without label src/components/ResultsSection.tsx
 2025-06-12 Fix mobile layout issues and disable iOS input zoom src/components
 
-2025-06-14  add tests for dropdown, toolbar, and calculator  src/components
-2025-06-15  add import/export modal for state management  src/components/ImportExportModal.tsx
-2025-06-15  fix import modal usability issues and persist equipped toggle  src/components/ImportExportModal.tsx
-2025-06-28  fix DFS selection logic for build ranking  src/Optimizer.tsx
-2025-06-30  add All Hero and No Hero options for hero selection  src/components/input_view/HeroSelect.tsx
-2025-06-30  add toggle to enable/disable editor overrides  src/components/input_view/OverrideToggle.tsx
-2025-07-01  add selectable build list and hoverable item overview  src/components/results_view
-2025-07-01  create ItemGallery component for browsing items  src/components/ItemGallery.tsx
-2025-07-01  integrate ItemGallery into Optimizer view  src/Optimizer.tsx
-2025-07-01  enhance ItemGallery with search, tooltip preview, folding, scroll  src/components/ItemGallery.tsx
-2025-07-02  move tooltip to redux store  src/slices/tooltipSlice.ts
-2025-07-02  refactor item tables into reusable components  src/components
+2025-06-14 add tests for dropdown, toolbar, and calculator src/components
+2025-06-15 add import/export modal for state management src/components/ImportExportModal.tsx
+2025-06-15 fix import modal usability issues and persist equipped toggle src/components/ImportExportModal.tsx
+2025-06-28 fix DFS selection logic for build ranking src/Optimizer.tsx
+2025-06-30 add All Hero and No Hero options for hero selection src/components/input_view/HeroSelect.tsx
+2025-06-30 add toggle to enable/disable editor overrides src/components/input_view/OverrideToggle.tsx
+2025-07-01 add selectable build list and hoverable item overview src/components/results_view
+2025-07-01 create ItemGallery component for browsing items src/components/ItemGallery.tsx
+2025-07-01 integrate ItemGallery into Optimizer view src/Optimizer.tsx
+2025-07-01 enhance ItemGallery with search, tooltip preview, folding, scroll src/components/ItemGallery.tsx
+2025-07-02 move tooltip to redux store src/slices/tooltipSlice.ts
+2025-07-02 refactor item tables into reusable components src/components
+2025-07-02 show item icons in dropdown lists src/components/shared/SearchableDropdown.tsx

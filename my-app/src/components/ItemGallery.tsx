@@ -18,9 +18,7 @@ export default function ItemGallery({ items }: Props) {
   const [search, setSearch] = useState("");
   const dispatch = useAppDispatch();
 
-  const filtered = items.filter((it) =>
-    it.name.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filtered = items.filter((it) => it.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8  dark:border-gray-700">
@@ -57,9 +55,7 @@ export default function ItemGallery({ items }: Props) {
               {folded ? "Show" : "Hide"}
             </button>
           </div>
-          {editMode && (
-            <div className="mt-1 text-sm text-indigo-500">Edit mode enabled</div>
-          )}
+          {editMode && <div className="mt-1 text-sm text-indigo-500">Edit mode enabled</div>}
         </div>
         {!folded && (
           <>
@@ -71,6 +67,7 @@ export default function ItemGallery({ items }: Props) {
                   value: it.name,
                   label: it.name,
                   color: rarityColor(it.rarity),
+                  iconUrl: it.iconUrl,
                 })),
               ]}
               value={search}
@@ -83,33 +80,19 @@ export default function ItemGallery({ items }: Props) {
                   key={idx}
                   type="button"
                   onClick={() => setSelected(it)}
-                  onMouseEnter={(e) =>
-                    dispatch(
-                      setTooltip({ item: it, x: e.clientX, y: e.clientY }),
-                    )
-                  }
-                  onMouseMove={(e) =>
-                    dispatch(
-                      setTooltip({ item: it, x: e.clientX, y: e.clientY }),
-                    )
-                  }
+                  onMouseEnter={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
+                  onMouseMove={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
                   onMouseLeave={() => dispatch(clearTooltip())}
                   className="flex flex-col items-center gap-1 p-2 rounded border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   {it.iconUrl ? (
-                    <img
-                      src={it.iconUrl}
-                      alt=""
-                      className="h-12 w-12 rounded-full object-cover"
-                    />
+                    <img src={it.iconUrl} alt="" className="h-12 w-12 rounded-full object-cover" />
                   ) : (
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-xs text-gray-500">
                       no icon :(
                     </div>
                   )}
-                  <span className="text-sm text-gray-800 dark:text-gray-200">
-                    {it.name}
-                  </span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">{it.name}</span>
                 </button>
               ))}
             </div>
