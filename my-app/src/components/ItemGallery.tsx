@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useAppDispatch } from "../hooks";
+import { setTooltip, clearTooltip } from "../slices/tooltipSlice";
 import type { Item } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
-import { getTooltipStyle } from "../utils/tooltipUtils";
 import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
 import SearchableDropdown from "./shared/SearchableDropdown";
@@ -12,49 +13,19 @@ interface Props {
 
 export default function ItemGallery({ items }: Props) {
   const [selected, setSelected] = useState(items[0]);
-  const [hovered, setHovered] = useState<Item | null>(null);
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
+  const dispatch = useAppDispatch();
 
   const filtered = items.filter((it) =>
     it.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  // Tooltip size estimate
-  const TOOLTIP_HEIGHT = 180;
-  const TOOLTIP_WIDTH = 320;
-  const OFFSET = 12;
-
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8  dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
       <div className="relative">
-        {hovered && pos && (
-          <div
-            style={getTooltipStyle(pos.x, pos.y, {
-              width: TOOLTIP_WIDTH,
-              height: TOOLTIP_HEIGHT,
-              offset: OFFSET,
-            })}
-            className="shadow-lg rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
-          >
-            <ItemCard
-              title={hovered.name}
-              subtitle={hovered.tab}
-              rarity={hovered.rarity}
-              iconUrl={hovered.iconUrl}
-              content={hovered.attributes.map((a) => ({
-                text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
-                  a.type,
-                )}</span>`,
-              }))}
-              price={`${hovered.cost} G`}
-              width={320}
-            />
-          </div>
-        )}
         <div>
           {selected && (
             <ItemCard
@@ -112,15 +83,17 @@ export default function ItemGallery({ items }: Props) {
                   key={idx}
                   type="button"
                   onClick={() => setSelected(it)}
-                  onMouseEnter={(e) => {
-                    setHovered(it);
-                    setPos({ x: e.clientX, y: e.clientY });
-                  }}
-                  onMouseMove={(e) => setPos({ x: e.clientX, y: e.clientY })}
-                  onMouseLeave={() => {
-                    // setHovered(null);
-                    // setPos(null);
-                  }}
+                  onMouseEnter={(e) =>
+                    dispatch(
+                      setTooltip({ item: it, x: e.clientX, y: e.clientY }),
+                    )
+                  }
+                  onMouseMove={(e) =>
+                    dispatch(
+                      setTooltip({ item: it, x: e.clientX, y: e.clientY }),
+                    )
+                  }
+                  onMouseLeave={() => dispatch(clearTooltip())}
                   className="flex flex-col items-center gap-1 p-2 rounded border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   {it.iconUrl ? (

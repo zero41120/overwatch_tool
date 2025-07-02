@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useAppDispatch } from "../../hooks";
+import { setTooltip, clearTooltip } from "../../slices/tooltipSlice";
 import type { Item } from "../../types";
 import { sortItemsOverview } from "../../utils/item";
-import { getTooltipStyle } from "../../utils/tooltipUtils";
 import { rarityColor } from "../../utils/utils";
-import ItemCard from "../shared/ItemCard";
 
 interface Props {
   eqItems: Item[];
@@ -13,39 +12,10 @@ interface Props {
 
 export default function ItemsOverviewTable({ eqItems, resultItems, showHeader = true }: Props) {
   const allItems = [...eqItems, ...resultItems].sort(sortItemsOverview);
-
-  const [hover, setHover] = useState<{
-    item: Item;
-    x: number;
-    y: number;
-  } | null>(null);
-
-  const TOOLTIP_HEIGHT = 180;
-  const TOOLTIP_WIDTH = 320;
-  const OFFSET = 12;
+  const dispatch = useAppDispatch();
 
   return (
     <div className="relative">
-      {hover && (
-        <div
-          style={getTooltipStyle(hover.x, hover.y, {
-            width: TOOLTIP_WIDTH,
-            height: TOOLTIP_HEIGHT,
-            offset: OFFSET,
-          })}
-          className="transform-none shadow-lg rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
-        >
-          <ItemCard
-            title={hover.item.name}
-            subtitle={hover.item.tab}
-            rarity={hover.item.rarity}
-            iconUrl={hover.item.iconUrl}
-            content={hover.item.attributes.map((a) => ({ text: a.value }))}
-            price={hover.item.cost}
-            width={320}
-          />
-        </div>
-      )}
       {showHeader && (
         <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-gray-200">Items Overview</h3>
       )}
@@ -57,9 +27,13 @@ export default function ItemsOverviewTable({ eqItems, resultItems, showHeader = 
               key={idx}
               className="flex items-center border border-gray-200 dark:border-gray-700 p-1"
               style={{ color: it ? rarityColor(it.rarity) : undefined }}
-              onMouseEnter={(e) => it && setHover({ item: it, x: e.clientX, y: e.clientY })}
-              onMouseMove={(e) => it && setHover({ item: it, x: e.clientX, y: e.clientY })}
-            // onMouseLeave={() => setHover(null)}
+              onMouseEnter={(e) =>
+                it && dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))
+              }
+              onMouseMove={(e) =>
+                it && dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))
+              }
+              onMouseLeave={() => dispatch(clearTooltip())}
             >
               {it && (
                 <>

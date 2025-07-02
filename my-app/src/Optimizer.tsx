@@ -23,7 +23,7 @@ export default function Optimizer() {
   const state = useAppSelector((s) => s.input.present);
   const { hero, cash, equipped, toBuy, avoid, avoidEnabled, weights, minValueEnabled, minAttrGroups, useOverrides } =
     state;
-  const [results, setResults] = useState<ResultCombo | null>(null);
+  const [, setResults] = useState<ResultCombo | null>(null);
   const [builds, setBuilds] = useState<ResultCombo[]>([]);
   const [buildIndex, setBuildIndex] = useState(0);
   // Memoize expensive calculations
