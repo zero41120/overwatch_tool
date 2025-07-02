@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useAppDispatch } from "../hooks";
+import { useState, useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
 import type { Item } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
@@ -7,6 +7,11 @@ import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
 import SearchableDropdown from "./shared/SearchableDropdown";
 import ItemOverrideEditor from "./ItemOverrideEditor";
+import {
+  loadLocalOverrides,
+  deleteLocalOverride,
+} from "../utils/localOverrides";
+import { bumpOverrideVersion } from "../slices/inputSlice";
 
 interface Props {
   items: Item[];
@@ -21,38 +26,84 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
   const dispatch = useAppDispatch();
+  const overrideVersion = useAppSelector((s) => s.input.present.overrideVersion);
+  const overrides = useMemo(loadLocalOverrides, [overrideVersion]);
 
   const filtered = items.filter((it) =>
     it.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
-    <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8  dark:border-gray-700">
+    <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8 bg-white dark:bg-gray-800 dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
       <div className="relative">
         <div>
           {selected && (
-            <ItemCard
-              title={selected.name}
-              subtitle={selected.tab}
-              rarity={selected.rarity}
-              iconUrl={selected.iconUrl}
-              content={selected.attributes.map((a) => ({
-                text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
-                  a.type,
-                )}</span>`,
-              }))}
-              price={`${selected.cost} G`}
-            />
+            <div className="space-y-2">
+              <div className="space-y-1">
+                <ItemCard
+                  title={selected.name}
+                  subtitle={selected.tab}
+                  rarity={selected.rarity}
+                  iconUrl={selected.iconUrl}
+                  content={selected.attributes.map((a) => ({
+                    text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
+                      a.type,
+                    )}</span>`,
+                  }))}
+                  price={`${selected.cost} G`}
+                />
+                {overrides[selected.name] && (
+                  <button
+                    type="button"
+                    className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"
+                    onClick={() => {
+                      deleteLocalOverride(selected.name);
+                      dispatch(bumpOverrideVersion());
+                    }}
+                  >
+                    Restore
+                  </button>
+                )}
+              </div>
+              {overrides[selected.name] && (
+                <div className="space-y-1">
+                  <ItemCard
+                    title={selected.name}
+                    subtitle="override"
+                    rarity={selected.rarity}
+                    iconUrl={selected.iconUrl}
+                    content={(
+                      overrides[selected.name].attributes ||
+                      Object.values(overrides[selected.name])[0]
+                    )?.map((a) => ({
+                      text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
+                        a.type,
+                      )}</span>`,
+                    })) || []}
+                    price={`${selected.cost} G`}
+                  />
+                  <button
+                    type="button"
+                    className="rounded bg-indigo-600 px-3 py-1 text-white hover:bg-indigo-700"
+                    onClick={() => setEditMode(true)}
+                  >
+                    Update
+                  </button>
+                </div>
+              )}
+            </div>
           )}
           <div className="mt-2 flex items-center gap-2">
-            <button
-              type="button"
-              className="rounded bg-indigo-600 px-3 py-1 text-white hover:bg-indigo-700"
-              onClick={() => setEditMode((v) => !v)}
-            >
-              Customize
-            </button>
+            {!overrides[selected?.name] && (
+              <button
+                type="button"
+                className="rounded bg-indigo-600 px-3 py-1 text-white hover:bg-indigo-700"
+                onClick={() => setEditMode(true)}
+              >
+                Customize
+              </button>
+            )}
             <button
               type="button"
               onClick={() => setFolded((v) => !v)}
@@ -78,7 +129,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
           </button>
           {showSaved && (
             <pre className="mt-2 max-h-40 overflow-y-auto border p-2 text-xs">
-              {localStorage.getItem("localOverrides") || "{}"}
+              {JSON.stringify(overrides, null, 2)}
             </pre>
           )}
         </div>
@@ -116,8 +167,14 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                     )
                   }
                   onMouseLeave={() => dispatch(clearTooltip())}
-                  className="flex flex-col items-center gap-1 p-2 rounded border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="relative flex flex-col items-center gap-1 p-2 rounded border dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
+                  {overrides[it.name] && (
+                    <span
+                      className="absolute right-1 top-1 h-2 w-2 rounded-full bg-teal-500"
+                      aria-label={`${it.name} override mark`}
+                    />
+                  )}
                   {it.iconUrl ? (
                     <img
                       src={it.iconUrl}

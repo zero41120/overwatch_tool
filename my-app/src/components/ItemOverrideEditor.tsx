@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../hooks";
 import type { Attribute, Item, ItemOverride } from "../types";
+import {
+  loadLocalOverrides,
+  saveLocalOverride,
+  deleteLocalOverride,
+} from "../utils/localOverrides";
+import { bumpOverrideVersion } from "../slices/inputSlice";
 import SearchableDropdown from "./shared/SearchableDropdown";
 import SimpleButton from "./shared/SimpleButton";
 
@@ -14,11 +21,10 @@ export default function ItemOverrideEditor({ item, heroes, attrTypes, onClose }:
   const [hero, setHero] = useState(heroes[0] || "");
   const [rows, setRows] = useState<Attribute[]>([{ type: "WP", value: "5" }]);
   const [note, setNote] = useState("");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const data: Record<string, ItemOverride> = JSON.parse(
-      localStorage.getItem("localOverrides") || "{}",
-    );
+    const data = loadLocalOverrides();
     const attrs = data[item.name]?.[hero] || data[item.name]?.attributes;
     if (attrs?.length) {
       setRows(attrs.filter((a) => a.type !== "Editor's Note"));
@@ -30,29 +36,17 @@ export default function ItemOverrideEditor({ item, heroes, attrTypes, onClose }:
   }, [hero, item.name]);
 
   function save() {
-    const overrides: Record<string, ItemOverride> = JSON.parse(
-      localStorage.getItem("localOverrides") || "{}",
-    );
     const list = [...rows];
     if (note.trim()) list.push({ type: "Editor's Note", value: note.trim() });
-    if (!overrides[item.name]) overrides[item.name] = {};
-    if (hero) overrides[item.name][hero] = list;
-    else overrides[item.name].attributes = list;
-    localStorage.setItem("localOverrides", JSON.stringify(overrides));
+    saveLocalOverride(item.name, hero || undefined, list);
+    dispatch(bumpOverrideVersion());
     onClose();
   }
 
   function deleteOverride() {
     if (!confirm("Delete override?")) return;
-    const overrides: Record<string, ItemOverride> = JSON.parse(
-      localStorage.getItem("localOverrides") || "{}",
-    );
-    const entry = overrides[item.name];
-    if (!entry) return onClose();
-    if (hero) delete entry[hero];
-    else delete entry.attributes;
-    if (Object.keys(entry).length === 0) delete overrides[item.name];
-    localStorage.setItem("localOverrides", JSON.stringify(overrides));
+    deleteLocalOverride(item.name, hero || undefined);
+    dispatch(bumpOverrideVersion());
     onClose();
   }
 

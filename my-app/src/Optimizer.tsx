@@ -7,6 +7,7 @@ import Toolbar from "./components/Toolbar";
 import rawData from "./data.json?raw";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import overridesRaw from "./overrides.json?raw";
+import { loadLocalOverrides } from "./utils/localOverrides";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { Item, ItemOverride, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
@@ -31,14 +32,18 @@ export default function Optimizer() {
   const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
   const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
-  const overrides: Record<string, ItemOverride> = overridesRaw ? JSON.parse(overridesRaw) : {};
+  const baseOverrides: Record<string, ItemOverride> = overridesRaw ? JSON.parse(overridesRaw) : {};
+  const overrideVersion = state.overrideVersion;
 
   useEffect(() => {
     const root: RootData = JSON.parse(rawData);
     const items: Item[] = [];
+    const localOverrides = loadLocalOverrides();
     const add = (tab: string, rarity: "common" | "rare" | "epic", arr: Item[]) => {
       arr.forEach((it) => {
-        const override = useOverrides ? overrides[it.name] : undefined;
+        const override = useOverrides
+          ? localOverrides[it.name] || baseOverrides[it.name]
+          : undefined;
         const item = { ...it, tab, rarity, iconUrl: iconUrlForName(it.name) };
         if (override) {
           const attrs = override[hero] || override.attributes;
@@ -73,7 +78,7 @@ export default function Optimizer() {
     setHeroes(heroList);
     setAttrTypes(sortedTypes);
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
-  }, [hero, useOverrides]);
+  }, [hero, useOverrides, overrideVersion]);
   useEffect(() => {
     const count = equipped.filter((id) => id).length;
     if (toBuy + count > 6) dispatch(setToBuy(Math.max(0, 6 - count)));

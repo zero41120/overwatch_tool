@@ -28,4 +28,17 @@ describe("Optimizer", () => {
     );
     expect(await findByText("Customize")).toBeInTheDocument();
   });
+
+  it("loads local overrides", async () => {
+    localStorage.setItem(
+      "localOverrides",
+      JSON.stringify({ One: { attributes: [{ type: "AP", value: "5" }] } }),
+    );
+    const { findByText } = render(
+      <Provider store={store}>
+        <Optimizer />
+      </Provider>,
+    );
+    expect(await findByText("override")).toBeInTheDocument();
+  });
 });
