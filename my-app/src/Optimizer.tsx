@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
 import InputSection from "./components/input_view/InputSection";
-import ResultsSection from "./components/results_view/ResultsSection";
 import ItemGallery from "./components/ItemGallery";
+import ResultsSection from "./components/results_view/ResultsSection";
 import Toolbar from "./components/Toolbar";
 import rawData from "./data.json?raw";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -23,7 +23,7 @@ export default function Optimizer() {
   const state = useAppSelector((s) => s.input.present);
   const { hero, cash, equipped, toBuy, avoid, avoidEnabled, weights, minValueEnabled, minAttrGroups, useOverrides } =
     state;
-  const [, setResults] = useState<ResultCombo | null>(null);
+  const [results, setResults] = useState<ResultCombo | null>(null);
   const [builds, setBuilds] = useState<ResultCombo[]>([]);
   const [buildIndex, setBuildIndex] = useState(0);
   // Memoize expensive calculations
@@ -325,6 +325,7 @@ export default function Optimizer() {
           cash={cash}
           builds={builds}
           selected={buildIndex}
+          results={results}
           onSelect={onSelectBuild}
         />
         <BreakPointCalculator />

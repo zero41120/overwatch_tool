@@ -12,10 +12,11 @@ interface Props {
   cash: number;
   builds: ResultCombo[];
   selected: number;
+  results: ResultCombo | null; // For using the breakdown table
   onSelect: (idx: number) => void;
 }
 
-export default function ResultsSection({ eqItems, eqCost, cash, builds, selected, onSelect }: Props) {
+export default function ResultsSection({ eqItems, eqCost, cash, builds, selected, onSelect, results }: Props) {
   const current = builds[selected];
 
   return (
@@ -24,8 +25,8 @@ export default function ResultsSection({ eqItems, eqCost, cash, builds, selected
       {current ? (
         <div className="space-y-6">
           <StatsGrid results={current} eqCost={eqCost} cash={cash} />
+          <BreakdownTable results={results} />
           <ItemsOverviewTable eqItems={eqItems} resultItems={current.items} />
-          <BreakdownTable results={current} />
           <AllBuilds eqItems={eqItems} builds={builds} selected={selected} onSelect={onSelect} />
           <FinalBuildList eqItems={eqItems} resultItems={current.items} />
         </div>
