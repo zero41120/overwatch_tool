@@ -32,21 +32,13 @@ const results: ResultCombo = {
   breakdown: [{ type: "AP", sum: 5, contrib: 5 }],
 };
 
-const alternatives: ResultCombo[] = [
-  { score: 8, cost: 40, items: [], breakdown: [] },
-];
+const alternatives: ResultCombo[] = [{ score: 8, cost: 40, items: [], breakdown: [] }];
 
 describe("ResultsSection", () => {
   it("renders placeholder when no results", () => {
     const { getByText } = render(
       <Provider store={store}>
-        <ResultsSection
-          eqItems={[]}
-          eqCost={0}
-          cash={0}
-          results={null}
-          alternatives={[]}
-        />
+        <ResultsSection eqItems={[]} eqCost={0} cash={0} builds={[]} selected={0} onSelect={() => {}} />
       </Provider>,
     );
     expect(getByText("No results yet")).toBeInTheDocument();
@@ -59,26 +51,21 @@ describe("ResultsSection", () => {
           eqItems={eqItems}
           eqCost={100}
           cash={200}
-          results={results}
-          alternatives={alternatives}
+          builds={[results, ...alternatives]}
+          selected={0}
+          onSelect={() => {}}
         />
       </Provider>,
     );
     expect(getByText("Final Build")).toBeInTheDocument();
-    expect(getByText("Alternative Builds")).toBeInTheDocument();
+    expect(getByText("All Possible Builds")).toBeInTheDocument();
     expect(getByText("Cost: 40")).toBeInTheDocument();
   });
 
   it("adds item to avoid list on click", () => {
     const { getByLabelText } = render(
       <Provider store={store}>
-        <ResultsSection
-          eqItems={eqItems}
-          eqCost={100}
-          cash={200}
-          results={results}
-          alternatives={[]}
-        />
+        <ResultsSection eqItems={eqItems} eqCost={100} cash={200} builds={[results]} selected={0} onSelect={() => {}} />
       </Provider>,
     );
     fireEvent.click(getByLabelText("Avoid Shield"));
