@@ -10,3 +10,4 @@ Implemented hover tooltip, search filter, folding, and scrolling for gallery.
 Implemented hoverable item overview grid and radio-based build selection in Results section.
 
 Moved tooltip state to Redux for global usage.
+Refactored item lists into reusable ItemCardList and BuildList components.
