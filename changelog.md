@@ -29,3 +29,4 @@
 2025-07-01  integrate ItemGallery into Optimizer view  src/Optimizer.tsx
 2025-07-01  enhance ItemGallery with search, tooltip preview, folding, scroll  src/components/ItemGallery.tsx
 2025-07-02  move tooltip to redux store  src/slices/tooltipSlice.ts
+2025-07-02  refactor item tables into reusable components  src/components
