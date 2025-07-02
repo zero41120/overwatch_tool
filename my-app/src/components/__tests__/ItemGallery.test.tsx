@@ -51,6 +51,7 @@ describe("ItemGallery", () => {
     const { getByText, queryByRole, getAllByRole, getByPlaceholderText } = render(
       <Provider store={store}>
         <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
+
       </Provider>,
     );
     fireEvent.click(getByText("Hide"));
