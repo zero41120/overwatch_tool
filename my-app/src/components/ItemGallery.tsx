@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useAppDispatch } from "../hooks";
 import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
+import { bumpOverrideKey } from "../slices/inputSlice";
 import type { Item } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
 import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
 import SearchableDropdown from "./shared/SearchableDropdown";
 import ItemOverrideEditor from "./ItemOverrideEditor";
-
+export const loadOverrides = () =>
+  JSON.parse(localStorage.getItem("localOverrides") || "{}");
+export const saveOverrides = (d: Record<string, unknown>) =>
+  localStorage.setItem("localOverrides", JSON.stringify(d));
+export const deleteOverrides = () => localStorage.removeItem("localOverrides");
 interface Props {
   items: Item[];
   heroes: string[];
@@ -21,7 +26,6 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
   const dispatch = useAppDispatch();
-
   const filtered = items.filter((it) =>
     it.name.toLowerCase().includes(search.toLowerCase()),
   );
@@ -66,7 +70,10 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
               item={selected}
               heroes={heroes}
               attrTypes={attrTypes}
-              onClose={() => setEditMode(false)}
+              onClose={() => {
+                setEditMode(false);
+                dispatch(bumpOverrideKey());
+              }}
             />
           )}
           <button
@@ -78,7 +85,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
           </button>
           {showSaved && (
             <pre className="mt-2 max-h-40 overflow-y-auto border p-2 text-xs">
-              {localStorage.getItem("localOverrides") || "{}"}
+              {JSON.stringify(loadOverrides(), null, 2)}
             </pre>
           )}
         </div>

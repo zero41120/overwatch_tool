@@ -35,3 +35,4 @@
 2025-07-02  improve item display and tooltip handling in ItemsOverviewTable src/components/results_view/ItemsOverviewTable.tsx
 2025-07-02  move tooltip to redux store  src/slices/tooltipSlice.ts
 2025-07-02  refactor item tables into reusable components  src/components
+2025-07-02  load local overrides and expose helpers  my-app/src

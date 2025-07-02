@@ -16,6 +16,7 @@ import reducer, {
   setEquipped,
   toggleEquippedEnabled,
   toggleUseOverrides,
+  bumpOverrideKey,
   importState,
 } from "../inputSlice";
 
@@ -87,6 +88,11 @@ test("toggleEquippedEnabled toggles flag and clears items when disabling", () =>
 test("toggleUseOverrides flips boolean", () => {
   const state = reducer(initialState, toggleUseOverrides());
   expect(state.useOverrides).toBe(false);
+});
+
+test("bumpOverrideKey increments value", () => {
+  const state = reducer(initialState, bumpOverrideKey());
+  expect(state.overrideKey).toBe(1);
 });
 
 test("importState replaces entire state", () => {
