@@ -7,10 +7,8 @@ import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
 import SearchableDropdown from "./shared/SearchableDropdown";
 import ItemOverrideEditor from "./ItemOverrideEditor";
-import {
-  loadLocalOverrides,
-  deleteLocalOverride,
-} from "../utils/localOverrides";
+import LocalOverridesEditor from "./LocalOverridesEditor";
+import { KEY, loadLocalOverrides, deleteLocalOverride } from "../utils/localOverrides";
 import { bumpOverrideVersion } from "../slices/inputSlice";
 
 interface Props {
@@ -23,15 +21,14 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [selected, setSelected] = useState(items[0]);
   const [editMode, setEditMode] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
+  const [savedText, setSavedText] = useState("");
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
   const dispatch = useAppDispatch();
   const overrideVersion = useAppSelector((s) => s.input.present.overrideVersion);
   const overrides = useMemo(loadLocalOverrides, [overrideVersion]);
 
-  const filtered = items.filter((it) =>
-    it.name.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filtered = items.filter((it) => it.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8 bg-white dark:bg-gray-800 dark:border-gray-700">
@@ -73,14 +70,13 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                     subtitle="override"
                     rarity={selected.rarity}
                     iconUrl={selected.iconUrl}
-                    content={(
-                      overrides[selected.name].attributes ||
-                      Object.values(overrides[selected.name])[0]
-                    )?.map((a) => ({
-                      text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
-                        a.type,
-                      )}</span>`,
-                    })) || []}
+                    content={
+                      (overrides[selected.name].attributes || Object.values(overrides[selected.name])[0])?.map((a) => ({
+                        text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
+                          a.type,
+                        )}</span>`,
+                      })) || []
+                    }
                     price={`${selected.cost} G`}
                   />
                   <button
@@ -123,14 +119,30 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
           <button
             type="button"
             className="mt-2 text-sm underline"
-            onClick={() => setShowSaved((v) => !v)}
+            onClick={() => {
+              if (!showSaved) setSavedText(JSON.stringify(overrides, null, 2));
+              setShowSaved((v) => !v);
+            }}
           >
             {showSaved ? "Hide" : "View"} locally saved
           </button>
           {showSaved && (
-            <pre className="mt-2 max-h-40 overflow-y-auto border p-2 text-xs">
-              {JSON.stringify(overrides, null, 2)}
-            </pre>
+            <LocalOverridesEditor
+              value={savedText}
+              onChange={setSavedText}
+              onClear={() => setSavedText("")}
+              onCancel={() => setShowSaved(false)}
+              onSave={() => {
+                try {
+                  JSON.parse(savedText);
+                  localStorage.setItem(KEY, savedText);
+                  dispatch(bumpOverrideVersion());
+                  setShowSaved(false);
+                } catch {
+                  alert("Invalid JSON");
+                }
+              }}
+            />
           )}
         </div>
         {!folded && (
@@ -156,16 +168,8 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                   key={idx}
                   type="button"
                   onClick={() => setSelected(it)}
-                  onMouseEnter={(e) =>
-                    dispatch(
-                      setTooltip({ item: it, x: e.clientX, y: e.clientY }),
-                    )
-                  }
-                  onMouseMove={(e) =>
-                    dispatch(
-                      setTooltip({ item: it, x: e.clientX, y: e.clientY }),
-                    )
-                  }
+                  onMouseEnter={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
+                  onMouseMove={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
                   onMouseLeave={() => dispatch(clearTooltip())}
                   className="relative flex flex-col items-center gap-1 p-2 rounded border dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
@@ -176,19 +180,13 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                     />
                   )}
                   {it.iconUrl ? (
-                    <img
-                      src={it.iconUrl}
-                      alt=""
-                      className="h-12 w-12 rounded-full object-cover"
-                    />
+                    <img src={it.iconUrl} alt="" className="h-12 w-12 rounded-full object-cover" />
                   ) : (
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-xs text-gray-500">
                       no icon
                     </div>
                   )}
-                  <span className="text-sm text-gray-800 dark:text-gray-200">
-                    {it.name}
-                  </span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">{it.name}</span>
                 </button>
               ))}
             </div>

@@ -36,3 +36,4 @@
 2025-07-02  move tooltip to redux store  src/slices/tooltipSlice.ts
 2025-07-02  refactor item tables into reusable components  src/components
 2025-07-02  local overrides reload and UI markers  src
+2025-07-04  fix local overrides view/edit  src/components/ItemGallery.tsx

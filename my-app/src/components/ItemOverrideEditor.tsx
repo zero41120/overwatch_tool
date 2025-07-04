@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../hooks";
-import type { Attribute, Item, ItemOverride } from "../types";
+import type { Attribute, Item } from "../types";
 import {
   loadLocalOverrides,
   saveLocalOverride,
