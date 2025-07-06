@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "test": "npm run test -ws --if-present",
+    "deploy": "npm run deploy -ws --if-present",
     "install-all": "npm install -ws",
     "start": "npm run start -w item-optimizer"
   },
