@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "item-optimizer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist -b github_pages_deployment",
-    "test": "tsc -b && vitest",
+    "test": "tsc -b && vitest run --coverage",
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write ."
   },

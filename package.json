@@ -1,10 +1,16 @@
 {
+  "name": "overwatch-tool-mono-repo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "item-optimizer",
+    "wiki-data-reader"
+  ],
   "scripts": {
-    "start": "cd my-app && npm run dev",
-    "dev": "cd my-app && npm run dev",
-    "vite": "cd my-app && npm run vite",
-    "test": "cd my-app && npm run test:coverage",
-    "test:coverage": "cd my-app && npm run test:coverage"
+    "test": "npm run test -ws --if-present",
+    "deploy": "npm run deploy -ws --if-present",
+    "install-all": "npm install -ws",
+    "start": "npm run start -w item-optimizer"
   },
   "devDependencies": {
     "prettier": "^3.5.3"

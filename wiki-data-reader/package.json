@@ -1,0 +1,8 @@
+{
+    "name": "wiki-data-reader",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "echo \"command not ready\" && exit 1"
+    }
+}

@@ -15,6 +15,7 @@ export interface InputState {
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   useOverrides: boolean;
+  overrideVersion: number;
 }
 
 const initialState: InputState = {
@@ -30,6 +31,7 @@ const initialState: InputState = {
   minValueEnabled: false,
   minAttrGroups: [],
   useOverrides: true,
+  overrideVersion: 0,
 };
 
 const inputSlice = createSlice({
@@ -124,6 +126,9 @@ const inputSlice = createSlice({
     importState(_, action: PayloadAction<InputState>) {
       return action.payload;
     },
+    bumpOverrideVersion(state) {
+      state.overrideVersion += 1;
+    },
   },
 });
 
@@ -150,6 +155,7 @@ export const {
   addEquippedSlot,
   removeEquippedSlot,
   toggleUseOverrides,
+  bumpOverrideVersion,
   importState,
 } = inputSlice.actions;
 
