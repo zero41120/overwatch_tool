@@ -9,9 +9,9 @@ Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindC
 ## Directory Map
 Root directory is overwatch_tool/
 - overwatch_tool/AGENTS.md this file, project rules and guidelines, there is only 1 AGENTS.md file
-- overwatch_tool/my-app/ main application code, you likely need to run `npm install` here first
 - overwatch_tool/memory-bank/ project context and decisions
 - overwatch_tool/changelog.md change log for features and fixes
+- overwatch_tool/item-optimizer/ main application code, you likely need to run `npm install` here first
 
 
 Data files, do not edit or read directly unless the task requires it:
