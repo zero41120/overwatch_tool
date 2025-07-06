@@ -206,5 +206,25 @@
         "value": "<b>[Melee]</b> Damage grants <b>10%</b> Move Speed and restores <b>5%</b> of Max Life over <b>2s</b>."
       }
     ]
+  },
+  "HARDLIGHT ACCELERATOR": {
+    "D.VA": [
+      {
+        "type": "WP",
+        "value": "20%"
+      },
+      {
+        "type": "CR",
+        "value": "10%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Instead of 10WP, your booster + missile gives you 20WP when you need it."
+      },
+      {
+        "type": "description",
+        "value": "When you use an ability, gain <b>5%</b> Weapon Power for <b>3s</b>, stacking up to <b>3</b> times."
+      }
+    ]
   }
 }

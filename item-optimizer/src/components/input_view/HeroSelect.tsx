@@ -19,13 +19,13 @@ export default function HeroSelect({ heroes }: Props) {
       >
         Hero
       </label>
-        <SearchableDropdown
-          label="Hero"
-          placeholder="Select hero"
-          options={options}
-          value={hero}
-          onChange={(v) => dispatch(setHero(v))}
-        />
+      <SearchableDropdown
+        label="Hero"
+        placeholder="Select hero"
+        options={options}
+        value={hero}
+        onChange={(v) => dispatch(setHero(v))}
+      />
     </div>
   );
 }

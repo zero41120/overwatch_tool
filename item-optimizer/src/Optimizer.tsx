@@ -7,12 +7,12 @@ import Toolbar from "./components/Toolbar";
 import rawData from "./data.json?raw";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import overridesRaw from "./overrides.json?raw";
-import { loadLocalOverrides } from "./utils/localOverrides";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { Item, ItemOverride, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { iconUrlForName } from "./utils/item";
+import { loadLocalOverrides } from "./utils/localOverrides";
 import { aggregate, buildBreakdown, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils/utils";
 
 export default function Optimizer() {
@@ -74,7 +74,7 @@ export default function Optimizer() {
     types.delete("description");
     types.delete("Editor's Note");
     const sortedTypes = Array.from(types).sort(sortAttributes);
-    const heroList = [NO_HERO, ALL_HEROES, ...Array.from(heroesSet).sort()];
+    const heroList = [...Array.from(heroesSet).sort()];
     setHeroes(heroList);
     setAttrTypes(sortedTypes);
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
