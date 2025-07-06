@@ -152,7 +152,7 @@ export default function Optimizer() {
   function meetsMinRequirements(items: Item[]) {
     return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups);
   }
-  function onCalculate() {
+  function onCalculate(preferHighCost: boolean) {
     dispatch(setError(""));
 
     // Validate inputs before processing
@@ -220,7 +220,6 @@ export default function Optimizer() {
     let bestScore = -Infinity;
     let bestCost = 0;
     let bestCombos: ResultCombo[] = [];
-    const preferHighCost = eqItems.length + needed === 6;
 
     const n = searchItems.length;
 

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setToBuy } from "../../slices/inputSlice";
 
 interface Props {
-  onSubmit: () => void;
+  onSubmit: (preferHighCost: boolean) => void;
   validate: () => boolean;
 }
 
@@ -12,16 +12,26 @@ export default function SubmitSection({ onSubmit, validate }: Props) {
   const error = useAppSelector((state) => state.input.present.error);
 
   return (
-    <div className="!mt-8 border-t pt-6">
+    <div className="!mt-8 border-t pt-6 space-y-2">
       <button
         type="button"
         onClick={() => {
-          if (validate()) onSubmit();
+          if (validate()) onSubmit(false);
         }}
         className="w-full inline-flex items-center justify-center rounded-lg bg-teal-600 dark:bg-teal-700 px-5 py-3 text-white text-base font-medium shadow-lg transition hover:bg-teal-700 dark:hover:bg-teal-800 disabled:bg-gray-400 dark:disabled:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
         disabled={!validate()}
       >
-        Calculate Optimal Build
+        Cheapest Best Build
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          if (validate()) onSubmit(true);
+        }}
+        className="w-full inline-flex items-center justify-center rounded-lg bg-indigo-600 dark:bg-indigo-700 px-5 py-3 text-white text-base font-medium shadow-lg transition hover:bg-indigo-700 dark:hover:bg-indigo-800 disabled:bg-gray-400 dark:disabled:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        disabled={!validate()}
+      >
+        Premium Best Build
       </button>
       <div className="mt-4 grid grid-cols-5 gap-2">
         {[2, 3, 4, 5, 6].map((n) => (

@@ -29,7 +29,7 @@ describe("InputSection", () => {
     );
     fireEvent.submit(container.querySelector("form")!);
     expect(validate).toHaveBeenCalled();
-    expect(onSubmit).toHaveBeenCalled();
+    expect(onSubmit).toHaveBeenCalledWith(false);
   });
 
   it("does not submit when validate fails", () => {
@@ -48,6 +48,23 @@ describe("InputSection", () => {
     );
     fireEvent.submit(container.querySelector("form")!);
     expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("passes true when clicking premium button", () => {
+    const onSubmit = vi.fn();
+    const { getByText } = render(
+      <Provider store={store}>
+        <InputSection
+          heroes={heroes}
+          attrTypes={attrTypes}
+          filteredItems={items}
+          onSubmit={onSubmit}
+          validate={() => true}
+        />
+      </Provider>,
+    );
+    fireEvent.click(getByText("Premium Best Build"));
+    expect(onSubmit).toHaveBeenCalledWith(true);
   });
 
   it("shows special hero options", () => {
