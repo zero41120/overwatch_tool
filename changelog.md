@@ -37,3 +37,4 @@
 2025-07-02  refactor item tables into reusable components  src/components
 2025-07-02  local overrides reload and UI markers  src
 2025-07-04  fix local overrides view/edit  src/components/ItemGallery.tsx
+2025-07-06  add cheap and premium build buttons  src/components/input_view/SubmitSection.tsx

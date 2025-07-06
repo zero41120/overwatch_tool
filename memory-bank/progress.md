@@ -11,3 +11,4 @@
 - Implemented hoverable item overview grid and selectable build list.
 - Refactored item lists into reusable components.
 - Local overrides now reload via redux flag; gallery shows override markers.
+- Added premium and cheapest build buttons with new parameter to optimizer.

@@ -12,7 +12,7 @@ interface Props {
   heroes: string[];
   attrTypes: string[];
   filteredItems: Item[];
-  onSubmit: () => void;
+  onSubmit: (preferHighCost: boolean) => void;
   validate: () => boolean;
 }
 
@@ -23,7 +23,7 @@ export default function InputSection({ heroes, attrTypes, filteredItems, onSubmi
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          if (validate()) onSubmit();
+          if (validate()) onSubmit(false);
         }}
         className="grid"
       >
