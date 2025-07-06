@@ -51,7 +51,6 @@ describe("ItemGallery", () => {
     const { getByText, queryByRole, getAllByRole, getByPlaceholderText } = render(
       <Provider store={store}>
         <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
-
       </Provider>,
     );
     fireEvent.click(getByText("Hide"));
@@ -77,10 +76,7 @@ describe("ItemGallery", () => {
   });
 
   it("shows override indicator and restore", () => {
-    localStorage.setItem(
-      "localOverrides",
-      JSON.stringify({ One: { attributes: [] } }),
-    );
+    localStorage.setItem("localOverrides", JSON.stringify({ One: { attributes: [] } }));
     const { getByLabelText, getByText } = render(
       <Provider store={store}>
         <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
@@ -90,5 +86,19 @@ describe("ItemGallery", () => {
     fireEvent.click(getByText("Restore"));
     const stored = localStorage.getItem("localOverrides");
     expect(stored).toBe("{}");
+  });
+
+  it("edits local overrides text", () => {
+    localStorage.setItem("localOverrides", JSON.stringify({ One: { attributes: [] } }));
+    const { getByText, getByLabelText } = render(
+      <Provider store={store}>
+        <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
+      </Provider>,
+    );
+    fireEvent.click(getByText("View locally saved"));
+    const area = getByLabelText("Local Overrides");
+    fireEvent.change(area, { target: { value: "{}" } });
+    fireEvent.click(getByText("Save"));
+    expect(localStorage.getItem("localOverrides")).toBe("{}");
   });
 });
