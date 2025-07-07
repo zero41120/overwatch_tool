@@ -6,6 +6,7 @@ import { attributeValueToLabel } from "../utils/attributeUtils";
 import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
 import SearchableDropdown from "./shared/SearchableDropdown";
+import Chip from "./shared/Chip";
 import ItemOverrideEditor from "./ItemOverrideEditor";
 import LocalOverridesEditor from "./LocalOverridesEditor";
 import { KEY, loadLocalOverrides, deleteLocalOverride } from "../utils/localOverrides";
@@ -24,11 +25,16 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [savedText, setSavedText] = useState("");
   const [folded, setFolded] = useState(false);
   const [search, setSearch] = useState("");
+  const [attrFilter, setAttrFilter] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const overrideVersion = useAppSelector((s) => s.input.present.overrideVersion);
   const overrides = useMemo(loadLocalOverrides, [overrideVersion]);
 
-  const filtered = items.filter((it) => it.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered = items.filter(
+    (it) =>
+      it.name.toLowerCase().includes(search.toLowerCase()) &&
+      attrFilter.every((a) => it.attributes.some((attr) => attr.type === a)),
+  );
 
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8 bg-white dark:bg-gray-800 dark:border-gray-700">
@@ -162,6 +168,36 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
               onChange={setSearch}
               className="w-full"
             />
+            <div className="mt-2 space-y-2">
+              <SearchableDropdown
+                label="Add Attribute"
+                placeholder="Select attribute"
+                options={attrTypes.map((t) => ({
+                  value: t,
+                  label: attributeValueToLabel(t),
+                }))}
+                value=""
+                onChange={(val) => {
+                  if (val && !attrFilter.includes(val)) {
+                    setAttrFilter((cur) => [...cur, val]);
+                  }
+                }}
+                className="w-full"
+              />
+              {attrFilter.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {attrFilter.map((a) => (
+                    <Chip
+                      key={a}
+                      label={attributeValueToLabel(a)}
+                      onRemove={() =>
+                        setAttrFilter((cur) => cur.filter((x) => x !== a))
+                      }
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="grid grid-cols-3 gap-4 overflow-y-auto max-h-96 pt-4">
               {filtered.map((it, idx) => (
                 <button
