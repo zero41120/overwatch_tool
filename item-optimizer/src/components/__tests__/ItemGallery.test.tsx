@@ -1,14 +1,27 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import ItemGallery from "../ItemGallery";
 import store from "../../store";
 import type { Item } from "../../types";
 
 const items: Item[] = [
-  { name: "One", cost: 10, tab: "weapon", rarity: "common", attributes: [], iconUrl: "a.png" },
-  { name: "Two", cost: 20, tab: "ability", rarity: "rare", attributes: [] },
+  {
+    name: "One",
+    cost: 10,
+    tab: "weapon",
+    rarity: "common",
+    attributes: [{ type: "WP", value: "5" }],
+    iconUrl: "a.png",
+  },
+  {
+    name: "Two",
+    cost: 20,
+    tab: "ability",
+    rarity: "rare",
+    attributes: [{ type: "AP", value: "5" }],
+  },
 ];
 const heroes = ["HeroA"];
 const attrTypes = ["WP", "AP"];
@@ -47,8 +60,8 @@ describe("ItemGallery", () => {
     expect(getByText("Add Row")).toBeInTheDocument();
   });
 
-  it("filters and folds gallery", () => {
-    const { getByText, queryByRole, getAllByRole, getByPlaceholderText } = render(
+  it("filters and folds gallery", async () => {
+    const { getByText, queryByRole, getAllByRole, getByPlaceholderText, getByRole } = render(
       <Provider store={store}>
         <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
       </Provider>,
@@ -61,6 +74,16 @@ describe("ItemGallery", () => {
     fireEvent.change(input, { target: { value: "Two" } });
     fireEvent.click(getAllByRole("menuitem")[0]);
     expect(queryByRole("button", { name: "One" })).not.toBeInTheDocument();
+
+    // filter by attribute
+    fireEvent.click(getByRole("button", { name: "Select attribute" }));
+    fireEvent.click(getAllByRole("menuitem")[0]);
+    await waitFor(() => {
+      const buttons = document.querySelectorAll(
+        ".grid.grid-cols-3 button",
+      );
+      expect(buttons.length).toBe(0);
+    });
   });
 
   it("saves override to localStorage", () => {
