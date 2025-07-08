@@ -76,11 +76,29 @@
       },
       {
         "type": "AP",
-        "value": "25%"
+        "value": "15%"
       },
       {
         "type": "Editor's Note",
         "value": "AP can stack up to 25%, estimate having 15% AP up time."
+      }
+    ],
+    "D.VA": [
+      {
+        "type": "Health",
+        "value": "25"
+      },
+      {
+        "type": "WP",
+        "value": "10%"
+      },
+      {
+        "type": "AP",
+        "value": "25%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "For DVA this is always on"
       }
     ]
   },
@@ -224,6 +242,22 @@
       {
         "type": "description",
         "value": "When you use an ability, gain <b>5%</b> Weapon Power for <b>3s</b>, stacking up to <b>3</b> times."
+      }
+    ]
+  },
+  "ONSLAUGHT ORDINANCE": {
+    "D.VA": [
+      {
+        "type": "AP",
+        "value": "53%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Basically 53AP for missiles with legendary loadout, the damage increase from 166.5 to 255.3"
+      },
+      {
+        "type": "description",
+        "value": "The quantity and duration of <b>[Micro Missiles]</b> is increased by <b>20%</b>."
       }
     ]
   }
