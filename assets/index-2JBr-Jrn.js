@@ -1519,7 +1519,7 @@ Error generating stack: `+e.message+`
               "value": "Weapon dealing damage to airborne enemies deal <b>25%</b> bonus damage over <b>3s</b>."\r
             }\r
           ],\r
-          "cost": 10000\r
+          "cost": 9000\r
         }\r
       ]\r
     },\r
