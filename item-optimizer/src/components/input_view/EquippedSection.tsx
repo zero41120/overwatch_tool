@@ -55,6 +55,7 @@ export default function EquippedSection({ items }: Props) {
                       .join(", ")}`,
                     color: rarityColor(it.rarity),
                     iconUrl: it.iconUrl,
+                    searchText: it.name,
                   })),
                 ]}
                 value={id}

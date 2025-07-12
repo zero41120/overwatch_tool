@@ -5,6 +5,8 @@ interface DropdownOption {
   label: string;
   color?: string;
   iconUrl?: string;
+  /** Optional text used for filtering, defaults to `label` */
+  searchText?: string;
 }
 
 interface DropdownProps {
@@ -35,9 +37,10 @@ export default function SearchableDropdown({
   const displayedLabel = selected?.label || placeholder;
   const displayedColor = selected?.color;
 
-  const filteredOptions = options.filter((o) =>
-    o.label.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredOptions = options.filter((o) => {
+    const text = (o.searchText || o.label).toLowerCase();
+    return text.includes(search.toLowerCase());
+  });
 
   const handleSelect = (optionValue: string) => {
     onChange(optionValue);
