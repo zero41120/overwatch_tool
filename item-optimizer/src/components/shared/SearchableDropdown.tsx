@@ -167,9 +167,9 @@ export default function SearchableDropdown({
                   }
                 }}
               />
-              {filteredOptions.map((option) => (
+              {filteredOptions.map((option, i) => (
                 <a
-                  key={option.value}
+                  key={i}
                   href="#"
                   className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
                   role="menuitem"
