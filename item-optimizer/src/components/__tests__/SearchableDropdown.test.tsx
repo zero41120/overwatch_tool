@@ -49,4 +49,18 @@ describe("SearchableDropdown", () => {
     fireEvent.click(getAllByRole("button")[0]);
     expect(getAllByRole("presentation")[0]).toHaveAttribute("src", "icon.png");
   });
+
+  it("filters using searchText when provided", () => {
+    const opts = [
+      { value: "1", label: "Alpha Beta", searchText: "alpha" },
+      { value: "2", label: "Gamma" },
+    ];
+    const { getAllByRole, getByPlaceholderText, queryByText } = render(
+      <SearchableDropdown label="Test" options={opts} value="" onChange={() => { }} />,
+    );
+    fireEvent.click(getAllByRole("button")[0]);
+    const input = getByPlaceholderText("Search...");
+    fireEvent.change(input, { target: { value: "Beta" } });
+    expect(queryByText("Alpha Beta")).not.toBeInTheDocument();
+  });
 });

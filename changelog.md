@@ -38,3 +38,4 @@
 2025-07-02  local overrides reload and UI markers  src
 2025-07-04  fix local overrides view/edit  src/components/ItemGallery.tsx
 2025-07-06  add cheap and premium build buttons  src/components/input_view/SubmitSection.tsx
+2025-07-12  fix equipped dropdown search  src/components
