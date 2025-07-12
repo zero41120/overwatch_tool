@@ -1461,7 +1461,7 @@
               "value": "Weapon dealing damage to airborne enemies deal <b>25%</b> bonus damage over <b>3s</b>."
             }
           ],
-          "cost": 10000
+          "cost": 9000
         }
       ]
     },
@@ -2244,7 +2244,7 @@
               "value": "After using an ability, your next <b>3</b> instances of Weapon Damage deal additional damage equal to <b>3%</b> of the target's Life."
             }
           ],
-          "cost": 9500,
+          "cost": 10500,
           "id": "i_114"
         },
         {
