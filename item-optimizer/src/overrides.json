@@ -180,6 +180,94 @@
       }
     ]
   },
+  "CYBERVENOM": {
+    "attributes": [
+      {
+        "type": "AP",
+        "value": "30%"
+      },
+      {
+        "type": "CR",
+        "value": "5%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Ability reduces healing by 30%. For calculation purposes, treat this as an additional 20% AP value."
+      }
+    ]
+  },
+  "ADVANCED NANOBIOTICS": {
+    "attributes": [
+      {
+        "type": "WP",
+        "value": "5%"
+      },
+      {
+        "type": "AS",
+        "value": "10%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Free item for supports. Expect Zenyatta and Lucio which does not heal with weapon."
+      }
+    ]
+  },
+  "VANTAGE SHOT": {
+    "attributes": [],
+    "Juno": [
+      {
+        "type": "WP",
+        "value": "20%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Double jump also triggers the +15WP effect. So basically 20WP."
+      }
+    ]
+  },
+  "PULSE SPIKE": {
+    "attributes": [],
+    "Juno": [
+      {
+        "type": "AS",
+        "value": "20%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Base is 10% AS, triggering torpedoes gives 4s of 25% AS. On average, it is +10% AS."
+      }
+    ]
+  },
+  "LONG RANGE BLASTER": {
+    "attributes": [],
+    "Juno": [
+      {
+        "type": "WP",
+        "value": "30%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "Assume that you can always have the 12m condition active. This is heavily based on enemy composition. Avoid this item if not achievable."
+      }
+    ]
+  },
+  "GRAVITATIONAL PUSH": {
+    "attributes": [],
+    "Juno": [
+      {
+        "type": "WP",
+        "value": "15%"
+      },
+      {
+        "type": "AS",
+        "value": "8%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "20% AS during booster, on average is 8% AS."
+      }
+    ]
+  },
   "SHRED AND LEAD": {
     "attributes": [],
     "Junker Queen": [
@@ -202,6 +290,22 @@
       {
         "type": "Editor's Note",
         "value": "You almost always have 1 stacks of 10% AS from this item."
+      }
+    ]
+  },
+  "SHIELDBUSTER": {
+    "attributes": [
+      {
+        "type": "WP",
+        "value": "5%"
+      },
+      {
+        "type": "AS",
+        "value": "15%"
+      },
+      {
+        "type": "Editor's Note",
+        "value": "If the enemy has shield or armor, the condition for 15% attack speed is always met."
       }
     ]
   },
