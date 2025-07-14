@@ -20,7 +20,7 @@ export default function ResultsSection({ eqItems, eqCost, cash, builds, selected
   const current = builds[selected];
 
   return (
-    <div className="glass-card space-y-6 rounded-xl shadow-lg p-6 sm:p-8   dark:border-gray-700">
+    <div className="glass-card space-y-6 rounded-xl shadow-lg p-4 sm:p-6   dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Results</h2>
       {current ? (
         <div className="space-y-6">
