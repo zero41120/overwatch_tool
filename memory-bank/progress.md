@@ -13,3 +13,4 @@
 - Local overrides now reload via redux flag; gallery shows override markers.
 - Added premium and cheapest build buttons with new parameter to optimizer.
 - Reduced padding on mobile layout for better usability.
+- Added incremental build calculator with upper bound logic.

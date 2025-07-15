@@ -29,7 +29,7 @@ describe("InputSection", () => {
     );
     fireEvent.submit(container.querySelector("form")!);
     expect(validate).toHaveBeenCalled();
-    expect(onSubmit).toHaveBeenCalledWith(false);
+    expect(onSubmit).toHaveBeenCalledWith("cheapest");
   });
 
   it("does not submit when validate fails", () => {
@@ -64,7 +64,24 @@ describe("InputSection", () => {
       </Provider>,
     );
     fireEvent.click(getByText("Premium Best Build"));
-    expect(onSubmit).toHaveBeenCalledWith(true);
+    expect(onSubmit).toHaveBeenCalledWith("premium");
+  });
+
+  it("handles incremental button", () => {
+    const onSubmit = vi.fn();
+    const { getByText } = render(
+      <Provider store={store}>
+        <InputSection
+          heroes={heroes}
+          attrTypes={attrTypes}
+          filteredItems={items}
+          onSubmit={onSubmit}
+          validate={() => true}
+        />
+      </Provider>,
+    );
+    fireEvent.click(getByText("Incremental Builds"));
+    expect(onSubmit).toHaveBeenCalledWith("incremental");
   });
 
   it("shows special hero options", () => {

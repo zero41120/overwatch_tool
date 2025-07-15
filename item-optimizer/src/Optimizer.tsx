@@ -152,8 +152,9 @@ export default function Optimizer() {
   function meetsMinRequirements(items: Item[]) {
     return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups);
   }
-  function onCalculate(preferHighCost: boolean) {
+  function onCalculate(mode: "cheapest" | "premium" | "incremental") {
     dispatch(setError(""));
+    const preferHighCost = mode === "premium";
 
     // Validate inputs before processing
     if (!validate()) {
@@ -163,9 +164,7 @@ export default function Optimizer() {
 
     const eqItems = equippedItems();
     const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
-    const remainingCash = cash - eqCost;
-
-    if (remainingCash < 0) {
+    if (mode !== "incremental" && cash - eqCost < 0) {
       dispatch(setError("Equipped items cost exceeds total cash"));
       return;
     }
@@ -198,98 +197,99 @@ export default function Optimizer() {
       dispatch(setError("No items available that match your criteria"));
       return;
     }
-    const itemScores = candidate.map((it) => ({
-      item: it,
-      score: calcScore([it]),
-    }));
-    itemScores.sort((a, b) => b.score - a.score);
 
-    // Pre-filter items that are too expensive
-    const affordableItems = itemScores.filter((info) => info.item.cost <= remainingCash);
-    if (affordableItems.length === 0) {
-      dispatch(setError("No affordable items available"));
-      return;
-    }
+    const itemScores = candidate
+      .map((it) => ({ item: it, score: calcScore([it]) }))
+      .sort((a, b) => b.score - a.score);
 
-    // Limit search space for performance - use only top items if there are too many
-    const maxItems = 50; // Reasonable limit for DFS
-    const searchItems = affordableItems.slice(0, maxItems);
+    function calcForCash(totalCash: number): ResultCombo | null {
+      const remainingCash = totalCash - eqCost;
+      if (remainingCash < 0) return null;
 
-    const prefix: number[] = [0];
-    for (const i of searchItems) prefix.push(prefix[prefix.length - 1] + i.score);
-    let bestScore = -Infinity;
-    let bestCost = 0;
-    let bestCombos: ResultCombo[] = [];
+      const affordableItems = itemScores.filter((info) => info.item.cost <= remainingCash);
+      if (affordableItems.length === 0) return null;
 
-    const n = searchItems.length;
+      const maxItems = 50;
+      const searchItems = affordableItems.slice(0, maxItems);
 
-    // Add memoization for performance
-    const memo = new Map<string, boolean>();
+      const prefix: number[] = [0];
+      for (const i of searchItems) prefix.push(prefix[prefix.length - 1] + i.score);
+      let bestScore = -Infinity;
+      let bestCost = 0;
+      let bestCombos: ResultCombo[] = [];
+      const n = searchItems.length;
+      const memo = new Map<string, boolean>();
 
-    function dfs(start: number, selected: Item[], cost: number, score: number) {
-      // Early termination for large search spaces
-      if (n > 100 && selected.length === 0 && start > 50) {
-        return; // Limit search scope for performance
-      }
+      function dfs(start: number, selected: Item[], cost: number, score: number) {
+        if (n > 100 && selected.length === 0 && start > 50) return;
 
-      if (meetsMinRequirements(selected)) {
-        if (score > bestScore) {
-          bestScore = score;
-          bestCost = cost;
-          bestCombos = [{ items: [...selected], cost, score }];
-        } else if (score === bestScore) {
-          bestCombos.push({ items: [...selected], cost, score });
-          if (preferHighCost) {
-            bestCost = Math.max(bestCost, cost);
-          } else {
-            bestCost = Math.min(bestCost, cost);
+        if (meetsMinRequirements(selected)) {
+          if (score > bestScore) {
+            bestScore = score;
+            bestCost = cost;
+            bestCombos = [{ items: [...selected], cost, score }];
+          } else if (score === bestScore) {
+            bestCombos.push({ items: [...selected], cost, score });
+            if (preferHighCost) {
+              bestCost = Math.max(bestCost, cost);
+            } else {
+              bestCost = Math.min(bestCost, cost);
+            }
           }
+        }
+
+        if (selected.length === needed || start >= n) return;
+
+        const remaining = needed - selected.length;
+        const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
+        if (possible < bestScore) return;
+
+        const key = `${start}-${selected.length}-${cost}-${Math.floor(score)}`;
+        if (memo.has(key)) return;
+        memo.set(key, true);
+        for (let i = start; i < n; i++) {
+          const info = searchItems[i];
+          if (cost + info.item.cost > remainingCash) continue;
+          selected.push(info.item);
+          dfs(i + 1, selected, cost + info.item.cost, score + info.score);
+          selected.pop();
         }
       }
 
-      if (selected.length === needed || start >= n) return;
-
-      const remaining = needed - selected.length;
-      const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
-      if (possible < bestScore) return;
-
-      // Memoization key for pruning
-      const key = `${start}-${selected.length}-${cost}-${Math.floor(score)}`;
-      if (memo.has(key)) return;
-      memo.set(key, true);
-      for (let i = start; i < n; i++) {
-        const info = searchItems[i];
-        if (cost + info.item.cost > remainingCash) continue;
-        selected.push(info.item);
-        dfs(i + 1, selected, cost + info.item.cost, score + info.score);
-        selected.pop();
-      }
+      dfs(0, [], 0, 0);
+      if (bestCombos.length === 0) return null;
+      const [best] = bestCombos.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
+      const totalMap = aggregate([...best.items, ...eqItems]);
+      const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
+      return { items: best.items, cost: best.cost, score: scoreFromMap(totalMap, weights), breakdown };
     }
-    dfs(0, [], 0, 0);
 
-    if (bestCombos.length === 0) {
+    if (mode === "incremental") {
+      const maxCost = candidate.reduce((m, it) => Math.max(m, it.cost), 0);
+      let upper = maxCost > 0 ? maxCost * 6 : 90000;
+      const list: ResultCombo[] = [];
+      for (let c = 10000; c <= upper; c += 1000) {
+        const res = calcForCash(c);
+        if (res) list.push(res);
+      }
+      if (list.length === 0) {
+        dispatch(setError("Insufficient cash for any purchase"));
+        return;
+      }
+      setBuilds(list);
+      setBuildIndex(list.length - 1);
+      setResults(list[list.length - 1]);
+      return;
+    }
+
+    const result = calcForCash(cash);
+    if (!result) {
       dispatch(setError("Insufficient cash for any purchase"));
       return;
     }
-    const [best, ...others] = bestCombos.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
-    const alt = others.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
-    const combos = [best, ...alt].sort((a, b) => {
-      const costDiff = a.cost - b.cost;
-      if (costDiff !== 0) return costDiff;
-      return b.items.length - a.items.length;
-    });
-    const index = combos.indexOf(best);
-    const build = combos[index];
-    const totalMap = aggregate([...build.items, ...eqItems]);
-    const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
-    setBuilds(combos.map((c) => ({ ...c, score: calcScore([...c.items, ...eqItems]) })));
-    setBuildIndex(index);
-    setResults({
-      items: build.items,
-      cost: build.cost,
-      score: scoreFromMap(totalMap, weights),
-      breakdown,
-    });
+    setBuilds([result]);
+    setBuildIndex(0);
+    setResults(result);
     // alternatives no longer separately stored
   }
 

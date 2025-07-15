@@ -39,3 +39,4 @@
 2025-07-04  fix local overrides view/edit  src/components/ItemGallery.tsx
 2025-07-06  add cheap and premium build buttons  src/components/input_view/SubmitSection.tsx
 2025-07-13  reduce mobile padding for main layout and cards  src/App.tsx
+2025-07-14  add incremental build calculator  src/Optimizer.tsx
