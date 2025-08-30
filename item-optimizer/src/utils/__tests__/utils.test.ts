@@ -1,6 +1,6 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
-import { aggregate, meetsMinGroups, rarityColor, scoreFromMap } from "../utils";
+import { aggregate, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 
 describe("optimizer utils", () => {
   test("aggregate sums attributes correctly", () => {
@@ -69,6 +69,20 @@ describe("optimizer utils", () => {
     expect(meetsMinGroups(items, groups)).toBe(true);
     groups[0].value = 9;
     expect(meetsMinGroups(items, groups)).toBe(false);
+  });
+
+  test("uniqueByItems removes duplicate item sets", () => {
+    const a: Item = { name: "A", attributes: [], cost: 1, tab: "w", rarity: "common", id: "1" };
+    const b: Item = { name: "B", attributes: [], cost: 1, tab: "w", rarity: "common", id: "2" };
+    const combos = [
+      { items: [a], cost: 1, score: 5 },
+      { items: [a], cost: 1, score: 5 },
+      { items: [b], cost: 1, score: 5 },
+    ];
+    const unique = uniqueByItems(combos);
+    expect(unique).toHaveLength(2);
+    expect(unique[0].items[0].id).toBe("1");
+    expect(unique[1].items[0].id).toBe("2");
   });
 });
 

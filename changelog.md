@@ -40,3 +40,4 @@
 2025-07-06  add cheap and premium build buttons  src/components/input_view/SubmitSection.tsx
 2025-07-13  reduce mobile padding for main layout and cards  src/App.tsx
 2025-07-14  add incremental build calculator  src/Optimizer.tsx
+2025-07-16  remove duplicate incremental builds  src/Optimizer.tsx src/utils/utils.ts

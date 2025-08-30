@@ -13,7 +13,14 @@ import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { iconUrlForName } from "./utils/item";
 import { loadLocalOverrides } from "./utils/localOverrides";
-import { aggregate, buildBreakdown, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils/utils";
+import {
+  aggregate,
+  buildBreakdown,
+  collectRelevantAttributes,
+  meetsMinGroups,
+  scoreFromMap,
+  uniqueByItems,
+} from "./utils/utils";
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
@@ -272,13 +279,14 @@ export default function Optimizer() {
         const res = calcForCash(c);
         if (res) list.push(res);
       }
-      if (list.length === 0) {
+      const unique = uniqueByItems(list);
+      if (unique.length === 0) {
         dispatch(setError("Insufficient cash for any purchase"));
         return;
       }
-      setBuilds(list);
-      setBuildIndex(list.length - 1);
-      setResults(list[list.length - 1]);
+      setBuilds(unique);
+      setBuildIndex(unique.length - 1);
+      setResults(unique[unique.length - 1]);
       return;
     }
 
