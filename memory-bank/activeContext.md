@@ -14,3 +14,4 @@ Refactored item lists into reusable ItemCardList and BuildList components.
 Displayed item icons in SearchableDropdown options.
 Integrated local override reloads and per-item restore/update buttons.
 Reduced padding on mobile layout to improve usability.
+Deduplicated incremental build results to remove duplicate item combos.

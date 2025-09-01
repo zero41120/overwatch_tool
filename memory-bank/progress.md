@@ -14,3 +14,4 @@
 - Added premium and cheapest build buttons with new parameter to optimizer.
 - Reduced padding on mobile layout for better usability.
 - Added incremental build calculator with upper bound logic.
+- Deduplicated incremental build results to avoid repeated item combos.

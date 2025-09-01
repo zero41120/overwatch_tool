@@ -97,3 +97,16 @@ export function rankBestCombos<T extends ResultComboBasic>(
   );
   return { best, alternatives };
 }
+
+export function uniqueByItems<T extends { items: Item[] }>(combos: T[]): T[] {
+  const seen = new Set<string>();
+  return combos.filter((c) => {
+    const key = c.items
+      .map((i) => i.id || i.name)
+      .sort()
+      .join(",");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
