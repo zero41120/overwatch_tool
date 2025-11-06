@@ -15,3 +15,4 @@
 - Reduced padding on mobile layout for better usability.
 - Added incremental build calculator with upper bound logic.
 - Deduplicated incremental build results to avoid repeated item combos.
+- Added Juno torpedo breakpoints workflow with dedicated calculator and utility helpers.
