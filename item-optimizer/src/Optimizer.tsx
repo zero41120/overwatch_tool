@@ -341,7 +341,7 @@ export default function Optimizer() {
           results={results}
           onSelect={onSelectBuild}
         />
-        <BreakPointCalculator />
+        <BreakPointCalculator items={filtered} />
         <ItemGallery items={filtered} heroes={heroes} attrTypes={attrTypes} />
       </div>
     </div>
