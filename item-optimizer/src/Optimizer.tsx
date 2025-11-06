@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
+import JunoTorpedoBreakpoints from "./components/JunoTorpedoBreakpoints";
 import InputSection from "./components/input_view/InputSection";
 import ItemGallery from "./components/ItemGallery";
 import ResultsSection from "./components/results_view/ResultsSection";
@@ -341,7 +342,11 @@ export default function Optimizer() {
           results={results}
           onSelect={onSelectBuild}
         />
-        <BreakPointCalculator />
+        {hero === "Juno" ? (
+          <JunoTorpedoBreakpoints items={filtered} />
+        ) : (
+          <BreakPointCalculator />
+        )}
         <ItemGallery items={filtered} heroes={heroes} attrTypes={attrTypes} />
       </div>
     </div>
