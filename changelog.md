@@ -41,3 +41,4 @@
 2025-07-13  reduce mobile padding for main layout and cards  src/App.tsx
 2025-07-14  add incremental build calculator  src/Optimizer.tsx
 2025-07-16  remove duplicate incremental builds  src/Optimizer.tsx src/utils/utils.ts
+2025-11-05  add Juno torpedo breakpoint calculator  src/components/JunoTorpedoBreakpoints.tsx
