@@ -17,3 +17,10 @@ Reduced padding on mobile layout to improve usability.
 Deduplicated incremental build results to remove duplicate item combos.
 Added Juno torpedo breakpoint calculator with situational toggles in BreakPointCalculator.
 Introduced torpedo item mapper for Juno with placeholder Skyline Nanites data pending verification.
+
+Updated Juno torpedo UI on main with card-style item selection.
+
+Removed all generic "burn" parsing/logic. Implemented a precise override: when any selected item is Skyline Nanites, apply a 1.2x damage multiplier during breakpoint evaluation. Removed the UI burn toggle and the Burn column in the results table. Skyline remains selectable via situational priority.
+
+Latest: Updated Juno results table to include item icons next to names (mirrors ItemsOverviewTable pattern). Removed Budget and Survival columns to focus on damage-impacting fields; kept Spend. Default selection now enables all relevant items by default. Removed quick situational pills as redundant with the checklist.
+Added: Juno results Items column now renders a 6-slot grid (via ItemsOverviewTable) instead of a single long row for better readability.

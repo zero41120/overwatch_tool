@@ -4,7 +4,6 @@ export type TorpedoItem = {
   cost: number;
   ap: number;
   baseAdd: number;
-  burn: boolean;
   hp: number;
   wp: number;
   lifesteal: number;
@@ -18,7 +17,6 @@ export type TorpedoOptions = {
   minCash?: number;
   maxCash?: number;
   maxItems?: number;
-  allowBurn?: boolean;
 };
 
 export type TorpedoCandidate = {
@@ -26,7 +24,6 @@ export type TorpedoCandidate = {
   damage: number;
   ap: number;
   baseAdd: number;
-  burn: boolean;
   names: string[];
   survival: number;
 };
@@ -41,7 +38,6 @@ export function computeJunoTorpedoBreakpoints(
   const minCash = opts.minCash ?? 10000;
   const maxCash = opts.maxCash ?? 70000;
   const maxItems = opts.maxItems ?? 6;
-  const allowBurn = opts.allowBurn ?? true;
   const eps = 1e-9;
 
   const bestAtCost = new Map<number, TorpedoCandidate>();
@@ -77,7 +73,7 @@ export function computeJunoTorpedoBreakpoints(
     let dr = 0;
     let hps = 0;
     let baseAdd = 0;
-    let hasBurn = false;
+    let hasSkyline = false;
 
     for (const idx of chosen) {
       const item = enabledItems[idx];
@@ -90,15 +86,16 @@ export function computeJunoTorpedoBreakpoints(
       dr += item.dr;
       hps += item.hps;
       baseAdd += item.baseAdd;
-      if (allowBurn && item.burn) hasBurn = true;
+      if (/^skyline\s+nanites$/i.test(item.name.toLocaleLowerCase())) hasSkyline = true;
     }
 
+    // Torpedo damage scales from baseDamage plus any flat baseAdd, then AP multiplier.
     const base = baseDamage + baseAdd;
     const raw = base * (1 + ap / 100);
-    const damage = hasBurn ? raw * 1.2 : raw;
+    const damage = hasSkyline ? raw * 1.2 : raw;
     const survival = survivalScore({ hp, wp, lifesteal, dr, hps });
     const names = chosen.map((index) => enabledItems[index].name);
-    const candidate: TorpedoCandidate = { cost, damage, ap, baseAdd, burn: hasBurn, names, survival };
+    const candidate: TorpedoCandidate = { cost, damage, ap, baseAdd, names, survival };
 
     const current = bestAtCost.get(cost);
     if (better(current, candidate)) bestAtCost.set(cost, candidate);

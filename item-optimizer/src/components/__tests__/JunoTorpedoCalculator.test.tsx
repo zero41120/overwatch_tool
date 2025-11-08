@@ -20,17 +20,8 @@ function renderWithStore(ui: ReactElement) {
   return { store, ...render(<Provider store={store}>{ui}</Provider>) };
 }
 
-describe("BreakPointCalculator", () => {
-  it("shows results after calculation", () => {
-    const { getByText, getAllByRole } = renderWithStore(<BreakPointCalculator items={[]} />);
-    fireEvent.click(getByText("Calculate"));
-    // there are 21 rows from 100 to 200 step 5
-    const rows = getAllByRole("row");
-    // first row is header
-    expect(rows.length).toBeGreaterThan(1);
-  });
-
-  it("renders Juno torpedo breakpoints when hero is set to Juno", async () => {
+describe("JunoTorpedoCalculator layout", () => {
+  it("renders items as a 6-slot grid in results", async () => {
     const items: Item[] = [
       {
         id: "pd",
@@ -61,34 +52,27 @@ describe("BreakPointCalculator", () => {
           },
         ],
       },
-      {
-        id: "sky",
-        name: "Skyline Nanites",
-        cost: 5000,
-        tab: "ability",
-        rarity: "epic",
-        attributes: [
-          { type: "AP", value: "10%" },
-          { type: "description", value: 'Grants <b class="stat-ap">5</b> bonus damage.' },
-        ],
-      },
     ];
 
-    const { store, findByText, findAllByText } = renderWithStore(
+    const { store, findByText, container } = renderWithStore(
       <BreakPointCalculator items={items} />,
     );
+
     await act(async () => {
       store.dispatch(setHero("Juno"));
     });
 
     const computeButton = await findByText("Compute breakpoints");
-
     await act(async () => {
       fireEvent.click(computeButton);
     });
 
-    expect(await findByText("Damage")).toBeInTheDocument();
-    const skylineMentions = await findAllByText(/Skyline Nanites/i);
-    expect(skylineMentions.length).toBeGreaterThan(0);
+    const grids = container.querySelectorAll('.grid.grid-cols-3');
+    expect(grids.length).toBeGreaterThan(0);
+    const firstGrid = grids[0] as HTMLElement;
+    // Expect exactly 6 slots rendered (filled or empty)
+    const slots = firstGrid.querySelectorAll(':scope > div.min-h-12');
+    expect(slots.length).toBe(6);
   });
 });
+

@@ -1,12 +1,11 @@
 import { useMemo } from "react";
 
 import type { Item } from "../types";
-import { parseNumeric } from "./utils";
 import type { TorpedoItem } from "./junoBreakpoints";
+import { parseNumeric } from "./utils";
 
 type ItemMeta = {
   addBaseAdd?: number;
-  burn?: boolean;
   situational?: boolean;
   addAp?: number;
   addHp?: number;
@@ -20,29 +19,15 @@ export const SITUATIONAL_PRIORITY = [
   "SKYLINE NANITES",
   "PULSTAR DESTROYERS",
   "MARK OF THE KITSUNE",
+  "CYBERVENOM",
 ] as const;
 
 const ITEM_OVERRIDES: Record<string, ItemMeta> = {
   "PULSTAR DESTROYERS": { situational: true },
   "MARK OF THE KITSUNE": { situational: true },
+  "SKYLINE NANITES": { situational: true },
+  "CYBERVENOM": { situational: true },
 };
-
-const MANUAL_ITEMS: TorpedoItem[] = [
-  {
-    id: "manual-skyline-nanites",
-    name: "SKYLINE NANITES",
-    cost: 9000,
-    ap: 0,
-    baseAdd: 0,
-    burn: true,
-    hp: 0,
-    wp: 0,
-    lifesteal: 0,
-    dr: 0,
-    hps: 0,
-    situational: true,
-  },
-];
 
 function extractBaseAdd(value: string) {
   const matches = value.match(/stat-ap\">(\d+(?:\.\d+)?)/g);
@@ -61,7 +46,6 @@ function buildFromItem(item: Item): TorpedoItem {
   let lifesteal = 0;
   let dr = 0;
   let hps = 0;
-  let burn = false;
 
   item.attributes.forEach((attr) => {
     switch (attr.type) {
@@ -87,7 +71,6 @@ function buildFromItem(item: Item): TorpedoItem {
         break;
       case "description":
         baseAdd += extractBaseAdd(attr.value);
-        if (/burn/i.test(attr.value)) burn = true;
         break;
       default:
         break;
@@ -102,7 +85,6 @@ function buildFromItem(item: Item): TorpedoItem {
     cost: item.cost,
     ap: ap + (override?.addAp ?? 0),
     baseAdd: baseAdd + (override?.addBaseAdd ?? 0),
-    burn: burn || Boolean(override?.burn),
     hp: hp + (override?.addHp ?? 0),
     wp: wp + (override?.addWp ?? 0),
     lifesteal: lifesteal + (override?.addLifesteal ?? 0),
@@ -139,19 +121,14 @@ export function useJunoTorpedoItems(items: Item[]): TorpedoItem[] {
       (item) =>
         item.ap > 0 ||
         item.baseAdd > 0 ||
-        item.burn ||
+        item.situational ||
         item.hp > 0 ||
         item.wp > 0 ||
         item.lifesteal > 0 ||
         item.dr > 0 ||
-        item.hps > 0 ||
-        item.situational,
+        item.hps > 0,
     );
 
-    const manual = MANUAL_ITEMS.filter(
-      (manualItem) => !filtered.some((existing) => existing.name === manualItem.name),
-    );
-
-    return sortTorpedoItems([...filtered, ...manual]);
+    return sortTorpedoItems([...filtered]);
   }, [items]);
 }

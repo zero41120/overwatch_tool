@@ -16,3 +16,5 @@
 - Added incremental build calculator with upper bound logic.
 - Deduplicated incremental build results to avoid repeated item combos.
 - Added Juno torpedo breakpoints workflow with dedicated calculator and utility helpers.
+– Polished Juno torpedo calculator UI on main; retained validated calculation logic.
+– Juno torpedo: removed generic burn handling; Skyline Nanites now applies a 1.2x multiplier via compute override. Removed burn toggle and Burn column; selection now includes situational items.

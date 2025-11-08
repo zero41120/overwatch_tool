@@ -42,3 +42,8 @@
 2025-07-14  add incremental build calculator  src/Optimizer.tsx
 2025-07-16  remove duplicate incremental builds  src/Optimizer.tsx src/utils/utils.ts
 2025-11-05  add Juno torpedo breakpoint calculator  src/components/BreakPointCalculator.tsx
+2025-11-06  polish Juno calculator UI while preserving working logic  item-optimizer/src/components/JunoTorpedoCalculator.tsx
+2025-11-06  adjust Juno damage model: AP and burn only; hide non-AP items; add Select all; match table dark theme  item-optimizer/src/utils/junoBreakpoints.ts item-optimizer/src/components/JunoTorpedoCalculator.tsx
+2025-11-06  remove generic burn logic; apply 1.2x only when Skyline Nanites is selected; remove UI toggle and Burn column  item-optimizer/src/utils/junoBreakpoints.ts item-optimizer/src/utils/junoItems.ts item-optimizer/src/components/JunoTorpedoCalculator.tsx
+2025-11-06  show icons in Juno table; remove Budget/Survival columns; keep Spend  item-optimizer/src/components/JunoTorpedoCalculator.tsx
+2025-11-06  Juno results use 6-slot grid for items (reuse ItemsOverviewTable)  item-optimizer/src/components/JunoTorpedoCalculator.tsx
