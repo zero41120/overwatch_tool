@@ -3,15 +3,23 @@ export interface Attribute {
   value: string;
 }
 
+export type ItemTab = "weapon" | "ability" | "survival";
+export type ItemRarity = "common" | "rare" | "epic";
+
 export interface Item {
   name: string;
   attributes: Attribute[];
   cost: number;
   character?: string;
   id?: string;
-  tab: string;
-  rarity: "common" | "rare" | "epic";
+  tab: ItemTab;
+  rarity: ItemRarity;
   iconUrl?: string;
+}
+
+export interface EditorOverride {
+  applyTo?: string[];
+  attributes: Attribute[];
 }
 
 export interface RootData {
@@ -39,9 +47,15 @@ export interface MinAttrGroup {
   value: number;
 }
 
-export interface ItemOverride {
+export interface ItemOverride extends Partial<Pick<Item, "id" | "name" | "cost" | "character" | "tab" | "rarity">> {
   attributes?: Attribute[];
-  [hero: string]: Attribute[] | undefined;
+  disabled?: boolean;
+  editor_overrides?: EditorOverride[];
+}
+
+export interface ItemRecord {
+  item: Item;
+  override?: ItemOverride;
 }
 
 export interface ResultCombo {

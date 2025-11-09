@@ -87,7 +87,7 @@ describe("BreakPointCalculator", () => {
       fireEvent.click(computeButton);
     });
 
-    expect(await findByText("Damage")).toBeInTheDocument();
+    expect(await findByText("DMG")).toBeInTheDocument();
     const skylineMentions = await findAllByText(/Skyline Nanites/i);
     expect(skylineMentions.length).toBeGreaterThan(0);
   });

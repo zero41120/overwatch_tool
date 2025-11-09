@@ -4,15 +4,15 @@ import InputSection from "./components/input_view/InputSection";
 import ItemGallery from "./components/ItemGallery";
 import ResultsSection from "./components/results_view/ResultsSection";
 import Toolbar from "./components/Toolbar";
-import rawData from "./data.json?raw";
+import readLocalData, { readOverrideData } from "./itemDataProvider";
 import { useAppDispatch, useAppSelector } from "./hooks";
-import overridesRaw from "./overrides.json?raw";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
-import type { Item, ItemOverride, ResultCombo, RootData } from "./types";
+import type { Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { iconUrlForName } from "./utils/item";
 import { loadLocalOverrides } from "./utils/localOverrides";
+import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import {
   aggregate,
   buildBreakdown,
@@ -39,21 +39,20 @@ export default function Optimizer() {
   const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
   const memoizedEquippedItems = useState(new Map<string, Item[]>())[0];
 
-  const baseOverrides: Record<string, ItemOverride> = overridesRaw ? JSON.parse(overridesRaw) : {};
+  const baseOverrides: Record<string, ItemOverride> = readOverrideData();
   const overrideVersion = state.overrideVersion;
 
   useEffect(() => {
-    const root: RootData = JSON.parse(rawData);
+    const root: RootData = readLocalData();
     const items: Item[] = [];
     const localOverrides = loadLocalOverrides();
-    const add = (tab: string, rarity: "common" | "rare" | "epic", arr: Item[]) => {
+    const add = (tab: ItemTab, rarity: ItemRarity, arr: Item[]) => {
       arr.forEach((it) => {
-        const override = useOverrides
-          ? localOverrides[it.name] || baseOverrides[it.name]
-          : undefined;
+        const override = useOverrides ? localOverrides[it.name] || baseOverrides[it.name] : undefined;
+        if (override?.disabled) return;
         const item = { ...it, tab, rarity, iconUrl: iconUrlForName(it.name) };
         if (override) {
-          const attrs = override[hero] || override.attributes;
+          const attrs = resolveOverrideAttributes(override, hero);
           if (attrs) item.attributes = attrs;
           if (!item.id) item.id = it.name; // Ensure id is set if not present
         }

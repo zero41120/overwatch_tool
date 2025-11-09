@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
-import type { Item } from "../types";
+import type { Item, ItemOverride } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
 import { rarityColor } from "../utils/utils";
 import ItemCard from "./shared/ItemCard";
@@ -11,6 +11,13 @@ import ItemOverrideEditor from "./ItemOverrideEditor";
 import LocalOverridesEditor from "./LocalOverridesEditor";
 import { KEY, loadLocalOverrides, deleteLocalOverride } from "../utils/localOverrides";
 import { bumpOverrideVersion } from "../slices/inputSlice";
+
+function getLocalOverrideAttributes(override?: ItemOverride) {
+  if (!override) return undefined;
+  if (override.attributes?.length) return override.attributes;
+  if (override.editor_overrides?.length) return override.editor_overrides[0].attributes;
+  return undefined;
+}
 
 interface Props {
   items: Item[];
@@ -77,11 +84,11 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                     rarity={selected.rarity}
                     iconUrl={selected.iconUrl}
                     content={
-                      (overrides[selected.name].attributes || Object.values(overrides[selected.name])[0])?.map((a) => ({
-                        text: `<strong>${a.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
-                          a.type,
+                      (getLocalOverrideAttributes(overrides[selected.name]) || []).map((attribute) => ({
+                        text: `<strong>${attribute.value}</strong> <span class='font-sm text-[#8fa6d7]'>${attributeValueToLabel(
+                          attribute.type,
                         )}</span>`,
-                      })) || []
+                      }))
                     }
                     price={`${selected.cost} G`}
                   />

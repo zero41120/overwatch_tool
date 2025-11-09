@@ -6,7 +6,9 @@ describe("localOverrides utils", () => {
   it("saves and deletes overrides", () => {
     const attrs: Attribute[] = [{ type: "WP", value: "5" }];
     saveLocalOverride("One", undefined, attrs);
-    expect(loadLocalOverrides()).toHaveProperty("One");
+    saveLocalOverride("One", "Mercy", attrs);
+    const data = loadLocalOverrides();
+    expect(data.One?.editor_overrides?.[0]?.applyTo).toEqual(["Mercy"]);
     deleteLocalOverride("One");
     expect(loadLocalOverrides()).not.toHaveProperty("One");
   });

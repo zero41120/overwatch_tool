@@ -25,7 +25,12 @@ export default function ItemOverrideEditor({ item, heroes, attrTypes, onClose }:
 
   useEffect(() => {
     const data = loadLocalOverrides();
-    const attrs = data[item.name]?.[hero] || data[item.name]?.attributes;
+    const entry = data[item.name];
+    let attrs: Attribute[] | undefined;
+    if (hero) {
+      attrs = entry?.editor_overrides?.find((o) => o.applyTo?.includes(hero))?.attributes;
+    }
+    if (!attrs) attrs = entry?.attributes;
     if (attrs?.length) {
       setRows(attrs.filter((a) => a.type !== "Editor's Note"));
       setNote(attrs.find((a) => a.type === "Editor's Note")?.value || "");

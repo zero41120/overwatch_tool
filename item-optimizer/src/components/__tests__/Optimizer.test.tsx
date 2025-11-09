@@ -6,18 +6,26 @@ import { vi } from "vitest";
 import store from "../../store";
 import Optimizer from "../../Optimizer";
 
-vi.mock("../../data.json?raw", () => ({
-  default: JSON.stringify({
+vi.mock("../../itemDataProvider", () => ({
+  default: () => ({
     tabs: {
-      weapon: { common: [{ name: "One", cost: 10, attributes: [] }], rare: [], epic: [] },
-      ability: { common: [{ name: "Two", cost: 20, attributes: [] }], rare: [], epic: [] },
+      weapon: { common: [{ name: "One", cost: 10, attributes: [], tab: "weapon", rarity: "common" }], rare: [], epic: [] },
+      ability: { common: [{ name: "Two", cost: 20, attributes: [], tab: "ability", rarity: "common" }], rare: [], epic: [] },
       survival: { common: [], rare: [], epic: [] },
       powers: {}
     }
+  }),
+  readOverrideData: () => ({
+    One: {
+      editor_overrides: [
+        {
+          applyTo: ["Ashe"],
+          attributes: [{ type: "AP", value: "5" }]
+        }
+      ]
+    }
   })
 }));
-
-vi.mock("../../overrides.json?raw", () => ({ default: JSON.stringify({}) }));
 
 describe("Optimizer", () => {
   it("renders item gallery", async () => {
