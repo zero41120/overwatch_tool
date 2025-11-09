@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/2a/Friendship_Bracelet.png",
     character: "Zenyatta",
     id: undefined
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e3/Mondatta%27s_Mantra.png",
     character: "Zenyatta",
     id: undefined
   }

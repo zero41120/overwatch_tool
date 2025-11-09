@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4c/Custom_Stock.png",
     id: "i_79"
   }
 };

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1d/Chain_Extender.png",
     character: "Brigitte",
     id: undefined
   }

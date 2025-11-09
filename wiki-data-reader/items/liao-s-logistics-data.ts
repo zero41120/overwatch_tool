@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/09/Liao%27s_Logistics_Data.png",
     character: "Sojourn",
     id: undefined
   }

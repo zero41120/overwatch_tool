@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/92/Bio-needles.png",
     character: "Moira",
     id: "i_34"
   }

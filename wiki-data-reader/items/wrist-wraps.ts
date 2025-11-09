@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/51/Wrist_Wraps.png",
     id: "i_83"
   }
 };

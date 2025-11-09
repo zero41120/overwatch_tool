@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/19/Sidewinder_Item.png",
     character: "Ashe",
     id: "i_55"
   }

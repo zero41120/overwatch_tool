@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1d/Wanted_Poster.png",
     character: "Cassidy",
     id: "i_198"
   }

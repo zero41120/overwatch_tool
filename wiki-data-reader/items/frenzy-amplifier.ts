@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "weapon",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/70/Frenzy_Amplifier.png",
     id: "i_4"
   }
 };

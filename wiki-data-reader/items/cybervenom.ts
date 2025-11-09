@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10500,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/66/Cybervenom.png",
     id: "i_119"
   },
   override: {

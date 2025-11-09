@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 14000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/ff/Eye_of_the_Spider.png",
     id: "i_46"
   }
 };

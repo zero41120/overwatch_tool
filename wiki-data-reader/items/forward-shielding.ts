@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4c/Forward_Shielding.png",
     character: "Pharah",
     id: undefined
   }

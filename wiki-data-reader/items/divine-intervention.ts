@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/28/Divine_Intervention.png",
     id: "i_219"
   }
 };

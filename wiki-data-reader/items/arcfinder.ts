@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/81/Arcfinder.png",
     character: "Orisa",
     id: "i_90"
   }

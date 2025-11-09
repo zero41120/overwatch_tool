@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 14500,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a5/The_Closer.png",
     id: "i_45"
   }
 };

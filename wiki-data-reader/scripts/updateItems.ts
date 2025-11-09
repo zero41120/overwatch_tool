@@ -14,11 +14,13 @@ import {
   type HeroSnapshot,
 } from "./lib/itemBuilder.ts";
 import { slugifyName } from "./lib/textUtils.ts";
+import { imageKey, sanitizeImageUrl } from "./lib/imageUtils.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
 const SNAPSHOT_DIR = path.join(ROOT_DIR, "snapshots");
 const HERO_DIR = path.join(SNAPSHOT_DIR, "heroes");
+const IMAGE_DIR = path.join(SNAPSHOT_DIR, "images");
 const ITEMS_DIR = path.join(ROOT_DIR, "items");
 
 type HeroIndexEntry = {
@@ -59,6 +61,38 @@ async function loadExistingRecords() {
     }
   }
   return records;
+}
+
+async function loadImageSnapshots() {
+  let files: string[] = [];
+  try {
+    files = await readdir(IMAGE_DIR);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return new Map<string, string>();
+    }
+    throw error;
+  }
+
+  const lookup = new Map<string, string>();
+  for (const file of files) {
+    if (!file.endsWith(".json")) continue;
+    const fullPath = path.join(IMAGE_DIR, file);
+    try {
+      const raw = await readFile(fullPath, "utf-8");
+      const parsed = JSON.parse(raw) as { title?: string; url?: string };
+      if (!parsed?.url) continue;
+      const key = imageKey(parsed.title || "");
+      if (!key) continue;
+      const url = sanitizeImageUrl(parsed.url);
+      if (!url) continue;
+      lookup.set(key, url);
+    } catch (error) {
+      console.warn(`[images] Failed to parse ${file}:`, (error as Error).message);
+    }
+  }
+
+  return lookup;
 }
 
 function summarizeChanges(
@@ -122,8 +156,9 @@ async function main() {
   console.log("[update-items] starting");
   const forceWrite = process.argv.includes("--yes") || process.argv.includes("-y");
   const { stadiumRaw, heroes } = await loadSnapshots();
-  const generalRecords = buildGeneralItemRecords(stadiumRaw);
-  const heroRecords = heroes.flatMap((hero) => buildHeroItemRecords(hero));
+  const imageLookup = await loadImageSnapshots();
+  const generalRecords = buildGeneralItemRecords(stadiumRaw, imageLookup);
+  const heroRecords = heroes.flatMap((hero) => buildHeroItemRecords(hero, imageLookup));
   const generatedRecords = [...generalRecords, ...heroRecords];
 
   const existingRecords = await loadExistingRecords();

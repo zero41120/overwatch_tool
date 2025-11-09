@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/43/Thick_Skull.png",
     character: "Junker Queen",
     id: "i_232"
   }

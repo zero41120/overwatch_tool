@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/76/Oververloader.png",
     character: "Torbjörn",
     id: undefined
   }

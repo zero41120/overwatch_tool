@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/20/Lethal_Dose.png",
     character: "Ana",
     id: "i_150"
   }

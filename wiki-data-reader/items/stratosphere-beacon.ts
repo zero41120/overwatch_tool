@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "weapon",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/17/Stratosphere_Beacon.png",
     id: undefined
   }
 };

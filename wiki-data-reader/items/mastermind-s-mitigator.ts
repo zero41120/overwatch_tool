@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/dd/Mastermind%27s_Mitigator.png",
     character: "D.Va",
     id: "i_87"
   }

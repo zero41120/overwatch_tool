@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/9e/Crusader%27s_Cure.png",
     character: "Reinhardt",
     id: "i_191"
   }

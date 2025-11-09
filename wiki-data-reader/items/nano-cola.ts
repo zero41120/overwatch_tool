@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 6000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/56/Nano_Cola_Item.png",
     id: "i_85"
   }
 };

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/39/Snowboot.png",
     character: "Mei",
     id: "i_61"
   }

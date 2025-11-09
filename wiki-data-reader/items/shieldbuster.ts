@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/39/Shieldbuster.png",
     id: "i_7"
   },
   override: {

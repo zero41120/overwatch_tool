@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/15/Busan_Blaster.png",
     character: "D.Va",
     id: "i_124"
   }

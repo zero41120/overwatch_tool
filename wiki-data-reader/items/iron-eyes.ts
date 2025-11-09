@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d5/Iron_Eyes.png",
     id: "i_180"
   }
 };

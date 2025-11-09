@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/17/Volatile_Gravel.png",
     character: "Sigma",
     id: undefined
   }

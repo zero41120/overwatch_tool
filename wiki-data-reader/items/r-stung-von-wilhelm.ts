@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c1/R%C3%BCstung_von_Wilhelm.png",
     id: "i_223"
   }
 };

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/ae/Dash_Boots.png",
     character: "Ana",
     id: "i_208"
   }

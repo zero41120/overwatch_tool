@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/fe/Dauntless_Draught.png",
     character: "Reaper",
     id: "i_245"
   }

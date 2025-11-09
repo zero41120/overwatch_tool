@@ -16,7 +16,9 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
-    character: "Kiriko"
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1b/Ry%C3%B5ta%27s_Reloader.png",
+    character: "Kiriko",
+    id: undefined
   }
 };
 

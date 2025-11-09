@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1000,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/ec/Electrolytes.png",
     id: "i_167"
   }
 };

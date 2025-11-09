@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/04/Boost_Recycler.png",
     character: "Reinhardt",
     id: "i_92"
   }

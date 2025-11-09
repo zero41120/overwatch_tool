@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/93/Rapid_Response_Radius.png",
     character: "Soldier: 76",
     id: "i_149"
   }

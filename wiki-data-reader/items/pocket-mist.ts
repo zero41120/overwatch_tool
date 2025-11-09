@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/98/Pocket_Mist.png",
     character: "Reaper",
     id: "i_206"
   }

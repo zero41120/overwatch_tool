@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b7/Scav_Scraps.png",
     character: "Junker Queen",
     id: "i_231"
   }

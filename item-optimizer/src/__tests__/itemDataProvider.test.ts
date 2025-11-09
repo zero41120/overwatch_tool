@@ -84,4 +84,22 @@ describe("itemDataProvider", () => {
     expect(overrides["delta-id"]).toBeDefined();
     expect(overrides["Epsilon Reactor"]).toBeUndefined();
   });
+
+  it("preserves iconUrl from wiki data", () => {
+    mockRecords = [
+      {
+        item: {
+          name: "Icon Blade",
+          attributes: [],
+          cost: 1000,
+          tab: "weapon",
+          rarity: "common",
+          iconUrl: "https://cdn.test/icon-blade.png",
+        },
+      },
+    ];
+
+    const data = readLocalData();
+    expect(data.tabs.weapon.common[0].iconUrl).toBe("https://cdn.test/icon-blade.png");
+  });
 });

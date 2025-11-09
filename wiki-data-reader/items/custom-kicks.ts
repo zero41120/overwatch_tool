@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/7a/Custom_Kicks.png",
     character: "Tracer",
     id: undefined
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8b/Teacher%27s_Totem.png",
     character: "Zenyatta",
     id: undefined
   }

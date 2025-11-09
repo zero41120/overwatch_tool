@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b8/Extendrils.png",
     character: "Moira",
     id: "i_165"
   }

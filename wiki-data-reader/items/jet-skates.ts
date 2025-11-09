@@ -24,6 +24,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/48/Jet_Skates.png",
     id: undefined
   }
 };

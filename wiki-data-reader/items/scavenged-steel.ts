@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e5/Scavenged_Steel.png",
     character: "Brigitte",
     id: undefined
   }

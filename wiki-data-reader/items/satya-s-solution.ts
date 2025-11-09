@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/11/Satya%27s_Solution.png",
     character: "Zenyatta",
     id: undefined
   }

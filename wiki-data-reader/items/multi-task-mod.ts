@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/06/Multi-Task_Mod.png",
     character: "D.Va",
     id: "i_47"
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/31/Slipstream_Salve.png",
     character: "Tracer",
     id: undefined
   }

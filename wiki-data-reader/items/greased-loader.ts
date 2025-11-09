@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a4/Greased_Loader.png",
     character: "Ashe",
     id: "i_21"
   }

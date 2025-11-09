@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b0/Compression_Fatigues.png",
     character: "Soldier: 76",
     id: "i_207"
   }

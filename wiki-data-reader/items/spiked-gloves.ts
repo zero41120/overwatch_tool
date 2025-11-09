@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c2/Spiked_Gloves.png",
     character: "Junkrat",
     id: undefined
   }

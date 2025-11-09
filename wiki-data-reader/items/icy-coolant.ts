@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5500,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/0a/Icy_Coolant.png",
     id: "i_10"
   }
 };

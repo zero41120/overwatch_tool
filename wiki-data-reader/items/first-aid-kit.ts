@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/50/First_Aid_Kit.png",
     id: "i_171"
   }
 };

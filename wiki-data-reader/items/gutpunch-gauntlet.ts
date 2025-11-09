@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a8/Gutpunch_Gauntlet.png",
     character: "Junker Queen",
     id: "i_12"
   }

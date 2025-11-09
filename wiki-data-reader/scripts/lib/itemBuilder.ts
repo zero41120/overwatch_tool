@@ -1,6 +1,7 @@
 import type { Attribute, Item, ItemRecord } from "../../types";
 import { formatDescription, normalizeBuffName, normalizeBuffValue, normalizeItemName, slugifyName } from "./textUtils.ts";
 import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser.ts";
+import { imageKey } from "./imageUtils.ts";
 
 export interface HeroSnapshot {
   name: string;
@@ -13,21 +14,24 @@ type BuildContext = {
   source: string;
 };
 
-export function buildGeneralItemRecords(raw: string): ItemRecord[] {
+type ImageLookup = ReadonlyMap<string, string> | undefined;
+
+export function buildGeneralItemRecords(raw: string, images?: ImageLookup): ItemRecord[] {
   const templates = extractAbilityTemplates(raw);
   return templates
-    .map((template) => toItemRecord(template, { source: "general" }))
+    .map((template) => toItemRecord(template, { source: "general" }, images))
     .filter((record): record is ItemRecord => Boolean(record));
 }
 
-export function buildHeroItemRecords(hero: HeroSnapshot): ItemRecord[] {
+export function buildHeroItemRecords(hero: HeroSnapshot, images?: ImageLookup): ItemRecord[] {
   const templates = extractAbilityTemplates(hero.raw);
   return templates
     .map((template) =>
       toItemRecord(template, {
         character: hero.name,
         source: hero.name,
-      }),
+      },
+      images),
     )
     .filter((record): record is ItemRecord => Boolean(record));
 }
@@ -48,7 +52,7 @@ function deriveTab(value: string | undefined) {
   return null;
 }
 
-function toItemRecord(template: AbilityTemplate, context: BuildContext): ItemRecord | null {
+function toItemRecord(template: AbilityTemplate, context: BuildContext, images?: ImageLookup): ItemRecord | null {
   const fields = template.fields;
   if (fields.removed === "1") return null;
   const abilityType = fields.ability_type || "";
@@ -82,6 +86,10 @@ function toItemRecord(template: AbilityTemplate, context: BuildContext): ItemRec
     tab,
     rarity,
   };
+  const iconUrl = resolveIconUrl(fields.ability_image, images);
+  if (iconUrl) {
+    item.iconUrl = iconUrl;
+  }
 
   const heroName = context.character ?? fields.hero_name;
   if (heroName && heroName.trim().length && heroName.toLowerCase() !== "all heroes") {
@@ -132,20 +140,31 @@ export function mergeExistingData(records: ItemRecord[], existing: Map<string, I
   return records.map((record) => {
     const existingRecord = existing.get(record.item.name);
     if (!existingRecord) return record;
-    const merged: ItemRecord = {
-      item: {
-        ...record.item,
-        id: existingRecord.item.id,
-      },
+    const mergedItem: Item = {
+      ...record.item,
+      id: existingRecord.item.id,
     };
-    if (existingRecord.item.iconUrl) {
-      merged.item.iconUrl = existingRecord.item.iconUrl;
+    const mergedIcon = record.item.iconUrl ?? existingRecord.item.iconUrl;
+    if (mergedIcon !== undefined) {
+      mergedItem.iconUrl = mergedIcon;
+    } else {
+      delete mergedItem.iconUrl;
     }
+    const merged: ItemRecord = {
+      item: mergedItem,
+    };
     if (existingRecord.override) {
       merged.override = existingRecord.override;
     }
     return merged;
   });
+}
+
+function resolveIconUrl(value: string | undefined, images?: ImageLookup) {
+  if (!value || !images) return undefined;
+  const key = imageKey(value);
+  if (!key) return undefined;
+  return images.get(key);
 }
 
 export function recordDiffers(a: ItemRecord | undefined, b: ItemRecord | undefined) {

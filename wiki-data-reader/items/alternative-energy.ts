@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/55/Alternative_Energy.png",
     character: "Moira",
     id: "i_73"
   }

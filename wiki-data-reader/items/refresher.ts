@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 13000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/53/Refresher.png",
     id: undefined
   }
 };

@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d5/Anti-Beam_Coating.png",
     character: "Genji",
     id: "i_199"
   }

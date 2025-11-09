@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/49/Talisman_of_Velocity.png",
     character: "Kiriko",
     id: "i_159"
   }

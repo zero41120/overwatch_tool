@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/14/Liquid_Nitrogen.png",
     id: "i_121"
   }
 };

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1000,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a4/Ballistic_Buffer.png",
     id: undefined
   }
 };

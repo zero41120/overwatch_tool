@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b9/Exo_Springs.png",
     id: undefined
   }
 };

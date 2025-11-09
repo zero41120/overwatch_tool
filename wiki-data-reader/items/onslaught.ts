@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c5/Onslaught.png",
     character: "Reaper",
     id: "i_63"
   }

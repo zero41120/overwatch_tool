@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/ed/Improvised_Dynamite.png",
     character: "Cassidy",
     id: "i_139"
   }

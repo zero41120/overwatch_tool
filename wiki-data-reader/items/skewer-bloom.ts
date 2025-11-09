@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5500,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/35/Skewer_Bloom.png",
     character: "Hazard",
     id: undefined
   }

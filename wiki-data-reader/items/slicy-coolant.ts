@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/89/Slicy_Coolant.png",
     character: "Genji",
     id: "i_241"
   }

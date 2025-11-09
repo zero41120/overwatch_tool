@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/0f/Kiriko-weapon-rare-farsight-focus-sash.png",
     character: "Kiriko",
     id: "i_31"
   }

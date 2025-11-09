@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d8/Cluster_Core.png",
     character: "Ana",
     id: "i_151"
   }

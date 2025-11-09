@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/ba/Containment_Field.png",
     character: "Sigma",
     id: undefined
   }

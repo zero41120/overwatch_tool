@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/04/Pulse_Converter.png",
     character: "Soldier: 76",
     id: "i_25"
   }

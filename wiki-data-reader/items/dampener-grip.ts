@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/76/Dampener_Grip.png",
     character: "Reinhardt",
     id: "i_50"
   }

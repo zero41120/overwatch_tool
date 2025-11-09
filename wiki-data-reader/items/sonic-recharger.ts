@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/da/Sonic_Recharger.png",
     id: undefined
   }
 };

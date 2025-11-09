@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f0/Bigger_Magnet.png",
     character: "Junker Queen",
     id: "i_89"
   }

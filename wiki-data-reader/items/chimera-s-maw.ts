@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8c/Chimera%27s_Maw.png",
     character: "Reinhardt",
     id: undefined
   }

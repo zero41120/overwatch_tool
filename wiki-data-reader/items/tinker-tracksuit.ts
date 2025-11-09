@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/0c/Tinker_Tracksuit.png",
     character: "Junker Queen",
     id: "i_127"
   }

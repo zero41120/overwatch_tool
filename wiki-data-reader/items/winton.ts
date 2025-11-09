@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 3500,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/12/Winton.png",
     character: "Winston",
     id: undefined
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "ability",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/be/Winning_Attitude.png",
     id: "i_78"
   }
 };

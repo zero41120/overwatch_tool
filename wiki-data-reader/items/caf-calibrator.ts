@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5500,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/34/CAF_Calibrator.png",
     character: "Sojourn",
     id: undefined
   }

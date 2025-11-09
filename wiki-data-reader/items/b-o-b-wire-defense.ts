@@ -20,7 +20,9 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
-    character: "Ashe"
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/3d/B.O.B._Wire_Defense.png",
+    character: "Ashe",
+    id: undefined
   }
 };
 

@@ -33,34 +33,3 @@ export function sortItemsOverview(a: Item, b: Item) {
   if (tabA !== tabB) return tabA - tabB;
   return (a.cost || 0) - (b.cost || 0);
 }
-
-export function itemSlug(name: string) {
-  // Special case: treat any name containing 'B.O.B' as 'bob'
-  if (name.toLowerCase().includes('b.o.b')) name = name.replace(/b\.o\.b/i, "bob");
-  return name
-    .normalize("NFD") // decompose accents
-    .replace(/[\u0300-\u036f]/g, "") // remove diacritics
-    .toLowerCase()
-    .replace(/[’']/g, "")
-    .replace(/-/g, "")
-    .replace(/[^a-z0-9]+/g, "_")
-    .replace(/^_|_$/g, "");
-}
-
-const iconImports = import.meta.glob("../../data_dump/*.png", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
-
-const iconMap: Record<string, string> = {};
-for (const [path, url] of Object.entries(iconImports)) {
-  const name = path
-    .split("/")
-    .pop()!
-    .replace(/\.png$/, "");
-  iconMap[itemSlug(name)] = url as string;
-}
-
-export function iconUrlForName(name: string) {
-  return iconMap[itemSlug(name)];
-}

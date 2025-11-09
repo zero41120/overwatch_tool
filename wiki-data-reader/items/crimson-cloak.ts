@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/15/Crimson_Cloak.png",
     character: "Reaper",
     id: undefined
   }

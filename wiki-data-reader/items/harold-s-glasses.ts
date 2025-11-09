@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/3c/Harold%27s_Glasses.png",
     character: "Winston",
     id: undefined
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a2/Grenadius_Pin.png",
     character: "Ana",
     id: "i_153"
   }

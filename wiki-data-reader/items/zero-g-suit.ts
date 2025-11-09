@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/6b/Zero-G_Suit.png",
     character: "Winston",
     id: undefined
   }

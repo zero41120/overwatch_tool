@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/cd/Long_Range_Blaster.png",
     character: "Juno",
     id: "i_65"
   },

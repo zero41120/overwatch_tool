@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f1/Dragons%27_Incinerator.png",
     character: "Brigitte",
     id: undefined
   }

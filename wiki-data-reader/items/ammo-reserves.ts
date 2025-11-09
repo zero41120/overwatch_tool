@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "weapon",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/54/Ammo_Reserves.png",
     id: "i_3"
   }
 };

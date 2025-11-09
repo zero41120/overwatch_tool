@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/76/Murphy%27s_Motor_Module.png",
     character: "Sojourn",
     id: undefined
   }

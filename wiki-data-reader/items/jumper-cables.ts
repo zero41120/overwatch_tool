@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/78/Jumper_Cables.png",
     character: "Zarya",
     id: "i_195"
   }

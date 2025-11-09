@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/99/Three-tap_Tommygun.png",
     id: "i_114"
   }
 };

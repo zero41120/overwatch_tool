@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/47/Boomslang%27s_Blaster.png",
     character: "Hazard",
     id: undefined
   }

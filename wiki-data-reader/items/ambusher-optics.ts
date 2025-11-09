@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/80/Ambusher_Optics.png",
     character: "Genji",
     id: "i_57"
   }

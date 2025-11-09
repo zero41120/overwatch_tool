@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 1500,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1b/Adrenaline_Shot.png",
     id: "i_166"
   }
 };

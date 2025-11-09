@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/3a/Levitation_Shawl.png",
     character: "Moira",
     id: "i_113"
   }

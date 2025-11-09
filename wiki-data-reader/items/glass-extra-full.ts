@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/2e/Glass_Extra_Full.png",
     character: "Mercy",
     id: undefined
   }

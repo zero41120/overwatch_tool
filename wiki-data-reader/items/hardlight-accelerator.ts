@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8a/Hardlight_Accelerator.png",
     id: "i_44"
   },
   override: {

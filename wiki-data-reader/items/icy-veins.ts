@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b0/Icy_Veins.png",
     character: "Mei",
     id: "i_144"
   }

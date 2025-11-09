@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/77/Velocity_Vector.png",
     character: "Sigma",
     id: undefined
   }

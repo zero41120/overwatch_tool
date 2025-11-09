@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d1/3D-Printed_Lance.png",
     character: "Orisa",
     id: "i_130"
   }

@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/df/Dez%27s_Damage_Dampeners.png",
     character: "Junker Queen",
     id: undefined
   }

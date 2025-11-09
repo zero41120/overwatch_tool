@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a8/Efi%27s_Theorem.png",
     character: "Orisa",
     id: "i_129"
   }

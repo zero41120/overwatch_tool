@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/3d/Kitsune_Charm.png",
     id: undefined
   }
 };

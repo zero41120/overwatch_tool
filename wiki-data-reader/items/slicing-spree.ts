@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f8/Slicing_Spree.png",
     character: "Junker Queen",
     id: "i_187"
   },

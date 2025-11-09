@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/6b/Ironclad_Cleats.png",
     character: "Reinhardt",
     id: "i_17"
   }

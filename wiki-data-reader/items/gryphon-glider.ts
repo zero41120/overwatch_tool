@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/6e/Gryphon_Glider.png",
     character: "Reinhardt",
     id: "i_132"
   }

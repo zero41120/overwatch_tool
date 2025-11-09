@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e1/Kiriko-weapon-rare-asa%27s-armaments.png",
     character: "Kiriko",
     id: "i_30"
   }

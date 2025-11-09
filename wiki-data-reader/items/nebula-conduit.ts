@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/ba/Nebula_Conduit.png",
     id: "i_225"
   }
 };

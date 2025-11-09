@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/32/Mid-air_Mobilizer.png",
     character: "Mercy",
     id: "i_33"
   }

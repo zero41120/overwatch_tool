@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/5d/Eye_of_Horus.png",
     character: "Ana",
     id: "i_248"
   }

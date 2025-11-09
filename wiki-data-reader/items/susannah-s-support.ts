@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e4/Susannah%27s_Support.png",
     character: "Hazard",
     id: undefined
   }

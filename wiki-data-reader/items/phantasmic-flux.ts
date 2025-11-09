@@ -28,6 +28,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/72/Phantasmic_Flux.png",
     id: "i_222"
   }
 };

@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/17/Birdseye_Blade.png",
     character: "Hazard",
     id: undefined
   }

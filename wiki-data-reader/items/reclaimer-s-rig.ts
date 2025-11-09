@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/16/Reclaimer%27s_Rig.png",
     character: "Torbjörn",
     id: undefined
   }

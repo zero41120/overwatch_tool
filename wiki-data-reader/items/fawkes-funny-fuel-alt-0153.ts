@@ -24,6 +24,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/fe/Fawkes%27_Funny_Fuel%E2%84%A2.png",
     character: "Junkrat",
     id: undefined
   }

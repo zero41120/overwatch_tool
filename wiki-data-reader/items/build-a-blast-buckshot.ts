@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/94/Build-A-Blast_Buckshot.png",
     character: "Ashe",
     id: "i_138"
   }

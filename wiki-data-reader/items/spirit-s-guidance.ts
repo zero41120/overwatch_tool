@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/bb/Spirit%27s_Guidance.png",
     character: "Kiriko",
     id: undefined
   }

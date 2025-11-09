@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/5a/Dashing_Skates.png",
     id: undefined
   }
 };

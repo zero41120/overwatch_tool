@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/45/Spiked_Grip.png",
     character: "Genji",
     id: "i_23"
   }

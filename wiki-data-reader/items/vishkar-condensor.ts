@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e6/Vishkar_Condensor.png",
     id: "i_177"
   }
 };

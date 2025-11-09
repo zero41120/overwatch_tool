@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e5/Slipstream_Scarf.png",
     character: "Freja",
     id: undefined
   }

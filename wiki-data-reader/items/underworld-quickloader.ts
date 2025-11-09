@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d7/Underworld_Quickloader.png",
     character: "Tracer",
     id: undefined
   }

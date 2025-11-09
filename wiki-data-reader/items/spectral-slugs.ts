@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/33/Spectral_Slugs.png",
     character: "Reaper",
     id: "i_24"
   }

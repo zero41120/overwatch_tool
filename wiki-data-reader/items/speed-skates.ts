@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4d/Speed_Skates.png",
     character: "Lúcio",
     id: "i_213"
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e0/Toxin_Tips.png",
     character: "Freja",
     id: undefined
   }

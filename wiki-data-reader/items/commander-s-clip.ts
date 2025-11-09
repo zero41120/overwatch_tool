@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/ad/Commander%27s_Clip.png",
     id: "i_39"
   }
 };

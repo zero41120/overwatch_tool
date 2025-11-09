@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9500,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/7d/Hip_Hop.png",
     character: "Lúcio",
     id: "i_253"
   }

@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 1000,
     tab: "ability",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/22/Power_Playbook.png",
     id: "i_76"
   }
 };

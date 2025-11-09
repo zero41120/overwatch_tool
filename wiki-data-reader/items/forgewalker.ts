@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/41/Forgewalker.png",
     character: "Torbjörn",
     id: undefined
   }

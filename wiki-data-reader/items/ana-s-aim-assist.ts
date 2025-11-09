@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/bc/Ana%27s_Aim-Assist.png",
     character: "Pharah",
     id: undefined
   }

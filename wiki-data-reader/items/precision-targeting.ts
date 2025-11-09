@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 13500,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b7/Precision_Targeting.png",
     character: "Pharah",
     id: undefined
   }

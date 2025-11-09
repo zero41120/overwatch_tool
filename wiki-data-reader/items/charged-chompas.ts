@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8f/Charged_Chompas.png",
     character: "Junkrat",
     id: undefined
   }

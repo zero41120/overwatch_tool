@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 1000,
     tab: "weapon",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e5/Compensator.png",
     id: "i_0"
   }
 };

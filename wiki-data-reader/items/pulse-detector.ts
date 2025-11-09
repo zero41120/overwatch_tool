@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 5500,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/cf/Pulse_Detector.png",
     character: "Tracer",
     id: undefined
   }

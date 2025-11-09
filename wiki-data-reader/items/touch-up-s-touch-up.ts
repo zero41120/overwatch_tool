@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/ff/Touch-Up%27s_Touch_Up.png",
     character: "Hazard",
     id: undefined
   }

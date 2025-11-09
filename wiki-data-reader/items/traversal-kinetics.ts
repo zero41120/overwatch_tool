@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/0c/Traversal_Kinetics.png",
     character: "Genji",
     id: "i_99"
   }

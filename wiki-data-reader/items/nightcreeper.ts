@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8b/Nightcreeper.png",
     character: "Reaper",
     id: undefined
   }

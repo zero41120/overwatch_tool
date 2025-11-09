@@ -10,7 +10,6 @@ import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
-import { iconUrlForName } from "./utils/item";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import {
@@ -50,7 +49,7 @@ export default function Optimizer() {
       arr.forEach((it) => {
         const override = useOverrides ? localOverrides[it.name] || baseOverrides[it.name] : undefined;
         if (override?.disabled) return;
-        const item = { ...it, tab, rarity, iconUrl: iconUrlForName(it.name) };
+        const item = { ...it, tab, rarity };
         if (override) {
           const attrs = resolveOverrideAttributes(override, hero);
           if (attrs) item.attributes = attrs;

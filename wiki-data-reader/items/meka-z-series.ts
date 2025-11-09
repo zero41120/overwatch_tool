@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/85/Meka-Z_Series.png",
     id: "i_181"
   }
 };

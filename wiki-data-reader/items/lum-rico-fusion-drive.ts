@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/be/Lum%C3%A9rico_Fusion_Drive.png",
     id: "i_117"
   }
 };

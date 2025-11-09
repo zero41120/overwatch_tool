@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/51/Subatomic_Splitter.png",
     character: "Moira",
     id: "i_74"
   }

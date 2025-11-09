@@ -24,6 +24,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4f/Afterburners.png",
     character: "Sojourn",
     id: undefined
   }

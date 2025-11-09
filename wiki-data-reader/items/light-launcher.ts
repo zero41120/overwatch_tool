@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/6e/Light_Launcher.png",
     character: "Zarya",
     id: "i_52"
   }

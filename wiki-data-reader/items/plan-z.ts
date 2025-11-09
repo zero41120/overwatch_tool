@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/6f/Plan_Z.png",
     character: "Reinhardt",
     id: "i_51"
   }

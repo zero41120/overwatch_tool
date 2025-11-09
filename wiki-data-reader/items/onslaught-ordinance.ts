@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/87/Onslaught_Ordinance.png",
     character: "D.Va",
     id: "i_126"
   },

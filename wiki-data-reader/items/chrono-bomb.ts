@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10500,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d4/Chrono_Bomb.png",
     character: "Tracer",
     id: undefined
   }

@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f2/Aerial_Distresser.png",
     id: undefined
   },
   override: {

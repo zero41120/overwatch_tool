@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 5000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/7b/Potent_Projectiles.png",
     character: "Ana",
     id: "i_27"
   }

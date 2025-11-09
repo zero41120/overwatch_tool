@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/29/Mind_Shaper.png",
     character: "Zenyatta",
     id: undefined
   }

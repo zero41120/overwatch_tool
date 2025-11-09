@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f2/Genji%27s_Galvanic_Gloves.png",
     character: "Zenyatta",
     id: undefined
   }

@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/87/Arturretficial_Intelligence.png",
     character: "Torbjörn",
     id: undefined
   }

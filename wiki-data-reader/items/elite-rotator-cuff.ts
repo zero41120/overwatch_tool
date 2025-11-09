@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a8/Elite_Rotator_Cuff.png",
     character: "Orisa",
     id: "i_91"
   }

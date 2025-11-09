@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b4/Vesuvius_Protocol.png",
     character: "D.Va",
     id: "i_88"
   }

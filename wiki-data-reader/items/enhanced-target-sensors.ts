@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/7f/Enhanced_Target_Sensors.png",
     character: "Orisa",
     id: "i_15"
   }

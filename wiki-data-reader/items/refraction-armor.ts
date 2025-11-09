@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 2000,
     tab: "survival",
     rarity: "common",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/60/Refraction_Armor.png",
     character: "D.Va",
     id: undefined
   }

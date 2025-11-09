@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a4/Nano_Cola%E2%84%A2_Nitrous.png",
     character: "D.Va",
     id: undefined
   }

@@ -20,6 +20,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/75/Jamison%27s_Jumpers.png",
     character: "Junkrat",
     id: undefined
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4000,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/5d/Eye_of_the_Yokai.png",
     character: "Kiriko",
     id: "i_106"
   }

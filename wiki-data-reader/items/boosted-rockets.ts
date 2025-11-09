@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 12000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c4/Boosted_Rockets.png",
     character: "Juno",
     id: "i_211"
   }

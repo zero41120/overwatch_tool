@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 10000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/14/Singijeon%27s_Pulse_Plating.png",
     character: "D.Va",
     id: "i_229"
   }

@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "ability",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/68/1_Single.png",
     character: "Lúcio",
     id: undefined
   }

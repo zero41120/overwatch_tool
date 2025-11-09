@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 4500,
     tab: "survival",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4d/Synced_Shielding.png",
     character: "Sigma",
     id: undefined
   }

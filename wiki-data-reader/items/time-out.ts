@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/17/Time_Out_Item.png",
     character: "Ana",
     id: undefined
   }

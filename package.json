@@ -10,7 +10,7 @@
     "test": "npm run test -ws --if-present",
     "deploy": "npm run deploy -ws --if-present",
     "install-all": "npm install -ws",
-    "start": "npm run start -w item-optimizer",
+    "start": "npm run build -w wiki-data-reader && npm run start -w item-optimizer",
     "refresh-snapshots": "npm run refresh-snapshots -w wiki-data-reader",
     "update-items": "npm run update-items -w wiki-data-reader"
   },

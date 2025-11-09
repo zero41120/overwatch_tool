@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c9/De_Kuiper%27s_Thesis.png",
     character: "Sigma",
     id: undefined
   }

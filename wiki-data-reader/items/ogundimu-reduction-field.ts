@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 11000,
     tab: "survival",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/da/Ogundimu_Reduction_Field.png",
     id: "i_226"
   }
 };

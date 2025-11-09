@@ -12,6 +12,7 @@ const record: ItemRecord = {
     cost: 14000,
     tab: "ability",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/33/Champion%27s_Kit.png",
     id: "i_123"
   }
 };

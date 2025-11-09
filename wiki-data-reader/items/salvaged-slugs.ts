@@ -24,6 +24,7 @@ const record: ItemRecord = {
     cost: 9000,
     tab: "weapon",
     rarity: "epic",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/bb/Salvaged_Slugs.png",
     id: "i_37"
   }
 };

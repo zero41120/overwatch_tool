@@ -16,6 +16,7 @@ const record: ItemRecord = {
     cost: 3750,
     tab: "weapon",
     rarity: "rare",
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/bd/Aftermarket_Firing_Pin.png",
     id: "i_5"
   }
 };
