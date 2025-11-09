@@ -5,19 +5,19 @@ const record: ItemRecord = {
     name: "SOLO SPEC",
     attributes: [
       {
-        type: "Health",
+        type: "Armor",
         value: "25"
       },
       {
         type: "description",
-        value: "When you mitigate damage with <b>[Defense Matrix]</b>, gain Shields equal to <b>10%</b> of the damage mitigated, up to <b>100</b>. Resets when your <b>[Mech]</b> is destroyed."
+        value: "While [Defense Matrix] is active, gain Shields equal to 10% of the damage mitigated, up to 100. Resets when your [Mech] is destroyed."
       }
     ],
     cost: 4000,
-    character: "D.VA",
-    id: "i_184",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "D.Va",
+    id: "i_184"
   }
 };
 

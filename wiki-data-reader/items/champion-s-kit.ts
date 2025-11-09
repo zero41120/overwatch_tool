@@ -10,9 +10,9 @@ const record: ItemRecord = {
       }
     ],
     cost: 14000,
-    id: "i_123",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_123"
   }
 };
 

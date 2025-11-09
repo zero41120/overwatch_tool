@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Death Blossom]</b> gains <b>4%</b> Ability Power for each enemy within its range."
+        value: "[Death Blossom] gains 5% Ability Power for each enemy within its range."
       }
     ],
     cost: 4000,
-    character: "Reaper",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reaper",
+    id: undefined
   }
 };
 

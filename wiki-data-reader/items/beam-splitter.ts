@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While <b>[Kinetic Grasp]</b> is active, reduce incoming Beam damage by <b>50%</b>."
+        value: "While [Kinetic Grasp] is active, reduce incoming Beam and Melee damage by 75%."
       }
     ],
     cost: 4000,
-    character: "Sigma",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Sigma",
+    id: undefined
   }
 };
 

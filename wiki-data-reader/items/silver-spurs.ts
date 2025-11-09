@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using <b>[Coach Gun]</b>, gain <b>20%</b> Move Speed for <b>5s</b> and reload <b>25%</b> of max ammo."
+        value: "After using [Coach Gun], gain 20% Move Speed for 5s and reload 25% of max ammo."
       }
     ],
     cost: 4000,
-    character: "Ashe",
-    id: "i_197",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ashe",
+    id: "i_197"
   }
 };
 

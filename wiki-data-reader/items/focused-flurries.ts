@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Max Ammo is increased by <b>75%</b> but reloading takes <b>50%</b> longer."
+        value: "Max Ammo is increased by 75% but reloading takes 50% longer."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_60",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_60"
   }
 };
 

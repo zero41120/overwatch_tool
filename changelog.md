@@ -47,3 +47,5 @@
 2025-11-06  remove generic burn logic; apply 1.2x only when Skyline Nanites is selected; remove UI toggle and Burn column  item-optimizer/src/utils/junoBreakpoints.ts item-optimizer/src/utils/junoItems.ts item-optimizer/src/components/JunoTorpedoCalculator.tsx
 2025-11-06  show icons in Juno table; remove Budget/Survival columns; keep Spend  item-optimizer/src/components/JunoTorpedoCalculator.tsx
 2025-11-06  Juno results use 6-slot grid for items (reuse ItemsOverviewTable)  item-optimizer/src/components/JunoTorpedoCalculator.tsx
+2025-11-08  move wiki data loading into a built workspace dependency and add provider tests  wiki-data-reader item-optimizer/src/itemDataProvider.ts item-optimizer/src/__tests__
+2025-11-08  add wiki snapshot refresh + parser/update scripts with hero ingestion  wiki-data-reader/scripts wiki-data-reader/snapshots

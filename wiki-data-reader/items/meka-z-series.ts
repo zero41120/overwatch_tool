@@ -5,22 +5,14 @@ const record: ItemRecord = {
     name: "MEKA Z-SERIES",
     attributes: [
       {
-        type: "Health",
-        value: "8%"
-      },
-      {
-        type: "Armor",
-        value: "8%"
-      },
-      {
-        type: "Shields",
+        type: "Health, Armor, Shields",
         value: "8%"
       }
     ],
     cost: 5000,
-    id: "i_181",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_181"
   }
 };
 

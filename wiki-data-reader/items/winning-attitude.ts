@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you die, gain <b>15%</b> Ultimate Charge."
+        value: "When you die, gain 15% Ultimate Charge."
       }
     ],
     cost: 1500,
-    id: "i_78",
     tab: "ability",
-    rarity: "common"
+    rarity: "common",
+    id: "i_78"
   }
 };
 

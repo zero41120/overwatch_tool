@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After <b>[Transcendence]</b> ends, gain <b>Overhealth</b> equal to <b>100%</b> of the healing it did."
+        value: "After [Transcendence] ends, gain Overhealth equal to 100% of the healing it did."
       }
     ],
     cost: 11000,
-    character: "Zenyatta",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

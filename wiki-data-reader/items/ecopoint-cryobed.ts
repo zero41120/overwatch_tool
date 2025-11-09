@@ -6,14 +6,14 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "On near death, go into <b>[Cryo-Freeze]</b> and gain <b>15%</b> Ultimate Charge. Can happen once every round."
+        value: "On near death, go into Cryo-Freeze and gain 15% Ultimate Charge. Can happen once every round."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_143",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_143"
   }
 };
 

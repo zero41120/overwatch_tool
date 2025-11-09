@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Allies affected by <b>[Transcendence]</b> have their cooldowns refresh <b>15%</b> faster."
+        value: "Allies affected by [Transcendence] have their cooldowns refresh 15% faster."
       }
     ],
     cost: 12000,
-    character: "Zenyatta",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

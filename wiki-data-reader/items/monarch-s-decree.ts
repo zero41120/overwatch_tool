@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Commanding Shout]</b> grants you <b>15%</b> Attack Speed."
+        value: "[Commanding Shout] grants you 15% Attack Speed."
       }
     ],
     cost: 4000,
-    character: "Junker Queen",
-    id: "i_13",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junker Queen",
+    id: "i_13"
   }
 };
 

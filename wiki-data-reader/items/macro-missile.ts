@@ -6,14 +6,14 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "<b>[Micro Missiles]</b> deal <b>25%</b> increased damage and have significantly increased knockback."
+        value: "[Micro Missiles] deal 25% increased damage and have significantly increased knockback."
       }
     ],
     cost: 12000,
-    character: "D.VA",
-    id: "i_125",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "D.Va",
+    id: "i_125"
   }
 };
 

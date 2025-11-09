@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Using <b>[Shadow Step]</b> restores <b>100%</b> of your ammo."
+        value: "Using [Shadow Step] restores 100% of your ammo."
       }
     ],
     cost: 4000,
-    character: "Reaper",
-    id: "i_24",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reaper",
+    id: "i_24"
   }
 };
 

@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Biotic Grasp] Secondary Fire Range",
+        type: "Biotic Grasp Secondary Fire Range",
         value: "15%"
       }
     ],
     cost: 11000,
-    character: "Moira",
-    id: "i_74",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Moira",
+    id: "i_74"
   }
 };
 

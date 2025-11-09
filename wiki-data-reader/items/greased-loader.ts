@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "25%"
       },
       {
-        type: "RS",
+        type: "Reload Speed",
         value: "15%"
       }
     ],
     cost: 5000,
-    character: "Ashe",
-    id: "i_21",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ashe",
+    id: "i_21"
   }
 };
 

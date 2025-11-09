@@ -6,14 +6,14 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "When you use an ability, gain <b>20%</b> Attack Speed for <b>3s</b>."
+        value: "When you use an ability, gain 20% Attack Speed for 3s."
       }
     ],
     cost: 5000,
-    character: "Kiriko",
-    id: "i_107",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Kiriko",
+    id: "i_107"
   }
 };
 

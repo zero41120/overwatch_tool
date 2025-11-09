@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Reduce the time before your Life begins regenerating by <b>33%</b>."
+        value: "Reduce the time before your Life begins regenerating by 33%.<ul><li>Also reduces the regeneration delay of shields.</li></ul>"
       }
     ],
     cost: 1500,
-    id: "i_171",
     tab: "survival",
-    rarity: "common"
+    rarity: "common",
+    id: "i_171"
   }
 };
 

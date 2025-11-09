@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While you have Armor, take <b>10%</b> reduced Weapon Damage."
+        value: "While you have Armor, take 10% reduced Weapon Damage and gain 5% Attack Speed."
       }
     ],
     cost: 4500,
-    id: "i_179",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_179"
   }
 };
 

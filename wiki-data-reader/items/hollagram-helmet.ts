@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use <b>[Fortify]</b>, allies within line of sight gain <b>Unstoppable</b> for <b>2s</b>."
+        value: "When you use Fortify, allies within line of sight gain Unstoppable for 2s."
       }
     ],
     cost: 10000,
-    character: "Orisa",
-    id: "i_234",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Orisa",
+    id: "i_234"
   }
 };
 

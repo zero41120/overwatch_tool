@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "The quantity and duration of <b>[Micro Missiles]</b> is increased by <b>20%</b>."
+        value: "The quantity and duration of [Micro Missiles] is increased by 20%."
       }
     ],
     cost: 12000,
-    character: "D.VA",
-    id: "i_126",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "D.Va",
+    id: "i_126"
   },
   override: {
     name: "ONSLAUGHT ORDINANCE",

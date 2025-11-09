@@ -9,18 +9,18 @@ const record: ItemRecord = {
         value: "50"
       },
       {
-        type: "MD",
+        type: "Melee Damage",
         value: "15%"
       },
       {
         type: "description",
-        value: "<b>[Melee]</b> Damage grants <b>10%</b> Move Speed and restores <b>5%</b> of Max Life over <b>2s</b>."
+        value: "[Melee] damage grants 10% Move Speed and restores 5% of Max Life over 2s."
       }
     ],
     cost: 10000,
-    id: "i_220",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_220"
   },
   override: {
     name: "GLOOMGAUNTLET",

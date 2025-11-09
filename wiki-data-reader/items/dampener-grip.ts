@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you deal more damage with <b>[Rocket Hammer]</b>, reduce the cooldown of your abilities by <b>1s</b>."
+        value: "When you deal damage with [Rocket Hammer], reduce the cooldown of your abilities by 1s."
       }
     ],
     cost: 10000,
-    character: "Reinhardt",
-    id: "i_50",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reinhardt",
+    id: "i_50"
   }
 };
 

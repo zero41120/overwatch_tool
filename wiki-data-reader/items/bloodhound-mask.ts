@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Gain <b>5%</b> Weapon Power for each enemy with a <b>[Wound]</b> within <b>12m</b>."
+        value: "Gain 5% Weapon Power for each enemy with a [Wound] within 12m."
       }
     ],
     cost: 12000,
-    character: "Junker Queen",
-    id: "i_49",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_49"
   },
   override: {
     name: "BLOODHOUND MASK",

@@ -5,7 +5,7 @@ const record: ItemRecord = {
     name: "EMERGENCY CHIP",
     attributes: [
       {
-        type: "Shield",
+        type: "Shields",
         value: "25"
       },
       {
@@ -14,12 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While you are below <b>150</b> Life, gain <b>15%</b> Weapon Lifesteal."
+        value: "Once per life, when you are below 150 Life, gain 15% Weapon Lifesteal and 50 Overhealth for 5s"
       }
     ],
-    cost: 4500,
+    cost: 4000,
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    id: undefined
   }
 };
 

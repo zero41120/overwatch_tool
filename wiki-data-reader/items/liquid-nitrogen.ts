@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Dealing Ability Damage slows the target's Move Speed by <b>20%</b> for <b>3s</b>."
+        value: "Dealing Ability Damage slows the target's Move Speed by 10% and their bonus Move Speed by 15% for 3s."
       }
     ],
     cost: 11000,
-    id: "i_121",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_121"
   }
 };
 

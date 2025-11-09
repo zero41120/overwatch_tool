@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After detonating <b>[Concussion Mine]</b>, your next <b>2</b> <b>[Frag Launcher]</b> shots gain <b>200%</b> Projectile Speed and deal <b>10%</b> increased damage to airborne enemies."
+        value: "After detonating [Concussion Mine] your next 2 [Frag Launcher] shots gain 200% Projectile Speed and 10% increased damage to airborne enemies."
       }
     ],
     cost: 10000,
-    character: "Junkrat",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junkrat",
+    id: undefined
   }
 };
 

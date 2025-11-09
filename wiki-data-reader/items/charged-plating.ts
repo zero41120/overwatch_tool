@@ -6,13 +6,13 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "After you spend your Ultimate Charge, gain <b>25</b> Armor and <b>10%</b> Ability Power for the rest of the round."
+        value: "After you spend your Ultimate Charge, gain 25 Armor and 10% Ability Power for the rest of the round."
       }
     ],
     cost: 1000,
-    id: "i_75",
     tab: "ability",
-    rarity: "common"
+    rarity: "common",
+    id: "i_75"
   }
 };
 

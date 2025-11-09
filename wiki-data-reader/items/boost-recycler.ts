@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "If <b>[Charge]</b> is interrupted by the enemy, refund <b>50%</b> of <b>[Charge]</b> cooldown."
+        value: "If [Charge] is interrupted by the enemy, refund 50% of [Charge] cooldown."
       }
     ],
     cost: 4000,
-    character: "Reinhardt",
-    id: "i_92",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reinhardt",
+    id: "i_92"
   }
 };
 

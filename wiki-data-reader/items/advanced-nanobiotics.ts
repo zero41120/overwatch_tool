@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After healing an ally, gain <b>10%</b> Attack Speed for <b>3s</b>."
+        value: "After healing an ally, gain 10% Attack Speed for 3s."
       }
     ],
     cost: 4000,
-    id: "i_6",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_6"
   },
   override: {
     name: "ADVANCED NANOBIOTICS",

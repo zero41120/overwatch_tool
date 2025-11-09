@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Whenever <b>[Total Mayhem]</b> deals damage, gain <b>3%</b> Ultimate Charge."
+        value: "Whenever [Total Mayhem] deals damage, gain 3% Ultimate Charge."
       }
     ],
     cost: 10000,
-    character: "Junkrat",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junkrat",
+    id: undefined
   }
 };
 

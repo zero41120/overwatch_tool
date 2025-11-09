@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Biotic Grasp]</b>'s secondary fire restores <b>50%</b> more <b>[Biotic Energy]</b>."
+        value: "[Biotic Grasp]'s secondary fire restores 50% more [Biotic Energy]."
       }
     ],
     cost: 4000,
-    character: "Moira",
-    id: "i_34",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Moira",
+    id: "i_34"
   }
 };
 

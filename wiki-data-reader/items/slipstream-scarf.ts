@@ -13,14 +13,15 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "[Quick Dash] Distance",
+        type: "Quick Dash Distance",
         value: "25%"
       }
     ],
     cost: 4000,
-    character: "Freja",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Freja",
+    id: undefined
   }
 };
 

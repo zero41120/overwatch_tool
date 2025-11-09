@@ -9,18 +9,15 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "WP",
-        value: "5%"
-      },
-      {
         type: "description",
-        value: "Enemies with a Bounty of <b>750</b> or more are revealed to you within <b>40m</b>.\n<br/>\n Eliminating them grants <b>350</b> additional <b>Stadium Cash</b>."
+        value: "Enemies with a bounty of 750 or more are revealed to you within 40m. Eliminating them grants 250 additional Stadium Cash."
       }
     ],
     cost: 4000,
-    character: "Freja",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Freja",
+    id: undefined
   }
 };
 

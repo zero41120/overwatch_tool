@@ -14,10 +14,10 @@ const record: ItemRecord = {
       }
     ],
     cost: 4000,
-    character: "Mercy",
-    id: "i_111",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Mercy",
+    id: "i_111"
   }
 };
 

@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Javelin Spin] Duration",
+        type: "Javelin Spin Duration",
         value: "35%"
       }
     ],
     cost: 4000,
-    character: "Orisa",
-    id: "i_91",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_91"
   }
 };
 

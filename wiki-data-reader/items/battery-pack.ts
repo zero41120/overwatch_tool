@@ -14,10 +14,10 @@ const record: ItemRecord = {
       }
     ],
     cost: 4000,
-    character: "Soldier: 76",
-    id: "i_101",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Soldier: 76",
+    id: "i_101"
   }
 };
 

@@ -6,13 +6,13 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "Eliminations grant <b>10%</b> Attack Speed and <b>15%</b> Move Speed for <b>3s</b>."
+        value: "Eliminations grant 10% Attack Speed and 15% Move Speed for 3s."
       }
     ],
     cost: 1500,
-    id: "i_4",
     tab: "weapon",
-    rarity: "common"
+    rarity: "common",
+    id: "i_4"
   }
 };
 

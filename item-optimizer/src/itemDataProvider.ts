@@ -1,17 +1,8 @@
+import { getItemRecords } from "wiki-data-reader";
 import type { Item, ItemOverride, ItemRecord, RootData } from "./types";
 
-type ItemModule = {
-  default: ItemRecord;
-};
-
-const itemModules = import.meta.glob<ItemModule>("../../wiki-data-reader/items/*.ts", {
-  eager: true,
-});
-
 function loadItemRecords(): ItemRecord[] {
-  return Object.values(itemModules)
-    .map((module) => module.default)
-    .filter((record): record is ItemRecord => Boolean(record && record.item));
+  return getItemRecords();
 }
 
 function emptyRarity() {

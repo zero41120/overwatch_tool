@@ -1,26 +1,6 @@
-export interface Attribute {
-  type: string;
-  value: string;
-}
+import type { Item } from "wiki-data-reader";
 
-export type ItemTab = "weapon" | "ability" | "survival";
-export type ItemRarity = "common" | "rare" | "epic";
-
-export interface Item {
-  name: string;
-  attributes: Attribute[];
-  cost: number;
-  character?: string;
-  id?: string;
-  tab: ItemTab;
-  rarity: ItemRarity;
-  iconUrl?: string;
-}
-
-export interface EditorOverride {
-  applyTo?: string[];
-  attributes: Attribute[];
-}
+export type { Attribute, EditorOverride, Item, ItemOverride, ItemRecord, ItemRarity, ItemTab } from "wiki-data-reader";
 
 export interface RootData {
   tabs: {
@@ -45,17 +25,6 @@ export interface WeightRow {
 export interface MinAttrGroup {
   attrs: string[];
   value: number;
-}
-
-export interface ItemOverride extends Partial<Pick<Item, "id" | "name" | "cost" | "character" | "tab" | "rarity">> {
-  attributes?: Attribute[];
-  disabled?: boolean;
-  editor_overrides?: EditorOverride[];
-}
-
-export interface ItemRecord {
-  item: Item;
-  override?: ItemOverride;
 }
 
 export interface ResultCombo {

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Energy Javelin]</b> deals <b>25%</b> increased damage to enemies farther than <b>12m</b> away."
+        value: "Energy Javelin deals 25% increased damage to enemies farther than 12m away."
       }
     ],
     cost: 4000,
-    character: "Orisa",
-    id: "i_90",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_90"
   }
 };
 

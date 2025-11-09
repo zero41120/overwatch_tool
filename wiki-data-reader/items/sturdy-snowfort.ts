@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Ability Power is increased by <b>5%</b> per each spawned Ice Pillars."
+        value: "Ability Power is increased by 5% per each spawned Ice Pillars."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_142",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_142"
   }
 };
 

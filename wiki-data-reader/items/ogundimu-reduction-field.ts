@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you take damage, gain 0.<b>5%</b> <b>Damage Reduction</b> for Is, stacking up to 20 times."
+        value: "When you take damage, gain 0.5% damage reduction for 1s, stacking up to 20 times."
       }
     ],
     cost: 11000,
-    id: "i_226",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_226"
   }
 };
 

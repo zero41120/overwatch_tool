@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Coach Gun]</b> has <b>50%</b> increased self knockback."
+        value: "[Coach Gun] has 50% increased self knockback."
       }
     ],
     cost: 10000,
-    character: "Ashe",
-    id: "i_138",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ashe",
+    id: "i_138"
   }
 };
 

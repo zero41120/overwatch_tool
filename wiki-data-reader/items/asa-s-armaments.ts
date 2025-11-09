@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Kunai]</b> bounce off surfaces <b>1 time</b>."
+        value: "[Kunai] bounce off surfaces 1 time."
       }
     ],
     cost: 4000,
-    character: "Kiriko",
-    id: "i_30",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Kiriko",
+    id: "i_30"
   }
 };
 

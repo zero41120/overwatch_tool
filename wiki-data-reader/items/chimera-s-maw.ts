@@ -5,22 +5,23 @@ const record: ItemRecord = {
     name: "CHIMERA'S MAW",
     attributes: [
       {
-        type: "[Fire Strike] Projectile Speed",
-        value: "25%"
-      },
-      {
-        type: "[Fire Strike] Radius",
+        type: "Fire Strike Radius",
         value: "50%"
       },
       {
+        type: "Fire Strike Projectile Speed",
+        value: "25%"
+      },
+      {
         type: "description",
-        value: "For each additional enemy <b>[Fire Strike]</b> damages beyond the initial target, reduce <b>[Fire Strike]</b> cooldown by <b>5%</b>"
+        value: "For each additional enemy [Fire Strike] damages beyond the initial target, reduce [Fire Strike] cooldown by 5%."
       }
     ],
-    cost: 10000,
-    character: "Reinhardt",
+    cost: 4000,
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reinhardt",
+    id: undefined
   }
 };
 

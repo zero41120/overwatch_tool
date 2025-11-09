@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Particle Cannon]</b>'s primary fire range is increased by <b>20%</b>"
+        value: "[Particle Cannon]'s primary fire range is increased by 20%."
       }
     ],
-    cost: 12000,
-    character: "Zarya",
-    id: "i_53",
+    cost: 11000,
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zarya",
+    id: "i_53"
   }
 };
 

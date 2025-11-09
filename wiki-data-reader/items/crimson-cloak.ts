@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When <b>[Death Blossom]</b> starts, gain <b>Overhealth</b> equal to <b>5%</b> of your max Life for each enemy within its range."
+        value: "When [Death Blossom] starts, gain Overhealth equal to 5% of your max Life for each enemy within its range."
       }
     ],
     cost: 9500,
+    tab: "survival",
+    rarity: "epic",
     character: "Reaper",
-    tab: "ability",
-    rarity: "epic"
+    id: undefined
   }
 };
 

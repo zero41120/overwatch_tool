@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you charge an orb with <b>[Orb of Destruction]</b>'s secondary fire, restore for <b>3%</b> of your Life."
+        value: "When you charge an orb with [Orb of Destruction]'s secondary fire, restore 3% of your Life."
       }
     ],
     cost: 4500,
-    character: "Zenyatta",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

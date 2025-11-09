@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Quick Melee]</b> damage heals for <b>25</b> Life."
+        value: "[Quick Melee] damage heals for 25 Life.<ul><li>Does <b>not</b> affect melee weapons that can be activated with the Quick Melee input, such as <b>[Rocket Hammer]</b> and <b>[Dragonblade]</b>.</li></ul>"
       }
     ],
     cost: 1500,
-    id: "i_173",
     tab: "survival",
-    rarity: "common"
+    rarity: "common",
+    id: "i_173"
   }
 };
 

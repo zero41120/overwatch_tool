@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "For every <b>50</b> Armor you have, gain <b>5%</b> <b>[Quick Melee]</b> Damage."
+        value: "For every 50 Armor you have, gain 5% [Quick Melee] Damage."
       }
     ],
     cost: 10000,
-    character: "Zenyatta",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

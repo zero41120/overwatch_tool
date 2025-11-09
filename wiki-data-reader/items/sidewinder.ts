@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When the target is within <b>10m</b>, unscoped shot gains <b>25%</b> increased damage."
+        value: "When the target is within 10m, unscoped shot gains 25% increased damage."
       }
     ],
     cost: 11000,
-    character: "Ashe",
-    id: "i_55",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ashe",
+    id: "i_55"
   }
 };
 

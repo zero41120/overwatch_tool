@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While within 12m of an enemy with a <b>[Wound]</b>, gain <b>5%</b> Move Speed and <b>10%</b> Attack Speed."
+        value: "While within 12m of an enemy with a [Wound], gain 5% Move Speed and 10% Attack Speed."
       }
     ],
     cost: 4000,
-    character: "Junker Queen",
-    id: "i_187",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junker Queen",
+    id: "i_187"
   },
   override: {
     name: "SLICING SPREE",

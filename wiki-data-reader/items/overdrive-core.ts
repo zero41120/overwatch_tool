@@ -14,12 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Once per life, if you take damage that would reduce you below <b>30%</b> Max Life, first gain <b>300 decaying Overhealth</b>."
+        value: "Once per life, if you take damage that would reduce you below 30% Max Life, first gain 300 decaying Overhealth."
       }
     ],
-    cost: 10000,
+    cost: 9500,
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: undefined
   }
 };
 

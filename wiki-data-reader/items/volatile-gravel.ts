@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you deal damage with <b>[Accretion]</b>, gain <b>5%</b> Ability Power, stacking up to 4 times. Resets on miss."
+        value: "When you deal damage with [Accretion], gain 5% Ability Power until the end of the round, stacking up to 4 times."
       }
     ],
     cost: 4000,
-    character: "Sigma",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Sigma",
+    id: undefined
   }
 };
 

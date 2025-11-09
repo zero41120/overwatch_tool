@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "During <b>[Glide Boost]</b>, gain <b>20%</b> Attack Speed and your <b>[Quick Melee]</b> knocks enemies back."
+        value: "During [Glide Boost], gain 35% Attack Speed and your [Quick Melee] knocks enemies back."
       }
     ],
     cost: 10000,
-    character: "Juno",
-    id: "i_66",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_66"
   },
   override: {
     name: "GRAVITATIONAL PUSH",

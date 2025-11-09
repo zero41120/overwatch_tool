@@ -18,10 +18,10 @@ const record: ItemRecord = {
       }
     ],
     cost: 3750,
-    character: "Reinhardt",
-    id: "i_17",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reinhardt",
+    id: "i_17"
   }
 };
 

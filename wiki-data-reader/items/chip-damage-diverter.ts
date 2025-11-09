@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you deal damage to Barriers while in your <b>[Mech]</b>, gain Shields equal to <b>10%</b> of the damage dealt, up to <b>200</b>. Resets when your <b>[Mech]</b> is destroyed."
+        value: "When you deal damage to Barriers while in your [Mech], gain Shields equal to 10% of damage dealt, up to 200. Resets when your [Mech] is destroyed."
       }
     ],
     cost: 10000,
-    character: "D.VA",
-    id: "i_228",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "D.Va",
+    id: "i_228"
   }
 };
 

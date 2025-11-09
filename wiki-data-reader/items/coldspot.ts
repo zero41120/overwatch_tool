@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Primary fire and <b>[Blizzard]</b> can remove burn."
+        value: "Primary fire and [Blizzard] can remove burn. Primary Fire applies 35% Slow for 1.50s to an airborne enemy."
       }
     ],
     cost: 4000,
-    character: "Mei",
-    id: "i_202",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Mei",
+    id: "i_202"
   }
 };
 

@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you spend your Ultimate Charge, reset all cooldowns. While <b>[Tactical Visor]</b> is active, gain <b>20%</b> Cooldown Reduction."
+        value: "When you spend your Ultimate Charge, reset all cooldowns. While [Tactical Visor] is active, gain 20% Cooldown Reduction."
       }
     ],
     cost: 10000,
-    character: "Soldier: 76",
-    id: "i_148",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Soldier: 76",
+    id: "i_148"
   }
 };
 

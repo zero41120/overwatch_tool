@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Orb of Destruction]</b>'s secondary fire charges <b>20%</b> faster."
+        value: "[Orb of Destruction]'s secondary fire charges 20% faster."
       }
     ],
     cost: 12000,
-    character: "Zenyatta",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

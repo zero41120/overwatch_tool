@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using <b>[Swift Step]</b>, gain <b class=\"stat-ap\">100</b> <b>Overhealth</b> for <b>4s</b>."
+        value: "After using [Swift Step], gain <b class=\"stat-ap\">100</b> Overhealth for 4s."
       }
     ],
     cost: 10000,
-    character: "Kiriko",
-    id: "i_251",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Kiriko",
+    id: "i_251"
   }
 };
 

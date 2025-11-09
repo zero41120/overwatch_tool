@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Orbital Ray]</b> gains <b>25%</b> increased healing."
+        value: "[Orbital Ray] gains 25% increased healing."
       }
     ],
     cost: 10000,
-    character: "Juno",
-    id: "i_250",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_250"
   }
 };
 

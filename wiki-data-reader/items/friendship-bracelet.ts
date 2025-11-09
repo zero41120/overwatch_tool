@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Increase your healing by up to <b>20%</b>, based on how close you are to your target."
+        value: "Increase your healing by up to 20%, based on how close you are to your target."
       }
     ],
     cost: 11000,
-    character: "Zenyatta",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

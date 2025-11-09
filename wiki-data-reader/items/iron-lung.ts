@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While using <b>[Sprint]</b>, gain <b>Overhealth</b> equal to <b>5%</b> of your max Life every <b><b>1s</b></b>, up to <b>25%</b>, for <b>5s</b>."
+        value: "While using [Sprint], gain Overhealth equal to 5% of your max Life every 1s, up to 25%, for 5s."
       }
     ],
     cost: 10000,
-    character: "Soldier: 76",
-    id: "i_247",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Soldier: 76",
+    id: "i_247"
   }
 };
 

@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Rampage]</b> and <b>[Carnage]</b> hits grant <b>10%</b> Attack Speed for <b>4s</b>."
+        value: "[Rampage] and [Carnage] hits grant 10% Attack Speed for 4s."
       }
     ],
     cost: 9500,
-    character: "Junker Queen",
-    id: "i_127",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_127"
   }
 };
 

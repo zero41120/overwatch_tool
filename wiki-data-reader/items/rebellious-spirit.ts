@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When <b>[Wound]</b> gets removed instead of expiring, gain <b>10%</b> of Max Life as Overhealth, up to <b>150</b>."
+        value: "When [Wound] gets removed instead of expiring, gain 10% of Max Life as Overhealth, up to 150."
       }
     ],
     cost: 4000,
-    character: "Junker Queen",
-    id: "i_186",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junker Queen",
+    id: "i_186"
   }
 };
 

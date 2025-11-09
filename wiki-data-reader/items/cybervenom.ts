@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Dealing Ability Damage applies <b>30%</b> <b>Healing Reduction</b> for <b>2s</b>."
+        value: "Dealing Ability damage applies 30% healing reduction for 2s."
       }
     ],
     cost: 10500,
-    id: "i_119",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_119"
   },
   override: {
     name: "CYBERVENOM",

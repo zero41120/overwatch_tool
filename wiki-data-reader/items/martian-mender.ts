@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Restore <b>3%</b> of your Life every <b>1s</b>."
+        value: "Restore 3% of your Life every 1s."
       }
     ],
     cost: 10000,
-    id: "i_221",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_221"
   }
 };
 

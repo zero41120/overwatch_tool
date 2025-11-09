@@ -10,9 +10,9 @@ const record: ItemRecord = {
       }
     ],
     cost: 1000,
-    id: "i_2",
     tab: "weapon",
-    rarity: "common"
+    rarity: "common",
+    id: "i_2"
   }
 };
 

@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Eliminations reset both charges of <b>[Quick Dash]</b> Cooldown."
+        value: "Eliminations reset both charges of [Quick Dash] Cooldown."
       }
     ],
     cost: 10000,
-    character: "Freja",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Freja",
+    id: undefined
   }
 };
 

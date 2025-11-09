@@ -5,26 +5,18 @@ const record: ItemRecord = {
     name: "RÜSTUNG VON WILHELM",
     attributes: [
       {
-        type: "Health",
-        value: "15%"
-      },
-      {
-        type: "Armor",
-        value: "15%"
-      },
-      {
-        type: "Shields",
+        type: "Health, Armor, Shields",
         value: "15%"
       },
       {
         type: "description",
-        value: "While below <b>30%</b> Life, gain <b>10%</b> <b>Damage Reduction</b>."
+        value: "While below 30% Life, gain 10% Damage Reduction."
       }
     ],
     cost: 10000,
-    id: "i_223",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_223"
   }
 };
 

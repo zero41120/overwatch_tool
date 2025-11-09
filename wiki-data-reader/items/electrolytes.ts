@@ -5,14 +5,18 @@ const record: ItemRecord = {
     name: "ELECTROLYTES",
     attributes: [
       {
+        type: "Health",
+        value: "10"
+      },
+      {
         type: "description",
-        value: "At the start of the round and every time you respawn, gain 100 unrecoverable <b>Overhealth</b>."
+        value: "At the start of the round and every time you respawn, gain 100 unrecoverable Overhealth."
       }
     ],
     cost: 1000,
-    id: "i_167",
     tab: "survival",
-    rarity: "common"
+    rarity: "common",
+    id: "i_167"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Energy Javelin]</b> cooldown is reduced by <b>15%</b>, but each use generates <b>25</b> <b>[Heat]</b>."
+        value: "Energy Javelin cooldown is reduced by 15%, but each use generates 25 Heat."
       }
     ],
     cost: 11000,
-    character: "Orisa",
-    id: "i_130",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Orisa",
+    id: "i_130"
   }
 };
 

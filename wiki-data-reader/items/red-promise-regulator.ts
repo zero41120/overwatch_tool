@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use <b>[Orbital Ray]</b>, reset your cooldowns."
+        value: "When you use [Orbital Ray], reset your cooldowns."
       }
     ],
     cost: 10000,
-    character: "Juno",
-    id: "i_156",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_156"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While climbing, restore <b>20%</b> of your ammo every Is."
+        value: "While climbing, restore 20% of your ammo every 1s."
       }
     ],
     cost: 3750,
-    character: "Genji",
-    id: "i_23",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Genji",
+    id: "i_23"
   }
 };
 

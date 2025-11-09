@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Hyper Ring] Duration",
+        type: "Hyper Ring Duration",
         value: "25%"
       }
     ],
     cost: 4000,
-    character: "Juno",
-    id: "i_105",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Juno",
+    id: "i_105"
   }
 };
 

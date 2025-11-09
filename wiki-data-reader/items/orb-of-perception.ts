@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Targets affected by <b>[Discord Orb]</b> are <b>Revealed</b>."
+        value: "Targets affected by [Discord Orb] are revealed."
       }
     ],
     cost: 11000,
-    character: "Zenyatta",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

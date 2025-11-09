@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you deal Weapon Damage or Healing, gain <b>5%</b> Ability Power for <b>3s</b>, stacking up to <b>5 times</b>."
+        value: "When you deal Weapon Damage or Healing, gain 5% Ability Power for 3s, stacking up to 5 times."
       }
     ],
     cost: 10000,
-    id: "i_118",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_118"
   },
   override: {
     name: "SUPERFLEXOR",

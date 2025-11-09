@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Recover from being <b>[Overheated] 50%</b> faster."
+        value: "Recover from being Overheated 50% faster."
       }
     ],
     cost: 4000,
-    character: "Orisa",
-    id: "i_14",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_14"
   }
 };
 

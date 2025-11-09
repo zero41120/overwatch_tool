@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Biotic Grenade]</b> cooldown is reduced by <b>2s</b> for each target it hits."
+        value: "[Biotic Grenade] cooldown is reduced by 1s for each target it hits."
       }
     ],
     cost: 10000,
-    character: "Ana",
-    id: "i_151",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ana",
+    id: "i_151"
   }
 };
 

@@ -5,19 +5,19 @@ const record: ItemRecord = {
     name: "BOOSTED ROCKETS",
     attributes: [
       {
-        type: "[Glide Boost] Duration",
+        type: "Glide Boost Duration",
         value: "25%"
       },
       {
         type: "description",
-        value: "During <b>[Glide Boost]</b>, gain <b>10%</b> Damage Reduction."
+        value: "During Glide Boost, gain 10% Damage Reduction"
       }
     ],
     cost: 12000,
-    character: "Juno",
-    id: "i_211",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_211"
   }
 };
 

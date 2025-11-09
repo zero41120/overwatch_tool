@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Protection Suzu]</b> grants <b>25%</b> Attack Speed and <b>25%</b> Move Speed for <b>4s</b>."
+        value: "[Protection Suzu] grants 25% Attack Speed and 25% Move Speed for 4s."
       }
     ],
     cost: 10000,
-    character: "Kiriko",
-    id: "i_159",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Kiriko",
+    id: "i_159"
   }
 };
 

@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "20%"
       },
       {
-        type: "[Fortify] Duration",
+        type: "Fortify Duration",
         value: "50%"
       }
     ],
     cost: 10000,
-    character: "Orisa",
-    id: "i_129",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Orisa",
+    id: "i_129"
   }
 };
 

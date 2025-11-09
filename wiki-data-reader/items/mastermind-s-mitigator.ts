@@ -6,14 +6,14 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "Every <b>200</b> damage you mitigate with <b>[Defense Matrix]</b> reduces <b>[Micro Missiles]</b> cooldown by <b>1s</b>."
+        value: "Every 200 damage you mitigate with [Defense Matrix] reduces [Micro Missiles] cooldown by 1 s."
       }
     ],
     cost: 4000,
-    character: "D.VA",
-    id: "i_87",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "D.Va",
+    id: "i_87"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Critical hits reduce your <b>[Heat]</b> by <b>5%</b>."
+        value: "Critical hits reduce your Heat by 5%."
       }
     ],
     cost: 5000,
-    character: "Orisa",
-    id: "i_16",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_16"
   }
 };
 

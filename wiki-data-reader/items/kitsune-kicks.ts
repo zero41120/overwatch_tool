@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Gain the ability to <b>[Double Jump]</b>."
+        value: "Gain the ability to [Double Jump]."
       }
     ],
     cost: 4000,
-    character: "Kiriko",
-    id: "i_212",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Kiriko",
+    id: "i_212"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When the target is further than <b>10m</b>, scoped shot gains <b>1%</b> damage for each meter."
+        value: "When the target is further than 10m, scoped shot gains 1% damage for each meter."
       }
     ],
     cost: 11000,
-    character: "Ashe",
-    id: "i_54",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ashe",
+    id: "i_54"
   },
   override: {
     name: "IRONSIGHTS",

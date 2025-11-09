@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "During <b>[Coalescence]</b>, gain free flight."
+        value: "During [Coalescence], gain free flight."
       }
     ],
     cost: 4500,
-    character: "Moira",
-    id: "i_113",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Moira",
+    id: "i_113"
   }
 };
 

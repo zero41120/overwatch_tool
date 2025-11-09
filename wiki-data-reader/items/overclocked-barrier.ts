@@ -9,19 +9,19 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "[Barrier Field] Health",
+        type: "Barrier Field Health",
         value: "20%"
       },
       {
-        type: "[Barrier Field] Size",
+        type: "Barrier Field Size",
         value: "20%"
       }
     ],
     cost: 4000,
-    character: "Reinhardt",
-    id: "i_192",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reinhardt",
+    id: "i_192"
   }
 };
 

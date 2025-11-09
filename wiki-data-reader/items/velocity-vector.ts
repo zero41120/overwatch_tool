@@ -9,14 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Hyperspheres] Range",
+        type: "Hyperspheres Range",
         value: "15%"
       }
     ],
     cost: 4500,
-    character: "Sigma",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Sigma",
+    id: undefined
   }
 };
 

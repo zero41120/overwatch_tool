@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Prevent <b>15%</b> of incoming damage and instead take that prevented damage over <b>3s</b>."
+        value: "Prevent 15% of incoming damage and instead take that prevented damage over 3s."
       }
     ],
     cost: 11000,
-    id: "i_225",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_225"
   }
 };
 

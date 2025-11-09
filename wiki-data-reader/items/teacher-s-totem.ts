@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Allies affected by <b>[Harmony Orb]</b> take <b>10%</b> reduced Ability Damage."
+        value: "Allies affected by [Harmony Orb] take 10% reduced Ability Damage."
       }
     ],
     cost: 10000,
-    character: "Zenyatta",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

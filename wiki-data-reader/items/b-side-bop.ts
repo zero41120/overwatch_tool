@@ -9,19 +9,19 @@ const record: ItemRecord = {
         value: "50"
       },
       {
-        type: "MD",
+        type: "Melee Damage",
         value: "25%"
       },
       {
         type: "description",
-        value: "After using <b>[Soundwave]</b>, your next <b>[Quick Melee]</b> grants decaying Overhealth equal to <b>200%</b> of damage dealt."
+        value: "After using [Soundwave], your next [Quick Melee] grants decaying Overhealth equal to 200% of damage dealt."
       }
     ],
     cost: 10000,
-    character: "Lúcio",
-    id: "i_69",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Lúcio",
+    id: "i_69"
   }
 };
 

@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Kitsune Rush] Duration",
+        type: "Kitsune Rush Duration",
         value: "35%"
       }
     ],
     cost: 4000,
-    character: "Kiriko",
-    id: "i_106",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Kiriko",
+    id: "i_106"
   }
 };
 

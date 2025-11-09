@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Biotic Field]</b> heals allies below <b>50%</b> Life <b>10%</b> more."
+        value: "[Biotic Field] heals allies below 50% Life 10% more."
       }
     ],
     cost: 10000,
-    character: "Soldier: 76",
-    id: "i_149",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Soldier: 76",
+    id: "i_149"
   }
 };
 

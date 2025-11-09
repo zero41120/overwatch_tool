@@ -1,0 +1,67 @@
+{{clear}}
+{| class="navbox" style="width:60%; font-size:1rem"
+! colspan="11" class="navbox-title navbox-header"| {{navbar/left|Heroes}}{{lang|zh-hans=守望先锋里的}}[[Heroes{{if lang}}|{{lang|en=Heroes|zh-hans=英雄}}]]{{lang|en=&nbsp;in Overwatch 2|zh-hans=}}{{navbar/right}}
+|-
+| colspan="11" class="navbox-gutter" |
+|-
+!rowspan="2" class="navbox-group navbox-header"  style="width:0%" |[[File:TankIcon.png|50px|link=Tank]]<br>[[Tank{{if lang}}|{{lang|en=Tank|zh-hans=重装}}]]
+{{Heroes/Item|D.Va}}
+{{Heroes/Item|Doomfist}}
+{{Heroes/Item|Hazard}}
+{{Heroes/Item|Junker Queen}}
+{{Heroes/Item|Mauga}}
+{{Heroes/Item|Orisa}}
+{{Heroes/Item|Ramattra}}
+{{Heroes/Item|Reinhardt}}
+|-
+{{Heroes/Item|Roadhog}}
+{{Heroes/Item|Sigma}}
+{{Heroes/Item|Winston}}
+{{Heroes/Item|Wrecking Ball}}
+{{Heroes/Item|Zarya}}
+|-
+| colspan="11" class="navbox-gutter" |
+|-
+!rowspan="3" class="navbox-group navbox-header" style="width:0%" |[[File:OffenseIcon.png|50px|link=Damage]]<br>[[Damage{{if lang}}|{{lang|en=Damage|zh-hans=突击}}]]
+{{Heroes/Item|Ashe}}
+{{Heroes/Item|Bastion}}
+{{Heroes/Item|Cassidy}}
+{{Heroes/Item|Echo}}
+{{Heroes/Item|Freja}}
+{{Heroes/Item|Genji}}
+{{Heroes/Item|Hanzo}}
+{{Heroes/Item|Junkrat}}
+|-
+{{Heroes/Item|Mei}}
+{{Heroes/Item|Pharah}}
+{{Heroes/Item|Reaper}}
+{{Heroes/Item|Sojourn}}
+{{Heroes/Item|Soldier: 76}}
+{{Heroes/Item|Sombra}}
+{{Heroes/Item|Symmetra}}
+{{Heroes/Item|Torbjörn}}
+|-
+{{Heroes/Item|Tracer}}
+{{Heroes/Item|Venture}}
+{{Heroes/Item|Widowmaker}}
+|-
+| colspan="11" class="navbox-gutter" |
+|-
+!rowspan="2" class="navbox-group navbox-header" style="width:0%" |[[File:SupportIcon.png|50px|link=[[Support]]]]<br>[[Support{{if lang}}|{{lang|en=Support|zh-hans=支援}}]]
+{{Heroes/Item|Ana}}
+{{Heroes/Item|Baptiste}}
+{{Heroes/Item|Brigitte}}
+{{Heroes/Item|Illari}}
+{{Heroes/Item|Juno}}
+{{Heroes/Item|Kiriko}}
+{{Heroes/Item|Lifeweaver}}
+{{Heroes/Item|Lúcio}}
+|-
+{{Heroes/Item|Mercy}}
+{{Heroes/Item|Moira}}
+{{Heroes/Item|Wuyang}}
+{{Heroes/Item|Zenyatta}}
+|}<noinclude>
+{{doc}}
+[[Category:Navigation templates]]
+</noinclude>

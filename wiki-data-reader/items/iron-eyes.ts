@@ -9,14 +9,18 @@ const record: ItemRecord = {
         value: "25"
       },
       {
+        type: "MS",
+        value: "5%"
+      },
+      {
         type: "description",
-        value: "You take <b>20%</b> reduced damage from Critical Hits."
+        value: "You take 20% reduced damage from Critical Hits."
       }
     ],
-    cost: 4000,
-    id: "i_180",
+    cost: 3750,
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_180"
   }
 };
 

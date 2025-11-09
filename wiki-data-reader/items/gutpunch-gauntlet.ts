@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While not holding <b>[Jagged Blade]</b>, <b>[Quick Melee]</b> deals <b>75%</b> more damage and knocks back."
+        value: "While not holding [Jagged Blade], Quick Melee deals 75% more damage and knocks back."
       }
     ],
     cost: 4000,
-    character: "Junker Queen",
-    id: "i_12",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junker Queen",
+    id: "i_12"
   }
 };
 

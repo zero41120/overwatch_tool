@@ -6,18 +6,18 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "WP",
-        value: "20%"
+        value: "10%"
       },
       {
         type: "description",
-        value: "<b>[Fusion Cannons]</b> can now be fired while using <b>[Defense Matrix]</b>."
+        value: "[Fusion Cannons] can now be fired using [Defense Matrix]."
       }
     ],
     cost: 10000,
-    character: "D.VA",
-    id: "i_47",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "D.Va",
+    id: "i_47"
   }
 };
 

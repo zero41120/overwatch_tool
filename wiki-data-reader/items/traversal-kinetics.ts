@@ -6,14 +6,14 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "<b>[Swift Strike]</b> cooldown is reduced by <b>50%</b> if it deals no damage."
+        value: "[Swift Strike] cooldown is reduced by 50% if it deals no damage."
       }
     ],
     cost: 3750,
-    character: "Genji",
-    id: "i_99",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Genji",
+    id: "i_99"
   }
 };
 

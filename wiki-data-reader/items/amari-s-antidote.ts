@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While healing an ally below <b>50%</b> Life with your weapon, deal <b>15%</b> increased Weapon Healing"
+        value: "While healing an ally below 50% Life with your weapon, deal 15% increased Weapon Healing."
       }
     ],
     cost: 11000,
-    id: "i_41",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_41"
   }
 };
 

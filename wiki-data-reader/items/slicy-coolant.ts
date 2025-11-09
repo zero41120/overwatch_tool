@@ -13,15 +13,15 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "[Deflect] Duration",
-        value: "+1s"
+        type: "Deflect Duration",
+        value: "1s"
       }
     ],
     cost: 10000,
-    character: "Genji",
-    id: "i_241",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_241"
   }
 };
 

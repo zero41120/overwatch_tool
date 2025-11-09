@@ -6,18 +6,18 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "ALS",
-        value: "50%"
+        value: "10%"
       },
       {
         type: "description",
-        value: "<b>[Sleep Dart]</b> direct hit deals <b class=\"stat-ap\">100</b> bonus damage."
+        value: "[Sleep Dart] direct hit deals <b class=\"stat-ap\">100</b> bonus damage and gives Ana <b class=\"stat-ap\">60</b> Overhealth."
       }
     ],
-    cost: 9000,
-    character: "Ana",
-    id: "i_150",
+    cost: 10000,
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ana",
+    id: "i_150"
   }
 };
 

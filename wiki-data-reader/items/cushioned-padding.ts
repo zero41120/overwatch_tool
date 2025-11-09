@@ -9,18 +9,18 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "Incoming Negative Effect Duration",
+        type: "Negative Effect Duration",
         value: "-40%"
       },
       {
         type: "description",
-        value: "When affected by <b>Stun</b>, <b>Sleep</b> , or <b>Hinder</b>, restore <b>10%</b> of your max Life over <b>3s</b>."
+        value: "When affected by Stun, Sleep, or Hinder, restore 10% of your max Life over 3s."
       }
     ],
     cost: 3750,
-    id: "i_175",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_175"
   }
 };
 

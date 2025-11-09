@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Projected Barrier] Range",
+        type: "Projected Barrier Range",
         value: "20%"
       }
     ],
     cost: 4000,
-    character: "Zarya",
-    id: "i_94",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zarya",
+    id: "i_94"
   }
 };
 

@@ -1,0 +1,23 @@
+import type { ItemRecord } from "../types";
+
+const record: ItemRecord = {
+  item: {
+    name: "EXO SPRINGS",
+    attributes: [
+      {
+        type: "Health",
+        value: "25"
+      },
+      {
+        type: "description",
+        value: "Holding Crouch increases the height of your next jump by up to 250%. <b>Cooldown:</b> 15 seconds"
+      }
+    ],
+    cost: 1500,
+    tab: "survival",
+    rarity: "common",
+    id: undefined
+  }
+};
+
+export default record;

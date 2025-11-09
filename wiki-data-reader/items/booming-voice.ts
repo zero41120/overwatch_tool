@@ -9,19 +9,19 @@ const record: ItemRecord = {
         value: "15%"
       },
       {
-        type: "[Commanding Shout] Radius",
+        type: "Commanding Shout Radius",
         value: "50%"
       },
       {
         type: "description",
-        value: "<b>[Commanding Shout]</b> will affect allies that are out of line of sight."
+        value: "[Commanding Shout] will affect allies that are out of line of sight."
       }
     ],
     cost: 11000,
-    character: "Junker Queen",
-    id: "i_128",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_128"
   }
 };
 

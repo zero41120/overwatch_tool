@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After detonating <b>[Rip Tire]</b>, trigger <b>[Total Mayhem]</b> after <b>0.</b><b>5s</b>."
+        value: "After detonating [Rip Tire], trigger [Total Mayhem] after 0.5s."
       }
     ],
     cost: 4000,
-    character: "Junkrat",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junkrat",
+    id: undefined
   }
 };
 

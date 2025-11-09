@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Cryo-Freeze]</b> duration is increased by <b>25%</b>."
+        value: "[Cryo-Freeze] duration is increased by 25%."
       }
     ],
     cost: 4000,
-    character: "Mei",
-    id: "i_203",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Mei",
+    id: "i_203"
   }
 };
 

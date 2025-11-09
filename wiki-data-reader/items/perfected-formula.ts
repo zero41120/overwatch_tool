@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "[Nano Boost] Duration",
+        type: "Nano Boost Duration",
         value: "15%"
       }
     ],
     cost: 4000,
-    character: "Ana",
-    id: "i_209",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ana",
+    id: "i_209"
   }
 };
 

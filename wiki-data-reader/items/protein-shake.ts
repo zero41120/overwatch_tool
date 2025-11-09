@@ -9,19 +9,19 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "MD",
+        type: "Melee Damage",
         value: "15%"
       },
       {
         type: "description",
-        value: "While <b>[Particle Barrier]</b> is active, become unstoppable and <b>[Quick Melee]</b> knocks back enemies."
+        value: "While [Particle Barrier] is active, become Unstoppable and [Quick Melee] knocks back enemies."
       }
     ],
     cost: 4000,
-    character: "Zarya",
-    id: "i_196",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zarya",
+    id: "i_196"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Using <b>[Self-Destruct]</b> drops lava nearby that deals <b class=\"stat-ap\">80</b> damage every <b>1s</b>."
+        value: "Using [Self-Destruct] drops lava nearby that deals <b class=\"stat-ap\">80</b> damage every 1s."
       }
     ],
     cost: 4000,
-    character: "D.VA",
-    id: "i_88",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "D.Va",
+    id: "i_88"
   }
 };
 

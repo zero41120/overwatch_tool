@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "Max [Biotic Energy]",
+        type: "Max Biotic Energy",
         value: "50"
       }
     ],
     cost: 4000,
-    character: "Moira",
-    id: "i_35",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Moira",
+    id: "i_35"
   }
 };
 

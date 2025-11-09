@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While using <b>[Javelin Spin]</b>, gain free flight and <b>20%</b> Move Speed."
+        value: "While Using Javelin Spin, gain free flight and 20% Move Speed."
       }
     ],
     cost: 12000,
-    character: "Orisa",
-    id: "i_131",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Orisa",
+    id: "i_131"
   }
 };
 

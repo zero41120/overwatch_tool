@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Heal <b class=\"stat-ap\">10</b> Life for each Ammo loaded using <b>[Combat Roll]</b>."
+        value: "Heal <b class=\"stat-ap\">10</b> Life for each Ammo loaded using [Combat Roll]."
       }
     ],
     cost: 10000,
-    character: "Cassidy",
-    id: "i_239",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Cassidy",
+    id: "i_239"
   }
 };
 

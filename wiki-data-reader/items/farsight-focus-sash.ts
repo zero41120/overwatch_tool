@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you deal damage, gain <b>200%</b> <b>[Healing Ofuda]</b> Projectile Speed for <b>5s</b>."
+        value: "When you deal damage gain 200% [Healing Ofuda] Projectile Speed for 5s."
       }
     ],
     cost: 5000,
-    character: "Kiriko",
-    id: "i_31",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Kiriko",
+    id: "i_31"
   }
 };
 

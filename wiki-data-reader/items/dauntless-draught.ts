@@ -9,19 +9,19 @@ const record: ItemRecord = {
         value: "50"
       },
       {
-        type: "Move Speed during [Wraith Form]",
+        type: "Move Speed during Wraith Form",
         value: "15%"
       },
       {
-        type: "[Wraith Form] Duration",
+        type: "Wraith Form Duration",
         value: "33%"
       }
     ],
     cost: 10000,
-    character: "Reaper",
-    id: "i_245",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reaper",
+    id: "i_245"
   }
 };
 

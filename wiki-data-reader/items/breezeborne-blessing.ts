@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Harmony Orb]</b> heals airborne allies for <b>15%</b> more."
+        value: "[Harmony Orb] heals airborne allies for 15% more."
       }
     ],
     cost: 4000,
-    character: "Zenyatta",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

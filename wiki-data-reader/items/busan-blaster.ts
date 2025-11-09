@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Light Gun]</b> gains a secondary fire, which charges up to fire a explosive piercing shot that deals <b class=\"stat-ap\">80</b> damage."
+        value: "[Light Gun] gains a secondary fire, which charges up to fire a explosive piercing shot that deals <b class=\"stat-ap\">80</b> damage.<ul><li>Does not generate Ultimate Charge.</li></ul>"
       }
     ],
     cost: 10000,
-    character: "D.VA",
-    id: "i_124",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "D.Va",
+    id: "i_124"
   }
 };
 

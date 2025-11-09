@@ -6,17 +6,17 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "AP",
-        value: "15"
+        value: "15%"
       },
       {
         type: "description",
-        value: "Ability Damage and Healing grants <b>20%</b> more Ultimate Charge."
+        value: "Ability Damage and Healing grants 20% more Ultimate Charge."
       }
     ],
     cost: 10000,
-    id: "i_116",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_116"
   }
 };
 

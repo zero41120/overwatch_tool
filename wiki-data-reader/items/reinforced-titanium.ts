@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While you have Shields, take <b>15%</b> reduced Ability Damage."
+        value: "While you have Shields, take 15% reduced Ability Damage and gain 5% Ability Power."
       }
     ],
     cost: 3750,
-    id: "i_174",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_174"
   }
 };
 

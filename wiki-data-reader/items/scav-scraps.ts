@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Carnage]</b> and <b>[Jagged Blade]</b> impact damage grants Overhealth equal to <b>40%</b> of damage dealt."
+        value: "[Carnage] and [Jagged Blade] impact damage grants Overhealth equal to 40% of damage dealt."
       }
     ],
     cost: 10000,
-    character: "Junker Queen",
-    id: "i_231",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_231"
   }
 };
 

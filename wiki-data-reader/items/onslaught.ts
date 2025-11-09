@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Every <b>3rd</b> shot fires both of your <b>[Hellfire Shotguns]</b>. The extra shot does not consume ammo but deals <b>80%</b> <b>reduced</b> damage."
+        value: "Every 3rd shot fires both of your [Hellfire Shotguns]. The extra shot does not consume ammo, but deals 80% reduced damage."
       }
     ],
     cost: 10000,
-    character: "Reaper",
-    id: "i_63",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reaper",
+    id: "i_63"
   }
 };
 

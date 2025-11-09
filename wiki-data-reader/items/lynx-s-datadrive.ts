@@ -5,19 +5,23 @@ const record: ItemRecord = {
     name: "LYNX'S DATADRIVE",
     attributes: [
       {
+        type: "Health",
+        value: "25"
+      },
+      {
         type: "AP",
-        value: "15%"
+        value: "10%"
       },
       {
         type: "description",
-        value: "Restore Life equal to <b>30%</b> of damage mitigated by <b>[Projected Barrier]</b>."
+        value: "Restore Life equal to 30% of damage mitigated by [Projected Barrier]."
       }
     ],
     cost: 10000,
-    character: "Zarya",
-    id: "i_135",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zarya",
+    id: "i_135"
   }
 };
 

@@ -9,14 +9,15 @@ const record: ItemRecord = {
         value: "15%"
       },
       {
-        type: "[Hypersphere] Explosion Radius",
-        value: "35%"
+        type: "Hyperspheres Explosion Radius",
+        value: "55%"
       }
     ],
     cost: 10000,
-    character: "Sigma",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Sigma",
+    id: undefined
   }
 };
 

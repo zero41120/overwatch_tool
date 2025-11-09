@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When <b>[Take Aim]</b> bolt sticks an enemy, increase your Attack Speed by <b>20%</b> for <b>3s</b>."
+        value: "When [Take Aim] bolt sticks an enemy, increase your Attack Speed by 20% for 3s."
       }
     ],
     cost: 4000,
-    character: "Freja",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Freja",
+    id: undefined
   }
 };
 

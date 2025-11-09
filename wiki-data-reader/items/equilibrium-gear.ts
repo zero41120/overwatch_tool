@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While climbing, heal <b>5%</b> of your Life every <b>1s</b>."
+        value: "While climbing, heal 5% of your Life every 1s."
       }
     ],
     cost: 4000,
-    character: "Genji",
-    id: "i_200",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Genji",
+    id: "i_200"
   }
 };
 

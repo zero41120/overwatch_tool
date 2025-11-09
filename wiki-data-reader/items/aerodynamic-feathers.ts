@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While affected by <b>[Angelic Descent]</b>, continuously gain <b>10%</b> Move Speed every Is up to <b>60%</b>."
+        value: "While affected by [Angelic Descent], continuously gain 10% Move Speed every 1s up to 60%."
       }
     ],
     cost: 4000,
-    character: "Mercy",
-    id: "i_214",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Mercy",
+    id: "i_214"
   }
 };
 

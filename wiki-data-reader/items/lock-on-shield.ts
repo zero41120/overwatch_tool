@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While aiming <b>[Pulsar Torpedoes]</b>, gain <b>Overhealth</b> equal to <b>25%</b> of your max Shields."
+        value: "While aiming [Pulsar Torpedoes], gain Overhealth equal to 25% of your max Shields."
       }
     ],
     cost: 4000,
+    tab: "ability",
+    rarity: "rare",
     character: "Juno",
-    id: "i_104",
-    tab: "survival",
-    rarity: "rare"
+    id: "i_104"
   }
 };
 

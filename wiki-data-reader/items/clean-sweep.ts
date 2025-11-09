@@ -13,15 +13,15 @@ const record: ItemRecord = {
         value: "15%"
       },
       {
-        type: "[Swift Strike] Width",
+        type: "Swift Strike Width",
         value: "50%"
       }
     ],
     cost: 10000,
-    character: "Genji",
-    id: "i_140",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_140"
   }
 };
 

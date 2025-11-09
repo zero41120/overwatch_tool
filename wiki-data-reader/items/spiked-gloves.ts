@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Deal <b>10%</b> increased damage and <b>25%</b> <b>[Quick Melee]</b> damage to enemies that are airborne."
+        value: "Deal 10% increased damage and 25% [Quick Melee] damage to enemies that are airborne."
       }
     ],
     cost: 4500,
-    character: "Junkrat",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junkrat",
+    id: undefined
   }
 };
 

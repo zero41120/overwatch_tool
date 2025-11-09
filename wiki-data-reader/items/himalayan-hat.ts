@@ -6,18 +6,18 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "AS",
-        value: "15%"
+        value: "10%"
       },
       {
         type: "description",
-        value: "While within <b>[Blizzard]</b>, gain <b>10%</b> Attack Speed."
+        value: "While [Blizzard] is activated, gain 10% Attack Speed."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_62",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_62"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Nano Boost]</b> can target allies through walls and its range is increased to <b>60m</b>."
+        value: "[Nano Boost] can target allies through walls and its range is increased to 60m."
       }
     ],
     cost: 9000,
-    character: "Ana",
-    id: "i_248",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ana",
+    id: "i_248"
   }
 };
 

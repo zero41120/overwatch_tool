@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While affected by <b>[Biotic Grenade]</b>, Ana gains <b class=\"stat-ap\">150</b> <b>Overhealth</b>."
+        value: "While affected by [Biotic Grenade], Ana gains <b class=\"stat-ap\">150</b> Overhealth."
       }
     ],
     cost: 4000,
-    character: "Ana",
-    id: "i_210",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ana",
+    id: "i_210"
   }
 };
 

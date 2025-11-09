@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While using <b>[Fade]</b>, you jump <b>30%</b> higher."
+        value: "While using [Fade], you jump 30% higher."
       }
     ],
     cost: 4000,
-    character: "Moira",
-    id: "i_216",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Moira",
+    id: "i_216"
   }
 };
 

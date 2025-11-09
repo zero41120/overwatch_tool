@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "You can now fly during <b>[Charge]</b>."
+        value: "You can now fly during [Charge]."
       }
     ],
     cost: 10000,
-    character: "Reinhardt",
-    id: "i_132",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reinhardt",
+    id: "i_132"
   }
 };
 

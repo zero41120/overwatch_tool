@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using <b>[Updraft]</b>, reset <b>[Quick Dash]</b> and gain <b>50 Overhealth</b> for <b>5s</b>."
+        value: "After using [Updraft], reset [Quick Dash] and gain 50 Overhealth for 5s."
       }
     ],
     cost: 4500,
-    character: "Freja",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Freja",
+    id: undefined
   }
 };
 

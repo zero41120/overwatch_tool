@@ -13,15 +13,15 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "[Sprint] Move Speed",
+        type: "Sprint Move Speed",
         value: "25%"
       }
     ],
     cost: 4000,
-    character: "Soldier: 76",
-    id: "i_207",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Soldier: 76",
+    id: "i_207"
   }
 };
 

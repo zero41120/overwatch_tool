@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Deadeye]</b> eliminations reduce <b>[Flashbang]</b> max cooldown by <b>10%</b>, up to <b>40%</b> for the round."
+        value: "[Deadeye] eliminations reduce [Flashbang] max cooldown by 10%, up to 40% for the round."
       }
     ],
     cost: 4000,
-    character: "Cassidy",
-    id: "i_97",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Cassidy",
+    id: "i_97"
   }
 };
 

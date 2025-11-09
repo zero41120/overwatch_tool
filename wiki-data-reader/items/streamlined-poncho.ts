@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Combat Roll]</b> reduces <b>[Flashbang]</b> cooldown by <b>2s</b>."
+        value: "[Combat Roll] reduces [Flashbang] cooldown by 2s."
       }
     ],
     cost: 5000,
-    character: "Cassidy",
-    id: "i_98",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Cassidy",
+    id: "i_98"
   }
 };
 

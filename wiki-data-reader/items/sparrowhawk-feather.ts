@@ -14,10 +14,10 @@ const record: ItemRecord = {
       }
     ],
     cost: 4000,
-    character: "Genji",
-    id: "i_201",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Genji",
+    id: "i_201"
   }
 };
 

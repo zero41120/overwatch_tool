@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Experimental Barrier]</b> heals nearby allies for <b>3%</b> of your max Life every <b>1s</b>."
+        value: "[Experimental Barrier] heals nearby allies for 3% of your max Life every 1s."
       }
     ],
     cost: 11000,
-    character: "Sigma",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Sigma",
+    id: undefined
   }
 };
 

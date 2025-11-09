@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While airborne, hold Jump to hover for up to <b>3s</b>."
+        value: "While airborne, hold Jump to hover for up to 3s."
       }
     ],
     cost: 4000,
-    character: "Zenyatta",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

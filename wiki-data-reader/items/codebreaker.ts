@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Ignore <b>50%</b> of Armor's damage reduction."
+        value: "Ignore 50% of Armor's damage reduction."
       }
     ],
-    cost: 9000,
-    id: "i_36",
+    cost: 10000,
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_36"
   }
 };
 

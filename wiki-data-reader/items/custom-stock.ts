@@ -5,6 +5,10 @@ const record: ItemRecord = {
     name: "CUSTOM STOCK",
     attributes: [
       {
+        type: "Health",
+        value: "10"
+      },
+      {
         type: "WP",
         value: "5%"
       },
@@ -14,9 +18,9 @@ const record: ItemRecord = {
       }
     ],
     cost: 3750,
-    id: "i_79",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_79"
   }
 };
 

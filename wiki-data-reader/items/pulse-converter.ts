@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use <b>[Helix Rocket]</b>, restore <b>20%</b> of your ammo."
+        value: "When you use [Helix Rocket], restore 20% of your ammo."
       }
     ],
     cost: 4000,
-    character: "Soldier: 76",
-    id: "i_25",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Soldier: 76",
+    id: "i_25"
   }
 };
 

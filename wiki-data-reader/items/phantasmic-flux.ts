@@ -22,13 +22,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While at full Life, Lifesteal grants up to <b>100 Overhealth</b>."
+        value: "While at full Life, Lifesteal grants up to 100 Overhealth."
       }
     ],
     cost: 10000,
-    id: "i_222",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_222"
   }
 };
 

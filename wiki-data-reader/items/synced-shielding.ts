@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While behind <b>[Experimental Barrier]</b>, gain <b>5%</b> Weapon Power and Attack Speed. While in front of <b>[Experimental Barrier]</b>, gain <b>10%</b> Move Speed and Weapon Lifesteal."
+        value: "While behind [Experimental Barrier], gain 10% Weapon Power and Attack Speed. While in front of [Experimental Barrier], gain 10% Move Speed and Weapon Lifesteal."
       }
     ],
     cost: 4500,
-    character: "Sigma",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Sigma",
+    id: undefined
   }
 };
 

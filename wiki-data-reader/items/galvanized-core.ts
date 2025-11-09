@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "[Boosters] Duration",
+        type: "Boosters Duration",
         value: "25%"
       }
     ],
     cost: 4000,
-    character: "D.VA",
-    id: "i_182",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "D.Va",
+    id: "i_182"
   }
 };
 

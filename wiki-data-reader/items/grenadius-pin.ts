@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "20%"
       },
       {
-        type: "[Biotic Grenade] Radius",
+        type: "Biotic Grenade Radius",
         value: "30%"
       }
     ],
     cost: 12000,
-    character: "Ana",
-    id: "i_153",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ana",
+    id: "i_153"
   }
 };
 

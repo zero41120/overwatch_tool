@@ -5,14 +5,18 @@ const record: ItemRecord = {
     name: "FIELD RATIONS",
     attributes: [
       {
+        type: "Health",
+        value: "10"
+      },
+      {
         type: "description",
-        value: "While on the Objective, restore <b>8</b> Life every 1s."
+        value: "While on the Objective, restore 8 Life every 1s."
       }
     ],
     cost: 1000,
-    id: "i_168",
     tab: "survival",
-    rarity: "common"
+    rarity: "common",
+    id: "i_168"
   }
 };
 

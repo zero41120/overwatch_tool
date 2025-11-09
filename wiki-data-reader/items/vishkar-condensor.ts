@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Convert <b>100</b> Health into Shields."
+        value: "Convert 150 Health into Shields."
       }
     ],
-    cost: 4000,
-    id: "i_177",
+    cost: 3750,
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_177"
   }
 };
 

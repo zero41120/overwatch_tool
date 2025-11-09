@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "15%"
       },
       {
-        type: "[Biotic Orb] Tendril Range",
+        type: "Biotic Orb Tendril Range",
         value: "30%"
       }
     ],
     cost: 11000,
-    character: "Moira",
-    id: "i_165",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Moira",
+    id: "i_165"
   }
 };
 

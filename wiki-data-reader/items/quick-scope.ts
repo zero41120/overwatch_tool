@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Deal <b>20%</b> more damage to airborne enemies."
+        value: "Deal 20% more damage to airborne enemies."
       }
     ],
     cost: 5000,
-    character: "Ana",
-    id: "i_28",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ana",
+    id: "i_28"
   }
 };
 

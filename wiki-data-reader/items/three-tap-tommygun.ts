@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using an ability, your next <b>3</b> instances of Weapon Damage deal additional damage equal to <b>3%</b> of the target's Life."
+        value: "After using an ability or Gadget, for 3 seconds Weapon Damage deals additional damage equal to 1% of the target's Life.<br>(0.25s Cooldown).<ul><li>Subject to the weapon's damage falloff.</li></ul>"
       }
     ],
-    cost: 10500,
-    id: "i_114",
+    cost: 9500,
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_114"
   }
 };
 

@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Particle Cannon]</b>'s secondary fire self knockback is increased by <b>100%</b> and no longer damages yourself."
+        value: "[Particle Cannon]'s secondary-fire self knockback is increased by 100% and no longer damages yourself."
       }
     ],
     cost: 3750,
-    character: "Zarya",
-    id: "i_194",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zarya",
+    id: "i_194"
   }
 };
 

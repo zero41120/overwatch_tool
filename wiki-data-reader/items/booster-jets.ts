@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use an ability, gain <b>10%</b> Move Speed for <b>2s</b>."
+        value: "When you use an ability or Gadget, gain 10% Move Speed for 2s."
       }
     ],
     cost: 11000,
-    id: "i_42",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_42"
   }
 };
 

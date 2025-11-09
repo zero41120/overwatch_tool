@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After <b>[Particle Barrier]</b> is destroyed or expires, gain decaying <b>Overhealth</b> equal to <b>50%</b> of damage mitigated during <b>[Particle Barrier]</b>."
+        value: "After [Particle Barrier] is destroyed or expires, gain decaying Overhealth equal to 50% of damage mitigated during [Particle Barrier] for 3s."
       }
     ],
     cost: 10000,
-    character: "Zarya",
-    id: "i_134",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zarya",
+    id: "i_134"
   }
 };
 

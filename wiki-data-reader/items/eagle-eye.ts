@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Take <b>25%</b> less damage from enemies farther than <b>12m</b>."
+        value: "Take 25% less damage from enemies farther than 12m."
       }
     ],
     cost: 12000,
-    character: "Cassidy",
-    id: "i_240",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Cassidy",
+    id: "i_240"
   }
 };
 

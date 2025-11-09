@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Each <b>[Death Blossom]</b> elimination increases your Health by <b>25</b> until the end of the round, up to <b>75</b> Health."
+        value: "Each Death Blossom elimination increases your Health by 25 until the end of the round, up to 75 Health."
       }
     ],
     cost: 3750,
-    character: "Reaper",
-    id: "i_204",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reaper",
+    id: "i_204"
   }
 };
 

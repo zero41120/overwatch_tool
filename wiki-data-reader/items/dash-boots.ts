@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Jumping in mid-air will dash you a short distance."
+        value: "Jumping in mid-air will dash you a short distance. <b>Cooldown:</b> 3 seconds"
       }
     ],
     cost: 4000,
-    character: "Ana",
-    id: "i_208",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ana",
+    id: "i_208"
   }
 };
 

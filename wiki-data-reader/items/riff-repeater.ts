@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Sonic Amplifier]</b> projectiles ricochet off walls <b>3</b> times."
+        value: "[Sonic Amplifier] projectiles ricochet off walls 3 times."
       }
     ],
     cost: 10000,
-    character: "Lúcio",
-    id: "i_70",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Lúcio",
+    id: "i_70"
   }
 };
 

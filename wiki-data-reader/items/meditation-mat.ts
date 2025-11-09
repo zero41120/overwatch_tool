@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When your Shields are depleted, knock back nearby enemies, dealing <b class=\"stat-ap\">80</b> damage. Can only trigger every <b>6s</b> after Shields are fully restored."
+        value: "When your Shields are depleted, knock back nearby enemies, dealing <b class=\"stat-ap\">80</b> damage. Can only trigger every 6s after shields are fully restored."
       }
     ],
     cost: 10000,
-    character: "Zenyatta",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

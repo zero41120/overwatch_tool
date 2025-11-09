@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After spending your Ultimate Charge, gain <b>100 Overhealth</b> for <b>3s</b>."
+        value: "After spending your Ultimate Charge, gain 100 Overhealth for 3s."
       }
     ],
     cost: 11000,
-    id: "i_120",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_120"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Your <b>Burning</b> effects gain <b>35%</b> Lifesteal."
+        value: "Your Burning effects gain 35% Lifesteal"
       }
     ],
     cost: 10000,
-    character: "Ashe",
-    id: "i_237",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ashe",
+    id: "i_237"
   },
   override: {
     name: "FIRESTARTER",

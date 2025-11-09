@@ -5,14 +5,18 @@ const record: ItemRecord = {
     name: "RUNNING SHOES",
     attributes: [
       {
+        type: "Health",
+        value: "10"
+      },
+      {
         type: "description",
-        value: "At the start of the round and when you first respawn, gain <b>20%</b> Move Speed for IOS while out of combat."
+        value: "At the start of the round and when you respawn while not in Overtime, gain 30% Move Speed for 10s while out of combat."
       }
     ],
     cost: 1000,
-    id: "i_169",
     tab: "survival",
-    rarity: "common"
+    rarity: "common",
+    id: "i_169"
   }
 };
 

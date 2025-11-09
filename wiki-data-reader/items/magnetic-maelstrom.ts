@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Bola Shot]</b> pulls in nearby enemies even when it misses with <b>50%</b> <b>reduced</b> pull strength."
+        value: "[Bola Shot] pulls in nearby enemies even when it misses with 50% reduced pull strength.<ul><li>Temporarily disabled</li></ul>"
       }
     ],
     cost: 10000,
-    character: "Freja",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Freja",
+    id: undefined
   }
 };
 

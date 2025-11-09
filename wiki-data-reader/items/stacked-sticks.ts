@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "15%"
       },
       {
-        type: "[Dynamite] Explosion Radius",
+        type: "Dynamite Explosion Radius",
         value: "40%"
       }
     ],
-    cost: 10000,
-    character: "Ashe",
-    id: "i_137",
+    cost: 11000,
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ashe",
+    id: "i_137"
   }
 };
 

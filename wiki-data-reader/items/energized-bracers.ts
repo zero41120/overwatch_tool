@@ -5,6 +5,10 @@ const record: ItemRecord = {
     name: "ENERGIZED BRACERS",
     attributes: [
       {
+        type: "Health",
+        value: "10"
+      },
+      {
         type: "AP",
         value: "10%"
       },
@@ -14,9 +18,9 @@ const record: ItemRecord = {
       }
     ],
     cost: 4000,
-    id: "i_81",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_81"
   }
 };
 

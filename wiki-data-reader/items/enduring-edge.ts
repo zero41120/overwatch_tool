@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Dragonblade] Duration",
-        value: "+4s"
+        type: "Dragonblade Duration",
+        value: "4s"
       }
     ],
     cost: 10000,
-    character: "Genji",
-    id: "i_58",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_58"
   }
 };
 

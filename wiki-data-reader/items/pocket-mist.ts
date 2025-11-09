@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While below <b>50%</b> Life, gain <b>20%</b> Move Speed."
+        value: "While below 50% Life, gain 20% Move Speed."
       }
     ],
     cost: 4000,
-    character: "Reaper",
-    id: "i_206",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reaper",
+    id: "i_206"
   }
 };
 

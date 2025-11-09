@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Deadeye]</b> eliminations reward extra <b>500 Stadium Cash</b> each."
+        value: "[Deadeye] eliminations reward extra 500 Stadium Cash each.<br>[Deadeye] damage charges 50% faster on airborne heroes."
       }
     ],
     cost: 4000,
-    character: "Cassidy",
-    id: "i_198",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Cassidy",
+    id: "i_198"
   }
 };
 

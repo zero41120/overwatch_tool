@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you spend your Ultimate Charge, grant nearby allies <b>75 Overhealth</b> for <b>3s</b>."
+        value: "When you spend your Ultimate Charge, cleanse yourself and grant nearby allies 75 Overhealth for 3s."
       }
     ],
     cost: 4000,
-    id: "i_80",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_80"
   }
 };
 

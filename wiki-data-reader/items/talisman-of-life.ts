@@ -6,18 +6,18 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "AP",
-        value: "20%"
+        value: "15%"
       },
       {
         type: "description",
-        value: "<b>[Protection Suzu]</b> grants <b class=\"stat-ap\">100</b> <b>Overhealth</b> for <b>5s</b>."
+        value: "[Protection Suzu] grants <b class=\"stat-ap\">80</b> Overhealth for 5s."
       }
     ],
     cost: 11000,
-    character: "Kiriko",
-    id: "i_252",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Kiriko",
+    id: "i_252"
   }
 };
 

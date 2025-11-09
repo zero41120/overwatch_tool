@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After dealing damage to Shields or Armor, gain <b>15%</b> Attack Speed for <b>1s</b>."
+        value: "After dealing damage to Shields or Armor, gain 15% Attack Speed for 1s."
       }
     ],
     cost: 4000,
-    id: "i_7",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_7"
   },
   override: {
     name: "SHIELDBUSTER",

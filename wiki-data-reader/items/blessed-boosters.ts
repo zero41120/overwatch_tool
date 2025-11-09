@@ -6,18 +6,22 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "Health",
-        value: "50"
+        value: "25"
+      },
+      {
+        type: "AP",
+        value: "10%"
       },
       {
         type: "description",
-        value: "Your launch velocity is increased by <b>25%</b> when canceling <b>[Guardian Angel]</b> with crouch or jump."
+        value: "Your launch velocity is increased by 25% when canceling [Guardian Angel] with crouch or jump."
       }
     ],
     cost: 9000,
+    tab: "ability",
+    rarity: "epic",
     character: "Mercy",
-    id: "i_254",
-    tab: "survival",
-    rarity: "epic"
+    id: "i_254"
   }
 };
 

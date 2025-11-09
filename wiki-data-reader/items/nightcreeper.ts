@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using an ability, nearby enemies are <b>Revealed</b> to you for <b>3s</b>."
+        value: "After using an ability, nearby enemies are revealed to you for 3s."
       }
     ],
     cost: 3750,
+    tab: "weapon",
+    rarity: "rare",
     character: "Reaper",
-    tab: "ability",
-    rarity: "rare"
+    id: undefined
   }
 };
 

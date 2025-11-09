@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use an ability that heals, reduce its cooldown by <b>5%</b> for each unique ally it heals."
+        value: "When you use an ability that heals, reduce its cooldown by 5% for each unique ally it heals."
       }
     ],
     cost: 10000,
-    id: "i_115",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_115"
   }
 };
 

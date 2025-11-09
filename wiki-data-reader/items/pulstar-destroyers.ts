@@ -5,15 +5,19 @@ const record: ItemRecord = {
     name: "PULSTAR DESTROYERS",
     attributes: [
       {
+        type: "ALS",
+        value: "10%"
+      },
+      {
         type: "description",
-        value: "<b>[Pulsar Torpedoes]</b> explode on hit, dealing <b class=\"stat-ap\">35</b> damage."
+        value: "[Pulsar Torpedoes] explode on hit, dealing <b class=\"stat-ap\">35</b> damage."
       }
     ],
     cost: 10000,
-    character: "Juno",
-    id: "i_154",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_154"
   }
 };
 

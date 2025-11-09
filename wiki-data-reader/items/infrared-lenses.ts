@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Deal <b>20%</b> increased damage to Burning enemies."
+        value: "Deal 20% increased damage to Burning enemies.<ul><li>Increases all damage dealt by Ashe to Burning targets.</li></ul>"
       }
     ],
     cost: 10000,
-    character: "Ashe",
-    id: "i_136",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Ashe",
+    id: "i_136"
   },
   override: {
     name: "INFRARED LENSES",

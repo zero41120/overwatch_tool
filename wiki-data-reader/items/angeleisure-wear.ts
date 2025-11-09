@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While affected by <b>[Angelic Descent]</b> or <b>[Guardian Angel]</b>, heal <b>3%</b> of your Life every IS."
+        value: "While affected by [Angelic Descent] or [Guardian Angel], heal 3% of your Life every 1s."
       }
     ],
     cost: 4000,
-    character: "Mercy",
-    id: "i_215",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Mercy",
+    id: "i_215"
   }
 };
 

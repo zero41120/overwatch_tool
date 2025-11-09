@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Allies affected by <b>[Hyper Ring]</b> restore <b>25</b> Shields every Is."
+        value: "Allies affected by [Hyper Ring] restore 25 Shields every 1s."
       }
     ],
     cost: 10000,
-    character: "Juno",
-    id: "i_155",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_155"
   }
 };
 

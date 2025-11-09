@@ -9,18 +9,19 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "[Steel Trap] Throw Distance",
+        type: "Steel Trap Throw Distance",
         value: "50%"
       },
       {
         type: "description",
-        value: "Enemies that trigger <b>[Steel Trap]</b> Burn for <b class=\"stat-ap\">50</b> damage over <b>3s</b>."
+        value: "Enemies that trigger [Steel Trap] Burn for <b class=\"stat-ap\">75</b> damage over 3s."
       }
     ],
     cost: 10000,
-    character: "Junkrat",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junkrat",
+    id: undefined
   }
 };
 

@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Health Packs grant <b>20%</b> Move Speed for <b>5s</b> and <b>50 Overhealth</b>."
+        value: "Health Packs grant 20% Move Speed for 5s and 50 Overhealth."
       }
     ],
     cost: 1500,
-    id: "i_166",
     tab: "survival",
-    rarity: "common"
+    rarity: "common",
+    id: "i_166"
   }
 };
 

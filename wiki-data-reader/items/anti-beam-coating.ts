@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Deflect]</b> now blocks <b>Beam</b> attacks."
+        value: "[Deflect] now blocks Beam attacks."
       }
     ],
     cost: 4000,
-    character: "Genji",
-    id: "i_199",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Genji",
+    id: "i_199"
   }
 };
 

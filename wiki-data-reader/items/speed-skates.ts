@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After <b>[Wallriding]</b>, gain <b>30%</b> Move Speed for <b>2s</b>."
+        value: "After [Wallriding], gain 30% Move Speed for 2s."
       }
     ],
     cost: 3750,
-    character: "Lúcio",
-    id: "i_213",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Lúcio",
+    id: "i_213"
   }
 };
 

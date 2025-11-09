@@ -5,19 +5,19 @@ const record: ItemRecord = {
     name: "DONUT DELIVERY",
     attributes: [
       {
-        type: "AP",
-        value: "10%"
+        type: "CR",
+        value: "5%"
       },
       {
         type: "description",
-        value: "<b>[Swift Step]</b> heals nearby allies by <b class=\"stat-ap\">80</b> Life over <b>2s</b>."
+        value: "[Swift Step] heals nearby allies by <b class=\"stat-ap\">80</b> Life over 2s."
       }
     ],
     cost: 10000,
-    character: "Kiriko",
-    id: "i_157",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Kiriko",
+    id: "i_157"
   }
 };
 

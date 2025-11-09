@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using an ability, restore Armor equal to <b>3%</b> of your max Life."
+        value: "After using an ability, restore Armor equal to 3% of your max Life."
       }
     ],
     cost: 4000,
-    character: "Orisa",
-    id: "i_190",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_190"
   }
 };
 

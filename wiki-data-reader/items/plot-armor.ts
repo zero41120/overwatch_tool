@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While <b>[Defense Matrix]</b> is active, gain <b>65%</b> damage reduction against beams."
+        value: "While [Defense Matrix] is active, gain 65% damage reduction against beams.<ul><li>Damage reduced is counted as damage mitigated by Defense Matrix.</li></ul>"
       }
     ],
     cost: 4000,
-    character: "D.VA",
-    id: "i_183",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "D.Va",
+    id: "i_183"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Gain <b>3%</b> Attack Speed for each remaining Ammo above <b>50%</b> of your Max Ammo."
+        value: "Gain 3% Attack Speed for each remaining Ammo above 50% of your Max Ammo."
       }
     ],
     cost: 4000,
-    character: "Ashe",
-    id: "i_19",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ashe",
+    id: "i_19"
   }
 };
 

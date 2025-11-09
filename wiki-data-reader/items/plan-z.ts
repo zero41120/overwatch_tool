@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Gain <b>3%</b> Attack Speed every <b>100</b> missing Life, up to <b>30%</b>."
+        value: "Gain 3% Attack Speed every 100 missing Life, up to 30%."
       }
     ],
     cost: 11000,
-    character: "Reinhardt",
-    id: "i_51",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reinhardt",
+    id: "i_51"
   }
 };
 

@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Caduceus Staff] Range",
+        type: "Caduceus Staff Range",
         value: "33%"
       }
     ],
     cost: 10000,
-    character: "Mercy",
-    id: "i_71",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mercy",
+    id: "i_71"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Unscoped <b>[Biotic Rifle]</b> projectiles are <b>100%</b> larger."
+        value: "Unscoped [Biotic Rifle] projectiles are 100% larger."
       }
     ],
     cost: 5000,
-    character: "Ana",
-    id: "i_27",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ana",
+    id: "i_27"
   }
 };
 

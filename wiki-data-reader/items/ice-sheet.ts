@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Ice Wall]</b> Duration is increased by <b>1s</b> and health is increased by <b>100%</b>."
+        value: "[Ice Wall] duration is increased by 1s and health is increased by 100%."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_243",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_243"
   }
 };
 

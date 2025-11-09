@@ -9,18 +9,19 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "[Take Aim] Slowed Momentum Duration",
+        type: "Take Aim Slowed Momentum Duration",
         value: "100%"
       },
       {
         type: "description",
-        value: "While momentum is slowed by <b>[Take Aim]</b>, restore <b>5%</b> Max Life every <b>1s</b>."
+        value: "While momentum is slowed by [Take Aim], restore 5% Max Life every 1s."
       }
     ],
     cost: 4000,
-    character: "Freja",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Freja",
+    id: undefined
   }
 };
 

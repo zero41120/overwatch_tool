@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Resurrection] Range",
+        type: "Resurrection Range",
         value: "75%"
       }
     ],
     cost: 10000,
-    character: "Mercy",
-    id: "i_162",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mercy",
+    id: "i_162"
   }
 };
 

@@ -5,7 +5,11 @@ const record: ItemRecord = {
     name: "TECHNOLEECH",
     attributes: [
       {
-        type: "WP",
+        type: "Health",
+        value: "25"
+      },
+      {
+        type: "AS",
         value: "5%"
       },
       {
@@ -14,9 +18,9 @@ const record: ItemRecord = {
       }
     ],
     cost: 4500,
-    id: "i_9",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    id: "i_9"
   }
 };
 

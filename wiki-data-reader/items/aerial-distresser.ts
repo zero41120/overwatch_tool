@@ -5,7 +5,7 @@ const record: ItemRecord = {
     name: "AERIAL DISTRESSER",
     attributes: [
       {
-        type: "Shield",
+        type: "Shields",
         value: "25"
       },
       {
@@ -14,12 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Weapon dealing damage to airborne enemies deal <b>25%</b> bonus damage over <b>3s</b>."
+        value: "Weapon damage to airborne enemies deal 25% bonus damage over 3s."
       }
     ],
     cost: 9000,
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: undefined
   },
   override: {
     name: "AERIAL DISTRESSER",

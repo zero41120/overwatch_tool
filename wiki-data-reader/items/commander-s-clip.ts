@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use an ability, restore <b>10%</b> of your Max Ammo."
+        value: "When you use an ability or Gadget, restore 10% of your Max Ammo."
       }
     ],
     cost: 10000,
-    id: "i_39",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_39"
   }
 };
 

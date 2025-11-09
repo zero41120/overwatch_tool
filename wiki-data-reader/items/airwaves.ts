@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Sound Barrier]</b> effectiveness is increased by <b>25%</b> for every Is <b>[Sound Barrier]</b> is channeled, up to <b>50%</b>."
+        value: "[Sound Barrier] effectiveness is increased by 25% for every 1s [Sound Barrier] is channeled, up to 50%."
       }
     ],
     cost: 10000,
-    character: "Lúcio",
-    id: "i_160",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Lúcio",
+    id: "i_160"
   }
 };
 

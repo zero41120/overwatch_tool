@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Convert <b>100</b> Health into Armor. Using <b>[Dragonblade]</b> heals your Armor fully."
+        value: "Convert 100 Health into Armor.<br>When you spend your Ultimate Charge, restore your Armor fully."
       }
     ],
     cost: 10000,
-    character: "Genji",
-    id: "i_242",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_242"
   }
 };
 

@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you take more than <b>100</b> damage at once, restore <b>20%</b> of damage taken and start regenerating your Shields."
+        value: "When you take more than 150 pre-mitigation damage at once, gain Overhealth equal to 20% of damage taken for 3s and start regenerating your Shields."
       }
     ],
     cost: 9500,
-    id: "i_219",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_219"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Frozen ground increases Mei's Movement Speed by <b>35%</b>."
+        value: "Frozen ground increases Mei's Movement Speed by 35%."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_61",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_61"
   }
 };
 

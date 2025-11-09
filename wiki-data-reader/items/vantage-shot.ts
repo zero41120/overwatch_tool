@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While airborne, <b>[Mediblaster]</b> deals <b>15%</b> more damage."
+        value: "While airborne, [Mediblaster] deals 15% more damage."
       }
     ],
     cost: 4000,
-    character: "Juno",
-    id: "i_29",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Juno",
+    id: "i_29"
   },
   override: {
     name: "VANTAGE SHOT",

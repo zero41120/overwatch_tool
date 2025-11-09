@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Blizzard]</b> deals <b>100%</b> increased base damage."
+        value: "[Blizzard] deals 100% increased base damage."
       }
     ],
     cost: 10000,
-    character: "Mei",
-    id: "i_144",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mei",
+    id: "i_144"
   }
 };
 

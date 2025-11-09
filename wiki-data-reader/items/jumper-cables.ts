@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using a <b>[Barrier]</b>, start regenerating Shields instantly."
+        value: "After using a [Barrier], start regenerating Shields instantly."
       }
     ],
     cost: 4000,
-    character: "Zarya",
-    id: "i_195",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zarya",
+    id: "i_195"
   }
 };
 

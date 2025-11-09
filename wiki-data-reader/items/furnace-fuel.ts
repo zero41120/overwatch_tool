@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Cleansed Burns grant <b>3%</b> Ultimate Charge."
+        value: "Cleansed Burns grant 3% Ultimate Charge."
       }
     ],
     cost: 4000,
-    character: "Ashe",
-    id: "i_95",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ashe",
+    id: "i_95"
   }
 };
 

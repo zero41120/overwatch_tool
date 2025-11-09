@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "15%"
       },
       {
-        type: "[Ampt It Up] Duration",
+        type: "Amp It Up Duration",
         value: "25%"
       }
     ],
-    cost: 11000,
-    character: "Lúcio",
-    id: "i_161",
+    cost: 10000,
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Lúcio",
+    id: "i_161"
   }
 };
 

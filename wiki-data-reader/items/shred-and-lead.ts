@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you <b>[Wound</b> an enemy, gain <b>10%</b> Attack Speed for <b>4s</b>, stacking up to <b>3 times</b>."
+        value: "When you [Wound] an enemy gain 10% Attack Speed for 4s, stacking up to 3 times."
       }
     ],
     cost: 10000,
-    character: "Junker Queen",
-    id: "i_48",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_48"
   },
   override: {
     name: "SHRED AND LEAD",

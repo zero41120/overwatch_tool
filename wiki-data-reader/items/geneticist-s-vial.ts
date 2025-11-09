@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "The first time you would die each round, revive instead with <b>250</b> Life after <b>3s</b>."
+        value: "The first time you would die each round, revive instead with 250 Life after 3s."
       }
     ],
     cost: 9000,
-    id: "i_217",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_217"
   }
 };
 

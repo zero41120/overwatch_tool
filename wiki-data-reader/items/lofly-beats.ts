@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While in <b>[Speed Boost]</b>, <b>[Soundwave]</b> also knocks you back."
+        value: "While in [Speed Boost], [Soundwave] also knocks you back."
       }
     ],
     cost: 4000,
-    character: "Lúcio",
-    id: "i_109",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Lúcio",
+    id: "i_109"
   }
 };
 

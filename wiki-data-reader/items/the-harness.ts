@@ -9,14 +9,19 @@ const record: ItemRecord = {
         value: "25%"
       },
       {
-        type: "[Accretion] Explosion Radius",
+        type: "ALS",
+        value: "15%"
+      },
+      {
+        type: "Accretion Explosion Radius",
         value: "50%"
       }
     ],
     cost: 11000,
-    character: "Sigma",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Sigma",
+    id: undefined
   }
 };
 

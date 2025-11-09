@@ -9,19 +9,19 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "[Pulsar Torpedoes] Projectile Speed",
+        type: "Pulsar Torpedoes Projectile Speed",
         value: "35%"
       },
       {
         type: "description",
-        value: "After using <b>[Pulsar Torpedoes]</b>, gain <b>25%</b> Attack Speed for <b>4s</b>."
+        value: "After using [Pulsar Torpedoes], gain 25% Attack Speed for 4s."
       }
     ],
     cost: 11000,
-    character: "Juno",
-    id: "i_64",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_64"
   },
   override: {
     name: "PULSE SPIKE",

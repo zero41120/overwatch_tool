@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Energy]</b> cannot be reduced below <b>20</b>."
+        value: "[Energy] cannot be reduced below 20."
       }
     ],
     cost: 4000,
-    character: "Zarya",
-    id: "i_18",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zarya",
+    id: "i_18"
   }
 };
 

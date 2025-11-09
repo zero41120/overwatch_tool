@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Damage dealt to <b>Burning</b> targets grants <b>20%</b> more Ultimate Charge."
+        value: "Damage dealt to Burning targets grants 20% more Ultimate Charge."
       }
     ],
     cost: 4000,
-    character: "Ashe",
-    id: "i_96",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ashe",
+    id: "i_96"
   }
 };
 

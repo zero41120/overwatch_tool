@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Deal <b>5%</b> increased Weapon Damage for every <b>100</b> Max Life the target has more than you, up to <b>20%</b>."
+        value: "Deal 5% increased Weapon Damage for every 100 Max Life the target has more than you, up to 25%."
       }
     ],
     cost: 9500,
-    id: "i_38",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_38"
   }
 };
 

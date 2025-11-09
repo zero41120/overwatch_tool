@@ -5,11 +5,11 @@ const record: ItemRecord = {
     name: "CHAIN EVOKER",
     attributes: [
       {
-        type: "Armor",
+        type: "Health",
         value: "50"
       },
       {
-        type: "[Caduceus Staff] Damage Boost",
+        type: "Caduceus Staff Damage Boost",
         value: "5%"
       },
       {
@@ -18,10 +18,10 @@ const record: ItemRecord = {
       }
     ],
     cost: 10000,
-    character: "Mercy",
-    id: "i_255",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mercy",
+    id: "i_255"
   }
 };
 

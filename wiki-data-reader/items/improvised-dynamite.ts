@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Flashbang]</b> explosion radius is increased by <b>50%</b>."
+        value: "[Flashbang] explosion radius is increased by 50%."
       }
     ],
     cost: 11000,
-    character: "Cassidy",
-    id: "i_139",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Cassidy",
+    id: "i_139"
   }
 };
 

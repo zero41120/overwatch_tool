@@ -9,15 +9,15 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "Move Speed during [Deflect]",
+        type: "Move Speed during Deflect",
         value: "15%"
       }
     ],
     cost: 4000,
-    character: "Genji",
-    id: "i_100",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Genji",
+    id: "i_100"
   }
 };
 

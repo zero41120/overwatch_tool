@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Consecutive <b>[Particle Cannon]</b> secondary fire shots consume <b>20%</b> less Ammo, up to <b>60%</b>, for your current magazine."
+        value: "Consecutive [Particle Cannon] secondary fire shots consume 20% less ammo, up to 60%, for your current magazine."
       }
     ],
     cost: 10000,
-    character: "Zarya",
-    id: "i_52",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zarya",
+    id: "i_52"
   }
 };
 

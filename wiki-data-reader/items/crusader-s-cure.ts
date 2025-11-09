@@ -9,15 +9,19 @@ const record: ItemRecord = {
         value: "25"
       },
       {
+        type: "Knockback Resist",
+        value: "50%"
+      },
+      {
         type: "description",
-        value: "Using <b>[Charge]</b> cleanses all negative effects."
+        value: "Using [Charge] cleanses all negative effects."
       }
     ],
     cost: 3750,
-    character: "Reinhardt",
-    id: "i_191",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reinhardt",
+    id: "i_191"
   }
 };
 

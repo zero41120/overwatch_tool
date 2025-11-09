@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use an ability, restore <b>50</b> Armor or Shields over <b>2s</b>."
+        value: "When you use an ability or Gadget, restore 50 Armor or Shields over 3s."
       }
     ],
-    cost: 10000,
-    id: "i_117",
+    cost: 11000,
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_117"
   }
 };
 

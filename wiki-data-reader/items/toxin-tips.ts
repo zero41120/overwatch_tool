@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Take Aim]</b> bolt sticks and explosions slow enemies by <b>30%</b>, but takes Is longer to explode."
+        value: "[Take Aim] bolt sticks and explosions slow enemies by 30%, but takes 1s longer to explode."
       }
     ],
     cost: 9000,
-    character: "Freja",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Freja",
+    id: undefined
   }
 };
 

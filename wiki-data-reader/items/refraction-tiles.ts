@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While <b>[Javelin Spin]</b> is active, gain <b>50%</b> damage reduction from beams."
+        value: "While Javelin Spin is active, gain 50% damage reduction from beams."
       }
     ],
     cost: 4000,
-    character: "Orisa",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: undefined
   }
 };
 

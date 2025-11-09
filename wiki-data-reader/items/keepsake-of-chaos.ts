@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Eliminating an enemy affected by <b>[Discord Orb]</b> grants <b>5</b> Armor for the rest of the round, up to <b>50</b> Armor."
+        value: "Eliminating an enemy affected by [Discord Orb] grants 5 Armor for the rest of the round, up to 50 Armor."
       }
     ],
     cost: 4000,
-    character: "Zenyatta",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

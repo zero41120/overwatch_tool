@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While at <b>100%</b> <b>Ultimate Charge</b>, gain: <ul><li><b>50</b> Health</li><li><b>10%</b> Weapon Power</li><li><b>10%</b> Ability Power</li><li><b>10%</b> Attack Speed</li><li><b>10%</b> Cooldown Reduction</li><li><b>10%</b> Move Speed</li></ul>"
+        value: "While at 100% Ultimate Charge, gain:<ul><li><b>Life</b> 50 Health</li><li><b>Weapon Power</b> 10% Weapon Power</li><li><b class=\"stat-ap\">Ability Power</b> 10% Ability Power</li><li><b>Attack Speed</b> 10% Attack Speed</li><li><b>Cooldown Reduction</b> 10% Cooldown Reduction</li><li><b>Move Speed</b> 10% Move Speed</li></ul>"
       }
     ],
     cost: 10000,
-    id: "i_224",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_224"
   }
 };
 

@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Deal <b>10%</b> increased damage to enemies below <b>30%</b> Life."
+        value: "Deal 10% increased damage to enemies below 30% Life."
       }
     ],
     cost: 14000,
-    id: "i_46",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_46"
   }
 };
 

@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Allies affected by <b>[Kitsune Rush]</b> are healed for <b class=\"stat-ap\">80</b> every Is."
+        value: "Allies affected by [Kitsune Rush] are healed for <b class=\"stat-ap\">80</b> every 1s."
       }
     ],
     cost: 10000,
-    character: "Kiriko",
-    id: "i_158",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Kiriko",
+    id: "i_158"
   }
 };
 

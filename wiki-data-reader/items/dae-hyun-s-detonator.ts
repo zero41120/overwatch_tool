@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "If your <b>[Mech]</b> detonates while mid-air, increase <b>[Self-Destruct]</b> explosion damage and range by <b>100%</b>."
+        value: "If your [Mech] detonates while mid-air, increase [Self-Destruction] damage and range by 100%.<ul><li>Danger warning sign is shown to the enemies if they are within the blast radius.</li></ul>"
       }
     ],
     cost: 4000,
-    character: "D.VA",
-    id: "i_86",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "D.Va",
+    id: "i_86"
   }
 };
 

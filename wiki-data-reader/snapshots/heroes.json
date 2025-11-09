@@ -1,0 +1,130 @@
+[
+  {
+    "name": "D.Va",
+    "slug": "d-va"
+  },
+  {
+    "name": "Hazard",
+    "slug": "hazard"
+  },
+  {
+    "name": "Junker Queen",
+    "slug": "junker-queen"
+  },
+  {
+    "name": "Orisa",
+    "slug": "orisa"
+  },
+  {
+    "name": "Reinhardt",
+    "slug": "reinhardt"
+  },
+  {
+    "name": "Sigma",
+    "slug": "sigma"
+  },
+  {
+    "name": "Winston",
+    "slug": "winston"
+  },
+  {
+    "name": "Zarya",
+    "slug": "zarya"
+  },
+  {
+    "name": "Ashe",
+    "slug": "ashe"
+  },
+  {
+    "name": "Cassidy",
+    "slug": "cassidy"
+  },
+  {
+    "name": "Freja",
+    "slug": "freja"
+  },
+  {
+    "name": "Genji",
+    "slug": "genji"
+  },
+  {
+    "name": "Junkrat",
+    "slug": "junkrat"
+  },
+  {
+    "name": "Mei",
+    "slug": "mei"
+  },
+  {
+    "name": "Pharah",
+    "slug": "pharah"
+  },
+  {
+    "name": "Reaper",
+    "slug": "reaper"
+  },
+  {
+    "name": "Sojourn",
+    "slug": "sojourn"
+  },
+  {
+    "name": "Soldier: 76",
+    "slug": "soldier-76"
+  },
+  {
+    "name": "Torbjörn",
+    "slug": "torbj-rn"
+  },
+  {
+    "name": "Tracer",
+    "slug": "tracer"
+  },
+  {
+    "name": "Ana",
+    "slug": "ana"
+  },
+  {
+    "name": "Baptiste",
+    "slug": "baptiste"
+  },
+  {
+    "name": "Brigitte",
+    "slug": "brigitte"
+  },
+  {
+    "name": "Illari",
+    "slug": "illari"
+  },
+  {
+    "name": "Juno",
+    "slug": "juno"
+  },
+  {
+    "name": "Kiriko",
+    "slug": "kiriko"
+  },
+  {
+    "name": "Lifeweaver",
+    "slug": "lifeweaver"
+  },
+  {
+    "name": "Lúcio",
+    "slug": "l-cio"
+  },
+  {
+    "name": "Mercy",
+    "slug": "mercy"
+  },
+  {
+    "name": "Moira",
+    "slug": "moira"
+  },
+  {
+    "name": "Wuyang",
+    "slug": "wuyang"
+  },
+  {
+    "name": "Zenyatta",
+    "slug": "zenyatta"
+  }
+]

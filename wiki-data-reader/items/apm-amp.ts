@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use <b>[Boosters]</b>, other allies within <b>16m</b> gain <b>25%</b> Move Speed for <b>2s</b>."
+        value: "When you use [Boosters], other allies within 16m gain 25% Move Speed for 2s."
       }
     ],
     cost: 9000,
-    character: "D.VA",
-    id: "i_227",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "D.Va",
+    id: "i_227"
   }
 };
 

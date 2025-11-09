@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you heal an ally, grant them <b>10%</b> Move Speed for <b>3s</b>."
+        value: "When you heal an ally, grant them 10% Move Speed for 3s."
       }
     ],
     cost: 5000,
-    character: "Kiriko",
-    id: "i_32",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Kiriko",
+    id: "i_32"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Fortify]</b> grants additional <b>Overhealth</b> equal to <b>10%</b> of your max Life."
+        value: "Fortify grants additional Overhealth equal to 10% of your max Life."
       }
     ],
     cost: 4000,
-    character: "Orisa",
-    id: "i_188",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_188"
   }
 };
 

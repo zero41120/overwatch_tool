@@ -5,19 +5,23 @@ const record: ItemRecord = {
     name: "HIP HOP",
     attributes: [
       {
-        type: "Health",
-        value: "25"
+        type: "WP",
+        value: "10%"
+      },
+      {
+        type: "AP",
+        value: "10%"
       },
       {
         type: "description",
-        value: "After <b>[Wallriding]</b>, gain an additional jump while airborne."
+        value: "After [Wallriding], gain an additional jump while airborne."
       }
     ],
-    cost: 9000,
-    character: "Lúcio",
-    id: "i_253",
+    cost: 9500,
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Lúcio",
+    id: "i_253"
   }
 };
 

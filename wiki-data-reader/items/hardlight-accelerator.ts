@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use an ability, gain <b>5%</b> Weapon Power for <b>3s</b>, stacking up to <b>3</b> times."
+        value: "When you use an ability or Gadget, gain 5% Weapon Power for 3s, stacking up to 3 times."
       }
     ],
     cost: 11000,
-    id: "i_44",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_44"
   },
   override: {
     name: "HARDLIGHT ACCELERATOR",

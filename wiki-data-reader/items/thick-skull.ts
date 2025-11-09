@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While casting <b>[Rampage]</b> or <b>[Carnage]</b>, gain <b>75%</b> <b>Damage Reduction</b>."
+        value: "While casting [Rampage] or [Carnage], gain 75% damage reduction."
       }
     ],
     cost: 10000,
-    character: "Junker Queen",
-    id: "i_232",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_232"
   }
 };
 

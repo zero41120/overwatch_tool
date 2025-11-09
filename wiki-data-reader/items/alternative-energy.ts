@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use <b>[Fade]</b>, refill your <b>[Biotic Energy]</b>."
+        value: "When you use [Fade], refill your [Biotic Energy]."
       }
     ],
     cost: 10000,
-    character: "Moira",
-    id: "i_73",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Moira",
+    id: "i_73"
   }
 };
 

@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "For each enemy or ally affected by <b>[Biotic Grenade]</b>, gain <b>5%</b> Attack Speed, up to <b>25%</b>."
+        value: "For each enemy or ally affected by [Biotic Grenade] gain 5% Attack Speed, up to 25%."
       }
     ],
     cost: 4000,
-    character: "Ana",
-    id: "i_26",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ana",
+    id: "i_26"
   }
 };
 

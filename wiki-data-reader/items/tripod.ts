@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[The Viper]</b>, <b>[Coach Gun]</b>, and <b>[Dynamite]</b> deal <b>10%</b> more damage to enemies that are below you."
+        value: "[The Viper], [Coach Gun], and [Dynamite] deal 10% more damage to enemies that are below you."
       }
     ],
     cost: 4000,
-    character: "Ashe",
-    id: "i_20",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Ashe",
+    id: "i_20"
   },
   override: {
     name: "TRIPOD",

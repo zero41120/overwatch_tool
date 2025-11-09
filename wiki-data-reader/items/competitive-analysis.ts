@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Deal <b>15%</b> increased primary fire damage to enemies in the <b>Damage role</b>."
+        value: "Deal 15% increased primary fire damage to enemies in the Damage role."
       }
     ],
     cost: 11000,
-    character: "Cassidy",
-    id: "i_56",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Cassidy",
+    id: "i_56"
   }
 };
 

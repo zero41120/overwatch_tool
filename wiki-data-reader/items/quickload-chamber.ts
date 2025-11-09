@@ -5,19 +5,19 @@ const record: ItemRecord = {
     name: "QUICKLOAD CHAMBER",
     attributes: [
       {
-        type: "RS",
+        type: "Reload Speed",
         value: "20%"
       },
       {
         type: "description",
-        value: "Reloading within <b>6m</b> of an enemy adds <b>20%</b> of Max Ammo as extra Ammo."
+        value: "Reloading within 6m of an enemy adds 20% of Max Ammo as extra ammo."
       }
     ],
     cost: 4000,
-    character: "Cassidy",
-    id: "i_22",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Cassidy",
+    id: "i_22"
   }
 };
 

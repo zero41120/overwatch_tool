@@ -1,6 +1,8 @@
 # Active Context
 
 - No open tasks; current baseline includes Skyline Nanites 1.2x handling and tuned Juno torpedo UI/cards.
-- Item data now loads via `itemDataProvider` which gathers per-item modules under `wiki-data-reader/items` and merges override modules with `import.meta.glob`.
+- Wiki data is now bundled inside the `wiki-data-reader` workspace (Vite library build) and `itemDataProvider` consumes the exported helpers instead of running `import.meta.glob` itself.
+- Snapshot + parser workflow lives under `wiki-data-reader/scripts`: run `npm run refresh-snapshots -w wiki-data-reader` to capture wiki raw pages (stadium + per-hero) and `npm run update-items -w wiki-data-reader` to preview/apply regenerated `ItemRecord` modules.
 - Item modules now embed override metadata (disabled, editor overrides) directly; ItemGallery/local overrides consume the merged structure with resilient localStorage fallbacks.
-- Wiki ingestion now lives in `scripts/fetch-wiki-items.mjs`, which pulls the Stadium/Items raw wiki source, parses it via `scripts/wikiParser.mjs`, and rewrites per-item modules while preserving embedded overrides.
+- Wiki ingestion now lives in `wiki-data-reader/scripts/refreshSnapshots.ts` + `wiki-data-reader/scripts/updateItems.ts`, which fetch raw Stadium/hero pages into snapshots, parse them into `ItemRecord` modules, and preserve embedded overrides.
+- Root `README.md` documents the workspace layout, snapshot workflow, and testing commands so new contributors follow the same process.

@@ -13,19 +13,19 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "Reduced [Helix Rocket] Self-Damage",
+        type: "Reduced Helix Rocket Self-Damage",
         value: "90%"
       },
       {
         type: "description",
-        value: "When you damage yourself with <b>[Helix Rocket]</b>, it knocks you back <b>200%</b> further."
+        value: "When you damage yourself with [Helix Rocket], it knocks you back 200% further."
       }
     ],
     cost: 4000,
-    character: "Soldier: 76",
-    id: "i_102",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Soldier: 76",
+    id: "i_102"
   }
 };
 

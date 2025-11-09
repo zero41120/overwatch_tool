@@ -13,14 +13,15 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "[Frag Launcher] Bounce Distance",
+        type: "Frag Launcher Bounce Distance",
         value: "25%"
       }
     ],
     cost: 4500,
-    character: "Junkrat",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junkrat",
+    id: undefined
   }
 };
 

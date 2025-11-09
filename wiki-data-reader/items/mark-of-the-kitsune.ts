@@ -10,13 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you use an ability, your next instance of Weapon Damage or Healing deals <b class=\"stat-ap\">25</b> bonus damage or healing."
+        value: "When you use an ability or Gadget, your next instance of Weapon Damage or Healing deals <b class=\"stat-ap\">25</b> bonus damage or healing.<ul><li>Subject to the weapon's damage falloff.</li></ul>"
       }
     ],
     cost: 11000,
-    id: "i_122",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_122"
   }
 };
 

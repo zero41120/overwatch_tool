@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Damaging an enemy with <b>[Swift Strike]</b> restores <b>20%</b> of your ammo."
+        value: "Damaging an enemy with [Swift Strike] restores 20% of your ammo."
       }
     ],
     cost: 10000,
-    character: "Genji",
-    id: "i_59",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_59"
   }
 };
 

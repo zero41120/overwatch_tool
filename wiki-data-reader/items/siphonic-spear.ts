@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you deal damage with <b>[Energy Javelin]</b>, heal <b>10%</b> of your max Life over <b>3s</b>."
+        value: "When you deal damage with Energy Javelin, heal 10% of your max Life over 3s."
       }
     ],
     cost: 4000,
-    character: "Orisa",
-    id: "i_189",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Orisa",
+    id: "i_189"
   }
 };
 

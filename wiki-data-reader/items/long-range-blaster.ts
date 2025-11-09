@@ -6,18 +6,18 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "WP",
-        value: "15%"
+        value: "20%"
       },
       {
         type: "description",
-        value: "<b>[Mediblaster]</b> deals <b>15%</b> increased damage and healing to targets farther than <b>12m</b> away."
+        value: "[Mediblaster] deals 15% increased damage and healing to targets farther than 12m away."
       }
     ],
     cost: 12000,
-    character: "Juno",
-    id: "i_65",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Juno",
+    id: "i_65"
   },
   override: {
     name: "LONG RANGE BLASTER",

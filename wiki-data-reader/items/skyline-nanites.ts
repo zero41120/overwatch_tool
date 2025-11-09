@@ -10,14 +10,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Ability damage to airborne enemies deal <b>20%</b> bonus damage over <b>2s</b>."
+        value: "Ability damage to airborne enemies deal 20% bonus damage over 2s"
       }
     ],
     cost: 4000,
-    character: "Juno",
-    id: "i_154a",
     tab: "ability",
-    rarity: "epic"
+    rarity: "rare",
+    id: "i_154a"
   }
 };
 

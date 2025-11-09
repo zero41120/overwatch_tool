@@ -6,14 +6,14 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "description",
-        value: "While airborne gain: <ul><li><b>5%</b> Weapon Power</li><li><b>10%</b> Attack Speed</li></ul>"
+        value: "While airborne gain:<br><b>Weapon Power</b> 5% Weapon Power<br><b>Attack Speed</b> 10% Attack Speed"
       }
     ],
     cost: 4000,
-    character: "Mercy",
-    id: "i_33",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Mercy",
+    id: "i_33"
   }
 };
 

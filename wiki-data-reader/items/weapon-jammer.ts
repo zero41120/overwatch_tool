@@ -14,13 +14,13 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Dealing Weapon Damage negates <b>10%</b> of the target's bonus Attack Speed and increase your Attack speed by <b>10%</b> for <b>2s</b>."
+        value: "Dealing Weapon Damage negates 10% of the target's bonus Attack Speed and increases your Attack Speed by 10% for 2s."
       }
     ],
     cost: 10000,
-    id: "i_40",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_40"
   },
   override: {
     name: "WEAPON JAMMER",

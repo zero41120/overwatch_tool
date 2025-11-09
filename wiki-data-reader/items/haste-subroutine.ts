@@ -10,13 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using <b>[Harmony Orb]</b> or <b>[Discord Orb]</b>, gain <b>100%</b> Projectile Speed for"
+        value: "After using [Harmony Orb] or [Discord Orb], gain 100% Projectile Speed for 3 seconds."
       }
     ],
     cost: 11000,
-    character: "Zenyatta",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Zenyatta",
+    id: undefined
   }
 };
 

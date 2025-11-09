@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Environmental Kills grant <b>[Nano Boost]</b> for <b>5s</b>."
+        value: "[Environmental Kills] grant Nano Boost for 5s."
       }
     ],
     cost: 4000,
-    character: "Lúcio",
-    id: "i_110",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Lúcio",
+    id: "i_110"
   }
 };
 

@@ -9,17 +9,14 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "ALS",
-        value: "10%"
-      },
-      {
         type: "description",
-        value: "While you are above <b>80%</b> Life, gain <b>10%</b> Ability Power."
+        value: "While above 50% Life gain 10% Ability Power.<br>Otherwise, gain 15% Ability Lifesteal and abilities refresh 10% faster."
       }
     ],
-    cost: 4500,
+    cost: 5000,
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    id: undefined
   }
 };
 

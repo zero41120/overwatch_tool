@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Allies affected by <b>[Commanding Shout]</b> are healed for <b>5%</b> of Junker Queen's life every second."
+        value: "Allies affected by [Commading Shout] are healed of 5% of Junker Queen's Life every second."
       }
     ],
     cost: 10000,
-    character: "Junker Queen",
-    id: "i_233",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Junker Queen",
+    id: "i_233"
   }
 };
 

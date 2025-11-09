@@ -14,13 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Gravitic Flux]</b> levitates enemies for <b>25%</b> longer. Enemies affected take <b>20%</b> increased damage from <b>[Hyperspheres]</b>."
+        value: "[Gravitic Flux] levitates enemies for 25% longer. Enemies affected take 20% increased damage from [Hyperspheres]."
       }
     ],
     cost: 5000,
-    character: "Sigma",
     tab: "weapon",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Sigma",
+    id: undefined
   }
 };
 

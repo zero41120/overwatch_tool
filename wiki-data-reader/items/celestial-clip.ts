@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Caduceus Blaster]</b> has a <b>10%</b> chance to fire an extra shot that doesn't consume additional ammo."
+        value: "[Caducaeus Blaster] has a 10% chance to fire an extra shot that doesn't consume additional ammo."
       }
     ],
     cost: 10000,
-    character: "Mercy",
-    id: "i_72",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Mercy",
+    id: "i_72"
   }
 };
 

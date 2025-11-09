@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "During <b>[Swift Strike]</b>, deflect incoming projectiles toward your reticle."
+        value: "During [Swift Strike], deflect incoming projectiles toward your reticle."
       }
     ],
     cost: 10000,
-    character: "Genji",
-    id: "i_141",
     tab: "ability",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_141"
   }
 };
 

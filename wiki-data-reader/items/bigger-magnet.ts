@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Jagged Blade]</b>'s pull strength is increased by <b>35%</b>."
+        value: "[Jagged Blade]'s pull strength is increased by 35%. Pulls downward if the enemy is airborne."
       }
     ],
     cost: 4000,
-    character: "Junker Queen",
-    id: "i_89",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Junker Queen",
+    id: "i_89"
   }
 };
 

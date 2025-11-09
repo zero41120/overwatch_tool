@@ -6,17 +6,17 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "Health",
-        value: "50"
+        value: "25"
       },
       {
         type: "description",
-        value: "The last enemy to deal a final blow to you is <b>Revealed</b> when nearby. Deal <b>10%</b> more damage to them and take <b>10%</b> reduced damage from them."
+        value: "The last enemy to deal a final blow to you is Revealed when nearby. Deal 10% more damage to them and take 10% reduced damage from them."
       }
     ],
-    cost: 9000,
-    id: "i_218",
+    cost: 4000,
     tab: "survival",
-    rarity: "epic"
+    rarity: "rare",
+    id: "i_218"
   }
 };
 

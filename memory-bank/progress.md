@@ -18,4 +18,7 @@
 - Added `wiki-data-reader` modules and generator scripts to split legacy `data.json` into per-item TypeScript files, each embedding any override metadata.
 - `itemDataProvider` now loads items (and their optional overrides) via `import.meta.glob`, merging editor overrides, disable flags, and hero-specific values.
 - Local override utilities gained resilient storage fallback plus normalization helpers; Optimizer/tests updated to the new provider.
-- Implemented `scripts/fetch-wiki-items.mjs` with a shared `scripts/wikiParser.mjs` helper so we can fetch/parsing the Stadium wiki page, regenerate item modules, and leave per-item overrides untouched. Parser-focused Vitest coverage guards the markup conversions.
+- Implemented `wiki-data-reader/scripts/refreshSnapshots.ts` + `wiki-data-reader/scripts/updateItems.ts` so we can fetch Stadium + hero wiki pages into snapshots, regenerate item modules, and leave per-item overrides untouched with parser-focused Vitest coverage.
+- Root README now covers the monorepo structure, shared scripts, and testing workflow so future agents understand how to refresh data and run the app.
+- Promoted `wiki-data-reader` to a standalone workspace package built with Vite/TypeScript so it exports item records/overrides; `itemDataProvider` now imports those helpers and carries dedicated unit tests for the integration.
+- Added TypeScript-powered snapshot + parser tooling (`refresh-snapshots`, `update-items`) that captures Stadium + hero wiki raw pages, diff existing modules, and preserves overrides/IDs with Vitest coverage on the text normalization helpers.

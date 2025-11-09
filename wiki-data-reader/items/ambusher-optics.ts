@@ -5,19 +5,19 @@ const record: ItemRecord = {
     name: "AMBUSHER OPTICS",
     attributes: [
       {
-        type: "MD",
+        type: "Melee Damage",
         value: "25%"
       },
       {
         type: "description",
-        value: "<b>[Quick Melee]</b> can critically hit when striking enemies from behind, dealing <b>50%</b> increased damage."
+        value: "[Quick Melee] can critically hit when striking enemies from behind, dealing 50% increased damage."
       }
     ],
     cost: 11000,
-    character: "Genji",
-    id: "i_57",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Genji",
+    id: "i_57"
   }
 };
 

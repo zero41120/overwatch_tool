@@ -9,18 +9,18 @@ const record: ItemRecord = {
         value: "20%"
       },
       {
-        type: "CD",
+        type: "Critical Damage",
         value: "10%"
       },
       {
         type: "description",
-        value: "Critical Hits reveal the target for <b>3s</b>."
+        value: "Critical Hits reveal the target for 3s."
       }
     ],
     cost: 14500,
-    id: "i_45",
     tab: "weapon",
-    rarity: "epic"
+    rarity: "epic",
+    id: "i_45"
   }
 };
 

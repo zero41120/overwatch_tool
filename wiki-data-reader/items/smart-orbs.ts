@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "<b>[Biotic Orb]</b> moves <b>50%</b> slower while it is healing or dealing damage."
+        value: "[Biotic Orb] moves 50% slower while it is healing or dealing damage."
       }
     ],
     cost: 4000,
-    character: "Moira",
-    id: "i_112",
     tab: "ability",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Moira",
+    id: "i_112"
   }
 };
 

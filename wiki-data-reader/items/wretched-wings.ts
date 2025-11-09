@@ -10,14 +10,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While using <b>[Wraith Form]</b>, gain the ability to fly and gain <b>20%</b> Move Speed."
+        value: "While using [Wraith Form] gain the ability to fly and gain 20% Move Speed."
       }
     ],
     cost: 10000,
-    character: "Reaper",
-    id: "i_244",
     tab: "survival",
-    rarity: "epic"
+    rarity: "epic",
+    character: "Reaper",
+    id: "i_244"
   }
 };
 

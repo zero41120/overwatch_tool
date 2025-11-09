@@ -14,14 +14,14 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Reduce effectiveness of enemy slows by <b>50%</b>."
+        value: "Reduce effectiveness of enemy slows by 50%."
       }
     ],
     cost: 4000,
-    character: "Reaper",
-    id: "i_205",
     tab: "survival",
-    rarity: "rare"
+    rarity: "rare",
+    character: "Reaper",
+    id: "i_205"
   }
 };
 
