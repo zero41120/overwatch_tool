@@ -98,6 +98,11 @@ export default function Optimizer() {
   useEffect(() => {
     memoizedEquippedItems.clear();
   }, [equipped, memoizedEquippedItems]);
+  useEffect(() => {
+    memoizedScores.clear();
+    memoizedAggregates.clear();
+    memoizedEquippedItems.clear();
+  }, [data, memoizedScores, memoizedAggregates, memoizedEquippedItems]);
   function equippedItems() {
     const key = equipped
       .filter((id) => id)

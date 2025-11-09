@@ -1,10 +1,11 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { vi } from "vitest";
 import store from "../../store";
 import Optimizer from "../../Optimizer";
+import { toggleUseOverrides } from "../../slices/inputSlice";
 
 vi.mock("../../itemDataProvider", () => ({
   default: () => ({
@@ -48,5 +49,25 @@ describe("Optimizer", () => {
       </Provider>,
     );
     expect(await findByText("override")).toBeInTheDocument();
+  });
+
+  it("clears memoized caches when overrides toggle", async () => {
+    const clearSpy = vi.spyOn(Map.prototype, "clear");
+    render(
+      <Provider store={store}>
+        <Optimizer />
+      </Provider>,
+    );
+    const initialCalls = clearSpy.mock.calls.length;
+    await act(async () => {
+      store.dispatch(toggleUseOverrides());
+    });
+    await waitFor(() => {
+      expect(clearSpy.mock.calls.length).toBeGreaterThanOrEqual(initialCalls + 3);
+    });
+    await act(async () => {
+      store.dispatch(toggleUseOverrides());
+    });
+    clearSpy.mockRestore();
   });
 });
