@@ -55,7 +55,7 @@ describe("JunoTorpedoCalculator layout", () => {
     ];
 
     const { store, findByText, container } = renderWithStore(
-      <BreakPointCalculator items={items} />,
+      <BreakPointCalculator items={items} powersByHero={{ Juno: [] }} />,
     );
 
     await act(async () => {
@@ -75,4 +75,3 @@ describe("JunoTorpedoCalculator layout", () => {
     expect(slots.length).toBe(6);
   });
 });
-

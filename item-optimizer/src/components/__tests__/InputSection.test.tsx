@@ -85,7 +85,7 @@ describe("InputSection", () => {
   });
 
   it("shows special hero options", () => {
-    const { getByText, container } = render(
+    const { getByText } = render(
       <Provider store={store}>
         <InputSection
           heroes={heroes}
@@ -96,7 +96,7 @@ describe("InputSection", () => {
         />
       </Provider>,
     );
-    const trigger = container.querySelector("button")!;
+    const trigger = getByText("Hero").parentElement?.querySelector('button[aria-label="Menu"]')!;
     fireEvent.click(trigger);
     expect(getByText(NO_HERO)).toBeInTheDocument();
     expect(getByText(ALL_HEROES)).toBeInTheDocument();

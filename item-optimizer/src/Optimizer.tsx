@@ -7,7 +7,7 @@ import Toolbar from "./components/Toolbar";
 import readLocalData, { readOverrideData } from "./itemDataProvider";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
-import type { Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
+import type { HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { loadLocalOverrides } from "./utils/localOverrides";
@@ -23,6 +23,7 @@ import {
 
 export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
+  const [powersByHero, setPowersByHero] = useState<Record<string, HeroPower[]>>({});
   const [heroes, setHeroes] = useState<string[]>([]);
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
 
@@ -64,6 +65,7 @@ export default function Optimizer() {
       add(tab, "rare", rar.rare);
       add(tab, "epic", rar.epic);
     });
+    setPowersByHero(root.tabs.powers);
     setData(items);
     const heroesSet = new Set<string>();
     const seen = new Map<string, number>();
@@ -76,6 +78,7 @@ export default function Optimizer() {
         if (count === 2) types.add(a.type); // Only add if seen more than once
       });
     });
+    Object.keys(root.tabs.powers).forEach((heroName) => heroesSet.add(heroName));
     types.delete("description");
     types.delete("Editor's Note");
     const sortedTypes = Array.from(types).sort(sortAttributes);
@@ -328,13 +331,7 @@ export default function Optimizer() {
     <div className="p-0 sm:p-0 lg:p-8 space-y-2">
       <Toolbar />
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
-        <InputSection
-          heroes={heroes}
-          attrTypes={attrTypes}
-          filteredItems={filtered}
-          onSubmit={onCalculate}
-          validate={validate}
-        />
+        <InputSection heroes={heroes} attrTypes={attrTypes} filteredItems={filtered} onSubmit={onCalculate} validate={validate} />
         <ResultsSection
           eqItems={eqItems}
           eqCost={eqCost}
@@ -344,7 +341,7 @@ export default function Optimizer() {
           results={results}
           onSelect={onSelectBuild}
         />
-        <BreakPointCalculator items={filtered} />
+        <BreakPointCalculator items={filtered} powersByHero={powersByHero} />
         <ItemGallery items={filtered} heroes={heroes} attrTypes={attrTypes} />
       </div>
     </div>

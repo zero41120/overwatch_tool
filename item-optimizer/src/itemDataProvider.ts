@@ -1,5 +1,5 @@
-import { getItemRecords } from "wiki-data-reader";
-import type { Item, ItemOverride, ItemRecord, RootData } from "./types";
+import { getHeroPowers, getItemRecords } from "wiki-data-reader";
+import type { HeroPower, Item, ItemOverride, ItemRecord, RootData } from "./types";
 
 function loadItemRecords(): ItemRecord[] {
   return getItemRecords();
@@ -41,6 +41,22 @@ export function readLocalData(): RootData {
     rarityList.push(item);
   });
 
+  const powers: Record<string, HeroPower[]> = {};
+  getHeroPowers().forEach((power) => {
+    const heroPowers = powers[power.hero] ?? [];
+    heroPowers.push(power);
+    powers[power.hero] = heroPowers;
+  });
+
+  Object.values(powers).forEach((list) => {
+    list.sort((a, b) => {
+      const orderA = a.order ?? 0;
+      const orderB = b.order ?? 0;
+      return orderA - orderB;
+    });
+  });
+
+  tabs.powers = powers;
   return { tabs };
 }
 

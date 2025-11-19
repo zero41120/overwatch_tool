@@ -22,3 +22,4 @@
 - Root README now covers the monorepo structure, shared scripts, and testing workflow so future agents understand how to refresh data and run the app.
 - Promoted `wiki-data-reader` to a standalone workspace package built with Vite/TypeScript so it exports item records/overrides; `itemDataProvider` now imports those helpers and carries dedicated unit tests for the integration.
 - Added TypeScript-powered snapshot + parser tooling (`refresh-snapshots`, `update-items`) that captures Stadium + hero wiki raw pages, diff existing modules, and preserves overrides/IDs with Vitest coverage on the text normalization helpers.
+- Stadium powers are now parsed into bundled `heroPowers.ts`, and the optimizer renders a 4-column selector on the breakpoint/Juno card with fold-out descriptions and up to four stored picks (Redux-backed but still excluded from calculations).

@@ -50,3 +50,4 @@
 2025-11-08  move wiki data loading into a built workspace dependency and add provider tests  wiki-data-reader item-optimizer/src/itemDataProvider.ts item-optimizer/src/__tests__
 2025-11-08  add wiki snapshot refresh + parser/update scripts with hero ingestion  wiki-data-reader/scripts wiki-data-reader/snapshots
 2025-11-09  fetch remote item icon URLs from wiki snapshots and remove local PNGs  wiki-data-reader/scripts item-optimizer/src
+2025-11-18  add stadium power data plus 4-slot selector in breakpoint card (folding details)  wiki-data-reader/heroPowers.ts item-optimizer/src/components/input_view/HeroPowerGrid.tsx item-optimizer/src/components/BreakPointCalculator.tsx

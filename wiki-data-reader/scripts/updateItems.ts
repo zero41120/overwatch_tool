@@ -13,6 +13,8 @@ import {
   recordToSource,
   type HeroSnapshot,
 } from "./lib/itemBuilder.ts";
+import { buildHeroPowers } from "./lib/heroPowerBuilder.ts";
+import type { HeroPower } from "../types";
 import { slugifyName } from "./lib/textUtils.ts";
 import { imageKey, sanitizeImageUrl } from "./lib/imageUtils.ts";
 
@@ -22,6 +24,7 @@ const SNAPSHOT_DIR = path.join(ROOT_DIR, "snapshots");
 const HERO_DIR = path.join(SNAPSHOT_DIR, "heroes");
 const IMAGE_DIR = path.join(SNAPSHOT_DIR, "images");
 const ITEMS_DIR = path.join(ROOT_DIR, "items");
+const POWERS_FILE = path.join(ROOT_DIR, "heroPowers.ts");
 
 type HeroIndexEntry = {
   name: string;
@@ -152,6 +155,28 @@ async function writeRecords(records: ItemRecord[], removed: ItemRecord[]) {
   }
 }
 
+function heroPowersSource(powers: HeroPower[]) {
+  return `import type { HeroPower } from "./types";
+
+const heroPowers: HeroPower[] = ${JSON.stringify(powers, null, 2)};
+
+export default heroPowers;
+`;
+}
+
+async function writeHeroPowers(powers: HeroPower[], existing?: string, precomputedSource?: string) {
+  const source = precomputedSource ?? heroPowersSource(powers);
+
+  const previous = existing ?? (await readFile(POWERS_FILE, "utf-8").catch(() => ""));
+  if (previous === source) {
+    console.log("[hero-powers] no changes detected");
+    return;
+  }
+
+  await writeFile(POWERS_FILE, source, "utf-8");
+  console.log(`[hero-powers] wrote ${powers.length} powers`);
+}
+
 async function main() {
   console.log("[update-items] starting");
   const forceWrite = process.argv.includes("--yes") || process.argv.includes("-y");
@@ -159,6 +184,10 @@ async function main() {
   const imageLookup = await loadImageSnapshots();
   const generalRecords = buildGeneralItemRecords(stadiumRaw, imageLookup);
   const heroRecords = heroes.flatMap((hero) => buildHeroItemRecords(hero, imageLookup));
+  const heroPowers = heroes.flatMap((hero) => buildHeroPowers(hero, imageLookup));
+  const heroPowerSource = heroPowersSource(heroPowers);
+  const existingHeroPowers = await readFile(POWERS_FILE, "utf-8").catch(() => "");
+  const heroPowerChanged = existingHeroPowers !== heroPowerSource;
   const generatedRecords = [...generalRecords, ...heroRecords];
 
   const existingRecords = await loadExistingRecords();
@@ -166,7 +195,7 @@ async function main() {
   const mergedRecords = mergeExistingData(generatedRecords, existingMap);
 
   const { added, updated, removed } = summarizeChanges(mergedRecords, existingRecords);
-  if (!added.length && !updated.length && !removed.length) {
+  if (!added.length && !updated.length && !removed.length && !heroPowerChanged) {
     console.log("No changes detected.");
     return;
   }
@@ -186,6 +215,11 @@ async function main() {
     console.log(removed.map((record) => `  - ${record.item.name}`).join("\n"));
   }
 
+  if (heroPowerChanged) {
+    const heroCount = new Set(heroPowers.map((p) => p.hero)).size;
+    console.log(`[hero-powers] Ready to write ${heroPowers.length} powers across ${heroCount} heroes.`);
+  }
+
   const shouldWrite = await confirmWrite(forceWrite);
   if (!shouldWrite) {
     console.log("Aborted.");
@@ -194,6 +228,7 @@ async function main() {
 
   await writeRecords(mergedRecords, removed);
   console.log("Item files updated.");
+  await writeHeroPowers(heroPowers, existingHeroPowers, heroPowerSource);
 }
 
 main().catch((error) => {

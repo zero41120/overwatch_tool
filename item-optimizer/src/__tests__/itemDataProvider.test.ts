@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ItemRecord } from "../types";
+import type { HeroPower, ItemRecord } from "../types";
 import readLocalData, { readOverrideData } from "../itemDataProvider";
 
 let mockRecords: ItemRecord[] = [];
+let mockPowers: HeroPower[] = [];
 
 vi.mock("wiki-data-reader", () => ({
   getItemRecords: () => mockRecords,
+  getHeroPowers: () => mockPowers,
 }));
 
 describe("itemDataProvider", () => {
@@ -30,6 +32,7 @@ describe("itemDataProvider", () => {
         },
       },
     ];
+    mockPowers = [];
   });
 
   it("groups items by tab and rarity", () => {
@@ -101,5 +104,36 @@ describe("itemDataProvider", () => {
 
     const data = readLocalData();
     expect(data.tabs.weapon.common[0].iconUrl).toBe("https://cdn.test/icon-blade.png");
+  });
+
+  it("groups hero powers by owner", () => {
+    mockPowers = [
+      {
+        hero: "Juno",
+        name: "Torpedo Glide",
+        description: "desc",
+        order: 1,
+      },
+      {
+        hero: "Juno",
+        name: "Blink Boosts",
+        affectedAbility: "Glide Boost",
+        description: "desc",
+        order: 0,
+      },
+      {
+        hero: "Ashe",
+        name: "Deadeye",
+        affectedAbility: "Viper",
+        description: "boom",
+        order: 2,
+      },
+    ];
+
+    const data = readLocalData();
+    expect(data.tabs.powers.Juno).toHaveLength(2);
+    expect(data.tabs.powers.Juno[0].name).toBe("Blink Boosts");
+    expect(data.tabs.powers.Juno[1].name).toBe("Torpedo Glide");
+    expect(data.tabs.powers.Ashe[0].affectedAbility).toBe("Viper");
   });
 });

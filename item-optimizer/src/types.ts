@@ -1,13 +1,13 @@
-import type { Item } from "wiki-data-reader";
+import type { HeroPower, Item } from "wiki-data-reader";
 
-export type { Attribute, EditorOverride, Item, ItemOverride, ItemRecord, ItemRarity, ItemTab } from "wiki-data-reader";
+export type { Attribute, EditorOverride, HeroPower, Item, ItemOverride, ItemRecord, ItemRarity, ItemTab } from "wiki-data-reader";
 
 export interface RootData {
   tabs: {
     weapon: Rarity;
     ability: Rarity;
     survival: Rarity;
-    powers: Record<string, unknown>;
+    powers: Record<string, HeroPower[]>;
   };
 }
 

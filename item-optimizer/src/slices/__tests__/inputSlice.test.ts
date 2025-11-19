@@ -1,5 +1,7 @@
 import reducer, {
   setHero,
+  toggleHeroPower,
+  clearHeroPowers,
   addAvoid,
   removeAvoid,
   toggleAvoidEnabled,
@@ -23,8 +25,27 @@ import reducer, {
 const initialState = reducer(undefined, { type: "init" } as any);
 
 test("setHero updates hero field", () => {
-  const state = reducer(initialState, setHero("Reaper"));
+  const baseState = reducer(initialState, toggleHeroPower("Ready"));
+  const state = reducer(baseState, setHero("Reaper"));
   expect(state.hero).toBe("Reaper");
+  expect(state.heroPowers).toHaveLength(0);
+});
+
+test("toggleHeroPower enforces max selection", () => {
+  let state = reducer(initialState, toggleHeroPower("One"));
+  state = reducer(state, toggleHeroPower("Two"));
+  state = reducer(state, toggleHeroPower("Three"));
+  state = reducer(state, toggleHeroPower("Four"));
+  state = reducer(state, toggleHeroPower("Five"));
+  expect(state.heroPowers).toEqual(["One", "Two", "Three", "Four"]);
+  state = reducer(state, toggleHeroPower("Two"));
+  expect(state.heroPowers).toEqual(["One", "Three", "Four"]);
+});
+
+test("clearHeroPowers resets selection", () => {
+  const baseState = reducer(initialState, toggleHeroPower("One"));
+  const state = reducer(baseState, clearHeroPowers());
+  expect(state.heroPowers).toHaveLength(0);
 });
 
 test("addAvoid and removeAvoid modify avoid list", () => {
@@ -104,4 +125,15 @@ test("importState replaces entire state", () => {
   const state = reducer(initialState, importState(newState));
   expect(state.hero).toBe("Tracer");
   expect(state.cash).toBe(5000);
+});
+
+test("importState supports legacy heroPower field", () => {
+  const payload = {
+    ...initialState,
+    hero: "Tracer",
+    heroPowers: [],
+    heroPower: { hero: "Tracer", name: "Blink Boosts" },
+  } as any;
+  const state = reducer(initialState, importState(payload));
+  expect(state.heroPowers).toEqual(["Blink Boosts"]);
 });

@@ -31,3 +31,10 @@ export function sanitizeImageUrl(url: string | undefined) {
     return url;
   }
 }
+
+export function resolveIconUrl(value: string | undefined, images?: ReadonlyMap<string, string>) {
+  if (!value || !images) return undefined;
+  const key = imageKey(value);
+  if (!key) return undefined;
+  return images.get(key);
+}

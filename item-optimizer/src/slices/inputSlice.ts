@@ -4,6 +4,7 @@ import type { WeightRow, MinAttrGroup } from "../types";
 
 export interface InputState {
   hero: string;
+  heroPowers: string[];
   cash: number;
   equipped: (string | "")[];
   equippedEnabled: boolean;
@@ -20,6 +21,7 @@ export interface InputState {
 
 const initialState: InputState = {
   hero: "Ashe",
+  heroPowers: [],
   cash: 11000,
   equipped: Array(2).fill(""),
   equippedEnabled: false,
@@ -39,7 +41,21 @@ const inputSlice = createSlice({
   initialState,
   reducers: {
     setHero(state, action: PayloadAction<string>) {
-      state.hero = action.payload;
+      const nextHero = action.payload;
+      state.hero = nextHero;
+      state.heroPowers = [];
+    },
+    toggleHeroPower(state, action: PayloadAction<string>) {
+      const name = action.payload;
+      const index = state.heroPowers.indexOf(name);
+      if (index >= 0) {
+        state.heroPowers.splice(index, 1);
+      } else if (state.heroPowers.length < 4) {
+        state.heroPowers.push(name);
+      }
+    },
+    clearHeroPowers(state) {
+      state.heroPowers = [];
     },
     setCash(state, action: PayloadAction<number>) {
       state.cash = action.payload;
@@ -123,8 +139,15 @@ const inputSlice = createSlice({
       const group = state.minAttrGroups[action.payload.index];
       group.attrs = group.attrs.filter((a) => a !== action.payload.attr);
     },
-    importState(_, action: PayloadAction<InputState>) {
-      return action.payload;
+    importState(_, action: PayloadAction<InputState & { heroPower?: { hero: string; name: string } | null }>) {
+      const next: InputState & { heroPower?: { hero: string; name: string } | null } = { ...action.payload };
+      const normalizedList = Array.isArray(next.heroPowers) ? next.heroPowers.filter((name): name is string => typeof name === "string") : [];
+      if (!normalizedList.length && next.heroPower && next.heroPower.hero === next.hero) {
+        normalizedList.push(next.heroPower.name);
+      }
+      next.heroPowers = normalizedList.slice(0, 4);
+      delete next.heroPower;
+      return next;
     },
     bumpOverrideVersion(state) {
       state.overrideVersion += 1;
@@ -157,6 +180,8 @@ export const {
   toggleUseOverrides,
   bumpOverrideVersion,
   importState,
+  toggleHeroPower,
+  clearHeroPowers,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 
-import type { Item } from "../types";
+import type { HeroPower, Item } from "../types";
 import { useAppSelector } from "../hooks";
 import JunoTorpedoCalculator from "./JunoTorpedoCalculator";
 import StandardBreakPointCalculator from "./StandardBreakPointCalculator";
+import HeroPowerGrid from "./input_view/HeroPowerGrid";
 
 type Props = {
   items: Item[];
+  powersByHero: Record<string, HeroPower[]>;
 };
 
-export default function BreakPointCalculator({ items }: Props) {
+export default function BreakPointCalculator({ items, powersByHero }: Props) {
   const hero = useAppSelector((state) => state.input.present.hero);
   const [mode, setMode] = useState<"standard" | "juno">(hero === "Juno" ? "juno" : "standard");
   const previousHero = useRef(hero);
@@ -56,6 +58,7 @@ export default function BreakPointCalculator({ items }: Props) {
           </div>
         )}
       </div>
+      <HeroPowerGrid powersByHero={powersByHero} />
       {showToggle && mode === "juno" ? (
         <JunoTorpedoCalculator items={items} />
       ) : (

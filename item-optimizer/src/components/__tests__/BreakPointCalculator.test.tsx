@@ -22,7 +22,9 @@ function renderWithStore(ui: ReactElement) {
 
 describe("BreakPointCalculator", () => {
   it("shows results after calculation", () => {
-    const { getByText, getAllByRole } = renderWithStore(<BreakPointCalculator items={[]} />);
+    const { getByText, getAllByRole } = renderWithStore(
+      <BreakPointCalculator items={[]} powersByHero={{}} />,
+    );
     fireEvent.click(getByText("Calculate"));
     // there are 21 rows from 100 to 200 step 5
     const rows = getAllByRole("row");
@@ -75,7 +77,7 @@ describe("BreakPointCalculator", () => {
     ];
 
     const { store, findByText, findAllByText } = renderWithStore(
-      <BreakPointCalculator items={items} />,
+      <BreakPointCalculator items={items} powersByHero={{ Juno: [] }} />,
     );
     await act(async () => {
       store.dispatch(setHero("Juno"));

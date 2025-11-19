@@ -31,7 +31,6 @@ export default function InputSection({ heroes, attrTypes, filteredItems, onSubmi
           <HeroSelect heroes={heroes} />
           <CashInput />
         </div>
-        <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <EquippedSection items={filteredItems} />
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <AvoidSection items={filteredItems} />

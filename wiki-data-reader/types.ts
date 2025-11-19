@@ -32,3 +32,12 @@ export interface ItemRecord {
   item: Item;
   override?: ItemOverride;
 }
+
+export interface HeroPower {
+  hero: string;
+  name: string;
+  affectedAbility?: string;
+  description: string;
+  iconUrl?: string;
+  order?: number;
+}

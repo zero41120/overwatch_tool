@@ -1,6 +1,6 @@
 # Active Context
 
-- No open tasks; current baseline includes Skyline Nanites 1.2x handling and tuned Juno torpedo UI/cards.
+- No open tasks; current baseline includes Skyline Nanites 1.2x handling, tuned Juno torpedo UI/cards, and the hero power selector (4-pick limit, folding descriptions) that lives on the breakpoint/Juno card using wiki `heroPowers` data but still excluded from calculations.
 - Wiki data is now bundled inside the `wiki-data-reader` workspace (Vite library build) and `itemDataProvider` consumes the exported helpers instead of running `import.meta.glob` itself.
 - Snapshot + parser workflow lives under `wiki-data-reader/scripts`: run `npm run refresh-snapshots -w wiki-data-reader` to capture wiki raw pages (stadium + per-hero) and `npm run update-items -w wiki-data-reader` to preview/apply regenerated `ItemRecord` modules.
 - Item modules now embed override metadata (disabled, editor overrides) directly; ItemGallery/local overrides consume the merged structure with resilient localStorage fallbacks.

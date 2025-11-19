@@ -1,4 +1,5 @@
-import type { ItemOverride, ItemRecord } from "./types";
+import heroPowers from "./heroPowers";
+import type { HeroPower, ItemOverride, ItemRecord } from "./types";
 
 type ItemModule = {
   default: ItemRecord;
@@ -14,6 +15,10 @@ const itemRecords: ItemRecord[] = Object.values(itemModules)
 
 export function getItemRecords(): ItemRecord[] {
   return itemRecords;
+}
+
+export function getHeroPowers(): HeroPower[] {
+  return heroPowers;
 }
 
 export function getOverrides(): Record<string, ItemOverride> {

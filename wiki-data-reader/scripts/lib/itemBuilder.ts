@@ -1,7 +1,7 @@
 import type { Attribute, Item, ItemRecord } from "../../types";
 import { formatDescription, normalizeBuffName, normalizeBuffValue, normalizeItemName, slugifyName } from "./textUtils.ts";
 import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser.ts";
-import { imageKey } from "./imageUtils.ts";
+import { resolveIconUrl } from "./imageUtils.ts";
 
 export interface HeroSnapshot {
   name: string;
@@ -158,13 +158,6 @@ export function mergeExistingData(records: ItemRecord[], existing: Map<string, I
     }
     return merged;
   });
-}
-
-function resolveIconUrl(value: string | undefined, images?: ImageLookup) {
-  if (!value || !images) return undefined;
-  const key = imageKey(value);
-  if (!key) return undefined;
-  return images.get(key);
 }
 
 export function recordDiffers(a: ItemRecord | undefined, b: ItemRecord | undefined) {
