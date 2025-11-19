@@ -39,5 +39,4 @@ export interface HeroPower {
   affectedAbility?: string;
   description: string;
   iconUrl?: string;
-  order?: number;
 }

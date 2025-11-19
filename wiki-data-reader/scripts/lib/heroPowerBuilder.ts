@@ -1,8 +1,8 @@
 import type { HeroPower } from "../../types";
 import { resolveIconUrl } from "./imageUtils.ts";
+import type { HeroSnapshot } from "./itemBuilder.ts";
 import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser.ts";
 import { formatDescription } from "./textUtils.ts";
-import type { HeroSnapshot } from "./itemBuilder.ts";
 
 type ImageLookup = ReadonlyMap<string, string> | undefined;
 
@@ -33,7 +33,6 @@ function toHeroPower(
     hero: heroName,
     name,
     description,
-    order,
   };
 
   const affected = fields.affected_ability?.trim();
