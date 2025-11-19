@@ -30,7 +30,7 @@ const record: ItemRecord = {
         attributes: [
           {
             type: "WP",
-            value: "30%"
+            value: "38%"
           },
           {
             type: "Editor's Note",
