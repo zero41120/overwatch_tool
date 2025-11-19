@@ -51,3 +51,6 @@
 2025-11-08  add wiki snapshot refresh + parser/update scripts with hero ingestion  wiki-data-reader/scripts wiki-data-reader/snapshots
 2025-11-09  fetch remote item icon URLs from wiki snapshots and remove local PNGs  wiki-data-reader/scripts item-optimizer/src
 2025-11-18  add stadium power data plus 4-slot selector in breakpoint card (folding details)  wiki-data-reader/heroPowers.ts item-optimizer/src/components/input_view/HeroPowerGrid.tsx item-optimizer/src/components/BreakPointCalculator.tsx
+2025-11-19  add hero portrait metadata pipeline and show icons in hero selector  wiki-data-reader item-optimizer/src/components/input_view/HeroSelect.tsx
+2025-11-20  limit hero selector to stadium heroes by requiring items or powers  wiki-data-reader item-optimizer/src/Optimizer.tsx
+2025-11-20  add recommendations tab with role-based hero pickers and synergy/counter suggestions  item-optimizer/src/components/results_view wiki-data-reader

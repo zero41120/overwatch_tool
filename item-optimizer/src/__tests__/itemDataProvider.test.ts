@@ -1,13 +1,15 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { HeroPower, ItemRecord } from "../types";
+import type { HeroMetadata, HeroPower, ItemRecord } from "../types";
 import readLocalData, { readOverrideData } from "../itemDataProvider";
 
 let mockRecords: ItemRecord[] = [];
 let mockPowers: HeroPower[] = [];
+let mockHeroes: HeroMetadata[] = [];
 
 vi.mock("wiki-data-reader", () => ({
   getItemRecords: () => mockRecords,
   getHeroPowers: () => mockPowers,
+  getHeroMetadata: () => mockHeroes,
 }));
 
 describe("itemDataProvider", () => {
@@ -33,6 +35,7 @@ describe("itemDataProvider", () => {
       },
     ];
     mockPowers = [];
+    mockHeroes = [];
   });
 
   it("groups items by tab and rarity", () => {
@@ -135,5 +138,11 @@ describe("itemDataProvider", () => {
     expect(data.tabs.powers.Juno[0].name).toBe("Blink Boosts");
     expect(data.tabs.powers.Juno[1].name).toBe("Torpedo Glide");
     expect(data.tabs.powers.Ashe[0].affectedAbility).toBe("Viper");
+  });
+
+  it("returns hero metadata list", () => {
+    mockHeroes = [{ name: "Juno", slug: "juno", iconUrl: "https://cdn/icons/juno.png" }];
+    const data = readLocalData();
+    expect(data.heroes).toEqual(mockHeroes);
   });
 });

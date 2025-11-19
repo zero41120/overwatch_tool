@@ -3,6 +3,7 @@ import https from "node:https";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { imageKey, normalizeImageFilename } from "./lib/imageUtils.ts";
+import { extractHeroPortraitFilename } from "./lib/heroMetadataBuilder.ts";
 import { extractAbilityTemplates } from "./lib/templateParser.ts";
 
 const BASE_URL = "https://overwatch.fandom.com";
@@ -129,6 +130,18 @@ function collectImageRequests(raw: string, requests: Map<string, ImageRequest>) 
       filename,
       title,
     });
+  }
+
+  const portrait = extractHeroPortraitFilename(raw);
+  if (portrait) {
+    const imageKeyValue = imageKey(portrait);
+    if (imageKeyValue && !requests.has(imageKeyValue)) {
+      requests.set(imageKeyValue, {
+        key: imageKeyValue,
+        filename: portrait,
+        title: `File:${portrait}`,
+      });
+    }
   }
 }
 

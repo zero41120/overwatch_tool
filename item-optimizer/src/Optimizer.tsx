@@ -7,7 +7,7 @@ import Toolbar from "./components/Toolbar";
 import readLocalData, { readOverrideData } from "./itemDataProvider";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
-import type { HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
+import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import { sortAttributes } from "./utils/attributeUtils";
 import { loadLocalOverrides } from "./utils/localOverrides";
@@ -25,6 +25,8 @@ export default function Optimizer() {
   const [data, setData] = useState<Item[]>([]);
   const [powersByHero, setPowersByHero] = useState<Record<string, HeroPower[]>>({});
   const [heroes, setHeroes] = useState<string[]>([]);
+  const [heroMetadata, setHeroMetadata] = useState<HeroMetadata[]>([]);
+  const [heroIcons, setHeroIcons] = useState<Record<string, string>>({});
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
 
   const dispatch = useAppDispatch();
@@ -48,14 +50,19 @@ export default function Optimizer() {
     const localOverrides = loadLocalOverrides();
     const add = (tab: ItemTab, rarity: ItemRarity, arr: Item[]) => {
       arr.forEach((it) => {
-        const override = useOverrides ? localOverrides[it.name] || baseOverrides[it.name] : undefined;
+        const baseOverride = baseOverrides[it.name];
+        const localOverride = localOverrides[it.name];
+        const override = useOverrides ? localOverride || baseOverride : undefined;
         if (override?.disabled) return;
         const item = { ...it, tab, rarity };
         if (override) {
           const attrs = resolveOverrideAttributes(override, hero);
           if (attrs) item.attributes = attrs;
-          if (!item.id) item.id = it.name; // Ensure id is set if not present
         }
+        const recommendationMeta = baseOverride;
+        if (recommendationMeta?.synergyHeroes) item.synergyHeroes = recommendationMeta.synergyHeroes;
+        if (recommendationMeta?.counterHeroes) item.counterHeroes = recommendationMeta.counterHeroes;
+        if (!item.id) item.id = it.name; // Ensure id is set if not present
         items.push(item);
       });
     };
@@ -66,6 +73,16 @@ export default function Optimizer() {
       add(tab, "epic", rar.epic);
     });
     setPowersByHero(root.tabs.powers);
+    const icons: Record<string, string> = {};
+    const metadataMap = new Map<string, HeroMetadata>();
+    (root.heroes || []).forEach((meta) => {
+      if (meta.name) {
+        metadataMap.set(meta.name, meta);
+        if (meta.iconUrl) {
+          icons[meta.name] = meta.iconUrl;
+        }
+      }
+    });
     setData(items);
     const heroesSet = new Set<string>();
     const seen = new Map<string, number>();
@@ -78,12 +95,23 @@ export default function Optimizer() {
         if (count === 2) types.add(a.type); // Only add if seen more than once
       });
     });
-    Object.keys(root.tabs.powers).forEach((heroName) => heroesSet.add(heroName));
+    Object.entries(root.tabs.powers).forEach(([heroName, list]) => {
+      if (list.length) heroesSet.add(heroName);
+    });
     types.delete("description");
     types.delete("Editor's Note");
     const sortedTypes = Array.from(types).sort(sortAttributes);
     const heroList = [...Array.from(heroesSet).sort()];
+    const filteredIcons: Record<string, string> = {};
+    const filteredMetadata: HeroMetadata[] = [];
+    heroList.forEach((heroName) => {
+      if (icons[heroName]) filteredIcons[heroName] = icons[heroName];
+      const meta = metadataMap.get(heroName);
+      if (meta) filteredMetadata.push(meta);
+    });
     setHeroes(heroList);
+    setHeroIcons(filteredIcons);
+    setHeroMetadata(filteredMetadata);
     setAttrTypes(sortedTypes);
     dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
   }, [hero, useOverrides, overrideVersion]);
@@ -331,7 +359,14 @@ export default function Optimizer() {
     <div className="p-0 sm:p-0 lg:p-8 space-y-2">
       <Toolbar />
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
-        <InputSection heroes={heroes} attrTypes={attrTypes} filteredItems={filtered} onSubmit={onCalculate} validate={validate} />
+        <InputSection
+          heroes={heroes}
+          heroIcons={heroIcons}
+          attrTypes={attrTypes}
+          filteredItems={filtered}
+          onSubmit={onCalculate}
+          validate={validate}
+        />
         <ResultsSection
           eqItems={eqItems}
           eqCost={eqCost}
@@ -340,6 +375,9 @@ export default function Optimizer() {
           selected={buildIndex}
           results={results}
           onSelect={onSelectBuild}
+          allItems={data}
+          powersByHero={powersByHero}
+          heroMetadata={heroMetadata}
         />
         <BreakPointCalculator items={filtered} powersByHero={powersByHero} />
         <ItemGallery items={filtered} heroes={heroes} attrTypes={attrTypes} />

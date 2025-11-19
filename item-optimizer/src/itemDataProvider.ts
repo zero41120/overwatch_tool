@@ -1,4 +1,4 @@
-import { getHeroPowers, getItemRecords } from "wiki-data-reader";
+import { getHeroMetadata, getHeroPowers, getItemRecords } from "wiki-data-reader";
 import type { HeroPower, Item, ItemOverride, ItemRecord, RootData } from "./types";
 
 function loadItemRecords(): ItemRecord[] {
@@ -57,7 +57,8 @@ export function readLocalData(): RootData {
   });
 
   tabs.powers = powers;
-  return { tabs };
+
+  return { tabs, heroes: getHeroMetadata() };
 }
 
 export function readOverrideData(): Record<string, ItemOverride> {

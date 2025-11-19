@@ -6,6 +6,8 @@ export interface Attribute {
 export type ItemTab = "weapon" | "ability" | "survival";
 export type ItemRarity = "common" | "rare" | "epic";
 
+export type HeroRole = "tank" | "damage" | "support";
+
 export interface Item {
   name: string;
   attributes: Attribute[];
@@ -15,6 +17,8 @@ export interface Item {
   tab: ItemTab;
   rarity: ItemRarity;
   iconUrl?: string;
+  synergyHeroes?: string[];
+  counterHeroes?: string[];
 }
 
 export interface EditorOverride {
@@ -26,6 +30,8 @@ export interface ItemOverride extends Partial<Pick<Item, "id" | "name" | "cost" 
   attributes?: Attribute[];
   disabled?: boolean;
   editor_overrides?: EditorOverride[];
+  synergyHeroes?: string[];
+  counterHeroes?: string[];
 }
 
 export interface ItemRecord {
@@ -39,4 +45,13 @@ export interface HeroPower {
   affectedAbility?: string;
   description: string;
   iconUrl?: string;
+  synergyHeroes?: string[];
+  counterHeroes?: string[];
+}
+
+export interface HeroMetadata {
+  name: string;
+  slug: string;
+  iconUrl?: string;
+  role?: HeroRole;
 }

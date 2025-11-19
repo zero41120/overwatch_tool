@@ -1,5 +1,6 @@
+import heroMetadata from "./heroMetadata";
 import heroPowers from "./heroPowers";
-import type { HeroPower, ItemOverride, ItemRecord } from "./types";
+import type { HeroMetadata, HeroPower, ItemOverride, ItemRecord } from "./types";
 
 type ItemModule = {
   default: ItemRecord;
@@ -19,6 +20,10 @@ export function getItemRecords(): ItemRecord[] {
 
 export function getHeroPowers(): HeroPower[] {
   return heroPowers;
+}
+
+export function getHeroMetadata(): HeroMetadata[] {
+  return heroMetadata;
 }
 
 export function getOverrides(): Record<string, ItemOverride> {

@@ -9,6 +9,7 @@ import { ALL_HEROES, NO_HERO } from "../../types";
 import InputSection from "../input_view/InputSection";
 
 const heroes = ["Tracer", "Mercy"];
+const heroIcons: Record<string, string> = {};
 const attrTypes = ["AP", "WP"];
 const items: Item[] = [];
 
@@ -20,6 +21,7 @@ describe("InputSection", () => {
       <Provider store={store}>
         <InputSection
           heroes={heroes}
+          heroIcons={heroIcons}
           attrTypes={attrTypes}
           filteredItems={items}
           onSubmit={onSubmit}
@@ -39,6 +41,7 @@ describe("InputSection", () => {
       <Provider store={store}>
         <InputSection
           heroes={heroes}
+          heroIcons={heroIcons}
           attrTypes={attrTypes}
           filteredItems={items}
           onSubmit={onSubmit}
@@ -56,6 +59,7 @@ describe("InputSection", () => {
       <Provider store={store}>
         <InputSection
           heroes={heroes}
+          heroIcons={heroIcons}
           attrTypes={attrTypes}
           filteredItems={items}
           onSubmit={onSubmit}
@@ -73,6 +77,7 @@ describe("InputSection", () => {
       <Provider store={store}>
         <InputSection
           heroes={heroes}
+          heroIcons={heroIcons}
           attrTypes={attrTypes}
           filteredItems={items}
           onSubmit={onSubmit}
@@ -85,10 +90,11 @@ describe("InputSection", () => {
   });
 
   it("shows special hero options", () => {
-    const { getByText } = render(
+    const { getByRole, getByText } = render(
       <Provider store={store}>
         <InputSection
           heroes={heroes}
+          heroIcons={heroIcons}
           attrTypes={attrTypes}
           filteredItems={items}
           onSubmit={() => {}}
@@ -96,8 +102,7 @@ describe("InputSection", () => {
         />
       </Provider>,
     );
-    const trigger = getByText("Hero").parentElement?.querySelector('button[aria-label="Menu"]')!;
-    fireEvent.click(trigger);
+    fireEvent.click(getByRole("button", { name: /Hero|Ashe/i }));
     expect(getByText(NO_HERO)).toBeInTheDocument();
     expect(getByText(ALL_HEROES)).toBeInTheDocument();
   });

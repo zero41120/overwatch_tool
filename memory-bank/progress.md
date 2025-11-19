@@ -23,3 +23,6 @@
 - Promoted `wiki-data-reader` to a standalone workspace package built with Vite/TypeScript so it exports item records/overrides; `itemDataProvider` now imports those helpers and carries dedicated unit tests for the integration.
 - Added TypeScript-powered snapshot + parser tooling (`refresh-snapshots`, `update-items`) that captures Stadium + hero wiki raw pages, diff existing modules, and preserves overrides/IDs with Vitest coverage on the text normalization helpers.
 - Stadium powers are now parsed into bundled `heroPowers.ts`, and the optimizer renders a 4-column selector on the breakpoint/Juno card with fold-out descriptions and up to four stored picks (Redux-backed but still excluded from calculations).
+- Hero portraits are extracted from hero snapshots, bundled into `heroMetadata.ts`, and the Optimizer's hero selector now shows the fandom-hosted portrait icon for each hero.
+- Hero metadata output is filtered to heroes that have Stadium items or powers so the selector only lists playable Stadium heroes.
+- Template-driven hero roles are parsed into `heroMetadata`, and the results panel now features a tabbed layout with a recommendation view that lets editors pick 1 Tank/2 Damage/2 Support allies plus enemies, surfacing items and powers tagged with `synergyHeroes`/`counterHeroes` arrays maintained via wiki-data overrides.

@@ -33,6 +33,7 @@ function toHeroPower(
     hero: heroName,
     name,
     description,
+    order,
   };
 
   const affected = fields.affected_ability?.trim();

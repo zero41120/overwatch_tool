@@ -14,9 +14,11 @@ import {
   type HeroSnapshot,
 } from "./lib/itemBuilder.ts";
 import { buildHeroPowers } from "./lib/heroPowerBuilder.ts";
-import type { HeroPower } from "../types";
+import { buildHeroMetadata } from "./lib/heroMetadataBuilder.ts";
+import type { HeroMetadata, HeroPower } from "../types";
 import { slugifyName } from "./lib/textUtils.ts";
 import { imageKey, sanitizeImageUrl } from "./lib/imageUtils.ts";
+import { parseHeroRoles } from "./lib/heroRoleParser.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -25,6 +27,7 @@ const HERO_DIR = path.join(SNAPSHOT_DIR, "heroes");
 const IMAGE_DIR = path.join(SNAPSHOT_DIR, "images");
 const ITEMS_DIR = path.join(ROOT_DIR, "items");
 const POWERS_FILE = path.join(ROOT_DIR, "heroPowers.ts");
+const HEROES_FILE = path.join(ROOT_DIR, "heroMetadata.ts");
 
 type HeroIndexEntry = {
   name: string;
@@ -64,6 +67,19 @@ async function loadExistingRecords() {
     }
   }
   return records;
+}
+
+async function loadExistingHeroPowersData(): Promise<HeroPower[]> {
+  try {
+    const modulePath = pathToFileURL(POWERS_FILE).href + `?v=${Date.now()}`;
+    const mod = await import(modulePath);
+    if (Array.isArray(mod.default)) {
+      return mod.default as HeroPower[];
+    }
+  } catch {
+    // ignore
+  }
+  return [];
 }
 
 async function loadImageSnapshots() {
@@ -164,6 +180,15 @@ export default heroPowers;
 `;
 }
 
+function heroMetadataSource(data: HeroMetadata[]) {
+  return `import type { HeroMetadata } from "./types";
+
+const heroMetadata: HeroMetadata[] = ${JSON.stringify(data, null, 2)};
+
+export default heroMetadata;
+`;
+}
+
 async function writeHeroPowers(powers: HeroPower[], existing?: string, precomputedSource?: string) {
   const source = precomputedSource ?? heroPowersSource(powers);
 
@@ -177,17 +202,65 @@ async function writeHeroPowers(powers: HeroPower[], existing?: string, precomput
   console.log(`[hero-powers] wrote ${powers.length} powers`);
 }
 
+async function writeHeroMetadata(data: HeroMetadata[], existing?: string, precomputedSource?: string) {
+  const source = precomputedSource ?? heroMetadataSource(data);
+  const previous = existing ?? (await readFile(HEROES_FILE, "utf-8").catch(() => ""));
+  if (previous === source) {
+    console.log("[hero-metadata] no changes detected");
+    return;
+  }
+  await writeFile(HEROES_FILE, source, "utf-8");
+  console.log(`[hero-metadata] wrote ${data.length} hero entries`);
+}
+
 async function main() {
   console.log("[update-items] starting");
   const forceWrite = process.argv.includes("--yes") || process.argv.includes("-y");
   const { stadiumRaw, heroes } = await loadSnapshots();
+  const heroTemplateRaw = await readFile(path.join(SNAPSHOT_DIR, "template-heroes.raw"), "utf-8").catch(() => "");
+  const heroRoles = parseHeroRoles(heroTemplateRaw);
   const imageLookup = await loadImageSnapshots();
   const generalRecords = buildGeneralItemRecords(stadiumRaw, imageLookup);
-  const heroRecords = heroes.flatMap((hero) => buildHeroItemRecords(hero, imageLookup));
-  const heroPowers = heroes.flatMap((hero) => buildHeroPowers(hero, imageLookup));
+  const heroRecords: ItemRecord[] = [];
+  const heroPowers: HeroPower[] = [];
+  const heroesWithData = new Set<string>();
+  const existingHeroPowersData = await loadExistingHeroPowersData();
+  const existingHeroPowerMap = new Map(existingHeroPowersData.map((hp) => [`${hp.hero}::${hp.name}`, hp]));
+
+  for (const hero of heroes) {
+    const records = buildHeroItemRecords(hero, imageLookup);
+    if (records.length) {
+      heroesWithData.add(hero.name);
+    }
+    heroRecords.push(...records);
+
+    const powers = buildHeroPowers(hero, imageLookup);
+    if (powers.length) {
+      heroesWithData.add(hero.name);
+    }
+    powers.forEach((power) => {
+      const key = `${power.hero}::${power.name}`;
+      const previous = existingHeroPowerMap.get(key);
+      if (previous) {
+        if (!power.synergyHeroes && previous.synergyHeroes) {
+          power.synergyHeroes = previous.synergyHeroes;
+        }
+        if (!power.counterHeroes && previous.counterHeroes) {
+          power.counterHeroes = previous.counterHeroes;
+        }
+      }
+      heroPowers.push(power);
+    });
+  }
+
+  const allMetadata = heroes.map((hero) => buildHeroMetadata(hero, imageLookup, heroRoles.get(hero.name)));
+  const heroMetadata = allMetadata.filter((meta) => heroesWithData.has(meta.name));
   const heroPowerSource = heroPowersSource(heroPowers);
   const existingHeroPowers = await readFile(POWERS_FILE, "utf-8").catch(() => "");
   const heroPowerChanged = existingHeroPowers !== heroPowerSource;
+  const heroMetadataSourceText = heroMetadataSource(heroMetadata);
+  const existingHeroMetadata = await readFile(HEROES_FILE, "utf-8").catch(() => "");
+  const heroMetadataChanged = existingHeroMetadata !== heroMetadataSourceText;
   const generatedRecords = [...generalRecords, ...heroRecords];
 
   const existingRecords = await loadExistingRecords();
@@ -195,7 +268,7 @@ async function main() {
   const mergedRecords = mergeExistingData(generatedRecords, existingMap);
 
   const { added, updated, removed } = summarizeChanges(mergedRecords, existingRecords);
-  if (!added.length && !updated.length && !removed.length && !heroPowerChanged) {
+  if (!added.length && !updated.length && !removed.length && !heroPowerChanged && !heroMetadataChanged) {
     console.log("No changes detected.");
     return;
   }
@@ -219,6 +292,9 @@ async function main() {
     const heroCount = new Set(heroPowers.map((p) => p.hero)).size;
     console.log(`[hero-powers] Ready to write ${heroPowers.length} powers across ${heroCount} heroes.`);
   }
+  if (heroMetadataChanged) {
+    console.log(`[hero-metadata] Ready to write portraits for ${heroMetadata.length} heroes.`);
+  }
 
   const shouldWrite = await confirmWrite(forceWrite);
   if (!shouldWrite) {
@@ -229,6 +305,7 @@ async function main() {
   await writeRecords(mergedRecords, removed);
   console.log("Item files updated.");
   await writeHeroPowers(heroPowers, existingHeroPowers, heroPowerSource);
+  await writeHeroMetadata(heroMetadata, existingHeroMetadata, heroMetadataSourceText);
 }
 
 main().catch((error) => {
