@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildGeneralItemRecords, buildHeroItemRecords, type HeroSnapshot } from "../lib/itemBuilder.ts";
+import { buildGeneralItemRecords, buildHeroItemRecords, mergeExistingData, type HeroSnapshot } from "../lib/itemBuilder.ts";
+import type { ItemRecord } from "../../types";
 
 const SAMPLE_TEMPLATE = `
 {{Ability details
@@ -33,5 +34,40 @@ describe("itemBuilder icon url resolution", () => {
     expect(records).toHaveLength(1);
     expect(records[0].item.character).toBe("Juno");
     expect(records[0].item.iconUrl).toBe("https://cdn.test/vantage.png");
+  });
+});
+
+describe("mergeExistingData", () => {
+  it("carries forward manual hero recommendation metadata", () => {
+    const generated: ItemRecord[] = [
+      {
+        item: {
+          name: "VANTAGE SHOT",
+          attributes: [],
+          cost: 4000,
+          tab: "weapon",
+          rarity: "rare",
+        },
+      },
+    ];
+    const existingRecord: ItemRecord = {
+      item: {
+        name: "VANTAGE SHOT",
+        attributes: [],
+        cost: 4000,
+        tab: "weapon",
+        rarity: "rare",
+        id: "i_test",
+        synergyHeroes: ["Zarya"],
+        counterHeroes: ["Widowmaker"],
+        antiSynergyHeroes: ["Junker Queen"],
+      },
+      override: { name: "VANTAGE SHOT" },
+    };
+    const merged = mergeExistingData(generated, new Map([[existingRecord.item.name, existingRecord]]));
+    expect(merged[0].item.id).toBe("i_test");
+    expect(merged[0].item.synergyHeroes).toEqual(["Zarya"]);
+    expect(merged[0].item.counterHeroes).toEqual(["Widowmaker"]);
+    expect(merged[0].item.antiSynergyHeroes).toEqual(["Junker Queen"]);
   });
 });

@@ -19,6 +19,7 @@ export interface Item {
   iconUrl?: string;
   synergyHeroes?: string[];
   counterHeroes?: string[];
+  antiSynergyHeroes?: string[];
 }
 
 export interface EditorOverride {
@@ -32,6 +33,7 @@ export interface ItemOverride extends Partial<Pick<Item, "id" | "name" | "cost" 
   editor_overrides?: EditorOverride[];
   synergyHeroes?: string[];
   counterHeroes?: string[];
+  antiSynergyHeroes?: string[];
 }
 
 export interface ItemRecord {
@@ -47,6 +49,7 @@ export interface HeroPower {
   iconUrl?: string;
   synergyHeroes?: string[];
   counterHeroes?: string[];
+  antiSynergyHeroes?: string[];
 }
 
 export interface HeroMetadata {

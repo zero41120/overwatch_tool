@@ -25,6 +25,11 @@ const record: ItemRecord = {
   },
   override: {
     name: "CYBERVENOM",
+    counterHeroes: [
+      "Junker Queen",
+      "Mercy",
+      "Moira"
+    ],
     attributes: [
       {
         type: "AP",

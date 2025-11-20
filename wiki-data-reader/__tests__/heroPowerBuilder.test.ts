@@ -38,6 +38,5 @@ describe("buildHeroPowers", () => {
     expect(power.affectedAbility).toBe("Glide Boost");
     expect(power.description).toContain("[Glide Boost]");
     expect(power.description).toContain("Has a shorter duration.");
-    expect(power.order).toBe(0);
   });
 });

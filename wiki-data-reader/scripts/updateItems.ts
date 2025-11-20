@@ -1,4 +1,4 @@
-import { readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import readline from "node:readline/promises";
@@ -19,6 +19,18 @@ import type { HeroMetadata, HeroPower } from "../types";
 import { slugifyName } from "./lib/textUtils.ts";
 import { imageKey, sanitizeImageUrl } from "./lib/imageUtils.ts";
 import { parseHeroRoles } from "./lib/heroRoleParser.ts";
+import heroPowerOverrides from "../heroPowerOverrides.ts";
+import {
+  applyHeroPowerManualFields,
+  buildHeroPowerOverrideMap,
+  heroPowerKey,
+} from "./lib/heroPowerOverrideUtils.ts";
+import {
+  groupHeroPowerEntries,
+  heroPowerModuleSource,
+  heroPowersAggregatorSource,
+  type HeroPowerEntry,
+} from "./lib/heroPowerOutput.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -27,6 +39,7 @@ const HERO_DIR = path.join(SNAPSHOT_DIR, "heroes");
 const IMAGE_DIR = path.join(SNAPSHOT_DIR, "images");
 const ITEMS_DIR = path.join(ROOT_DIR, "items");
 const POWERS_FILE = path.join(ROOT_DIR, "heroPowers.ts");
+const HERO_POWERS_DIR = path.join(ROOT_DIR, "heroPowers");
 const HEROES_FILE = path.join(ROOT_DIR, "heroMetadata.ts");
 
 type HeroIndexEntry = {
@@ -171,15 +184,6 @@ async function writeRecords(records: ItemRecord[], removed: ItemRecord[]) {
   }
 }
 
-function heroPowersSource(powers: HeroPower[]) {
-  return `import type { HeroPower } from "./types";
-
-const heroPowers: HeroPower[] = ${JSON.stringify(powers, null, 2)};
-
-export default heroPowers;
-`;
-}
-
 function heroMetadataSource(data: HeroMetadata[]) {
   return `import type { HeroMetadata } from "./types";
 
@@ -189,17 +193,43 @@ export default heroMetadata;
 `;
 }
 
-async function writeHeroPowers(powers: HeroPower[], existing?: string, precomputedSource?: string) {
-  const source = precomputedSource ?? heroPowersSource(powers);
+async function writeHeroPowers(entries: HeroPowerEntry[], aggregatorSource: string, existing?: string) {
+  await mkdir(HERO_POWERS_DIR, { recursive: true }).catch(() => {});
+  let currentFiles: string[] = [];
+  try {
+    currentFiles = await readdir(HERO_POWERS_DIR);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+      throw error;
+    }
+  }
+  const remaining = new Set(currentFiles.filter((file) => file.endsWith(".ts")));
+
+  for (const entry of entries) {
+    const destination = path.join(HERO_POWERS_DIR, `${entry.slug}.ts`);
+    const source = heroPowerModuleSource(entry);
+    const previous = await readFile(destination, "utf-8").catch(() => "");
+    if (previous !== source) {
+      await writeFile(destination, source, "utf-8");
+      console.log(`[hero-powers] wrote ${entry.powers.length} powers for ${entry.hero}`);
+    }
+    remaining.delete(`${entry.slug}.ts`);
+  }
+
+  for (const file of remaining) {
+    const destination = path.join(HERO_POWERS_DIR, file);
+    await rm(destination).catch(() => {});
+    console.log(`[hero-powers] removed stale module ${file}`);
+  }
 
   const previous = existing ?? (await readFile(POWERS_FILE, "utf-8").catch(() => ""));
-  if (previous === source) {
-    console.log("[hero-powers] no changes detected");
+  if (previous === aggregatorSource) {
+    console.log("[hero-powers] aggregator unchanged");
     return;
   }
 
-  await writeFile(POWERS_FILE, source, "utf-8");
-  console.log(`[hero-powers] wrote ${powers.length} powers`);
+  await writeFile(POWERS_FILE, aggregatorSource, "utf-8");
+  console.log(`[hero-powers] wrote aggregator for ${entries.length} heroes`);
 }
 
 async function writeHeroMetadata(data: HeroMetadata[], existing?: string, precomputedSource?: string) {
@@ -225,7 +255,10 @@ async function main() {
   const heroPowers: HeroPower[] = [];
   const heroesWithData = new Set<string>();
   const existingHeroPowersData = await loadExistingHeroPowersData();
-  const existingHeroPowerMap = new Map(existingHeroPowersData.map((hp) => [`${hp.hero}::${hp.name}`, hp]));
+  const existingHeroPowerMap = new Map(
+    existingHeroPowersData.map((hp) => [heroPowerKey(hp.hero, hp.name), hp]),
+  );
+  const manualHeroPowerOverrides = buildHeroPowerOverrideMap(heroPowerOverrides);
 
   for (const hero of heroes) {
     const records = buildHeroItemRecords(hero, imageLookup);
@@ -239,15 +272,11 @@ async function main() {
       heroesWithData.add(hero.name);
     }
     powers.forEach((power) => {
-      const key = `${power.hero}::${power.name}`;
+      const key = heroPowerKey(power.hero, power.name);
+      applyHeroPowerManualFields(power, manualHeroPowerOverrides.get(key));
       const previous = existingHeroPowerMap.get(key);
       if (previous) {
-        if (!power.synergyHeroes && previous.synergyHeroes) {
-          power.synergyHeroes = previous.synergyHeroes;
-        }
-        if (!power.counterHeroes && previous.counterHeroes) {
-          power.counterHeroes = previous.counterHeroes;
-        }
+        applyHeroPowerManualFields(power, previous, { force: false });
       }
       heroPowers.push(power);
     });
@@ -255,9 +284,12 @@ async function main() {
 
   const allMetadata = heroes.map((hero) => buildHeroMetadata(hero, imageLookup, heroRoles.get(hero.name)));
   const heroMetadata = allMetadata.filter((meta) => heroesWithData.has(meta.name));
-  const heroPowerSource = heroPowersSource(heroPowers);
+  const heroPowerEntries = groupHeroPowerEntries(heroPowers);
+  const heroPowerAggregatorSource = heroPowersAggregatorSource(heroPowerEntries);
   const existingHeroPowers = await readFile(POWERS_FILE, "utf-8").catch(() => "");
-  const heroPowerChanged = existingHeroPowers !== heroPowerSource;
+  const heroPowerChanged =
+    JSON.stringify(existingHeroPowersData) !== JSON.stringify(heroPowers) ||
+    existingHeroPowers !== heroPowerAggregatorSource;
   const heroMetadataSourceText = heroMetadataSource(heroMetadata);
   const existingHeroMetadata = await readFile(HEROES_FILE, "utf-8").catch(() => "");
   const heroMetadataChanged = existingHeroMetadata !== heroMetadataSourceText;
@@ -304,7 +336,7 @@ async function main() {
 
   await writeRecords(mergedRecords, removed);
   console.log("Item files updated.");
-  await writeHeroPowers(heroPowers, existingHeroPowers, heroPowerSource);
+  await writeHeroPowers(heroPowerEntries, heroPowerAggregatorSource, existingHeroPowers);
   await writeHeroMetadata(heroMetadata, existingHeroMetadata, heroMetadataSourceText);
 }
 

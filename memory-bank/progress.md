@@ -26,3 +26,7 @@
 - Hero portraits are extracted from hero snapshots, bundled into `heroMetadata.ts`, and the Optimizer's hero selector now shows the fandom-hosted portrait icon for each hero.
 - Hero metadata output is filtered to heroes that have Stadium items or powers so the selector only lists playable Stadium heroes.
 - Template-driven hero roles are parsed into `heroMetadata`, and the results panel now features a tabbed layout with a recommendation view that lets editors pick 1 Tank/2 Damage/2 Support allies plus enemies, surfacing items and powers tagged with `synergyHeroes`/`counterHeroes` arrays maintained via wiki-data overrides.
+- Recommendation view now exposes anti-synergy tagging with shared hero cards, sortable icon/name score cards, and reuses the item tooltip on hover so editors can see why a suggestion surfaced.
+- Added `heroPowerOverrides.ts` plus generator support so manual synergy/counter/anti-synergy tags for hero powers persist whenever `npm run update-items` regenerates the data.
+- `update-items` now also carries forward manual `synergyHeroes`/`counterHeroes`/`antiSynergyHeroes` arrays stored on item records so editor recommendation metadata survives refreshes.
+- Hero power output is now split into per-hero modules under `heroPowers/` with a generated aggregator file so updates only touch the relevant hero when wiki data changes.

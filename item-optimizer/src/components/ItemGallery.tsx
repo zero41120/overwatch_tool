@@ -1,16 +1,16 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import { bumpOverrideVersion } from "../slices/inputSlice";
 import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
 import type { Item, ItemOverride } from "../types";
 import { attributeValueToLabel } from "../utils/attributeUtils";
+import { deleteLocalOverride, KEY, loadLocalOverrides } from "../utils/localOverrides";
 import { rarityColor } from "../utils/utils";
-import ItemCard from "./shared/ItemCard";
-import SearchableDropdown from "./shared/SearchableDropdown";
-import Chip from "./shared/Chip";
 import ItemOverrideEditor from "./ItemOverrideEditor";
 import LocalOverridesEditor from "./LocalOverridesEditor";
-import { KEY, loadLocalOverrides, deleteLocalOverride } from "../utils/localOverrides";
-import { bumpOverrideVersion } from "../slices/inputSlice";
+import Chip from "./shared/Chip";
+import ItemCard from "./shared/ItemCard";
+import SearchableDropdown from "./shared/SearchableDropdown";
 
 function getLocalOverrideAttributes(override?: ItemOverride) {
   if (!override) return undefined;
@@ -44,7 +44,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   );
 
   return (
-    <div className="glass-card space-y-6 rounded-xl shadow-lg p-4 sm:p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
+    <div className="glass-card z-[-1] space-y-6 rounded-xl shadow-lg p-4 sm:p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
       <div className="relative">
         <div>

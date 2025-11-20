@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import type { MouseEvent } from "react";
 import type { HeroMetadata, HeroPower, HeroRole, Item } from "../../types";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { clearTooltip, setTooltip } from "../../slices/tooltipSlice";
 import HeroPicker, { type HeroOption } from "../shared/HeroPicker";
 
 type SlotConfig = {
@@ -116,10 +118,15 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
       .map((item) => {
         const synergyMatches = (item.synergyHeroes || []).filter((name) => friendlySet.has(name));
         const counterMatches = (item.counterHeroes || []).filter((name) => enemySet.has(name));
-        if (!synergyMatches.length && !counterMatches.length) return null;
-        return { item, synergyMatches, counterMatches };
+        const antiMatches = (item.antiSynergyHeroes || []).filter((name) => friendlySet.has(name));
+        if (!synergyMatches.length && !counterMatches.length && !antiMatches.length) return null;
+        return { item, synergyMatches, counterMatches, antiMatches };
       })
-      .filter((entry): entry is { item: Item; synergyMatches: string[]; counterMatches: string[] } => Boolean(entry));
+      .filter(
+        (
+          entry,
+        ): entry is { item: Item; synergyMatches: string[]; counterMatches: string[]; antiMatches: string[] } => Boolean(entry),
+      );
   }, [allItems, friendlySet, enemySet]);
 
   const recommendedPowers = useMemo(() => {
@@ -128,33 +135,36 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
       .map((power) => {
         const synergyMatches = (power.synergyHeroes || []).filter((name) => friendlySet.has(name));
         const counterMatches = (power.counterHeroes || []).filter((name) => enemySet.has(name));
-        if (!synergyMatches.length && !counterMatches.length) return null;
-        return { power, synergyMatches, counterMatches };
+        const antiMatches = (power.antiSynergyHeroes || []).filter((name) => friendlySet.has(name));
+        if (!synergyMatches.length && !counterMatches.length && !antiMatches.length) return null;
+        return { power, synergyMatches, counterMatches, antiMatches };
       })
       .filter(
         (
           entry,
-        ): entry is { power: HeroPower; synergyMatches: string[]; counterMatches: string[] } => Boolean(entry),
+        ): entry is { power: HeroPower; synergyMatches: string[]; counterMatches: string[]; antiMatches: string[] } => Boolean(entry),
       );
   }, [powersByHero, friendlySet, enemySet]);
 
   useEffect(() => {
     const taggedItems = allItems
-      .filter((item) => item.synergyHeroes?.length || item.counterHeroes?.length)
+      .filter((item) => item.synergyHeroes?.length || item.counterHeroes?.length || item.antiSynergyHeroes?.length)
       .map((item) => ({
         name: item.name,
         synergyHeroes: item.synergyHeroes,
         counterHeroes: item.counterHeroes,
+        antiSynergyHeroes: item.antiSynergyHeroes,
       }));
     console.log("[recommendations] tagged items", JSON.stringify(taggedItems, null, 2));
     const taggedPowers = Object.values(powersByHero)
       .flat()
-      .filter((power) => power.synergyHeroes?.length || power.counterHeroes?.length)
+      .filter((power) => power.synergyHeroes?.length || power.counterHeroes?.length || power.antiSynergyHeroes?.length)
       .map((power) => ({
         hero: power.hero,
         name: power.name,
         synergyHeroes: power.synergyHeroes,
         counterHeroes: power.counterHeroes,
+        antiSynergyHeroes: power.antiSynergyHeroes,
       }));
     console.log("[recommendations] tagged powers", JSON.stringify(taggedPowers, null, 2));
   }, [allItems, powersByHero]);
@@ -165,10 +175,11 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
     console.log(
       "[recommendations] item matches",
       JSON.stringify(
-        recommendedItems.map(({ item, synergyMatches, counterMatches }) => ({
+        recommendedItems.map(({ item, synergyMatches, counterMatches, antiMatches }) => ({
           name: item.name,
           synergyMatches,
           counterMatches,
+          antiMatches,
         })),
         null,
         2,
@@ -177,11 +188,12 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
     console.log(
       "[recommendations] power matches",
       JSON.stringify(
-        recommendedPowers.map(({ power, synergyMatches, counterMatches }) => ({
+        recommendedPowers.map(({ power, synergyMatches, counterMatches, antiMatches }) => ({
           hero: power.hero,
           name: power.name,
           synergyMatches,
           counterMatches,
+          antiMatches,
         })),
         null,
         2,
@@ -234,18 +246,26 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
 
       <RecommendationList
         title="Recommended Items"
-        entries={recommendedItems.map(({ item, synergyMatches, counterMatches }) => ({
+        entries={recommendedItems.map(({ item, synergyMatches, counterMatches, antiMatches }) => ({
+          type: "item" as const,
+          item,
+          id: item.id || item.name,
           name: item.name,
-          matches: { synergyMatches, counterMatches },
+          iconUrl: item.iconUrl,
+          matches: { synergyMatches, counterMatches, antiMatches },
         }))}
         emptyLabel="No items have been tagged with synergy/counter heroes yet. Add arrays on item overrides to populate this list."
       />
 
       <RecommendationList
         title="Recommended Powers"
-        entries={recommendedPowers.map(({ power, synergyMatches, counterMatches }) => ({
-          name: `${power.hero} — ${power.name}`,
-          matches: { synergyMatches, counterMatches },
+        entries={recommendedPowers.map(({ power, synergyMatches, counterMatches, antiMatches }) => ({
+          type: "power" as const,
+          power,
+          id: `${power.hero}-${power.name}`,
+          name: power.name,
+          iconUrl: power.iconUrl,
+          matches: { synergyMatches, counterMatches, antiMatches },
         }))}
         emptyLabel="Tag hero powers with synergy/counter heroes in wiki-data overrides to see suggestions."
       />
@@ -341,43 +361,179 @@ function HeroRow({
   );
 }
 
-function RecommendationList({
-  title,
-  entries,
-  emptyLabel,
-}: {
-  title: string;
-  entries: { name: string; matches: { synergyMatches: string[]; counterMatches: string[] } }[];
-  emptyLabel: string;
-}) {
+type MetricKey = "synergy" | "counter" | "anti";
+
+type Matches = {
+  synergyMatches: string[];
+  counterMatches: string[];
+  antiMatches: string[];
+};
+
+type RecommendationEntry =
+  | {
+      type: "item";
+      item: Item;
+      id: string;
+      name: string;
+      iconUrl?: string;
+      matches: Matches;
+    }
+  | {
+      type: "power";
+      power: HeroPower;
+      id: string;
+      name: string;
+      iconUrl?: string;
+      matches: Matches;
+    };
+
+function RecommendationList({ title, entries, emptyLabel }: { title: string; entries: RecommendationEntry[]; emptyLabel: string }) {
+  const sortedEntries = [...entries].sort((a, b) => {
+    const totalA = a.matches.synergyMatches.length + a.matches.counterMatches.length + a.matches.antiMatches.length;
+    const totalB = b.matches.synergyMatches.length + b.matches.counterMatches.length + b.matches.antiMatches.length;
+    if (totalA === totalB) return a.name.localeCompare(b.name);
+    return totalB - totalA;
+  });
+
   return (
     <div>
       <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
-      {entries.length === 0 ? (
+      {sortedEntries.length === 0 ? (
         <p className="text-sm text-gray-500 dark:text-gray-400">{emptyLabel}</p>
       ) : (
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {entries.map((entry) => (
-            <li key={entry.name} className="py-3">
-              <p className="font-medium text-gray-900 dark:text-gray-100">{entry.name}</p>
-              <div className="mt-1 flex flex-wrap gap-2 text-sm">
-                {entry.matches.synergyMatches.length > 0 && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-200">
-                    Synergy:
-                    <strong>{entry.matches.synergyMatches.join(", ")}</strong>
-                  </span>
-                )}
-                {entry.matches.counterMatches.length > 0 && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
-                    Counter:
-                    <strong>{entry.matches.counterMatches.join(", ")}</strong>
-                  </span>
-                )}
-              </div>
-            </li>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {sortedEntries.map((entry) => (
+            <RecommendationCard key={entry.id} entry={entry} />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
 }
+
+function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
+  const dispatch = useAppDispatch();
+  const [activeMetric, setActiveMetric] = useState<MetricKey | null>(null);
+
+  const renderIcon = () =>
+    entry.iconUrl ? (
+      <img src={entry.iconUrl} alt="" className="h-full w-full object-cover" />
+    ) : (
+      <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-gray-500 dark:text-gray-300">
+        {entry.name.slice(0, 2)}
+      </div>
+    );
+
+  const handleTooltip = (event: MouseEvent<HTMLDivElement>) => {
+    if (entry.type !== "item") return;
+    dispatch(setTooltip({ item: entry.item, x: event.clientX, y: event.clientY }));
+  };
+
+  const handleTooltipLeave = () => {
+    if (entry.type !== "item") return;
+    dispatch(clearTooltip());
+  };
+
+  const handleMetricToggle = (key: MetricKey, count: number) => {
+    if (count === 0) return;
+    setActiveMetric((prev) => (prev === key ? null : key));
+  };
+
+  const buttonBase =
+    "rounded-xl border px-3 py-1.5 text-center text-[0.7rem] font-semibold uppercase tracking-wide transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 disabled:cursor-default disabled:opacity-40";
+
+  const heroLists: Record<MetricKey, string[]> = {
+    synergy: entry.matches.synergyMatches,
+    counter: entry.matches.counterMatches,
+    anti: entry.matches.antiMatches,
+  };
+
+  const activeMetricConfig = SCORE_METRICS.find((metric) => metric.key === activeMetric);
+  const activeHeroList = activeMetric ? heroLists[activeMetric] : [];
+
+  return (
+    <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-900">
+      <div
+        className="relative h-28 w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800"
+        onMouseEnter={handleTooltip}
+        onMouseMove={handleTooltip}
+        onMouseLeave={handleTooltipLeave}
+      >
+        {renderIcon()}
+        <div className="pointer-events-none absolute inset-x-2 top-2 rounded bg-black/60 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-white shadow">
+          {entry.name}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {SCORE_METRICS.map((metric) => {
+          const count = heroLists[metric.key].length;
+          return (
+            <button
+              key={metric.key}
+              type="button"
+              disabled={count === 0}
+              onClick={() => handleMetricToggle(metric.key, count)}
+              className={`${buttonBase} ${metric.buttonClass} ${
+                activeMetric === metric.key ? "ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-900" : ""
+              }`}
+            >
+              {metric.label}+{count}
+            </button>
+          );
+        })}
+      </div>
+
+      {activeMetric && activeMetricConfig && activeHeroList.length > 0 && (
+        <div
+          className={`max-h-[300px] overflow-y-auto rounded-2xl border border-current/30 px-4 py-3 text-xs ${activeMetricConfig.listClass}`}
+        >
+          <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-wide opacity-80">{activeMetricConfig.listLabel}</p>
+          <ul className="space-y-1">
+            {activeHeroList.map((hero) => (
+              <li key={`${activeMetric}-${hero}`} className="flex items-center gap-2 text-sm">
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+                <span>{hero}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+type ScoreMetric = {
+  key: MetricKey;
+  label: string;
+  buttonClass: string;
+  listClass: string;
+  listLabel: string;
+};
+
+const SCORE_METRICS: ScoreMetric[] = [
+  {
+    key: "synergy",
+    label: "SYN",
+    buttonClass:
+      "border-emerald-200 text-emerald-800 hover:bg-emerald-50 focus-visible:ring-emerald-300 dark:border-emerald-800 dark:text-emerald-200 dark:hover:bg-emerald-900/40",
+    listClass: "text-emerald-700 dark:text-emerald-300",
+    listLabel: "Synergy Heroes",
+  },
+  {
+    key: "counter",
+    label: "CNT",
+    buttonClass:
+      "border-amber-200 text-amber-800 hover:bg-amber-50 focus-visible:ring-amber-300 dark:border-amber-800 dark:text-amber-200 dark:hover:bg-amber-900/40",
+    listClass: "text-amber-700 dark:text-amber-300",
+    listLabel: "Countered Heroes",
+  },
+  {
+    key: "anti",
+    label: "ANTI",
+    buttonClass:
+      "border-rose-200 text-rose-800 hover:bg-rose-50 focus-visible:ring-rose-300 dark:border-rose-800 dark:text-rose-200 dark:hover:bg-rose-900/40",
+    listClass: "text-rose-700 dark:text-rose-300",
+    listLabel: "Anti-Synergy Heroes",
+  },
+];

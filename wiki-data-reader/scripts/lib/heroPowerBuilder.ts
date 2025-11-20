@@ -9,14 +9,13 @@ type ImageLookup = ReadonlyMap<string, string> | undefined;
 export function buildHeroPowers(hero: HeroSnapshot, images?: ImageLookup): HeroPower[] {
   const templates = extractAbilityTemplates(hero.raw);
   return templates
-    .map((template, index) => toHeroPower(template, hero.name, index, images))
+    .map((template, index) => toHeroPower(template, hero.name, images))
     .filter((power): power is HeroPower => Boolean(power));
 }
 
 function toHeroPower(
   template: AbilityTemplate,
   heroName: string,
-  order: number,
   images?: ImageLookup,
 ): HeroPower | null {
   const { fields } = template;
@@ -33,7 +32,6 @@ function toHeroPower(
     hero: heroName,
     name,
     description,
-    order,
   };
 
   const affected = fields.affected_ability?.trim();

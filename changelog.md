@@ -54,3 +54,6 @@
 2025-11-19  add hero portrait metadata pipeline and show icons in hero selector  wiki-data-reader item-optimizer/src/components/input_view/HeroSelect.tsx
 2025-11-20  limit hero selector to stadium heroes by requiring items or powers  wiki-data-reader item-optimizer/src/Optimizer.tsx
 2025-11-20  add recommendations tab with role-based hero pickers and synergy/counter suggestions  item-optimizer/src/components/results_view wiki-data-reader
+2025-11-19  preserve hero power synergy tags via dedicated override map  wiki-data-reader/scripts/updateItems.ts wiki-data-reader/heroPowerOverrides.ts
+2025-11-21  preserve manual item synergy/counter/anti-synergy metadata when refreshing wiki records  wiki-data-reader/scripts/lib/itemBuilder.ts
+2025-11-21  split hero power output into per-hero modules with aggregator  wiki-data-reader/heroPowers wiki-data-reader/scripts/updateItems.ts

@@ -136,6 +136,9 @@ function buildDescription(fields: Record<string, string>) {
   return description;
 }
 
+type RecommendationField = "synergyHeroes" | "counterHeroes" | "antiSynergyHeroes";
+const RECOMMENDATION_FIELDS: RecommendationField[] = ["synergyHeroes", "counterHeroes", "antiSynergyHeroes"];
+
 export function mergeExistingData(records: ItemRecord[], existing: Map<string, ItemRecord>) {
   return records.map((record) => {
     const existingRecord = existing.get(record.item.name);
@@ -149,6 +152,14 @@ export function mergeExistingData(records: ItemRecord[], existing: Map<string, I
       mergedItem.iconUrl = mergedIcon;
     } else {
       delete mergedItem.iconUrl;
+    }
+    for (const field of RECOMMENDATION_FIELDS) {
+      const manualMetadata = record.item[field] ?? existingRecord.item[field];
+      if (manualMetadata !== undefined) {
+        mergedItem[field] = [...manualMetadata];
+      } else {
+        delete mergedItem[field];
+      }
     }
     const merged: ItemRecord = {
       item: mergedItem,
