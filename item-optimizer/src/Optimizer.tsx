@@ -368,18 +368,20 @@ export default function Optimizer() {
           onSubmit={onCalculate}
           validate={validate}
         />
-        <ResultsSection
-          eqItems={eqItems}
-          eqCost={eqCost}
-          cash={cash}
-          builds={builds}
-          selected={buildIndex}
-          results={results}
-          onSelect={onSelectBuild}
-          allItems={data}
-          powersByHero={powersByHero}
-          heroMetadata={heroMetadata}
-        />
+        <div className="relative z-10">
+          <ResultsSection
+            eqItems={eqItems}
+            eqCost={eqCost}
+            cash={cash}
+            builds={builds}
+            selected={buildIndex}
+            results={results}
+            onSelect={onSelectBuild}
+            allItems={data}
+            powersByHero={powersByHero}
+            heroMetadata={heroMetadata}
+          />
+        </div>
         <BreakPointCalculator items={filtered} powersByHero={powersByHero} />
         <ItemGallery items={filtered} heroes={heroes} attrTypes={attrTypes} />
       </div>

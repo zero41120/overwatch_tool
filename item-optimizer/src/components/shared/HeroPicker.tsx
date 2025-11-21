@@ -40,6 +40,7 @@ export default function HeroPicker({
   emptyOptionLabel = "Clear selection",
 }: HeroPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [alignRight, setAlignRight] = useState(false);
   const [query, setQuery] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -63,8 +64,22 @@ export default function HeroPicker({
   }, []);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      // Focus input
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+
+      // Handle dropdown alignment
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const dropdownWidth = 288; // w-72 is 18rem = 288px
+        if (rect.left + dropdownWidth > window.innerWidth && rect.right > dropdownWidth) {
+          setAlignRight(true);
+        } else {
+          setAlignRight(false);
+        }
+      }
     }
   }, [isOpen]);
 
@@ -128,7 +143,11 @@ export default function HeroPicker({
       )}
       {triggerContent}
       {isOpen && !disabled && (
-        <div className="absolute z-30 mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg">
+        <div
+          className={`absolute z-30 mt-2 w-72 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg ${
+            alignRight ? "right-0" : ""
+          }`}
+        >
           <div className="p-3 border-b border-gray-200 dark:border-gray-700">
             <input
               ref={inputRef}

@@ -157,8 +157,11 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
   }, [allItems, friendlySet, enemySet]);
 
   const recommendedPowers = useMemo(() => {
-    const flattened = Object.values(powersByHero).flat();
-    return flattened
+    if (!selfHero) {
+      return [];
+    }
+    const heroPowers = powersByHero[selfHero] || [];
+    return heroPowers
       .map((power) => {
         const matches = buildMatches(power, friendlySet, enemySet);
         if (!hasAnyMatch(matches)) return null;
@@ -173,7 +176,7 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
           score: RecommendationScore;
         } => Boolean(entry),
       );
-  }, [powersByHero, friendlySet, enemySet]);
+  }, [powersByHero, friendlySet, enemySet, selfHero]);
 
   useEffect(() => {
     const taggedItems = allItems
@@ -323,14 +326,6 @@ function HeroRow({
   variant?: "ally" | "enemy";
   lockedHero?: string;
 }) {
-  const roleOptions = (role: HeroRole): HeroOption[] =>
-    heroesByRole[role]?.map((meta) => ({
-      value: meta.name,
-      label: meta.name,
-      iconUrl: meta.iconUrl,
-      role: meta.role,
-    })) ?? [];
-
   return (
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 rounded-xl border border-dashed border-gray-200 dark:border-gray-700 p-1">
@@ -338,12 +333,29 @@ function HeroRow({
           const selectedValue = selections[slot.id] || "";
           const selectedMeta = selectedValue ? heroLookup.get(selectedValue) : undefined;
           const isLocked = lockedHero && selectedValue === lockedHero;
+
+          const unavailableHeroes = new Set(
+            Object.entries(selections)
+              .filter(([slotId, heroName]) => slotId !== slot.id && Boolean(heroName))
+              .map(([, heroName]) => heroName),
+          );
+
+          const optionsForSlot =
+            heroesByRole[slot.role]
+              ?.filter((meta) => !unavailableHeroes.has(meta.name))
+              .map((meta) => ({
+                value: meta.name,
+                label: meta.name,
+                iconUrl: meta.iconUrl,
+                role: meta.role,
+              })) ?? [];
+
           return (
             <HeroPicker
               key={slot.id}
               className="relative"
               value={selectedValue}
-              options={roleOptions(slot.role)}
+              options={optionsForSlot}
               onChange={(value) => onChange(slot.id, value)}
               placeholder={`Select ${slot.label}`}
               disabled={Boolean(isLocked)}
@@ -431,6 +443,7 @@ function RecommendationList({ title, entries, emptyLabel }: { title: string; ent
 
 function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
   const dispatch = useAppDispatch();
+  const [isFlipped, setIsFlipped] = useState(false); // New state
 
   const handleTooltip = (event: MouseEvent<HTMLDivElement>) => {
     if (entry.type !== "item") return;
@@ -440,6 +453,12 @@ function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
   const handleTooltipLeave = () => {
     if (entry.type !== "item") return;
     dispatch(clearTooltip());
+  };
+
+  const handleCardClick = () => {
+    // Only flip if not currently showing tooltip (to avoid accidental flips while interacting with tooltip)
+    // Or, if tooltip is active, maybe prevent flip? For now, just flip.
+    setIsFlipped(!isFlipped);
   };
 
   const heroLists: Record<MetricKey, string[]> = {
@@ -453,7 +472,10 @@ function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
 
   return (
     <div data-testid="recommendation-card" className="group w-28 [perspective:1000px]">
-      <div className="relative h-28 w-28 rounded-lg shadow-md transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+      <div
+        className={`relative h-28 w-28 rounded-lg shadow-md transition-transform duration-500 [transform-style:preserve-3d] ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}
+        onClick={handleCardClick} // Add click handler
+      >
         {/* Front Face */}
         <div
           className="absolute flex h-full w-full flex-col items-center justify-center rounded-lg border border-gray-700 bg-gray-900 p-2 text-white [backface-visibility:hidden]"
