@@ -30,3 +30,6 @@
 - Added `heroPowerOverrides.ts` plus generator support so manual synergy/counter/anti-synergy tags for hero powers persist whenever `npm run update-items` regenerates the data.
 - `update-items` now also carries forward manual `synergyHeroes`/`counterHeroes`/`antiSynergyHeroes` arrays stored on item records so editor recommendation metadata survives refreshes.
 - Hero power output is now split into per-hero modules under `heroPowers/` with a generated aggregator file so updates only touch the relevant hero when wiki data changes.
+- Recommendation metadata now includes an optional `beingCountered` array on both items and hero powers, preserved through the scripts and surfaced in the Recommendations UI so editors can tag threats when enemies counter a pick.
+- Recommendation cards now compute and display a signed score (synergy/counter minus anti-synergy/beingCountered) with tests covering the calculation.
+- `update-items` now compares hero power module/aggregator contents before prompting, skipping writes when nothing changed to mirror item-level change detection.

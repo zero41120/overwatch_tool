@@ -18,11 +18,13 @@ describe("heroPower override utils", () => {
       synergyHeroes: ["Zarya"],
       counterHeroes: ["Reaper"],
       antiSynergyHeroes: [],
+      beingCountered: ["Cassidy"],
     });
 
     expect(power.synergyHeroes).toEqual(["Zarya"]);
     expect(power.counterHeroes).toEqual(["Reaper"]);
     expect(power.antiSynergyHeroes).toEqual([]);
+    expect(power.beingCountered).toEqual(["Cassidy"]);
   });
 
   it("fills only missing fields when force is false", () => {
@@ -38,21 +40,24 @@ describe("heroPower override utils", () => {
       {
         synergyHeroes: ["Override"],
         counterHeroes: ["Moira"],
+        beingCountered: ["Sombra"],
       },
       { force: false },
     );
 
     expect(power.synergyHeroes).toEqual(["Existing"]);
     expect(power.counterHeroes).toEqual(["Moira"]);
+    expect(power.beingCountered).toEqual(["Sombra"]);
   });
 
   it("builds a lookup map keyed by hero and power name", () => {
     const map = buildHeroPowerOverrideMap([
-      { hero: "Juno", name: "MediMaster", synergyHeroes: ["Zarya"] },
+      { hero: "Juno", name: "MediMaster", synergyHeroes: ["Zarya"], beingCountered: ["Cassidy"] },
       { hero: "Juno", name: "Stinger", counterHeroes: ["Moira"] },
     ]);
 
     expect(map.get(heroPowerKey("Juno", "MediMaster"))?.synergyHeroes).toEqual(["Zarya"]);
+    expect(map.get(heroPowerKey("Juno", "MediMaster"))?.beingCountered).toEqual(["Cassidy"]);
     expect(map.get(heroPowerKey("Juno", "Stinger"))?.counterHeroes).toEqual(["Moira"]);
   });
 });

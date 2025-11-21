@@ -136,8 +136,13 @@ function buildDescription(fields: Record<string, string>) {
   return description;
 }
 
-type RecommendationField = "synergyHeroes" | "counterHeroes" | "antiSynergyHeroes";
-const RECOMMENDATION_FIELDS: RecommendationField[] = ["synergyHeroes", "counterHeroes", "antiSynergyHeroes"];
+type RecommendationField = "synergyHeroes" | "counterHeroes" | "antiSynergyHeroes" | "beingCountered";
+const RECOMMENDATION_FIELDS: RecommendationField[] = [
+  "synergyHeroes",
+  "counterHeroes",
+  "antiSynergyHeroes",
+  "beingCountered",
+];
 
 export function mergeExistingData(records: ItemRecord[], existing: Map<string, ItemRecord>) {
   return records.map((record) => {

@@ -44,7 +44,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   );
 
   return (
-    <div className="glass-card z-[-1] space-y-6 rounded-xl shadow-lg p-4 sm:p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
+    <div className="glass-card space-y-6 rounded-xl shadow-lg p-4 sm:p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
       <div className="relative">
         <div>

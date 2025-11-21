@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
 import type { MouseEvent } from "react";
-import type { HeroMetadata, HeroPower, HeroRole, Item } from "../../types";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { clearTooltip, setTooltip } from "../../slices/tooltipSlice";
+import type { HeroMetadata, HeroPower, HeroRole, Item } from "../../types";
+import { calculateRecommendationScore, type RecommendationMatches, type RecommendationScore } from "../../utils/recommendationScore";
 import HeroPicker, { type HeroOption } from "../shared/HeroPicker";
 
 type SlotConfig = {
@@ -34,6 +35,30 @@ const ROLE_SLOT_ORDER: Record<HeroRole, string[]> = {
 };
 
 type SelectionState = Record<string, string>;
+
+type RecommendationSource = {
+  synergyHeroes?: string[];
+  counterHeroes?: string[];
+  antiSynergyHeroes?: string[];
+  beingCountered?: string[];
+};
+
+function buildMatches(source: RecommendationSource, friendlySet: Set<string>, enemySet: Set<string>): RecommendationMatches {
+  const synergyMatches = (source.synergyHeroes || []).filter((name) => friendlySet.has(name));
+  const counterMatches = (source.counterHeroes || []).filter((name) => enemySet.has(name));
+  const antiMatches = (source.antiSynergyHeroes || []).filter((name) => friendlySet.has(name));
+  const beingCounteredMatches = (source.beingCountered || []).filter((name) => enemySet.has(name));
+  return { synergyMatches, counterMatches, antiMatches, beingCounteredMatches };
+}
+
+function hasAnyMatch(matches: RecommendationMatches) {
+  return (
+    matches.synergyMatches.length > 0 ||
+    matches.counterMatches.length > 0 ||
+    matches.antiMatches.length > 0 ||
+    matches.beingCounteredMatches.length > 0
+  );
+}
 
 interface Props {
   allItems: Item[];
@@ -116,16 +141,18 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
   const recommendedItems = useMemo(() => {
     return allItems
       .map((item) => {
-        const synergyMatches = (item.synergyHeroes || []).filter((name) => friendlySet.has(name));
-        const counterMatches = (item.counterHeroes || []).filter((name) => enemySet.has(name));
-        const antiMatches = (item.antiSynergyHeroes || []).filter((name) => friendlySet.has(name));
-        if (!synergyMatches.length && !counterMatches.length && !antiMatches.length) return null;
-        return { item, synergyMatches, counterMatches, antiMatches };
+        const matches = buildMatches(item, friendlySet, enemySet);
+        if (!hasAnyMatch(matches)) return null;
+        return { item, matches, score: calculateRecommendationScore(matches) };
       })
       .filter(
         (
           entry,
-        ): entry is { item: Item; synergyMatches: string[]; counterMatches: string[]; antiMatches: string[] } => Boolean(entry),
+        ): entry is {
+          item: Item;
+          matches: RecommendationMatches;
+          score: RecommendationScore;
+        } => Boolean(entry),
       );
   }, [allItems, friendlySet, enemySet]);
 
@@ -133,38 +160,48 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
     const flattened = Object.values(powersByHero).flat();
     return flattened
       .map((power) => {
-        const synergyMatches = (power.synergyHeroes || []).filter((name) => friendlySet.has(name));
-        const counterMatches = (power.counterHeroes || []).filter((name) => enemySet.has(name));
-        const antiMatches = (power.antiSynergyHeroes || []).filter((name) => friendlySet.has(name));
-        if (!synergyMatches.length && !counterMatches.length && !antiMatches.length) return null;
-        return { power, synergyMatches, counterMatches, antiMatches };
+        const matches = buildMatches(power, friendlySet, enemySet);
+        if (!hasAnyMatch(matches)) return null;
+        return { power, matches, score: calculateRecommendationScore(matches) };
       })
       .filter(
         (
           entry,
-        ): entry is { power: HeroPower; synergyMatches: string[]; counterMatches: string[]; antiMatches: string[] } => Boolean(entry),
+        ): entry is {
+          power: HeroPower;
+          matches: RecommendationMatches;
+          score: RecommendationScore;
+        } => Boolean(entry),
       );
   }, [powersByHero, friendlySet, enemySet]);
 
   useEffect(() => {
     const taggedItems = allItems
-      .filter((item) => item.synergyHeroes?.length || item.counterHeroes?.length || item.antiSynergyHeroes?.length)
+      .filter(
+        (item) =>
+          item.synergyHeroes?.length || item.counterHeroes?.length || item.antiSynergyHeroes?.length || item.beingCountered?.length,
+      )
       .map((item) => ({
         name: item.name,
         synergyHeroes: item.synergyHeroes,
         counterHeroes: item.counterHeroes,
         antiSynergyHeroes: item.antiSynergyHeroes,
+        beingCountered: item.beingCountered,
       }));
     console.log("[recommendations] tagged items", JSON.stringify(taggedItems, null, 2));
     const taggedPowers = Object.values(powersByHero)
       .flat()
-      .filter((power) => power.synergyHeroes?.length || power.counterHeroes?.length || power.antiSynergyHeroes?.length)
+      .filter(
+        (power) =>
+          power.synergyHeroes?.length || power.counterHeroes?.length || power.antiSynergyHeroes?.length || power.beingCountered?.length,
+      )
       .map((power) => ({
         hero: power.hero,
         name: power.name,
         synergyHeroes: power.synergyHeroes,
         counterHeroes: power.counterHeroes,
         antiSynergyHeroes: power.antiSynergyHeroes,
+        beingCountered: power.beingCountered,
       }));
     console.log("[recommendations] tagged powers", JSON.stringify(taggedPowers, null, 2));
   }, [allItems, powersByHero]);
@@ -175,11 +212,10 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
     console.log(
       "[recommendations] item matches",
       JSON.stringify(
-        recommendedItems.map(({ item, synergyMatches, counterMatches, antiMatches }) => ({
+        recommendedItems.map(({ item, matches, score }) => ({
           name: item.name,
-          synergyMatches,
-          counterMatches,
-          antiMatches,
+          ...matches,
+          score: score.total,
         })),
         null,
         2,
@@ -188,12 +224,11 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
     console.log(
       "[recommendations] power matches",
       JSON.stringify(
-        recommendedPowers.map(({ power, synergyMatches, counterMatches, antiMatches }) => ({
+        recommendedPowers.map(({ power, matches, score }) => ({
           hero: power.hero,
           name: power.name,
-          synergyMatches,
-          counterMatches,
-          antiMatches,
+          ...matches,
+          score: score.total,
         })),
         null,
         2,
@@ -205,8 +240,6 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
   return (
     <div className="space-y-8">
       <HeroRow
-        title="Allied Team"
-        description="Fill the remaining allied slots by role."
         slots={ALLY_SLOTS}
         selections={allySelections}
         onChange={(slotId, value) => {
@@ -225,8 +258,6 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
       />
 
       <HeroRow
-        title="Enemy Team"
-        description="Select the enemy lineup to surface counters."
         slots={ENEMY_SLOTS}
         selections={enemySelections}
         onChange={(slotId, value) => {
@@ -246,26 +277,28 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
 
       <RecommendationList
         title="Recommended Items"
-        entries={recommendedItems.map(({ item, synergyMatches, counterMatches, antiMatches }) => ({
+        entries={recommendedItems.map(({ item, matches, score }) => ({
           type: "item" as const,
           item,
           id: item.id || item.name,
           name: item.name,
           iconUrl: item.iconUrl,
-          matches: { synergyMatches, counterMatches, antiMatches },
+          matches,
+          score,
         }))}
         emptyLabel="No items have been tagged with synergy/counter heroes yet. Add arrays on item overrides to populate this list."
       />
 
       <RecommendationList
         title="Recommended Powers"
-        entries={recommendedPowers.map(({ power, synergyMatches, counterMatches, antiMatches }) => ({
+        entries={recommendedPowers.map(({ power, matches, score }) => ({
           type: "power" as const,
           power,
           id: `${power.hero}-${power.name}`,
           name: power.name,
           iconUrl: power.iconUrl,
-          matches: { synergyMatches, counterMatches, antiMatches },
+          matches,
+          score,
         }))}
         emptyLabel="Tag hero powers with synergy/counter heroes in wiki-data overrides to see suggestions."
       />
@@ -274,8 +307,6 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
 }
 
 function HeroRow({
-  title,
-  description,
   slots,
   selections,
   onChange,
@@ -284,8 +315,6 @@ function HeroRow({
   variant = "ally",
   lockedHero,
 }: {
-  title: string;
-  description: string;
   slots: SlotConfig[];
   selections: SelectionState;
   onChange: (id: string, value: string) => void;
@@ -304,12 +333,6 @@ function HeroRow({
 
   return (
     <div>
-      <div className="mb-3">
-        <p className={`text-lg font-semibold ${variant === "enemy" ? "text-red-700 dark:text-red-300" : ""}`}>{title}</p>
-        <p className={`text-sm ${variant === "enemy" ? "text-red-600 dark:text-red-400" : "text-gray-600 dark:text-gray-400"}`}>
-          {description}
-        </p>
-      </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 rounded-xl border border-dashed border-gray-200 dark:border-gray-700 p-1">
         {slots.map((slot) => {
           const selectedValue = selections[slot.id] || "";
@@ -361,38 +384,33 @@ function HeroRow({
   );
 }
 
-type MetricKey = "synergy" | "counter" | "anti";
+type MetricKey = "synergy" | "counter" | "anti" | "threat";
 
-type Matches = {
-  synergyMatches: string[];
-  counterMatches: string[];
-  antiMatches: string[];
+type RecommendationEntryBase = {
+  id: string;
+  name: string;
+  iconUrl?: string;
+  matches: RecommendationMatches;
+  score: RecommendationScore;
 };
 
 type RecommendationEntry =
-  | {
+  | (RecommendationEntryBase & {
       type: "item";
       item: Item;
-      id: string;
-      name: string;
-      iconUrl?: string;
-      matches: Matches;
-    }
-  | {
+    })
+  | (RecommendationEntryBase & {
       type: "power";
       power: HeroPower;
-      id: string;
-      name: string;
-      iconUrl?: string;
-      matches: Matches;
-    };
+    });
 
 function RecommendationList({ title, entries, emptyLabel }: { title: string; entries: RecommendationEntry[]; emptyLabel: string }) {
   const sortedEntries = [...entries].sort((a, b) => {
-    const totalA = a.matches.synergyMatches.length + a.matches.counterMatches.length + a.matches.antiMatches.length;
-    const totalB = b.matches.synergyMatches.length + b.matches.counterMatches.length + b.matches.antiMatches.length;
-    if (totalA === totalB) return a.name.localeCompare(b.name);
-    return totalB - totalA;
+    if (a.score.total === b.score.total) {
+      if (a.score.positive === b.score.positive) return a.name.localeCompare(b.name);
+      return b.score.positive - a.score.positive;
+    }
+    return b.score.total - a.score.total;
   });
 
   return (
@@ -413,16 +431,6 @@ function RecommendationList({ title, entries, emptyLabel }: { title: string; ent
 
 function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
   const dispatch = useAppDispatch();
-  const [activeMetric, setActiveMetric] = useState<MetricKey | null>(null);
-
-  const renderIcon = () =>
-    entry.iconUrl ? (
-      <img src={entry.iconUrl} alt="" className="h-full w-full object-cover" />
-    ) : (
-      <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-gray-500 dark:text-gray-300">
-        {entry.name.slice(0, 2)}
-      </div>
-    );
 
   const handleTooltip = (event: MouseEvent<HTMLDivElement>) => {
     if (entry.type !== "item") return;
@@ -434,71 +442,64 @@ function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
     dispatch(clearTooltip());
   };
 
-  const handleMetricToggle = (key: MetricKey, count: number) => {
-    if (count === 0) return;
-    setActiveMetric((prev) => (prev === key ? null : key));
-  };
-
-  const buttonBase =
-    "rounded-xl border px-3 py-1.5 text-center text-[0.7rem] font-semibold uppercase tracking-wide transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 disabled:cursor-default disabled:opacity-40";
-
   const heroLists: Record<MetricKey, string[]> = {
     synergy: entry.matches.synergyMatches,
     counter: entry.matches.counterMatches,
     anti: entry.matches.antiMatches,
+    threat: entry.matches.beingCounteredMatches,
   };
 
-  const activeMetricConfig = SCORE_METRICS.find((metric) => metric.key === activeMetric);
-  const activeHeroList = activeMetric ? heroLists[activeMetric] : [];
+  const formattedScore = entry.score.total > 0 ? `+${entry.score.total}` : `${entry.score.total}`;
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-900">
-      <div
-        className="relative h-28 w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800"
-        onMouseEnter={handleTooltip}
-        onMouseMove={handleTooltip}
-        onMouseLeave={handleTooltipLeave}
-      >
-        {renderIcon()}
-        <div className="pointer-events-none absolute inset-x-2 top-2 rounded bg-black/60 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-white shadow">
-          {entry.name}
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {SCORE_METRICS.map((metric) => {
-          const count = heroLists[metric.key].length;
-          return (
-            <button
-              key={metric.key}
-              type="button"
-              disabled={count === 0}
-              onClick={() => handleMetricToggle(metric.key, count)}
-              className={`${buttonBase} ${metric.buttonClass} ${
-                activeMetric === metric.key ? "ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-900" : ""
-              }`}
-            >
-              {metric.label}+{count}
-            </button>
-          );
-        })}
-      </div>
-
-      {activeMetric && activeMetricConfig && activeHeroList.length > 0 && (
+    <div data-testid="recommendation-card" className="group w-28 [perspective:1000px]">
+      <div className="relative h-28 w-28 rounded-lg shadow-md transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+        {/* Front Face */}
         <div
-          className={`max-h-[300px] overflow-y-auto rounded-2xl border border-current/30 px-4 py-3 text-xs ${activeMetricConfig.listClass}`}
+          className="absolute flex h-full w-full flex-col items-center justify-center rounded-lg border border-gray-700 bg-gray-900 p-2 text-white [backface-visibility:hidden]"
+          onMouseEnter={handleTooltip}
+          onMouseMove={handleTooltip}
+          onMouseLeave={handleTooltipLeave}
         >
-          <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-wide opacity-80">{activeMetricConfig.listLabel}</p>
-          <ul className="space-y-1">
-            {activeHeroList.map((hero) => (
-              <li key={`${activeMetric}-${hero}`} className="flex items-center gap-2 text-sm">
-                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-                <span>{hero}</span>
-              </li>
-            ))}
-          </ul>
+          {entry.iconUrl ? (
+            <img src={entry.iconUrl} alt={entry.name} className="h-12 w-12 rounded-md object-cover" />
+          ) : (
+            <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gray-800 text-xl font-semibold text-gray-500">
+              {entry.name.slice(0, 2)}
+            </div>
+          )}
+          <p className="mt-1 text-center text-xs font-semibold leading-tight">{entry.name}</p>
+          <div className="absolute top-1 right-1 rounded-full bg-emerald-900/40 px-1.5 py-0.5 text-[10px] font-bold text-emerald-200 shadow">
+            {formattedScore}
+          </div>
         </div>
-      )}
+
+        {/* Back Face */}
+        <div className="absolute h-full w-full rounded-lg border border-gray-700 bg-gray-800 p-2 text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <div className="flex h-full flex-col">
+            <div className="mb-1 flex-shrink-0">
+              <p className="truncate text-xs font-bold">{entry.name}</p>
+              <p className="text-[10px] text-gray-300">
+                Score: <span className="font-bold">{formattedScore}</span> (+{entry.score.positive}/-{entry.score.negative})
+              </p>
+            </div>
+            <div className="flex-grow space-y-0.5 overflow-y-auto text-[10px] leading-tight">
+              {SCORE_METRICS.map((metric) => {
+                const heroes = heroLists[metric.key];
+                if (heroes.length === 0) return null;
+                return (
+                  <div key={metric.key}>
+                    <p className={`font-bold uppercase ${metric.listClass}`}>
+                      {metric.label} ({heroes.length})
+                    </p>
+                    <p className="text-gray-300">{heroes.join(", ")}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -527,6 +528,14 @@ const SCORE_METRICS: ScoreMetric[] = [
       "border-amber-200 text-amber-800 hover:bg-amber-50 focus-visible:ring-amber-300 dark:border-amber-800 dark:text-amber-200 dark:hover:bg-amber-900/40",
     listClass: "text-amber-700 dark:text-amber-300",
     listLabel: "Countered Heroes",
+  },
+  {
+    key: "threat",
+    label: "THRT",
+    buttonClass:
+      "border-orange-200 text-orange-800 hover:bg-orange-50 focus-visible:ring-orange-300 dark:border-orange-800 dark:text-orange-200 dark:hover:bg-orange-900/40",
+    listClass: "text-orange-700 dark:text-orange-300",
+    listLabel: "Being Countered By",
   },
   {
     key: "anti",

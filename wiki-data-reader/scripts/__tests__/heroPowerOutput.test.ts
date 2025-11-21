@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   groupHeroPowerEntries,
+  hasHeroPowerChanges,
   heroPowerModuleSource,
   heroPowersAggregatorSource,
   type HeroPowerEntry,
@@ -46,5 +47,65 @@ describe("heroPowerModuleSource", () => {
     expect(source).toContain('import type { HeroPower } from "../types";');
     expect(source).toContain('"Blink Boosts"');
     expect(source).toContain("export default heroPowers;");
+  });
+});
+
+describe("hasHeroPowerChanges", () => {
+  const entry: HeroPowerEntry = {
+    hero: "Juno",
+    slug: "juno",
+    powers: [{ hero: "Juno", name: "Blink Boosts", description: "desc" }],
+  };
+  const moduleSource = heroPowerModuleSource(entry);
+
+  it("returns false when module files and aggregator are unchanged", () => {
+    const existingFiles = new Map<string, string>([["juno.ts", moduleSource]]);
+    const aggregator = heroPowersAggregatorSource([entry]);
+    const changed = hasHeroPowerChanges([entry], existingFiles, aggregator, aggregator);
+    expect(changed).toBe(false);
+  });
+
+  it("ignores line ending differences", () => {
+    const existingFiles = new Map<string, string>([["juno.ts", moduleSource.replace(/\n/g, "\r\n")]]);
+    const aggregator = heroPowersAggregatorSource([entry]);
+    const changed = hasHeroPowerChanges([entry], existingFiles, aggregator, aggregator.replace(/\n/g, "\r\n"));
+    expect(changed).toBe(false);
+  });
+
+  it("ignores formatting changes when data is equal", () => {
+    const existingFiles = new Map<string, string>([["juno.ts", `${moduleSource}\n// comment`]]);
+    const aggregator = heroPowersAggregatorSource([entry]);
+    const changed = hasHeroPowerChanges(
+      [entry],
+      existingFiles,
+      aggregator,
+      `${aggregator}\n// comment`,
+      { dataEqual: true },
+    );
+    expect(changed).toBe(false);
+  });
+
+  it("detects missing files even when data is equal", () => {
+    const existingFiles = new Map<string, string>();
+    const aggregator = heroPowersAggregatorSource([entry]);
+    const changed = hasHeroPowerChanges([entry], existingFiles, aggregator, aggregator, { dataEqual: true });
+    expect(changed).toBe(true);
+  });
+
+  it("detects stale files not present in generated entries", () => {
+    const existingFiles = new Map<string, string>([
+      ["juno.ts", moduleSource],
+      ["old.ts", "// stale"],
+    ]);
+    const aggregator = heroPowersAggregatorSource([entry]);
+    const changed = hasHeroPowerChanges([entry], existingFiles, aggregator, aggregator);
+    expect(changed).toBe(true);
+  });
+
+  it("detects aggregator changes", () => {
+    const existingFiles = new Map<string, string>([["juno.ts", moduleSource]]);
+    const aggregator = heroPowersAggregatorSource([entry]);
+    const changed = hasHeroPowerChanges([entry], existingFiles, aggregator, "// old");
+    expect(changed).toBe(true);
   });
 });

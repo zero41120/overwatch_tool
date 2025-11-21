@@ -61,6 +61,7 @@ describe("mergeExistingData", () => {
         synergyHeroes: ["Zarya"],
         counterHeroes: ["Widowmaker"],
         antiSynergyHeroes: ["Junker Queen"],
+        beingCountered: ["Tracer"],
       },
       override: { name: "VANTAGE SHOT" },
     };
@@ -69,5 +70,6 @@ describe("mergeExistingData", () => {
     expect(merged[0].item.synergyHeroes).toEqual(["Zarya"]);
     expect(merged[0].item.counterHeroes).toEqual(["Widowmaker"]);
     expect(merged[0].item.antiSynergyHeroes).toEqual(["Junker Queen"]);
+    expect(merged[0].item.beingCountered).toEqual(["Tracer"]);
   });
 });

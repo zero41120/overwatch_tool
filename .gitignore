@@ -134,4 +134,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-wiki-data-reader/snapshots/images/*
+wiki-data-reader/snapshots/images

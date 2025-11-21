@@ -1,7 +1,7 @@
 import type { HeroPower } from "../../types";
 
 export type HeroPowerManualFields = Partial<
-  Pick<HeroPower, "synergyHeroes" | "counterHeroes" | "antiSynergyHeroes">
+  Pick<HeroPower, "synergyHeroes" | "counterHeroes" | "antiSynergyHeroes" | "beingCountered">
 >;
 
 export type HeroPowerOverrideEntry = Pick<HeroPower, "hero" | "name"> & HeroPowerManualFields;
@@ -28,6 +28,7 @@ export function applyHeroPowerManualFields(
   applyField("synergyHeroes");
   applyField("counterHeroes");
   applyField("antiSynergyHeroes");
+  applyField("beingCountered");
 }
 
 export function buildHeroPowerOverrideMap(entries: HeroPowerOverrideEntry[]) {
@@ -37,6 +38,7 @@ export function buildHeroPowerOverrideMap(entries: HeroPowerOverrideEntry[]) {
       synergyHeroes: entry.synergyHeroes,
       counterHeroes: entry.counterHeroes,
       antiSynergyHeroes: entry.antiSynergyHeroes,
+      beingCountered: entry.beingCountered,
     });
   }
   return map;

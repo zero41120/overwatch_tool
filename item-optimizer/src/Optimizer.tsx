@@ -62,6 +62,7 @@ export default function Optimizer() {
         const recommendationMeta = baseOverride;
         if (recommendationMeta?.synergyHeroes) item.synergyHeroes = recommendationMeta.synergyHeroes;
         if (recommendationMeta?.counterHeroes) item.counterHeroes = recommendationMeta.counterHeroes;
+        if (recommendationMeta?.beingCountered) item.beingCountered = recommendationMeta.beingCountered;
         if (!item.id) item.id = it.name; // Ensure id is set if not present
         items.push(item);
       });

@@ -1,6 +1,20 @@
 import type { Attribute, EditorOverride, ItemOverride } from "../types";
 
-const RESERVED_KEYS = new Set(["id", "name", "cost", "character", "tab", "rarity", "attributes", "disabled", "editor_overrides"]);
+const RESERVED_KEYS = new Set([
+  "id",
+  "name",
+  "cost",
+  "character",
+  "tab",
+  "rarity",
+  "attributes",
+  "disabled",
+  "editor_overrides",
+  "synergyHeroes",
+  "counterHeroes",
+  "antiSynergyHeroes",
+  "beingCountered",
+]);
 
 function isAttributeArray(value: unknown): value is Attribute[] {
   return (

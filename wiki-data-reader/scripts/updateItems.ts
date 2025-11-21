@@ -27,6 +27,7 @@ import {
 } from "./lib/heroPowerOverrideUtils.ts";
 import {
   groupHeroPowerEntries,
+  hasHeroPowerChanges,
   heroPowerModuleSource,
   heroPowersAggregatorSource,
   type HeroPowerEntry,
@@ -193,6 +194,25 @@ export default heroMetadata;
 `;
 }
 
+function normalizeHeroPowersData(powers: HeroPower[]) {
+  return [...powers]
+    .map((power) => ({
+      hero: power.hero,
+      name: power.name,
+      description: power.description,
+      affectedAbility: power.affectedAbility ?? "",
+      iconUrl: power.iconUrl ?? "",
+      synergyHeroes: [...(power.synergyHeroes ?? [])].sort(),
+      counterHeroes: [...(power.counterHeroes ?? [])].sort(),
+      antiSynergyHeroes: [...(power.antiSynergyHeroes ?? [])].sort(),
+      beingCountered: [...(power.beingCountered ?? [])].sort(),
+    }))
+    .sort((a, b) => {
+      if (a.hero === b.hero) return a.name.localeCompare(b.name);
+      return a.hero.localeCompare(b.hero);
+    });
+}
+
 async function writeHeroPowers(entries: HeroPowerEntry[], aggregatorSource: string, existing?: string) {
   await mkdir(HERO_POWERS_DIR, { recursive: true }).catch(() => {});
   let currentFiles: string[] = [];
@@ -230,6 +250,27 @@ async function writeHeroPowers(entries: HeroPowerEntry[], aggregatorSource: stri
 
   await writeFile(POWERS_FILE, aggregatorSource, "utf-8");
   console.log(`[hero-powers] wrote aggregator for ${entries.length} heroes`);
+}
+
+async function loadHeroPowerFiles() {
+  const files = new Map<string, string>();
+  let existing: string[] = [];
+  try {
+    existing = await readdir(HERO_POWERS_DIR);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return files;
+    }
+    throw error;
+  }
+
+  for (const file of existing) {
+    if (!file.endsWith(".ts")) continue;
+    const previous = await readFile(path.join(HERO_POWERS_DIR, file), "utf-8").catch(() => "");
+    files.set(file, previous);
+  }
+
+  return files;
 }
 
 async function writeHeroMetadata(data: HeroMetadata[], existing?: string, precomputedSource?: string) {
@@ -286,10 +327,19 @@ async function main() {
   const heroMetadata = allMetadata.filter((meta) => heroesWithData.has(meta.name));
   const heroPowerEntries = groupHeroPowerEntries(heroPowers);
   const heroPowerAggregatorSource = heroPowersAggregatorSource(heroPowerEntries);
+  const existingHeroPowerFiles = await loadHeroPowerFiles();
   const existingHeroPowers = await readFile(POWERS_FILE, "utf-8").catch(() => "");
-  const heroPowerChanged =
-    JSON.stringify(existingHeroPowersData) !== JSON.stringify(heroPowers) ||
-    existingHeroPowers !== heroPowerAggregatorSource;
+  const normalizedHeroPowers = normalizeHeroPowersData(heroPowers);
+  const normalizedExistingHeroPowers = normalizeHeroPowersData(existingHeroPowersData);
+  const heroPowerDataChanged =
+    JSON.stringify(normalizedHeroPowers) !== JSON.stringify(normalizedExistingHeroPowers);
+  const heroPowerChanged = hasHeroPowerChanges(
+    heroPowerEntries,
+    existingHeroPowerFiles,
+    heroPowerAggregatorSource,
+    existingHeroPowers,
+    { dataEqual: !heroPowerDataChanged },
+  ) || heroPowerDataChanged;
   const heroMetadataSourceText = heroMetadataSource(heroMetadata);
   const existingHeroMetadata = await readFile(HEROES_FILE, "utf-8").catch(() => "");
   const heroMetadataChanged = existingHeroMetadata !== heroMetadataSourceText;

@@ -53,6 +53,34 @@ export default heroPowers;
 `;
 }
 
+export function hasHeroPowerChanges(
+  entries: HeroPowerEntry[],
+  existingFiles: Map<string, string>,
+  aggregatorSource: string,
+  existingAggregator: string,
+  options: { dataEqual?: boolean } = {},
+) {
+  const normalize = (value: string) => value.replace(/\r\n/g, "\n").trim();
+  const dataEqual = options.dataEqual ?? false;
+  const expectedFiles = new Set(entries.map((entry) => `${entry.slug}.ts`));
+  const seen = new Set<string>();
+  for (const entry of entries) {
+    const filename = `${entry.slug}.ts`;
+    if (!existingFiles.has(filename)) return true;
+    const previous = existingFiles.get(filename) ?? "";
+    if (!dataEqual && normalize(heroPowerModuleSource(entry)) !== normalize(previous)) return true;
+    seen.add(filename);
+  }
+
+  for (const [filename] of existingFiles) {
+    if (!expectedFiles.has(filename)) return true;
+  }
+
+  if (!dataEqual && normalize(aggregatorSource) !== normalize(existingAggregator)) return true;
+
+  return false;
+}
+
 function toIdentifier(slug: string, used: Set<string>) {
   const cleaned = slug
     .split("-")

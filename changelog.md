@@ -57,3 +57,6 @@
 2025-11-19  preserve hero power synergy tags via dedicated override map  wiki-data-reader/scripts/updateItems.ts wiki-data-reader/heroPowerOverrides.ts
 2025-11-21  preserve manual item synergy/counter/anti-synergy metadata when refreshing wiki records  wiki-data-reader/scripts/lib/itemBuilder.ts
 2025-11-21  split hero power output into per-hero modules with aggregator  wiki-data-reader/heroPowers wiki-data-reader/scripts/updateItems.ts
+2025-11-22  add beingCountered metadata to items/powers and surface in Recommendations UI  wiki-data-reader/types.ts wiki-data-reader/scripts/lib item-optimizer/src/components/results_view/RecommendationPanel.tsx
+2025-11-20  calculate and display recommendation scores using synergy, counter, anti-synergy, and beingCountered matches  item-optimizer/src/components/results_view/RecommendationPanel.tsx
+2025-11-20  hero power write now skips prompts when no per-hero module or aggregator changes are detected  wiki-data-reader/scripts/updateItems.ts wiki-data-reader/scripts/lib/heroPowerOutput.ts
