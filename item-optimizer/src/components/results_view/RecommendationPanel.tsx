@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { clearTooltip, setTooltip } from "../../slices/tooltipSlice";
 import type { HeroMetadata, HeroPower, HeroRole, Item } from "../../types";
 import { calculateRecommendationScore, type RecommendationMatches, type RecommendationScore } from "../../utils/recommendationScore";
-import HeroPicker, { type HeroOption } from "../shared/HeroPicker";
+import HeroPicker from "../shared/HeroPicker";
 
 type SlotConfig = {
   id: string;
