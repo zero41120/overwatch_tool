@@ -81,7 +81,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Tracer",
     "name": "Impulsive",
-    "description": "When you use [Recall], throw a [Pulse Bomb] that deals 60% less damage.<ul><li>The 60% damage reduction is implemented as a 0.4x damage multiplier that stacks multiplicatively with ability power</li><li>This means you need +150% ability power, and not +60%, to achieve the same damage as a regular Pulse Bomb with +0% ability power</li></ul>",
+    "description": "When you use [Recall], throw a [Pulse Bomb] that deals 60% less damage.<ul><li>Formerly called Pocket Bomb</li><li>The 60% damage reduction is implemented as a 0.4x damage multiplier that stacks multiplicatively with ability power</li><li>This means you need +150% ability power, and not +60%, to achieve the same damage as a regular Pulse Bomb with +0% ability power</li></ul>",
     "affectedAbility": "Pulse Bomb",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/fb/Pocket_Bomb.png"
   }

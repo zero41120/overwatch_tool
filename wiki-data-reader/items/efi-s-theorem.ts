@@ -5,6 +5,10 @@ const record: ItemRecord = {
     name: "EFI'S THEOREM",
     attributes: [
       {
+        type: "Armor",
+        value: "25"
+      },
+      {
         type: "ALS",
         value: "20%"
       },

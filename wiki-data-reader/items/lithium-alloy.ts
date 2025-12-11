@@ -9,6 +9,10 @@ const record: ItemRecord = {
         value: "25"
       },
       {
+        type: "AP",
+        value: "10%"
+      },
+      {
         type: "Steel Trap Throw Distance",
         value: "50%"
       },
@@ -17,7 +21,7 @@ const record: ItemRecord = {
         value: "Enemies that trigger [Steel Trap] Burn for <b class=\"stat-ap\">75</b> damage over 3s."
       }
     ],
-    cost: 10000,
+    cost: 9500,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/2e/Lithium_Alloy.png",

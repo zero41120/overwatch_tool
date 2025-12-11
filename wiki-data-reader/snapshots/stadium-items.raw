@@ -171,7 +171,7 @@ This is a list of '''General Items''', purchasable by every hero in [[Stadium]].
 | hero_name = All heroes
 | ability_image = Salvaged_Slugs.png
 | ability_type = General Item (Weapon)
-| stadium_buffs = Health;;25::Attack Speed;;10%::Increased Damage to Barriers and Deployables;;30%
+| stadium_buffs = Health;;25::Attack Speed;;10%::Increased Damage to Barriers and Deployables;;50%
 | official_description = Dealing Weapon Damage to Barriers or Deployables has a 50% chance to restore 1 ammo.
 | stadium_rarity = Epic
 | stadium_cost = 9000
@@ -396,10 +396,10 @@ This is a list of '''General Items''', purchasable by every hero in [[Stadium]].
 | hero_name = All heroes
 | ability_image = Nano Cola Item.png
 | ability_type = General Item (Ability)
-| stadium_buffs = Ability Power;;20%
+| stadium_buffs = Ability Power;;15%
 | official_description = 
 | stadium_rarity = Rare
-| stadium_cost = 6000
+| stadium_cost = 5500
 }}
 
 === Epic ===
@@ -482,7 +482,7 @@ This is a list of '''General Items''', purchasable by every hero in [[Stadium]].
 | stadium_buffs = Ability Power;;20%:: Cooldown Reduction;;10%
 | official_description = After spending your Ultimate Charge, gain 100 Overhealth for 3s.
 | stadium_rarity = Epic
-| stadium_cost = 11000
+| stadium_cost = 12000
 }}
 {{Ability details
 | ability_name = Liquid Nitrogen
@@ -513,7 +513,7 @@ This is a list of '''General Items''', purchasable by every hero in [[Stadium]].
 | stadium_buffs = Ability Power;;35%
 | official_description = 
 | stadium_rarity = Epic
-| stadium_cost = 14000
+| stadium_cost = 14500
 }}
 
 == Survival ==
@@ -595,8 +595,8 @@ This is a list of '''General Items''', purchasable by every hero in [[Stadium]].
 | hero_name = All heroes
 | ability_image = Reflex_Coating.png
 | ability_type = General Item (Survival)
-| stadium_buffs = Health;;25
-| official_description = When you are stunned, slept, hindered or anti-healed, gain 75 Overhealth for 3s (20s Cooldown).
+| stadium_buffs = Health;;10
+| official_description = When you are stunned, slept, hindered or anti-healed, gain 75 Overhealth for 3s.
 | stadium_rarity = Common
 | stadium_cost = 1500
 }}
@@ -744,7 +744,7 @@ This is a list of '''General Items''', purchasable by every hero in [[Stadium]].
 | ability_image = Divine Intervention.png
 | ability_type = General Item (Survival)
 | stadium_buffs = Shields;;50
-| official_description = When you take more than 150 pre-mitigation damage at once, gain Overhealth equal to 20% of damage taken for 3s and start regenerating your Shields.
+| official_description = When you are Stunned or take more than 125 pre-mitigation damage at once, gain Overhealth equal to 20% of damage taken for 3s and start regenerating your Shields.
 | stadium_rarity = Epic
 | stadium_cost = 9500
 }}
@@ -873,7 +873,7 @@ Gadgets are a new, activatable item type released in ''Season 19''. Only one can
 | ability_image = Exo_Springs.png
 | ability_type = Gadget
 | stadium_buffs = Health;;25
-| official_description = Holding Crouch increases the height of your next jump by up to 250%.
+| official_description = Holding [Crouch] for up to 0.75 seconds increases the height of your next jump by up to 250%.
 | stadium_rarity = Common
 | stadium_cost = 1500
 }}
@@ -895,7 +895,7 @@ Gadgets are a new, activatable item type released in ''Season 19''. Only one can
 | ability_name = Med Kit
 | hero_name = All heroes
 | key = gadget
-| cooldown = 20 seconds
+| cooldown = 15 seconds
 | ability_image = Med_Kit.png
 | ability_type = Gadget
 | stadium_buffs = Health;;25
@@ -950,7 +950,7 @@ Gadgets are a new, activatable item type released in ''Season 19''. Only one can
 | ability_name = Kitsune Charm
 | hero_name = All heroes
 | key = gadget
-| cooldown = 35 seconds
+| cooldown = 20 seconds
 | ability_image = Kitsune_Charm.png
 | ability_type = Gadget
 | stadium_buffs = Shields;;50::Incoming Negative Effect Duration;;-40%
@@ -976,13 +976,13 @@ Gadgets are a new, activatable item type released in ''Season 19''. Only one can
 | ability_name = Necrotic Repellant
 | hero_name = All heroes
 | key = gadget
-| cooldown = 15 seconds
+| cooldown = 25 seconds
 | ability_image = Necrotic_Repellant.png
 | ability_type = Gadget
-| stadium_buffs = Shields;;50::Ability Power;;15%
-| official_description = On Use: Knockback and slow all enemies within 8m and apply 30% Healing Reduction for 5s.
+| stadium_buffs = Armor;;50::Cooldown Reduction;;5%
+| official_description = On Use: Knockback, Hinder and slow all enemies within 4m for 1s.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 9000
 }}
 
 {{Ability details
@@ -1002,11 +1002,11 @@ Gadgets are a new, activatable item type released in ''Season 19''. Only one can
 | ability_name = Colossus Core
 | hero_name = All heroes
 | key = gadget
-| cooldown = 35 seconds
+| cooldown = 25 seconds
 | ability_image = Colossus_Core.png
 | ability_type = Gadget
 | stadium_buffs = Health, Armor, Shields;;10%::Knockback Resist;;40%::Slow Resist;;40%
-| official_description = On Use: Gain Unstoppable, 25% Damage Reduction, 25% Max Life, and grow in size, but deal 25% reduced damage and healing for 3s.
+| official_description = On Use: Gain Unstoppable, 25% Damage Reduction, 25% Max Life, and grow in size, but deal 25% reduced damage and healing for 5s.
 | stadium_rarity = Epic
 | stadium_cost = 9500
 }}
@@ -1041,6 +1041,49 @@ Gadgets are a new, activatable item type released in ''Season 19''. Only one can
 == Balance Change Log ==
 {{PatchTableStart}}
 <onlyinclude>
+{{PatchTableElement|2025-12-09|
+;General Item Changes
+{{al|Reflex Coating}} - Common Survival General Item
+* Removed cooldown for Overhealth from being stunned, hindered, slept, or anti-healed.
+* Health reduced to 10 (Down from 25).
+
+{{al|Nano Cola}} - Rare Ability General Item
+* Ability Power reduced to 15% (Down from 20%).
+* Cost reduced to 5500 (Down from 6000).
+
+{{al|Iridescent Iris}} - Epic Ability General Item
+* Cost increased to 12000 (Up from 11000).
+
+{{al|Champion's Kit}} - Epic Ability General Item
+* Cost increased to 14500 (Up from 14000).
+
+{{al|Salvaged Slugs}} - Epic Weapon General Item
+* Bonus damage to Barriers increased to 50% (Up from 30%).
+
+{{al|Divine Intervention}} - Epic Survival General Item
+* Effect now also triggers on any damage that Stuns, like Doomfist's Rocket Punch or Orisa's Energy Javelin.
+
+{{al|Exo Springs}} - Common Gadget
+* Maximum Charge time reduced to 0.75s (Down from 1.5s).
+
+{{al|Med Kit}} - Common Gadget
+* Cooldown reduced to 15s (Down from 20s).
+
+{{al|Kitsune Charm}} - Epic Gadget
+* Cooldown reduced to 20s (Down from 35s).
+
+{{al|Colossus Core}} - Epic Gadget
+* Duration increased to 5s (Up from 3s).
+* Cooldown reduced to 25s (Down from 35s).
+
+{{al|Necrotic Repellant}} - Epic Gadget
+* Added Hinder for 1s.
+* Range reduced to 4m (Down from 8m).
+* Stats changed to 50 Armor and 5% Cooldown Reduction.
+* Cost reduced to 9000 (Down from 9500).
+
+{{DevComment|We're beefing up some of the counter options in the general items, particularly against Doomfist. We're also shaving off some power from some of the vertical Ability Power items, to reduce the burst from pure damage Ability Power builds and encourage more diverse itemization there.}}
+}}
 {{PatchTableElement|2025-10-23|
 ;Armory
 

@@ -5,6 +5,10 @@ const record: ItemRecord = {
     name: "OLADELE-COPTER BLADES",
     attributes: [
       {
+        type: "WP",
+        value: "15%"
+      },
+      {
         type: "AP",
         value: "15%"
       },
@@ -13,7 +17,7 @@ const record: ItemRecord = {
         value: "While Using Javelin Spin, gain free flight and 20% Move Speed."
       }
     ],
-    cost: 12000,
+    cost: 10000,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/60/Oladele-copter_Blades.png",

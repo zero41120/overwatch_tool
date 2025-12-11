@@ -47,7 +47,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Ironsights
 | ability_image = Ironsights.png
 | ability_type = Hero Item (Weapon)
-| official_description = When the target is further than 10m, scoped shot gains 1% damage for each meter.
+| official_description = When the target is further than 10m, scoped shot gains 1% damage for each meter, up to 15%.
 | stadium_rarity = Epic
 | stadium_cost = 11000
 | stadium_buffs = Attack Speed;;10%

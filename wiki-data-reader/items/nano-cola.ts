@@ -6,10 +6,10 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "AP",
-        value: "20%"
+        value: "15%"
       }
     ],
-    cost: 6000,
+    cost: 5500,
     tab: "ability",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/56/Nano_Cola_Item.png",

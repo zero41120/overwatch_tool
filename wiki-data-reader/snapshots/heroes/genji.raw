@@ -19,10 +19,10 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Spiked Grip
 | ability_image = Spiked_Grip.png
 | ability_type = Hero Item (Weapon)
-| stadium_buffs = Max Ammo;;30%
-| official_description = While climbing, restore 20% of your ammo every 1s.
+| stadium_buffs = Max Ammo;;30%::Attack Speed;;10%
+| official_description = While climbing, restore 35% of your ammo every 1s.
 | stadium_rarity = Rare
-| stadium_cost = 3750
+| stadium_cost = 4000
 }}
 <!-- Epic -->
 {{Ability details
@@ -39,9 +39,9 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Swift-Loader.png
 | ability_type = Hero Item (Weapon)
 | stadium_buffs = Attack Speed;;10%::Max Ammo;;30%
-| official_description = Damaging an enemy with [Swift Strike] restores 20% of your ammo.
+| official_description = Using [Swift Strike] restores 20% ammo and gives 20% Attack Speed for 2.5s.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 12000
 }}
 {{Ability details
 | ability_name = Ambusher Optics
@@ -67,10 +67,10 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Traversal Kinetics
 | ability_image = Traversal_Kinetics.png
 | ability_type = Hero Item (Ability)
-| stadium_buffs = 
+| stadium_buffs = Weapon Power;;10%::Ability Power;;10%
 | official_description = [Swift Strike] cooldown is reduced by 50% if it deals no damage.
 | stadium_rarity = Rare
-| stadium_cost = 3750
+| stadium_cost = 5000
 }}
 <!-- Epic -->
 {{Ability details
@@ -80,7 +80,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Ability Power;;15%::Ability Lifesteal;;15%::[Swift Strike] Width;;50%
 | official_description = 
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 9000
 }}
 {{Ability details
 | ability_name = Deflecting Dash
@@ -89,7 +89,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Ability Power;;15%
 | official_description = During [Swift Strike], deflect incoming projectiles toward your reticle.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 9000
 }}
 
 === Survival ===
@@ -107,7 +107,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Equilibrium Gear
 | ability_image = Equilibrium_Gear.png
 | ability_type = Hero Item (Survival)
-| stadium_buffs = Health;;25
+| stadium_buffs = Health;;25::Cooldown Reduction;;5%
 | official_description = While climbing, heal 5% of your Life every 1s.
 | stadium_rarity = Rare
 | stadium_cost = 4000
@@ -117,9 +117,9 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Sparrowhawk_Feather.png
 | ability_type = Hero Item (Survival)
 | stadium_buffs = Health;;25
-| official_description = Gain an additional jump.
+| official_description = Gain an additional jump. [Swift Strike] resets additional jumps.
 | stadium_rarity = Rare
-| stadium_cost = 4000
+| stadium_cost = 3750
 }}
 <!-- Epic -->
 {{Ability details
@@ -127,9 +127,9 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Slicy_Coolant.png
 | ability_type = Hero Item (Survival)
 | stadium_buffs = Armor;;50::Cooldown Reduction;;5%::[Deflect] Duration;;1s
-| official_description = 
+| official_description = [Deflect] now deflects attacks from both sides.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 11000
 }}
 {{Ability details
 | ability_name = Transference Delta
@@ -313,6 +313,46 @@ Finish off foes by setting up powerful Swift Strikes, using {{Ability Power|Abil
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-12-09|
+{{DevComment|These changes broaden Genji’s build diversity and reinforce his identity as a highly mobile, high-skill-cap assassin. Powers like Forged Under Fire and Hanamura Healing received significant stat increases to enhance survivability and reward aggressive play. Weapon items such as Spiked Grip and Swift-Loader now offer more meaningful tempo boosts, improving Genji’s ability to chain engagements fluidly. Ability and survival items have been tuned to strengthen mobility, cooldown management, and defensive expression. Overall, this update aims to make more of Genji’s item paths viable and exciting without pushing his burst lethality beyond intended limits.}}
+
+{{al|Forged Under Fire}} - Power
+* Healing increased to 125% (Up from 60%).
+
+{{al|Hanamura Healing}} - Power
+* Damage increased to 35% (Up from 25%).
+* Overhealth duration is now infinite (Up from 5s).
+
+{{al|Spiked Grip}} - Rare Weapon Hero Item
+* Ammo restore increased to 35% (Up from 20%).
+* Added: +10% Attack Speed
+* Cost increased to 4000 (Up from 3750).
+
+{{al|Swift-Loader}} - Epic Weapon Hero Item
+* Redesigned to: Using [Swift Strike] restores 20% ammo and gives 20% Attack Speed for 2.5s.
+* Cost increased to 12000 (Up from 10000).
+
+{{al|Traversal Kinetics}} - Rare Ability Hero Item
+* Added:+10% Weapon Power, +10% Ability Power
+* Cost increased to 5000 (Up from 3750).
+
+{{al|Clean Sweep}} - Epic Ability Hero Item
+* Cost decreased to 9000 (Down from 10000).
+
+{{al|Deflecting Dash}} - Epic Ability Hero Item
+* Cost decreased to 9000 (Down from 10000).
+
+{{al|Equilibrium Gear}} - Rare Survival Hero Item
+* Added: +5% Cooldown Reduction.
+
+{{al|Sparrowhawk Feather}} - Rare Survival Hero Item
+* Added: [Swift Strike] resets additional jumps.
+* Cost decreased to 3750 (Down from 4000).
+
+{{al|Slicy Coolant}} - Epic Survival Hero Item
+* Added: Deflect now deflects attacks from both sides.
+* Cost increased to 11000 (Up from 10000).
+}}
 {{PatchTableElement|2025-06-24|
 {{DevComment|Developer Comments: Melee Genji builds have become very prominent, which is awesome! However, the bursty backstab build is a bit too consistent and can feel hard to interact with. We're reducing the damage ceiling for this build but upping it's sustain to compensate. We're also adding a little bit more power to the Ability Power Swift strike build to make its key pieces feel a bit more impactful early on in a match. We'll be looking at making a larger set of changes to Genji in a future update.}}
 

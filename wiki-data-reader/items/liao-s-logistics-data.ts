@@ -13,7 +13,7 @@ const record: ItemRecord = {
         value: "15%"
       }
     ],
-    cost: 11000,
+    cost: 10000,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/09/Liao%27s_Logistics_Data.png",

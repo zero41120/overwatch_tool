@@ -13,7 +13,7 @@ const record: ItemRecord = {
         value: "When [Steel Trap] triggers, reveal the target and gain 25% Move Speed and 10% Attack Speed for 3s."
       }
     ],
-    cost: 4000,
+    cost: 3750,
     tab: "survival",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/eb/Thermal_Traps.png",

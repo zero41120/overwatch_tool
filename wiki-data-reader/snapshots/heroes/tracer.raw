@@ -196,7 +196,8 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Pocket_Bomb.png
 | ability_type = Stadium Power
 | affected_ability = Pulse Bomb
-| ability_details = * The 60% damage reduction is implemented as a 0.4x damage multiplier that stacks multiplicatively with ability power
+| ability_details = * Formerly called Pocket Bomb
+* The 60% damage reduction is implemented as a 0.4x damage multiplier that stacks multiplicatively with ability power
 ** This means you need +150% ability power, and not +60%, to achieve the same damage as a regular Pulse Bomb with +0% ability power
 | official_description = When you use [Recall], throw a [Pulse Bomb] that deals 60% less damage.
 }} 

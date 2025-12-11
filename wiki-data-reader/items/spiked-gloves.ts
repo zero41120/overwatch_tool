@@ -17,7 +17,7 @@ const record: ItemRecord = {
         value: "Deal 10% increased damage and 25% [Quick Melee] damage to enemies that are airborne."
       }
     ],
-    cost: 4500,
+    cost: 4000,
     tab: "weapon",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c2/Spiked_Gloves.png",

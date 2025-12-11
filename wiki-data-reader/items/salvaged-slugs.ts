@@ -14,7 +14,7 @@ const record: ItemRecord = {
       },
       {
         type: "Increased Damage to Barriers and Deployables",
-        value: "30%"
+        value: "50%"
       },
       {
         type: "description",

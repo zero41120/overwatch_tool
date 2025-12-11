@@ -14,7 +14,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "On Use: Cleanse yourself of most negative effects, restore 75 Life, and gain Invulnerability and 75% Move Speed for 0.65s. <b>Cooldown:</b> 35 seconds"
+        value: "On Use: Cleanse yourself of most negative effects, restore 75 Life, and gain Invulnerability and 75% Move Speed for 0.65s. <b>Cooldown:</b> 20 seconds"
       }
     ],
     cost: 9000,

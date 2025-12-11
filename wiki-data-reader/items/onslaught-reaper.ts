@@ -2,7 +2,7 @@ import type { ItemRecord } from "../types";
 
 const record: ItemRecord = {
   item: {
-    name: "ONSLAUGHT",
+    name: "ONSLAUGHT (REAPER)",
     attributes: [
       {
         type: "MA",
@@ -17,8 +17,7 @@ const record: ItemRecord = {
     tab: "weapon",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c5/Onslaught.png",
-    character: "Reaper",
-    id: "i_63"
+    character: "Reaper"
   }
 };
 

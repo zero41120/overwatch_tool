@@ -53,7 +53,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Orisa",
     "name": "Restortify",
-    "description": "While Fortify is active, heal for 5% of your maximum health every 1s.",
+    "description": "While Fortify is active, heal for 8% of your maximum health every 1s.",
     "affectedAbility": "Fortify",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/30/Restortify.png"
   },

@@ -1,1 +1,230 @@
-Wuyang isn't in Stadium, yet.
+{{HeroTabs}}
+
+'''{{BASEPAGENAME}}''' is a upcoming [[hero]] in the [[Stadium]] [[game mode]].
+
+== Ability interactions ==
+{{StadiumAbilityInteractions/header}}
+{{StadiumAbilityInteractions/row|Xuanwu Staff|weaponPower=1|attackSpeed=1|weaponLifesteal=1|maxAmmo=}}
+{{StadiumAbilityInteractions/row|Restorative Stream}}
+{{StadiumAbilityInteractions/row|Rushing Torrent}}
+{{StadiumAbilityInteractions/row|Guardian Wave|abilityPower=1|cooldownReduction=1|abilityLifesteal=1}}
+{{StadiumAbilityInteractions/row|Tidal Blast|abilityPower=1|abilityLifesteal=1}}<!-- -->
+|}
+
+* these stats are not official but were tested in-game using [[Custom Game|Custom Games]] [[Workshop]].
+* some of the abilites were tested
+
+This is a list of hero-specific Powers.<ref>[https://youtu.be/r4F3jhsAHxA?si=BwYihcxtYxbS7S7P&t=423 Developer Update | Season 20: Vendetta, Winter Wonderland, Stadium, & More]</ref>
+
+== Powers ==
+{{Ability details
+| ability_name = Paindrops
+| ability_image = Paindrops.png
+| ability_type = Stadium Power
+| official_description = After using [Guardian Wave], Wuyang can shoot 2 additional water orbs for 8s. Each deals 40% damage.
+| affected_ability = Xuanwu Staff
+}}
+{{Ability details
+| ability_name = Undertow
+| ability_image = Wuyang_Power_Undertow.png
+| ability_type = Stadium Power
+| official_description = For each Primary fire hit, gain 5% healing resource and reduce [Rushing Torrent] cooldown by 1.0s.
+| affected_ability = Xuanwu Staff
+}}{{Ability details
+| ability_name = Wave Lance
+| ability_image = Wuyang_Power_WaveLance.png
+| ability_type = Stadium Power
+| official_description = Non-empowered Primary Fire shoots straight and gains 100% increased projectile speed.
+| affected_ability = Xuanwu Staff
+}}{{Ability details
+| ability_name = Flow State
+| ability_image = Wuyang_Power_ FlowState.png
+| ability_type = Stadium Power
+| official_description = While [Rushing Torrent] is active, every 50 healing with Active [Restorative Stream] extends the duration of [Rushing Torrent] by 2s.
+| affected_ability = Restorative Stream
+}}{{Ability details
+| ability_name = Shore Up
+| ability_image = Wuyang_Power_ Shore Up.png
+| ability_type = Stadium Power
+| official_description = Using Active [Restorative Stream] on ally heals Wuyang for 75% of healing.
+| affected_ability = Restorative Stream
+}}
+
+{{Ability details
+| ability_name = Tidekeeper
+| ability_image = Wuyang_Power_ Tidekeeper .png
+| ability_type = Stadium Power
+| official_description = Every 1s during Active [Restorative Stream] reduces [Guardian Wave] cooldown by 1.5s.
+| affected_ability = Restorative Stream
+}}
+{{Ability details
+| ability_name = Puddle Stomp
+| ability_image = Wuyang_Power_ Puddle Stomp.png
+| ability_type = Stadium Power
+| official_description = While [Rushing Torrent] is active, landing from a jump heals all allies within 6m for 65 for every 1s spent falling.
+| affected_ability = Rushing Torrent
+}}
+{{Ability details
+| ability_name = Splish Slash
+| ability_image = Wuyang_Power_ Splish Slash.png
+| ability_type = Stadium Power
+| official_description = While [Rushing Torrent] is active, airborne [Quick Melee] activates a 50% short [Guardian Wave] and a splash attack with 60 damage per every second dropped. (15s)
+| affected_ability = Rushing Torrent
+}}
+{{Ability details
+| ability_name = Streamline
+| ability_image = Wuyang_Power_ Streamline.png
+| ability_type = Stadium Power
+| official_description = While [Rushing Torrent] is activated, place Passive [Restorative Stream] on all allies within line of sight.
+| affected_ability = Rushing Torrent
+}}
+{{Ability details
+| ability_name = Ebb and Flow (Power)
+| ability_image = Wuyang_Power_ Ebb and Flow.png
+| ability_type = Stadium Power
+| official_description = [Guardian Wave] rewinds to its starting location with 50% damage.
+| affected_ability = Guardian Wave
+}}{{Ability details
+| ability_name = Storm Surge
+| ability_image = Wuyang_Power_ Storm Surge.png
+| ability_type = Stadium Power
+| official_description = [Guardian Wave] creates a second wave that splashes to targets within 6m around Wuyang.
+| affected_ability = Guardian Wave
+}}
+
+{{Ability details
+| ability_name = Tidal Save
+| ability_image = Wuyang_Power Tidal Save.png
+| ability_type = Stadium Power
+| official_description = [Guardian Wave] heals allies with Passive [Restorative Stream] for an extra 100% over 4s.
+| affected_ability = Guardian Wave
+}}
+
+== Example Builds ==
+These are example builds pre-built in [[Stadium]] meant to show some possibilities of what can be done in the mode.
+
+none were showen
+{{StadiumNav}}
+
+== Balance Change Log ==
+{{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-12-09|
+;New Heroes Added
+* New heroes added to the roster
+
+{{al|Paindrops}} - Power
+* After using [Guardian Wave], Wuyang can shoot 2 additional water orbs for 8s. Each deals 40% damage.
+
+{{al|Undertow}} - Power
+* For each Primary fire hit, gain 5% healing resource and reduce [Rushing Torrent] cooldown by 1.0s
+
+{{al|Wave Lance}} - Power
+* Non-empowered Primary Fire shoots straight and gains 100% increased projectile speed.
+
+{{al|Flow State}} - Power
+* While [Rushing Torrent] is active, every 50 healing with Active [Restorative Stream] extends the duration of [Rushing Torrent] by 2s.
+
+{{al|Shore Up}} - Power
+* Using Active [Restorative Stream] on ally heals Wuyang for 75% of healing.
+
+{{al|Tidekeeper}} - Power
+* Every 1s during Active [Restorative Stream] reduces [Guardian Wave] cooldown by 1.5s.
+
+{{al|Puddle Stomp}} - Power
+* While [Rushing Torrent] is active, landing from a jump heals all allies within 6m for 65 for every 1s spent falling.
+
+{{al|Splish Slash}} - Power
+* While [Rushing Torrent] is active, airborne [Quick Melee] activates a 50% short [Guardian Wave] and a splash attack with 60 damage per every second dropped. (15s cooldown)
+
+{{al|Streamline}} - Power
+* While [Rushing Torrent] is activated, place Passive [Restorative Stream] on all allies within line of sight.
+
+{{al|Ebb and Flow (Power)}} - Power
+* [Guardian Wave] rewinds to its starting location with 50% damage.
+
+{{al|Storm Surge}} - Power
+* [Guardian Wave] creates a second wave that splashes to targets within 6m around Wuyang.
+
+{{al|Tidal Save}} - Power
+* [Guardian Wave] heals allies with Passive [Restorative Stream] for an extra 100% over 4s.
+
+{{al|Oscillation Orb}} - Legendary Hero Item
+* 10% Weapon Power
+* Empowered Orb can be steered more freely
+* Cost: 4,000
+
+{{al|Tidefill Basin}} - Legendary Hero Item
+* 25 Shields
+* 15% Max Ammo
+* While [Rushing Torrent] is active, gain 3 Ammo and 5% Healing Resource every 1s.
+* Cost: 4,500
+
+{{al|Oceanic Ointment}} - Legendary Hero Item
+* 35% Empowered Orb Splash Radius
+* Empowered Orb's splash can remove burn and give 50% of its splash damage as temporary Overhealth to all allies, up to 100.
+* Count: 9,000
+
+{{al|Metal College Module}} - Legendary Hero Item
+* 15% Weapon Power
+* While using [Rushing Torrent], gain 35% Attack Speed.
+* Cost: 11,000
+
+{{al|Aquajet Amplifier}} - Legendary Hero Item
+* 10% Weapon Power
+* 25% Active [Restorative Stream] Healing Power
+* 25% [Restorative Stream] Healing Range
+* Cost: 10,000
+
+{{al|Water College Hat}} - Legendary Hero Item
+* 25 Shields
+* 50% Passive [Restorative Stream] Duration
+* Passive [Restoration Stream] also gives 10 Overhealth per second, up to 30 ability power.
+* Cost: 4,000
+
+{{al|Wuxing Waveriders}} - Legendary Hero Item
+* 10% Weapon Power
+* 10 Ability Power
+* While [Rushing Torrent] is active, float upward. Jump to cancel or press crouch to get lower.
+* Cost: 9,000
+
+{{al|Ye Family Visor}} - Legendary Hero Item
+* 15% Ability Power
+* 50% [Guardian Wave] increased healing effect duration
+* Enemies hit by [Guardian Wave] are revealed for 5s.
+* Cost: 10,000
+
+{{al|Hydrocache}}
+* 25 Shields
+* 10% Weapon Power
+* 25% [Restorative Stream] Max Resource
+* Cost: 5,500
+
+{{al|Reservoir Refresher}} - Legendary Hero Item
+* 25 Shields
+* 10% Ability Power
+* For each target hit by [Guardian Wave], gain 10% Healing Resource.
+* Cost: 5,000
+
+{{al|Hydro Mender}} - Legendary Hero Item
+* 25 Shields
+* Restore 2% of your shield every second.
+* While [Rushing Torrent] is active, restore an additional 10% every second.
+* Cost: 9,000
+
+{{al|Waterfall Westsuit}} - Legendary Hero Item
+* 25 shields
+* 10% Cooldown Reduction
+* For each target hit by [Guardian Wave], Wuyang gains 20 Overhealth, up to 80 ability power.
+* Cost: 11,000
+
+{{al|Torrential Transistor}}
+* 50 shields
+* [Tidal Blast] gives allies within 12m of the target 50 temporary Overhealth every 1s.
+* While Wuyang has shield, gain 15% increased Ultimate Charge.
+* Cost: 10,000
+}}
+</onlyinclude>{{PatchTableEnd}}
+
+{{StadiumNav}}
+[[Category:{{BASEPAGENAME}}]]
+[[Category:Stadium hero pages]]

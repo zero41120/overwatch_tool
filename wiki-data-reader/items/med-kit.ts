@@ -10,7 +10,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "On Use: Restore 20 Life every 1s for 10s. Taking damage removes this bonus. <b>Cooldown:</b> 20 seconds"
+        value: "On Use: Restore 20 Life every 1s for 10s. Taking damage removes this bonus. <b>Cooldown:</b> 15 seconds"
       }
     ],
     cost: 1500,

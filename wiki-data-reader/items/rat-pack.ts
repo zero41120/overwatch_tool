@@ -6,11 +6,11 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "AP",
-        value: "5%"
+        value: "10%"
       },
       {
         type: "Steel Trap Health",
-        value: "50%"
+        value: "100%"
       },
       {
         type: "description",

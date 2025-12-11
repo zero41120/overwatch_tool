@@ -10,10 +10,10 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Gain an additional jump."
+        value: "Gain an additional jump. [Swift Strike] resets additional jumps."
       }
     ],
-    cost: 4000,
+    cost: 3750,
     tab: "survival",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4f/Sparrowhawk_Feather.png",

@@ -13,7 +13,7 @@ const record: ItemRecord = {
         value: "When you use Fortify, allies within line of sight gain Unstoppable for 2s."
       }
     ],
-    cost: 10000,
+    cost: 9000,
     tab: "survival",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/18/HollaGram_Helmet.png",

@@ -131,9 +131,9 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Medimaster.png
 | ability_type = Stadium Power
 | affected_ability = Mediblaster
-| official_description = [Mediblaster] can now critically hit both allies and enemies.
+| official_description = [Mediblaster] Critical Multipllier increased from 150% to 200%. Critical hits reduce [Hyper Ring] cooldown by 0.2s.
 | headshot = yes
-| headshot_mod = 1.5
+| headshot_mod = 2
 }}
 {{Ability details
 | ability_name = Stinger
@@ -156,7 +156,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Medicinal Missiles.png
 | ability_type = Stadium Power
 | affected_ability = Pulsar Torpedoes
-| official_description = [Pulsar Torpedoes] causes allies hit to receive 50% more healing for 3s.
+| official_description = [Pulsar Torpedoes] heal for an extra {{Ability Power|30}} life and causes allies hit to receive 50% more healing for 3s.
 }}
 {{Ability details
 | ability_name = Pulsar Plus
@@ -313,6 +313,17 @@ Place your Hyper Ring in advantageous positions and master your blaster with pre
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-12-09|
+{{al|MediMaster}} - Power
+* Critical Hit additional damage increased from 150% to 200%.
+* Critical Hits now reduce the cooldown of [Hyper Ring] by 0.2s
+}}
+{{PatchTableElement|2025-11-11|
+{{DevComment|Bringing back the extra heal that Medicinal Missiles used to have. This boost adds more sustain for allies and makes her supportive playstyle feel even more rewarding when landing those precise shots.}}
+
+{{al|Medicinal Missiles}} - Power
+* Now heals extra 30 health on pulsar hit.
+}}
 {{PatchTableElement|2025-10-23|
 {{DevComment|Juno’s kit has been seeing high versatility, but a few powers weren’t keeping up with the pace of current matches. These updates give her stronger offensive and defensive options with more punch from range, faster follow-ups, and sturdier healing.}}
 

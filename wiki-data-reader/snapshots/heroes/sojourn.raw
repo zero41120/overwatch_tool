@@ -63,7 +63,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Ability Power;;10%
 | official_description = [Disruptor Shot] eliminations grant 10% Ultimate Charge.
 | stadium_rarity = Rare
-| stadium_cost = 5000
+| stadium_cost = 4000
 }}
 
 {{Ability details
@@ -84,7 +84,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Ability Power;;15%::[Disruptor Shot] Duration;;15%
 | official_description = 
 | stadium_rarity = Epic
-| stadium_cost = 11000
+| stadium_cost = 10000
 }}
 
 === Survival ===
@@ -106,7 +106,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Fine-Tuned_Thrusters.png
 | ability_type = Stadium Power
 | affected_ability = Power Slide
-| official_description = Gain 25% Damage Reduction during [Power Slide]. [Power Slide] has 100% increased Duration.
+| official_description = Gain 35% Damage Reduction during [Power Slide]. [Power Slide] has 100% increased Duration.
 }}
 
 {{Ability details
@@ -130,7 +130,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Zoom_Zoom_Zoom.png
 | ability_type = Stadium Power
 | affected_ability = Power Slide
-| official_description = During [Power Slide], gain 25% Attack Speed and 50% Weapon Lifesteal.
+| official_description = During [Power Slide], gain 35% Attack Speed and 100% Weapon Lifesteal.
 }}
 
 {{Ability details
@@ -146,7 +146,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Experimental_Tech.png
 | ability_type = Stadium Power
 | affected_ability = Disruptor Shot
-| official_description = [Disruptor Shot] slows enemies within its area for 15% and grants 33% of its damage dealt as [Railgun] Charge.
+| official_description = [Disruptor Shot] slows enemies within its area for 25% and grants 50% of its damage dealt as [Railgun] Charge.
 }}
 
 {{Ability details
@@ -154,7 +154,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Hard_Stuck.png
 | ability_type = Stadium Power
 | affected_ability = Disruptor Shot
-| official_description = [Disruptor Shot] can stick to enemies. Stuck [Disruptor Shots] deal 50% less damage.
+| official_description = [Disruptor Shot] can stick to enemies. Stuck [Disruptor Shots] deal 25% less damage.
 }}
 
 {{Ability details
@@ -191,7 +191,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 
 {{Ability details
 | ability_name = Aftershock (Sojourn)
-| ability_image = Aftershock_Power.png
+| ability_image = Aftershock_(Power).png
 | ability_type = Stadium Power
 | affected_ability = Railgun Alt Fire
 | official_description = Charged Shot final blows trigger an explosion equal to 75% of the shot's damage.
@@ -207,7 +207,7 @@ Supercharge your Railgun to deliver devastating Charged Shots boosted by {{Weapo
 * {{al|Overcharge}}
 * {{al|Conductor Chase}}
 * {{al|Reverberation Rounds}}
-* {{al|Aftershock (Sojourn)}}
+* {{Al|name=Aftershock (Sojourn)}}
 
 ==== Early Game ====
 * {{al|Compensator}}
@@ -283,6 +283,29 @@ Dive into enemy lines with Powerslide and unleash your rapid fire Railgun, boost
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-11-11|
+{{DevComment|Sojourn’s Disruptor Shot build was too costly for the payoff it provided, making it hard to justify in most matches. We’ve reduced the build’s overall expense and improved her defensive options through Power Slide buffs, giving her more flexibility to reposition and stay in the fight longer.}}
+
+{{al|Hard Stuck}} - Power
+* Damage reduction decreased to 25% (Down from 50%).
+
+{{al|Liao's Logistics Data}} - Epic Ability Hero Item
+* Cost decreased to 10000 (Down from 11000)
+
+{{al|Energy Leech}} - Rare Ability Hero Item
+* Cost decreased to 4000 (Down from 5000)
+
+{{al|Fine-Tuned Thrusters}} - Power
+* Damage reduction increased to 35% (Up from 25%).
+
+{{al|Zoom Zoom Zoom}} - Power
+* Attack Speed increased to 35% (Up from 25%).
+* Weapon Lifesteal increased to 100% (Up from 50%).
+
+{{al|Experimental Tech}} - Power
+* Slow increased to 25% (Up from 15%).
+* Railgun Charge increased to 50% (Up from 33%).
+}}
 {{PatchTableElement|2025-10-14|
 * Added to the Stadium Hero roster.
 

@@ -51,8 +51,8 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Windwalker Boots
 | ability_image = Windwalker_Boots.png
 | ability_type = Hero Item (Ability)
-| stadium_buffs = Health;;25::Cooldown Reduction;;5%::[Updraft] Height;;20%
-| official_description = 
+| stadium_buffs = Health;;25::Ability Power;;5%
+| official_description = [Take Aim] bolt explosion damage reduces the cooldown of [Updraft] by 1s.
 | stadium_rarity = Rare
 | stadium_cost = 4000
 }}
@@ -64,7 +64,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Aeroweave_Cloak.png
 | ability_type = Hero Item (Survival)
 | stadium_buffs = Health;;25::[Take Aim] Slowed Momentum Duration;;100%
-| official_description = While momentum is slowed by [Take Aim], restore 5% Max Life every 1s.
+| official_description = While momentum is slowed by [Take Aim], restore 5% Max Life and 10% Max Ammo every 1s.
 | stadium_rarity = Rare
 | stadium_cost = 4000
 }}
@@ -116,7 +116,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Cyclone.png
 | ability_type = Stadium Power
 | affected_ability = 
-| official_description = When you use [Updraft], fire a [Take Aim] bolt at your crosshair.
+| official_description = When you use [Updraft], fire a [Take Aim] bolt that deals 25% reduced explosion damage at your crosshair.
 }}
 {{Ability details
 | ability_name = Seekerpoint
@@ -151,14 +151,15 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Forager.png
 | ability_type = Stadium Power
 | affected_ability = Revdraw Crossbow
-| official_description = For 2s after using [Quick Dash], [Revdraw Crossbow] hits heal you for 5% of your Max Life.
+| official_description = For 2s after using [Quick Dash], [Revdraw Crossbow] hits heal you for 8% of your Max Life.
 }}
 {{Ability details
 | ability_name = Peak Performance
 | ability_image = Peak_Performance.png
 | ability_type = Stadium Power
 | affected_ability = Revdraw Crossbow
-| official_description = While firing [Revdraw Crossbow], your fall speed is decreased by 80%.
+| official_description = +20% [Updraft] Height <br>
+While firing [Revdraw Crossbow], your fall speed is decreased by 80%.
 }}
 {{Ability details
 | ability_name = Redux
@@ -172,7 +173,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Volley_à_Deux.png
 | ability_type = Stadium Power
 | affected_ability = Revdraw Crossbow
-| official_description = Every fifth [Revdraw Crossbow] shot fires an additional 2 bolts in a spread that deal 50% reduced damage.
+| official_description = Every third [Revdraw Crossbow] shot fires an additional 2 bolts in a spread that deal 33% reduced damage.
 }}
 {{Ability details
 | ability_name = Lille Fælde
@@ -283,6 +284,31 @@ Quick Dash in close to dispatch your foes with self-healing, rapid fire bolts.
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-11-11|
+{{DevComment|These changes are aimed at adding more build variety for Freja and making her weaker options more viable choices. We're also reducing the vertical burst of her Weapon Power build, and adding an additional lever for us to have more fine tune control for further adjustments if needed.}}
+
+{{al|Volley à Deux}} - Power
+* Spread of additional bolts reduced by 60%.
+* Additional bolts fire every 3rd shot (Down from every 5th shot).
+
+{{al|Peak Performance}} - Power
+* Added +20% Updraft Height.
+
+{{al|Forager}} - Power
+* Max Life per hit increased to 8% (Up from 5%).
+
+{{al|Windwalker Boots}} - Rare Ability Hero Item
+* Added: "Take Aim Bolt Explosion damage reduces Updraft Cooldown by 1s".
+* Removed: +20% Updraft Height.
+* Added: 5% Ability Power.
+* Removed: 5% Cooldown Reduction.
+
+{{al|Aeroweave Cloak}} - Rare Survival Hero Item
+* Added: Restore 10% Max Ammo every 1s while momentum is slowed by Take Aim.
+
+{{al|Cyclone}} - Power
+* Added: 25% reduced explosion damage from extra Take Aim Bolt.
+}}
 {{PatchTableElement|2025-10-01|
 {{al|Lille Fælde}} - Power
 * Increased effectiveness to 30% reduced effectiveness (up from 40% reduced effectiveness).

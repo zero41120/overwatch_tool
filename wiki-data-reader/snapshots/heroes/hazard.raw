@@ -73,10 +73,10 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Touch-Up's Touch Up
 | ability_image = Touch-Up's_Touch_Up.png
 | ability_type = Hero Item (Ability)
-| stadium_buffs = Ability Power;;10%::Cooldown Reduction;;5%
-| official_description = After using [Violent Leap], [Spike Guard]'s spikes deal 25% more damage for 5s.
+| stadium_buffs = Ability Power;;5%::Cooldown Reduction;;5%
+| official_description = After using [Violent Leap], [Spike Guard]'s spikes deal 20% more damage for 3s.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 12000
 }}
 
 {{Ability details
@@ -86,7 +86,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Ability Power ;;15%::Ability Lifesteal;;10%::Extra [Spike Guard] Resource;;50%
 | official_description = [Jagged Wall] hits charge [Spike Guard] with 25% bonus energy.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 12000
 }}
 
 === Survival ===
@@ -148,7 +148,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Bonerot.png
 | ability_type = Stadium Power
 | affected_ability = Bonespur
-| official_description = Ammo gained from [Spike Guard] deals {{Weapon Power|10}} extra damage. [Spike Guard] ammo regeneration speed is increased by 25%.
+| official_description = Ammo gained from [Spike Guard] deals {{Weapon Power|20}} extra damage. [Spike Guard] ammo regeneration speed is increased by 25%.
 }}
 
 {{Ability details
@@ -188,7 +188,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Twin_Fang.png
 | ability_type = Stadium Power
 | affected_ability = Violent Leap
-| official_description = After using [Violent Leap], your next shot of [Bonespur] fires a free second shot for 65% damage.
+| official_description = After using [Violent Leap], your next shot of [Bonespur] fires a free second shot for 75% damage.
 }}
 
 {{Ability details
@@ -204,7 +204,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Fortress.png
 | ability_type = Stadium Power
 | affected_ability = Jagged Wall
-| official_description = [Jagged Wall] becomes 35% larger. [Jagged Wall] knockback applies {{Ability Power|40}} additional damage.
+| official_description = [Jagged Wall] becomes 35% larger. [Jagged Wall] knockback applies {{Ability Power|25}} additional damage.
 }}
 
 {{Ability details
@@ -220,7 +220,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Off_The_Wall.png
 | ability_type = Stadium Power
 | affected_ability = Jagged Wall
-| official_description = When [Jagged Wall is spawned], knock back enemies within 8m after 1.5s for {{Ability Power|80}} damage.
+| official_description = When [Jagged Wall is spawned], knock back enemies within 8m after 1.5s for {{Ability Power|60}} damage.
 }}
 
 {{Ability details
@@ -317,6 +317,33 @@ Become a walking cactus of doom, shred anything that gets close, and sharpen you
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-12-09|
+{{DevComment|Hazard’s primary fire oriented powers weren’t keeping pace so Bonerot and Twin Fang are getting some extra bite to help him feel more threatening when he commits. On the other hand, Ability Power oriented builds were doing a little too much while being easy and cheap to build.}}
+
+{{al|Bonerot}} - Power
+* Damage increased to 20 (Up from 10).
+
+{{al|Twin Fang}} - Power
+* Damage increased to 75% (Up from 65%).
+
+{{al|Touch-Up's Touch Up}} - Epic Ability Hero Item
+* Ability Power decreased to 5% (Down from 10%).
+* Spike Guard damage decreased to 20% (Down from 25%).
+* Duration decreased to 3s (Down from 5s).
+* Cost increased to 12000 (Up from 10000).
+
+{{al|Phreak Foil}} - Epic Survival Hero Item
+* Cost increased to 12000 (Up from 10000).
+}}
+{{PatchTableElement|2025-11-11|
+{{DevComment|Hazard’s wall-focused powers were hitting a little too hard, dishing out big burst damage on top of strong zoning potential. We’ve reduced the knockback damage for both Off The Wall and Fortress to make the ability feel fairer to play against while keeping its area control and impact intact.}}
+
+{{al|Off The Wall}} - Power
+* Damage decreased to 60 (Down from 80).
+
+{{al|Fortress}} - Power
+* Damage decreased to 25 (Down from 40).
+}}
 {{PatchTableElement|2025-10-14|
 * Added to the Stadium Hero Roster.
 

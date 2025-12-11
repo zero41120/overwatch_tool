@@ -24,7 +24,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Health;;25::Weapon Power;;5%
 | official_description = Deal 10% increased damage and 25% [Quick Melee] damage to enemies that are airborne.
 | stadium_rarity = Rare
-| stadium_cost = 4500
+| stadium_cost = 4000
 }}
 {{Ability details
 | ability_name = Springier Spring
@@ -61,7 +61,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Rat Pack
 | ability_image = Rat_Pack.png
 | ability_type = Hero Item (Ability)
-| stadium_buffs = Ability Power;;5%::[Steel Trap] Health;;50%
+| stadium_buffs = Ability Power;;10%::[Steel Trap] Health;;100%
 | official_description = [Steel Trap] refunds 33% cooldown when destroyed.
 | stadium_rarity = Rare
 | stadium_cost = 4000
@@ -72,7 +72,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Charged_Chompas.png
 | ability_type = Hero Item (Ability)
 | stadium_buffs = Health;;50::Ability Power;;10%
-| official_description = Whenever [Total Mayhem] deals damage, gain 3% Ultimate Charge.
+| official_description = Ability damage grants 3% Ultimate Charge.
 | stadium_rarity = Epic
 | stadium_cost = 10000
 }}
@@ -89,10 +89,10 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Lithium Alloy
 | ability_image = Lithium_Alloy.png
 | ability_type = Hero Item (Ability)
-| stadium_buffs = Health;;25::[Steel Trap] Throw Distance;;50%
+| stadium_buffs = Health;;25::Ability Power;;10%::[Steel Trap] Throw Distance;;50%
 | official_description = Enemies that trigger [Steel Trap] Burn for {{Ability Power|75}} damage over 3s.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 9500
 }}
 
 === Survival ===
@@ -104,15 +104,15 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_buffs = Health;;25
 | official_description = When [Steel Trap] triggers, reveal the target and gain 25% Move Speed and 10% Attack Speed for 3s.
 | stadium_rarity = Rare
-| stadium_cost = 4000
+| stadium_cost = 3750
 }}
 <!-- Epic -->
 {{Ability details
 | ability_name = Jamison's Jumpers
 | ability_image = Jamison's_Jumpers.png
 | ability_type = Hero Item (Survival)
-| stadium_buffs = Weapon Power;;10%::Ability Power;;10%::[Concussion Mine] Self Knockback Distance;;20%
-| official_description = 
+| stadium_buffs = Health;;25::Weapon Power;;10%::Ability Power;;10%
+| official_description = Detonating [Concussion Mine] on yourself reduces [Concussion Mine] cooldown by 15%
 | stadium_rarity = Epic
 | stadium_cost = 10000
 }}
@@ -121,9 +121,9 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Refreshing_Radiation.png
 | ability_type = Hero Item (Survival)
 | stadium_buffs = Cooldown Reduction;;10%::[Concussion Mine] Health;;50%
-| official_description = For each target detonated by [Concussion Mine], gain Overhealth equal to 5% of Max Life for 3s.
+| official_description = For each target detonated by [Concussion Mine], gain Overhealth equal to 8% of Max Life for 5s.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 9000
 }}
 
 == Powers ==
@@ -176,14 +176,14 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Trap_II,_Esquire.png
 | ability_type = Stadium Power
 | affected_ability = Steel Trap
-| official_description = After [Concussion Mine] has landed for 0.5s, detonating it will spawn a mini [Steel Trap] that slows instead of immobilizing.
+| official_description = After [Concussion Mine] has landed, detonating it will spawn a mini [Steel Trap] that slows instead of immobilizing. You can spawn up to 5 mini [Steel Traps].
 }}
 {{Ability details
 | ability_name = Hop Boom
 | ability_image = Hop_Boom.png
 | ability_type = Stadium Power
 | affected_ability = Concussion Mine
-| official_description = After launching yourself with [Concussion Mine], detonate a [Concussion Mine] whenever you land with 30% reduced effectiveness.
+| official_description = After launching yourself with [Concussion Mine], detonate a [Concussion Mine] whenever you land with 20% reduced effectiveness.
 }}
 {{Ability details
 | ability_name = Slapnel
@@ -204,7 +204,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Rainin'_Lead.png
 | ability_type = Stadium Power
 | affected_ability = Total Mayhem
-| official_description = After launching yourself, drop 1 [Total Mayhem] bomb with 25% reduced damage every 0.3s while airborne.
+| official_description = After launching yourself, drop 1 [Total Mayhem] bomb with 25% reduced damage every 0.25s while airborne.
 }}
 {{Ability details
 | ability_name = Rip Roll
@@ -300,6 +300,46 @@ Provide utility for your team by trapping unsuspecting foes.
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-11-11|
+{{DevComment|Junkrat's Ability Power builds have struggled to find their footing compared to his Weapon Power builds, so we're adding more power and consistency to both his Concussion Mine and Trap centric builds for increased build variety.}}
+
+{{al|Hop Boom}} - Power
+* Concussion Mine damage upon landing after detonating Concussion Mine on yourself increased to 20% reduced effectiveness (Up from 30% reduced effectiveness).
+
+{{al|Trap II, Esquire}} - Power
+* Removed Arming time to spawn Mini Steel Trap.
+* Max Number of Mini Steel Traps increased to 5 (Up from 2).
+
+{{al|Rainin' Lead}} - Power
+* Frequency increased to every 0.25s (Up from 0.3s).
+
+{{al|Jamison's Jumpers}} - Epic Ability Hero Item
+* Added: "Detonating Concussion Mine on yourself reduces Concussion Mine cooldown by 15%".
+* Removed: +20% Concussion Mine Knockback Distance.
+* Added 25 Health.
+
+{{al|Refreshing Radiation}} - Epic Survival Hero Item
+* Cost decreased to 9000 (Down from 10000).
+* Max Life Overhealth increased to 8% (Up from 5%).
+* Overhealth Duration increased to 5s (Up from 3s).
+
+{{al|Lithium Alloy}} - Epic Ability Hero Item
+* Cost decreased to 9500 (Down from 10000).
+* Added: +10% Ability Power.
+
+{{al|Rat Pack}} - Rare Ability Hero Item
+* Ability Power increased to 10% (Up from 5%).
+* Steel Trap Health increased to 100% (Up from 50%).
+
+{{al|Charged Chompas}} - Epic Ability Hero Item
+* Ultimate Charge gain now triggers on all Ability damage (Instead of just Total Mayhem damage).
+
+{{al|Spiked Gloves}} - Rare Weapon Hero Item
+* Cost decreased to 4000 (Down from 4500).
+
+{{al|Thermal Traps}} - Rare Survival Hero Item
+* Cost decreased to 3750 (Down from 4000).
+}}
 {{PatchTableElement|2025-10-14|{{DevComment|Developer Comments: Slapnel is a fun mobility option that isn't picked very often, so we're hoping to make it feel like a more viable option compared to the other Powers.}}
 
 {{al|Slapnel}} - Power

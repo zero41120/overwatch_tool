@@ -11,14 +11,14 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Brigitte",
     "name": "Righteous Cleave",
-    "description": "After using [Shield Bash] or [Whipshot], your next damaging [Rocket Flail] swing heals allies within 10m for 100% of damage dealt.",
+    "description": "After using [Shield Bash] or [Whipshot], your next damaging [Rocket Flail] swing heals allies within 10m for 125% of damage dealt.",
     "affectedAbility": "Rocket Flail",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/ab/Righteous_Cleave.png"
   },
   {
     "hero": "Brigitte",
     "name": "Whirlwhip",
-    "description": "After using [Shield Bash] or [Whipshot], your next [Rocket Flail] swing hits all enemies around you within 5m.",
+    "description": "After using [Shield Bash] or [Whipshot], your next [Rocket Flail] swing deals 25% bonus damage and hits all enemies around you within 5m.",
     "affectedAbility": "Rocket Flail",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/25/Whirlwhip.png"
   },

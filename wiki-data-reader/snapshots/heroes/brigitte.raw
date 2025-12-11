@@ -138,7 +138,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Righteous_Cleave.png
 | ability_type = Stadium Power
 | affected_ability = Rocket Flail
-| official_description = After using [Shield Bash] or [Whipshot], your next damaging [Rocket Flail] swing heals allies within 10m for 100% of damage dealt.
+| official_description = After using [Shield Bash] or [Whipshot], your next damaging [Rocket Flail] swing heals allies within 10m for 125% of damage dealt.
 }}
 
 {{Ability details
@@ -146,7 +146,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Whirlwhip.png
 | ability_type = Stadium Power
 | affected_ability = Rocket Flail
-| official_description = After using [Shield Bash] or [Whipshot], your next [Rocket Flail] swing hits all enemies around you within 5m.
+| official_description = After using [Shield Bash] or [Whipshot], your next [Rocket Flail] swing deals 25% bonus damage and hits all enemies around you within 5m.
 }}
 
 {{Ability details
@@ -307,6 +307,15 @@ Manage your {{Ability Power|Ability Power}} empowered Repair Packs across many a
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-11-11|
+{{DevComment|Brigitte's Weapon Power build has remained niche and difficult to justify over her other build options. We're adding a bit more firepower and survivability here to make it a more viable option in the right situation.}}
+
+{{al|Whirlwhip}} - Power
+* Bonus Damage on 360 Rocket Flail swing increased to 125% (Up from 100%).
+
+{{al|Righteous Cleave}} - Power
+* Healing on next Rocket Flail swing increased to 125% of damage dealt (Up from 100%).
+}}
 {{PatchTableElement|2025-10-14|
 {{DevComment|Developer Comments: Brigitte's Weapon Power builds have struggled to find their footing. We're increasing the usability on these powers to help make Weapon Power centric builds a more viable option.}}
 

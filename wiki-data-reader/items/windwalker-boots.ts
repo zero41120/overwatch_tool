@@ -9,12 +9,12 @@ const record: ItemRecord = {
         value: "25"
       },
       {
-        type: "CR",
+        type: "AP",
         value: "5%"
       },
       {
-        type: "Updraft Height",
-        value: "20%"
+        type: "description",
+        value: "[Take Aim] bolt explosion damage reduces the cooldown of [Updraft] by 1s."
       }
     ],
     cost: 4000,

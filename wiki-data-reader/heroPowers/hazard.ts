@@ -11,7 +11,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Hazard",
     "name": "Bonerot",
-    "description": "Ammo gained from [Spike Guard] deals <b>10</b> extra damage. [Spike Guard] ammo regeneration speed is increased by 25%.",
+    "description": "Ammo gained from [Spike Guard] deals <b>20</b> extra damage. [Spike Guard] ammo regeneration speed is increased by 25%.",
     "affectedAbility": "Bonespur",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b4/Bonerot.png"
   },
@@ -46,7 +46,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Hazard",
     "name": "Twin Fang",
-    "description": "After using [Violent Leap], your next shot of [Bonespur] fires a free second shot for 65% damage.",
+    "description": "After using [Violent Leap], your next shot of [Bonespur] fires a free second shot for 75% damage.",
     "affectedAbility": "Violent Leap",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/ad/Twin_Fang.png"
   },
@@ -60,7 +60,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Hazard",
     "name": "Fortress",
-    "description": "[Jagged Wall] becomes 35% larger. [Jagged Wall] knockback applies <b class=\"stat-ap\">40</b> additional damage.",
+    "description": "[Jagged Wall] becomes 35% larger. [Jagged Wall] knockback applies <b class=\"stat-ap\">25</b> additional damage.",
     "affectedAbility": "Jagged Wall",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/96/Fortress.png"
   },
@@ -74,7 +74,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Hazard",
     "name": "Off The Wall",
-    "description": "When [Jagged Wall is spawned], knock back enemies within 8m after 1.5s for <b class=\"stat-ap\">80</b> damage.",
+    "description": "When [Jagged Wall is spawned], knock back enemies within 8m after 1.5s for <b class=\"stat-ap\">60</b> damage.",
     "affectedAbility": "Jagged Wall",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c6/Off_The_Wall.png"
   },

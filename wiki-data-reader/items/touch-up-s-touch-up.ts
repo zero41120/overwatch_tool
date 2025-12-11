@@ -6,7 +6,7 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "AP",
-        value: "10%"
+        value: "5%"
       },
       {
         type: "CR",
@@ -14,10 +14,10 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "After using [Violent Leap], [Spike Guard]'s spikes deal 25% more damage for 5s."
+        value: "After using [Violent Leap], [Spike Guard]'s spikes deal 20% more damage for 3s."
       }
     ],
-    cost: 10000,
+    cost: 12000,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/ff/Touch-Up%27s_Touch_Up.png",

@@ -4,7 +4,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Freja",
     "name": "Cyclone",
-    "description": "When you use [Updraft], fire a [Take Aim] bolt at your crosshair.",
+    "description": "When you use [Updraft], fire a [Take Aim] bolt that deals 25% reduced explosion damage at your crosshair.",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/79/Cyclone.png"
   },
   {
@@ -35,14 +35,14 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Freja",
     "name": "Forager",
-    "description": "For 2s after using [Quick Dash], [Revdraw Crossbow] hits heal you for 5% of your Max Life.",
+    "description": "For 2s after using [Quick Dash], [Revdraw Crossbow] hits heal you for 8% of your Max Life.",
     "affectedAbility": "Revdraw Crossbow",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/ba/Forager.png"
   },
   {
     "hero": "Freja",
     "name": "Peak Performance",
-    "description": "While firing [Revdraw Crossbow], your fall speed is decreased by 80%.",
+    "description": "+20% [Updraft] Height <br> While firing [Revdraw Crossbow], your fall speed is decreased by 80%.",
     "affectedAbility": "Revdraw Crossbow",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/98/Peak_Performance.png"
   },
@@ -56,7 +56,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Freja",
     "name": "Volley à Deux",
-    "description": "Every fifth [Revdraw Crossbow] shot fires an additional 2 bolts in a spread that deal 50% reduced damage.",
+    "description": "Every third [Revdraw Crossbow] shot fires an additional 2 bolts in a spread that deal 33% reduced damage.",
     "affectedAbility": "Revdraw Crossbow",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/cb/Volley_%C3%A0_Deux.png"
   },

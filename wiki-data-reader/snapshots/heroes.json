@@ -4,6 +4,10 @@
     "slug": "d-va"
   },
   {
+    "name": "Doomfist",
+    "slug": "doomfist"
+  },
+  {
     "name": "Hazard",
     "slug": "hazard"
   },
@@ -78,6 +82,10 @@
   {
     "name": "Tracer",
     "slug": "tracer"
+  },
+  {
+    "name": "Vendetta",
+    "slug": "vendetta"
   },
   {
     "name": "Ana",

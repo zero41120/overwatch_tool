@@ -2,27 +2,26 @@ import type { ItemRecord } from "../types";
 
 const record: ItemRecord = {
   item: {
-    name: "CHARGED CHOMPAS",
+    name: "SNAKE BITE",
     attributes: [
       {
         type: "Health",
-        value: "50"
+        value: "25"
       },
       {
         type: "AP",
-        value: "10%"
+        value: "15%"
       },
       {
         type: "description",
-        value: "Ability damage grants 3% Ultimate Charge."
+        value: "Using [Deadeye] slows all visible enemies by 30% for 2.5s."
       }
     ],
     cost: 10000,
     tab: "ability",
     rarity: "epic",
-    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8f/Charged_Chompas.png",
-    character: "Junkrat",
-    id: undefined
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a2/Snake_Bite.png",
+    character: "Cassidy"
   }
 };
 

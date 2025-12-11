@@ -10,7 +10,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When you take more than 150 pre-mitigation damage at once, gain Overhealth equal to 20% of damage taken for 3s and start regenerating your Shields."
+        value: "When you are Stunned or take more than 125 pre-mitigation damage at once, gain Overhealth equal to 20% of damage taken for 3s and start regenerating your Shields."
       }
     ],
     cost: 9500,

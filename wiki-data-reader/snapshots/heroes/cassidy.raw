@@ -32,10 +32,10 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_name = Competitive Analysis
 | ability_image = Competitive_Analysis.png
 | ability_type = Hero Item (Weapon)
-| official_description = Deal 15% increased primary fire damage to enemies in the Damage role.
+| official_description = Deal 20% Weapon Lifesteal against enemies in the Damage role.
 | stadium_rarity = Epic
 | stadium_cost = 11000
-| stadium_buffs = Weapon Lifesteal;;20%
+| stadium_buffs = Weapon Power;;15%
 }}
 
 === Ability ===
@@ -60,6 +60,15 @@ This is a list of hero-specific items. For a list of items available to all hero
 }}
 <!-- Epic -->
 {{Ability details
+| ability_name = Snake Bite
+| ability_image = Snake_Bite.png
+| ability_type = Hero Item (Ability)
+| official_description = Using [Deadeye] slows all visible enemies by 30% for 2.5s.
+| stadium_rarity = Epic
+| stadium_cost = 10000
+| stadium_buffs = Health;;25::Ability Power;;15%
+}}
+{{Ability details
 | ability_name = Improvised Dynamite
 | ability_image = Improvised_Dynamite.png
 | ability_type = Hero Item (Ability)
@@ -80,12 +89,21 @@ This is a list of hero-specific items. For a list of items available to all hero
 | stadium_cost = 4000
 | stadium_buffs = Health;;25
 }}
+{{Ability details
+| ability_name = Duck and Roll
+| ability_image = Duck_and_Roll.png
+| ability_type = Hero Item (Survival)
+| official_description = 
+| stadium_rarity = Rare
+| stadium_cost = 4500
+| stadium_buffs = Health;;25::Cooldown Reduction;;5%::[Combat Roll] Distance;;50%
+}}
 <!-- Epic -->
 {{Ability details
 | ability_name = Frankie's Fixer
 | ability_image = Frankie's_Fixer.png
 | ability_type = Hero Item (Survival)
-| official_description = Heal {{Ability_Power|10}} Life for each Ammo loaded using [Combat Roll].
+| official_description = Heal 2.5% of your max Life for each Ammo loaded using [Combat Roll] over 3s.
 | stadium_rarity = Epic
 | stadium_cost = 10000
 | stadium_buffs = Health;;50
@@ -102,25 +120,39 @@ This is a list of hero-specific items. For a list of items available to all hero
 
 == Powers ==
 {{Ability details
+| ability_name = Bang Bang (Power)
+| ability_image = Bang_Bang.png
+| ability_type = Stadium Power
+| affected_ability = Peacekeeper
+| official_description = [Peacekeeper] hits against enemies recently damaged by [Flashbang] (within 2s) reduce its cooldown by 0.5s.
+}}
+{{Ability details
+| ability_name = Buck Wild
+| ability_image = Buck_Wild.png
+| ability_type = Stadium Power
+| affected_ability = Peacekeeper
+| official_description = Dealing damage with [Peacekeeper] grants 1% Move Speed for 5s, stacking up to 15 times. At max stacks, gain 10% damage reduction.
+}}
+{{Ability details
 | ability_name = Bullseye
 | ability_image = Bullseye.png
 | ability_type = Stadium Power
 | affected_ability = Peacekeeper
-| official_description = Critical hit reduces [Combat Roll]'s cooldown by 2s.
+| official_description = [Flashabng] hits and Critical hit reduces [Combat Roll]'s cooldown by 2s.
 }}
 {{Ability details
-| ability_name = Dead Man Walking
+| ability_name = Dead Man Walkin'
 | ability_image = Dead_Man_Walking.png
 | ability_type = Stadium Power
 | affected_ability = Peacekeeper
-| official_description = Eliminating an enemy with a critical hit grants 1 Max Ammo for the round, up to 4.
+| official_description = Enemies below 30% Health have their heads marked. Marked heads are larger and Critical Hits on marked enemies have 50% Weapon Lifesteal.
 }}
 {{Ability details
 | ability_name = Full House
 | ability_image = Full_House.png
 | ability_type = Stadium Power
 | affected_ability = Peacekeeper
-| official_description = For each Ammo available, [Peacekeeper]'s primary fire gains 1% increased damage, up to 25%.
+| official_description = Dealing damage with [Flashbang] reduces [Fan the Hammer's] spread by 25% for 2s.
 }}
 {{Ability details
 | ability_name = Quick Draw
@@ -148,43 +180,30 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Just_Roll_With_It.png
 | ability_type = Stadium Power
 | affected_ability = Combat Roll
-| official_description = [Combat Roll] gains additional 25% damage reduction and heals 30% of your Life over 3s.
-}}
-{{Ability details
-| ability_name = Flash in the Pan
-| ability_image = Flash_In_The_Pan.png
-| ability_type = Stadium Power
-| affected_ability = Flashbang
-| official_description = Eliminating an enemy recently damaged by [Flashbang] grants 20% Ultimate Charge.
-}}
-{{Ability details
-| ability_name = Hot Potato
-| ability_image = Hot_Potato.png
-| ability_type = Stadium Power
-| affected_ability = Flashbang
-| official_description = [Flashbang] adds 3 extra Ammo on hit until [Peacekeeper] is reloaded.
+| official_description = [Combat Roll] gains additional 25% damage reduction and heals 25% of your Life over 2s.
 }}
 {{Ability details
 | ability_name = Easy Rider
 | ability_image = Easy_Rider.png
 | ability_type = Stadium Power
 | affected_ability = Deadeye
-| official_description = While using [Deadeye], gain {{Ability_Power|100}} Overhealth and 25% Move Speed.
+| official_description = Eliminating an enemy recently damaged by [Flashbang] grants 20% Ultimate Charge. While using [Deadeye], gain {{Ability Power|100}} Overhealth and 25% Move Speed.
 }}
 {{Ability details
-| ability_name = Sunrise
-| ability_image = Sunrise.png
+| ability_name = It's Twelve O'clock Somewhere
+| ability_image = It's_Twelve_O'Clock_Somewhere.....png
 | ability_type = Stadium Power
 | affected_ability = Deadeye
-| official_description = Using [Deadeye] slows all visible enemies by 35% for 2.5s.
+| official_description = [Deadeye] eliminations grant 25% Ultimate Charge each. If you get no eliminations with [Deadeye], refund 33% Ultimate Charge.
 }}
 {{Ability details
-| ability_name = Sunset
-| ability_image = Sunset.png
+| ability_name = Hot Potato
+| ability_image = Hot_Potato.png
 | ability_type = Stadium Power
-| affected_ability = Deadeye
-| official_description = [Deadeye] eliminations grant 15% Ultimate Charge each.
+| affected_ability = Flashbang
+| official_description = [Flashbang] becomes magnetic and has 50% increased throw distance.
 }}
+
 
 == Example Builds ==
 These are example builds pre-built in [[Stadium]] meant to show some possibilities of what can be done in the mode.
@@ -193,7 +212,7 @@ These are example builds pre-built in [[Stadium]] meant to show some possibiliti
 Duel the enemy with precise Revolver shots and large Fan the Hammers, enhanced with {{Weapon Power|Weapon Power}}.
 
 ==== Powers ====
-* {{al|Dead Man Walking}}
+* {{al|Dead Man Walkin'}}
 * {{al|Full House}}
 * {{al|Quick Draw}}
 * {{al|Bullseye}}
@@ -269,11 +288,93 @@ When enemies rush in, utilize Combat Roll powered by {{Ability Power|Ability Pow
 * {{al|Cybervenom}}
 * {{al|Liquid Nitrogen}}
 
+== Removed Powers and Items ==
+{{Ability details
+| ability_name = Sunrise
+| ability_image = Sunrise.png
+| ability_type = Stadium Power
+| affected_ability = Deadeye
+| official_description = Using [Deadeye] slows all visible enemies by 35% for 2.5s.
+}}
+{{Ability details
+| ability_name = Sunset
+| ability_image = Sunset.png
+| ability_type = Stadium Power
+| affected_ability = Deadeye
+| official_description = [Deadeye] eliminations grant 15% Ultimate Charge each.
+}}
+{{Ability details
+| ability_name = Flash in the Pan
+| ability_image = Flash_In_The_Pan.png
+| ability_type = Stadium Power
+| affected_ability = Flashbang
+| official_description = Eliminating an enemy recently damaged by [Flashbang] grants 20% Ultimate Charge.
+}}
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
-{{PatchTableElement|2025-08-26|
-{{DevComment|Developer Comments: Cassidy’s trusty six-shooter has always kept him sharp against fliers, but with the spicy Stadium powers, the skies have gotten downright unruly. This season, we’re giving Cassidy some upgrades to his weaker tricks so he can hold his own, keep his aim true, and remind everyone who’s the fastest draw in the West.}}
+{{PatchTableElement|2025-12-09|
+;Hero Reworks
+
+{{DevComment|We wanted to address some of Cassidy's least-picked Powers and create viable builds across his entire kit. Several new Fan the Hammer powers, such as Buck Wild, as well as the reworked Frankie's Fixer, should nudge Cassidy's close-range build towards building more tanky, rather than a glass cannon that deletes tanks. Cassidy's crit build has also gotten some love with the new Dead Man Walkin', which rewards him for taking aggressive duels and beating the odds in dangerous situations. We were also unhappy with Cassidy's High Noon build, feeling that it took too many powers and items to come online. Three powers have been condensed down to two, allowing the build to spike earlier in a match, while the new forgiveness mechanic in It's 12 O'clock Somewhere should allow Cassidy to recover quicker if his Ultimate scores no eliminations. Condensing the powers also allows Cassidy to branch out his AP options. No longer do you have to go all in on High Noon, instead Cass can flex into a ranged AP build built around Flashbang and the new Sticky Grenade Power or a close-range build with Barrel Roll (while both still having access to the powerful AP scaling on High Noon).}}
+
+{{al|Full House}} (New) - Power
+* Original functionality removed.
+* (New) Flashbang hits reduce Fan the Hammer's spread by 25% for 2s.
+
+{{al|Bang Bang (Power)}} (New) - Power
+* Peacekeeper hits against enemies recently damaged by Flashbang (within 2s) reduce its cooldown by 0.5s.
+
+{{al|Buck Wild}} (New) - Power
+* Peacekeeper hits grant 1% Move Speed for 5s, stacking up to 15 times. At Max Stacks, gain 10% Damage Reduction.
+
+{{al|Dead Man Walkin'}} (New) - Power
+* Original functionality removed.
+* (New) Enemies below 30% HP have their heads marked. Marked heads are larger and Critical Hits against marked enemies have 50% Weapon Lifesteal.
+
+{{al|Hot Potato}} (New) - Power
+* Original functionality removed.
+* (New) Flashbang becomes magnetic and has 50% increased throw distance.
+
+{{al|Bullseye}} (New) - Power
+* Flashbang hits and Critical Hits reduce Combat Roll's cooldown by 2s.
+
+{{al|It's Twelve O'clock Somewhere}} (New) - Power
+* Deadeye eliminations grant 25% Ultimate Charge each. If you get no eliminations with Deadeye, refund 33% Ultimate Charge.
+
+{{al|Sunset}} - Power
+* Removed and combined into It's 12 O'Clock Somewhere.
+
+{{al|Easy Rider}} (New) - Power
+* Eliminating an enemy recently damaged by Flashbang grants 20% Ultimate Charge. While using Deadeye, gain 100 Overhealth and 25% Move Speed.
+
+{{al|Flash in the Pan}} - Power
+* Removed and combined with Easy Rider.
+
+{{al|Sunrise}} - Power
+* Removed and converted to a Hero Item (Snakebite).
+
+{{al|Snake Bite}} (New) - Item
+* +25 Health
+* +15% Ability Power
+* Using Deadeye slows all visible enemies by 20% for 2.5s
+
+{{al|Duck and Roll}} (New) - Item
+* +25 Health
+* +5% Cooldown Reduction
+* +50% Combat Roll distance.
+
+{{al|Frankie's Fixer}} - Item
+* +50 Health
+* (New) - Heal 2.5% of your Max Life for each Ammo loaded using Combat Roll.
+* Now heals a percentage of your Max Life per ammo instead of a flat number.
+
+{{al|Competitive Analysis}} (New) - Item
++15% Weapon Power
+Gain 20% Weapon Lifesteal against enemies in the Damage role.
+Swapped the conditional stat and main stat.
+}}
+{{PatchTableElement|2025-08-26|{{DevComment|Developer Comments: Cassidy’s trusty six-shooter has always kept him sharp against fliers, but with the spicy Stadium powers, the skies have gotten downright unruly. This season, we’re giving Cassidy some upgrades to his weaker tricks so he can hold his own, keep his aim true, and remind everyone who’s the fastest draw in the West.}}
 
 {{al|Sunrise}} - Power
 * Increased slow duration to 2.5s (Up from 1.5s).
@@ -290,31 +391,28 @@ When enemies rush in, utilize Combat Roll powered by {{Ability Power|Ability Pow
 {{al|Wanted Poster}} – Rare Survival Hero Item
 * Added: Deadeye damage charges 35% faster on airborne enemies.
 }}
-{{PatchTableElement|2025-06-24|
-{{DevComment|Developer Comments: Cassidy’s roll-into-Fan-the-Hammer playstyle was always intended as a close-range burst option, but in practice, it was punishing enemies from ranges where they had little chance to respond. This adjustment refocuses that combo toward close-quarters encounters, where its high-risk, high-reward nature can shine without creating frustration at a distance.}}
+{{PatchTableElement|2025-06-24|{{DevComment|Developer Comments: Cassidy’s roll-into-Fan-the-Hammer playstyle was always intended as a close-range burst option, but in practice, it was punishing enemies from ranges where they had little chance to respond. This adjustment refocuses that combo toward close-quarters encounters, where its high-risk, high-reward nature can shine without creating frustration at a distance.}}
 
 {{al|Peacekeeper Alt Fire|text=Fan the Hammer}} - Secondary Fire
 * Only in the Stadium mode, after 6th shot, weapon spread is increased.
 
-{{al|Dead Man Walking}} - Power
+{{al|Dead Man Walkin'}} - Power
 * Bonus ammo is now gained on critical final blow.
 * Added max cap of bonus ammo set to 4.
 
 {{al|Just Roll With It}} - Power
 * Decreased damage reduction to 25% (Down from 50%), total damage reduction is now 75% during the combat roll.
 }}
-{{PatchTableElement|2025-05-15|
-{{DevComment|Developer Comments: Cassidy continues to be too dominant too consistently, especially at higher levels of play. Most of his power comes from how well he scales with Weapon Power, so shaving off a bit of his currency gain to slow down the pace of his scaling.}}
+{{PatchTableElement|2025-05-15|{{DevComment|Developer Comments: Cassidy continues to be too dominant too consistently, especially at higher levels of play. Most of his power comes from how well he scales with Weapon Power, so shaving off a bit of his currency gain to slow down the pace of his scaling.}}
 
 * Reduced income from damage and healing by 12.5%.
 }}
-{{PatchTableElement|2025-04-25|
-{{DevComment|Developer Comments: Every Hero generates Stadium Cash from dealing damage and healing at a rate unique to them which we’re monitoring carefully. We think we set the rate of Cassidy’s earnings too high and he's earning a bit too much Stadium Cash, allowing him to consistently get MVPs and buy late game Items early on.}}
+{{PatchTableElement|2025-04-25|{{DevComment|Developer Comments: Every Hero generates Stadium Cash from dealing damage and healing at a rate unique to them which we’re monitoring carefully. We think we set the rate of Cassidy’s earnings too high and he's earning a bit too much Stadium Cash, allowing him to consistently get MVPs and buy late game Items early on.}}
 
 * Reduced the amount of Stadium Cash Cassidy gains from dealing damage and healing to 40% (down from 50%).
 }}
 {{PatchTableElement|2025-04-22|
-; Introducing Stadium
+;Introducing Stadium
 * Tank Heroes: D.Va, Junker Queen, Orisa, Reinhardt, and Zarya.
 * Damage Heroes: Ashe, '''Cassidy''', Genji, Mei, Reaper, and Soldier: 76.
 * Support Heroes: Ana, Juno, Kiriko, Lucio, Mercy, and Moira.

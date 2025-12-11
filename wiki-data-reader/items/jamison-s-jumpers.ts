@@ -5,6 +5,10 @@ const record: ItemRecord = {
     name: "JAMISON'S JUMPERS",
     attributes: [
       {
+        type: "Health",
+        value: "25"
+      },
+      {
         type: "WP",
         value: "10%"
       },
@@ -13,8 +17,8 @@ const record: ItemRecord = {
         value: "10%"
       },
       {
-        type: "Concussion Mine Self Knockback Distance",
-        value: "20%"
+        type: "description",
+        value: "Detonating [Concussion Mine] on yourself reduces [Concussion Mine] cooldown by 15%"
       }
     ],
     cost: 10000,

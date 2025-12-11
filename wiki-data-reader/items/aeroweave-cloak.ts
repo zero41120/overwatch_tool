@@ -14,7 +14,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "While momentum is slowed by [Take Aim], restore 5% Max Life every 1s."
+        value: "While momentum is slowed by [Take Aim], restore 5% Max Life and 10% Max Ammo every 1s."
       }
     ],
     cost: 4000,

@@ -4,14 +4,14 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Winston",
     "name": "Circuit Breaker",
-    "description": "Electric damage is increased by 5%. Gain 15% of Electric damage as Overhealth, up to 100.",
+    "description": "Electric damage is increased by 2%. Gain 15% of Electric damage as Overhealth, up to 100.",
     "affectedAbility": "Tesla Cannon",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d0/Circuit_Breaker.png"
   },
   {
     "hero": "Winston",
     "name": "Electro Cluster",
-    "description": "+25% [Tesla Cannon] Primary Fire Max Range.<br>[Tesla Cannon]'s Primary Fire deals 3% increased damage per enemy being hit.",
+    "description": "+25% [Tesla Cannon] Primary Fire Max Range.<br>[Tesla Cannon]'s Primary Fire deals 2% increased damage per enemy being hit.",
     "affectedAbility": "Tesla Cannon",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/33/Electro_Cluster.png"
   },

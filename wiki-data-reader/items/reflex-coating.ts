@@ -6,11 +6,11 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "Health",
-        value: "25"
+        value: "10"
       },
       {
         type: "description",
-        value: "When you are stunned, slept, hindered or anti-healed, gain 75 Overhealth for 3s (20s Cooldown)."
+        value: "When you are stunned, slept, hindered or anti-healed, gain 75 Overhealth for 3s."
       }
     ],
     cost: 1500,

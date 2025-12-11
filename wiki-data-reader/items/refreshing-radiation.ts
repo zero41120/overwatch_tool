@@ -14,10 +14,10 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "For each target detonated by [Concussion Mine], gain Overhealth equal to 5% of Max Life for 3s."
+        value: "For each target detonated by [Concussion Mine], gain Overhealth equal to 8% of Max Life for 5s."
       }
     ],
-    cost: 10000,
+    cost: 9000,
     tab: "survival",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/52/Refreshing_Radiation.png",

@@ -9,11 +9,15 @@ const record: ItemRecord = {
         value: "30%"
       },
       {
+        type: "AS",
+        value: "10%"
+      },
+      {
         type: "description",
-        value: "While climbing, restore 20% of your ammo every 1s."
+        value: "While climbing, restore 35% of your ammo every 1s."
       }
     ],
-    cost: 3750,
+    cost: 4000,
     tab: "weapon",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/45/Spiked_Grip.png",

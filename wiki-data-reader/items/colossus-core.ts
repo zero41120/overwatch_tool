@@ -18,7 +18,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "On Use: Gain Unstoppable, 25% Damage Reduction, 25% Max Life, and grow in size, but deal 25% reduced damage and healing for 3s. <b>Cooldown:</b> 35 seconds"
+        value: "On Use: Gain Unstoppable, 25% Damage Reduction, 25% Max Life, and grow in size, but deal 25% reduced damage and healing for 5s. <b>Cooldown:</b> 25 seconds"
       }
     ],
     cost: 9500,

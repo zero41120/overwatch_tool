@@ -8,6 +8,11 @@ const heroMetadata: HeroMetadata[] = [
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b6/D.Va_Stadium.png"
   },
   {
+    "name": "Doomfist",
+    "slug": "doomfist",
+    "role": "tank"
+  },
+  {
     "name": "Hazard",
     "slug": "hazard",
     "role": "tank",
@@ -162,6 +167,11 @@ const heroMetadata: HeroMetadata[] = [
     "slug": "moira",
     "role": "support",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c1/Moira_Stadium.png"
+  },
+  {
+    "name": "Wuyang",
+    "slug": "wuyang",
+    "role": "support"
   },
   {
     "name": "Zenyatta",

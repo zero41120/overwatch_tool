@@ -46,14 +46,14 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Junkrat",
     "name": "Trap II, Esquire",
-    "description": "After [Concussion Mine] has landed for 0.5s, detonating it will spawn a mini [Steel Trap] that slows instead of immobilizing.",
+    "description": "After [Concussion Mine] has landed, detonating it will spawn a mini [Steel Trap] that slows instead of immobilizing. You can spawn up to 5 mini [Steel Traps].",
     "affectedAbility": "Steel Trap",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/cf/Trap_II%2C_Esquire.png"
   },
   {
     "hero": "Junkrat",
     "name": "Hop Boom",
-    "description": "After launching yourself with [Concussion Mine], detonate a [Concussion Mine] whenever you land with 30% reduced effectiveness.",
+    "description": "After launching yourself with [Concussion Mine], detonate a [Concussion Mine] whenever you land with 20% reduced effectiveness.",
     "affectedAbility": "Concussion Mine",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/bb/Hop_Boom.png"
   },
@@ -73,7 +73,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Junkrat",
     "name": "Rainin' Lead",
-    "description": "After launching yourself, drop 1 [Total Mayhem] bomb with 25% reduced damage every 0.3s while airborne.",
+    "description": "After launching yourself, drop 1 [Total Mayhem] bomb with 25% reduced damage every 0.25s while airborne.",
     "affectedAbility": "Total Mayhem",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/ea/Rainin%27_Lead.png"
   },

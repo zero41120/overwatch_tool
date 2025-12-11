@@ -5,19 +5,19 @@ const record: ItemRecord = {
     name: "NECROTIC REPELLANT",
     attributes: [
       {
-        type: "Shields",
+        type: "Armor",
         value: "50"
       },
       {
-        type: "AP",
-        value: "15%"
+        type: "CR",
+        value: "5%"
       },
       {
         type: "description",
-        value: "On Use: Knockback and slow all enemies within 8m and apply 30% Healing Reduction for 5s. <b>Cooldown:</b> 15 seconds"
+        value: "On Use: Knockback, Hinder and slow all enemies within 4m for 1s. <b>Cooldown:</b> 25 seconds"
       }
     ],
-    cost: 10000,
+    cost: 9000,
     tab: "survival",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/3b/Necrotic_Repellant.png",

@@ -2,7 +2,7 @@ import type { ItemRecord } from "../types";
 
 const record: ItemRecord = {
   item: {
-    name: "EQUILIBRIUM GEAR",
+    name: "DUCK AND ROLL",
     attributes: [
       {
         type: "Health",
@@ -13,16 +13,15 @@ const record: ItemRecord = {
         value: "5%"
       },
       {
-        type: "description",
-        value: "While climbing, heal 5% of your Life every 1s."
+        type: "Combat Roll Distance",
+        value: "50%"
       }
     ],
-    cost: 4000,
+    cost: 4500,
     tab: "survival",
     rarity: "rare",
-    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/46/Equilibrium_Gear.png",
-    character: "Genji",
-    id: "i_200"
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/95/Duck_and_Roll.png",
+    character: "Cassidy"
   }
 };
 

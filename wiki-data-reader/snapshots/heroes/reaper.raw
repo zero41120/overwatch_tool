@@ -38,7 +38,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 }}
 <!-- Epic -->
 {{Ability details
-| ability_name = Onslaught
+| ability_name = Onslaught (Reaper)
 | ability_image = Onslaught.png
 | ability_type = Hero Item (Weapon)
 | stadium_buffs = Max Ammo;;25%
@@ -261,7 +261,7 @@ Excel in close quarters with {{Weapon Power|Weapon Power}} enhanced Shotguns, ra
 ==== Late game ====
 * {{al|Aftermarket Firing Pin}}
 * {{al|Talon Modification Module}}
-* {{al|Onslaught}}
+* {{al|Onslaught (Reaper)|text=Onslaught}}
 * {{al|The Closer}}
 
 ==== Flex ====

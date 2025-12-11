@@ -10,7 +10,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "When the target is further than 10m, scoped shot gains 1% damage for each meter."
+        value: "When the target is further than 10m, scoped shot gains 1% damage for each meter, up to 15%."
       }
     ],
     cost: 11000,

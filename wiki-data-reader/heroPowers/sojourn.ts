@@ -4,7 +4,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Sojourn",
     "name": "Fine-Tuned Thrusters",
-    "description": "Gain 25% Damage Reduction during [Power Slide]. [Power Slide] has 100% increased Duration.",
+    "description": "Gain 35% Damage Reduction during [Power Slide]. [Power Slide] has 100% increased Duration.",
     "affectedAbility": "Power Slide",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/9f/Fine-Tuned_Thrusters.png"
   },
@@ -25,7 +25,7 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Sojourn",
     "name": "Zoom Zoom Zoom",
-    "description": "During [Power Slide], gain 25% Attack Speed and 50% Weapon Lifesteal.",
+    "description": "During [Power Slide], gain 35% Attack Speed and 100% Weapon Lifesteal.",
     "affectedAbility": "Power Slide",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a7/Zoom_Zoom_Zoom.png"
   },
@@ -39,14 +39,14 @@ const heroPowers: HeroPower[] = [
   {
     "hero": "Sojourn",
     "name": "Experimental Tech",
-    "description": "[Disruptor Shot] slows enemies within its area for 15% and grants 33% of its damage dealt as [Railgun] Charge.",
+    "description": "[Disruptor Shot] slows enemies within its area for 25% and grants 50% of its damage dealt as [Railgun] Charge.",
     "affectedAbility": "Disruptor Shot",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c4/Experimental_Tech.png"
   },
   {
     "hero": "Sojourn",
     "name": "Hard Stuck",
-    "description": "[Disruptor Shot] can stick to enemies. Stuck [Disruptor Shots] deal 50% less damage.",
+    "description": "[Disruptor Shot] can stick to enemies. Stuck [Disruptor Shots] deal 25% less damage.",
     "affectedAbility": "Disruptor Shot",
     "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/da/Hard_Stuck.png"
   },
@@ -83,7 +83,7 @@ const heroPowers: HeroPower[] = [
     "name": "Aftershock (Sojourn)",
     "description": "Charged Shot final blows trigger an explosion equal to 75% of the shot's damage.",
     "affectedAbility": "Railgun Alt Fire",
-    "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/53/Aftershock_Power.png"
+    "iconUrl": "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a5/Aftershock_%28Power%29.png"
   }
 ];
 

@@ -10,7 +10,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Holding Crouch increases the height of your next jump by up to 250%. <b>Cooldown:</b> 15 seconds"
+        value: "Holding [Crouch] for up to 0.75 seconds increases the height of your next jump by up to 250%. <b>Cooldown:</b> 15 seconds"
       }
     ],
     cost: 1500,

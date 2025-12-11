@@ -5,12 +5,12 @@ const record: ItemRecord = {
     name: "COMPETITIVE ANALYSIS",
     attributes: [
       {
-        type: "WPLS",
-        value: "20%"
+        type: "WP",
+        value: "15%"
       },
       {
         type: "description",
-        value: "Deal 15% increased primary fire damage to enemies in the Damage role."
+        value: "Deal 20% Weapon Lifesteal against enemies in the Damage role."
       }
     ],
     cost: 11000,

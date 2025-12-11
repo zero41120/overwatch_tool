@@ -17,7 +17,7 @@ const record: ItemRecord = {
         value: "50%"
       }
     ],
-    cost: 10000,
+    cost: 9000,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/20/Clean_Sweep.png",

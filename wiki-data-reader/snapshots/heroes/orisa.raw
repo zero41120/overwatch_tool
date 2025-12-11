@@ -32,7 +32,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | official_description = Deal 25% more damage to enemies farther than 12m away.
 | stadium_rarity = Rare
 | stadium_cost = 4000
-| stadium_buffs = 
+| stadium_buffs = Weapon Power;;5%::Attack Speed;;10%
 }}
 {{Ability details
 | ability_name = Optimized Energy
@@ -81,7 +81,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | official_description = 
 | stadium_rarity = Epic
 | stadium_cost = 10000
-| stadium_buffs = Ability Lifesteal;;20%::[Fortify] Duration;;50%
+| stadium_buffs = Armor;;25::Ability Lifesteal;;20%::[Fortify] Duration;;50%
 }}
 {{Ability details
 | ability_name = 3D-printed Lance
@@ -98,8 +98,8 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_type = Hero Item (Ability)
 | official_description = While Using Javelin Spin, gain free flight and 20% Move Speed.
 | stadium_rarity = Epic
-| stadium_cost = 12000
-| stadium_buffs = Ability Power;;15%
+| stadium_cost = 10000
+| stadium_buffs = Weapon Power;;15%::Ability Power;;15%
 }}
 
 === Survival ===
@@ -138,7 +138,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_type = Hero Item (Survival)
 | official_description = When you use Fortify, allies within line of sight gain Unstoppable for 2s.
 | stadium_rarity = Epic
-| stadium_cost = 10000
+| stadium_cost = 9000
 | stadium_buffs = Armor;;50
 }}
 
@@ -199,7 +199,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Restortify.png
 | ability_type = Stadium Power
 | affected_ability = Fortify
-| official_description = While Fortify is active, heal for 5% of your maximum health every 1s.
+| official_description = While Fortify is active, heal for 8% of your maximum health every 1s.
 }}
 {{Ability details
 | ability_name = Ride with Me
@@ -315,12 +315,35 @@ Update Javelin Spin to deflect and launch projectiles for maximum disruption, en
 * {{al|Iridescent Iris}}
 
 ==== Flex ====
-* {{al|Oladele copter Blades}}
+* {{al|Oladele-Copter Blades}}
 * {{al|Lumérico Fusion Drive}}
 * {{al|Liquid Nitrogen}}
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-12-09|
+{{DevComment|This update aims to strengthen Orisa’s sustain and reliability during extended engagements. Restorify used to perform perhaps too well when it used to be 10% so we are trying to find the sweet spot.}}
+
+{{al|Restortify}} - Power
+* Healing increased to 8% (Up from 5%).
+}}
+{{PatchTableElement|2025-11-11|
+{{DevComment|A few hero items were lagging behind in overall value and flexibility, so we’re giving them some extra polish. Enhanced Target Sensors and Oladele-copter Blades now offer more meaningful offensive boosts, Efi’s Theorem gains defensive utility to help sustain in fights, and HollaGram Helmet gets a price cut to make it easier for Orisa to support the team if they need unstoppable.}}
+
+{{al|Enhanced Target Sensors}} - Rare Weapon Hero Item
+* Added: +10% Attack Speed
+* Added: +5% Weapon Power
+
+{{al|Oladele-Copter Blades}} - Epic Ability Hero Item
+* Added: +15% Ability Power
+* Added: +15% Weapon Power
+
+{{al|Efi's Theorem}} - Epic Ability Hero Item
+* Added: +25 Armor
+
+{{al|HollaGram Helmet}} - Epic Survival Hero Item
+* Cost decreased to 9000 (Down from 10000)
+}}
 {{PatchTableElement|2025-10-14|
 {{DevComment|Developer Comments: Orisa’s ability power build was falling off in the late game, leaving her damage underwhelming compared to other options. This update gives her more scaling so she can stay a real threat as matches go longer.}}
 

@@ -17,7 +17,7 @@ const record: ItemRecord = {
         value: "After spending your Ultimate Charge, gain 100 Overhealth for 3s."
       }
     ],
-    cost: 11000,
+    cost: 12000,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/5/5f/Iridescent_Iris.png",

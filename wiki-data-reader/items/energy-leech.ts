@@ -13,7 +13,7 @@ const record: ItemRecord = {
         value: "[Disruptor Shot] eliminations grant 10% Ultimate Charge."
       }
     ],
-    cost: 5000,
+    cost: 4000,
     tab: "ability",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f4/Energy_Leech.png",

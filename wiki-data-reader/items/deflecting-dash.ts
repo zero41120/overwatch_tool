@@ -13,7 +13,7 @@ const record: ItemRecord = {
         value: "During [Swift Strike], deflect incoming projectiles toward your reticle."
       }
     ],
-    cost: 10000,
+    cost: 9000,
     tab: "ability",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b9/Deflecting_Dash.png",

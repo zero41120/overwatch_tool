@@ -1,0 +1,237 @@
+{{HeroTabs}}
+
+'''{{BASEPAGENAME}}''' is a [[hero]] in the [[Stadium]] [[game mode]].
+
+== Ability interactions ==
+{{StadiumAbilityInteractions/header}}
+{{StadiumAbilityInteractions/row|Hand Cannon|weaponPower=1|attackSpeed=1|maxAmmo=1|weaponLifesteal=1|reloadSpeed=1}}
+{{StadiumAbilityInteractions/row|Rocket Punch|abilityPower=1|abilityLifesteal=1}}
+{{StadiumAbilityInteractions/row|Seismic Slam|abilityPower=1|cooldownReduction=|abilityLifesteal=1}}
+{{StadiumAbilityInteractions/row|Power Block|abilityPower=|cooldownReduction=}}
+{{StadiumAbilityInteractions/row|Meteor Strike|abilityPower=1|abilityLifesteal=1}}<!-- -->
+|}
+* these stats are not official but were tested in-game using [[Custom Game|Custom Games]] [[Workshop]].
+
+== Hero Items ==
+This is a list of hero-specific Powers.
+
+== Powers ==
+{{Ability details
+| ability_name = Jab Cross
+| ability_image = DF_Power_JabCross.png
+| ability_type = Stadium Power
+| official_description = After you use an ability, gain 75% Quick Melee Attack Speed and increase Quick Melee Range by 1m for 3s.
+| affected_ability = Quick Melee
+}}
+
+{{Ability details
+| ability_name = Rising Uppercut (Power)
+| ability_image = DF_Power_RisingUppercut.png
+| ability_type = Stadium Power
+| official_description = Ability: Your next [Quick Melee] becomes a [Rising Uppercut], dealing 10 extra damage. (12s Cooldown)
+| affected_ability = Quick Melee
+}}{{Ability details
+| ability_name = The Best Defense
+| ability_image = DF_Power_TheBestDefense.png
+| ability_type = Stadium Power
+| official_description = [Quick Melee] hits and [Hand Cannon] Critical hits trigger [The Best Defense ] at 35% effectiveness.
+| affected_ability = Quick Melee
+}}
+
+{{Ability details
+| ability_name = Aftershock (Power)
+| ability_image = DF_Power_Aftershock.png
+| ability_type = Stadium Power
+| official_description = [Seismic Slam]'s shockwave repeats itself after a 1.5s delay, dealing 50% damage.
+| affected_ability = Seismic Slam
+}}{{Ability details
+| ability_name = Seismic Rally
+| ability_image = DF_Power_SeismicRally.png
+| ability_type = Stadium Power
+| official_description = Every 1s while leaping with [Seismic Slam[, grant Overhealth equal to 5% of your Max Life to all allies within line of sight for 5s.
+| affected_ability = Seismic Slam
+}}
+
+{{Ability details
+| ability_name = Slam Wham
+| ability_image = DF_Power_SlamWham.png
+| ability_type = Stadium Power
+| official_description = Every 1s while leaping with [Seismic Slam], grant Overhealth equal to 5% of your Max Life to all allies within line of sight for 5s.
+| affected_ability = Seismic Slam
+}}
+
+{{Ability details
+| ability_name = Boomfist
+| ability_image = DF_Power_Boomfist.png
+| ability_type = Stadium Power
+| official_description = Hitting multiple enemies with [Rocket Punch] grants 5% Ultimate Charge for each extra enemy hit and reduces the cooldown of [Power Block] by 0.5s.
+| affected_ability = Rocket Punch
+}}
+
+{{Ability details
+| ability_name = Jetforce Jab
+| ability_image = DF_Power_JetforceJab.png
+| ability_type = Stadium Power
+| official_description = [Rocket Punch] can go through multiple enemies and Burns them for 15% bonus damage over 3s.
+| affected_ability = Rocket Punch
+}}
+
+{{Ability details
+| ability_name = Overpowered
+| ability_image = DF_Power_Overpowered.png
+| ability_type = Stadium Power
+| official_description = [Rocket Punch] can be further empowered when blocking 150% more damage with [Power Block], granting 25% more damage and 50% more range.
+| affected_ability = Rocket Punch
+}}
+
+{{Ability details
+| ability_name = Asteroid Smash
+| ability_image = DF_Power_AsteroidSmash.png
+| ability_type = Stadium Power
+| official_description = Ability: Crouching while airborne will trigger a mini Meteor Strike, dealing up to 200 direct hit damage based on distance traveled downward. (12s Cooldown)
+| affected_ability = Meteor Strike
+}}
+
+{{Ability details
+| ability_name = Block Party
+| ability_image = DF_Power_BlockParty.png
+| ability_type = Stadium Power
+| official_description = While [Power Block] is active, heal yourself for 4% of Max Life and all other allies within 8m for 10% of Max Life every 1s.
+| affected_ability = Power Block
+}}
+
+{{Ability details
+| ability_name = Helping Hand
+| ability_image = DF_Power_HelpingHand.png
+| ability_type = Stadium Power
+| official_description = [The Best Defense] grants bonus Overhealth equal to 8% of Bonus Max Life. Whenever you gain Overhealth from yourself, grant 25% to the nearest ally.
+| affected_ability = The best defense...
+}}
+
+== Example Builds ==
+These are example builds pre-built in [[Stadium]] meant to show some possibilities of what can be done in the mode.
+
+=== Hopefist ===
+Be the ultimate team player by healing your allies and protecting them with overhealth.
+
+==== Powers ====
+
+* {{al|Block Party}}
+* {{al|Seismic Rally}}
+* {{al|Helping Hand}}
+* {{al|Asteroid Smash}}
+
+==== Early game ====
+
+* {{al|Power Playbook}}
+* {{al|Compensator}}
+* {{al|First Aid Kit}}
+* {{al|Ironclad Exhaust Ports}}
+
+==== Late game ====
+
+* {{al|Rocket Punch|text=Unknown Survival Item}}
+* {{al|Power Block|text=Unknown Survival Item}}
+* {{al|Martian Mender}}
+* {{al|Seismic Slam|text=Unknown Survival Item}}
+
+==== Flex ====
+
+* {{al|Kitsune Snippet}}
+* {{al|Kitsune Charm}}
+* {{al|Overdrive Core}}
+* {{al|Divine Intervention}}
+
+== Balance Change Log ==
+{{PatchTableStart}} <onlyinclude>
+{{PatchTableElement|2025-12-09|
+;New Heroes Added
+* New heroes added to the roster
+
+{{al|Jab Cross}} - Power
+* After you use an ability, gain 50% [Quick Melee] Attack Speed and increase [Quick Melee] Range by 1m for 3s
+
+{{al|Rising Uppercut (Power)}} - Power
+* Ability: Your next [Quick Melee] becomes a [Rising Uppercut], dealing 10 extra damage (12s Cooldown).
+
+{{al|The Bestest Defense}} - Power
+* [Quick Melee] hits and [Hand Cannon] critical hits trigger [The Best Defense] at 35% effectiveness.
+
+{{al|Aftershock (Power)}} - Power
+* [Seismic Slam]'s shockwave repeats itself after a 1.5s delay, dealing 50% damage.
+
+{{al|Seismic Rally}} - Power
+* Every 1s while leaping with [Seismic Slam], grant Overhealth equal to 3% of your Max Life to all allies within line of sight for 3s.
+
+{{al|Slam Wham}}
+* Increase [Seismic Slam]'s damage by 2%, and range by 4% for every 1m traveled downward.
+
+{{al|Boomfist}} - Power
+* Hitting multiple enemies with [Rocket Punch] grants 5% Ultimate Charge and reduces the cooldown of [Power Block] by 0.5s for each extra enemy hit.
+
+{{al|Overpowered}} - Power
+* [Rocket Punch] can be further empowered when blocking 150% more damage with [Power Block], granting 25% more damage and 50% more range.
+
+{{al|Asteroid Smash}}
+* Ability: Crouching while airborne will trigger a mini [Meteroid Strike], dealing up to 150 direct hit damage based on distance traveled downward (15s cooldown).
+
+{{al|Block Party}} - Power
+* While [Power Block] is active, heal yourself for 3% of Max Life and all other allies within 8m for 10% of Max Life every 1s.
+
+{{al|Helping Hand}} - Power
+* [The Best Defense] grants bonus Overhealth equal to 8% of Bonus Max Life. Whenever you gain Overhealth from yourself, grant 25% to the nearest ally.
+
+{{al|Loaded Knuckles}} - Legendary Hero Item
+* 25 Armor -20% Melee Damage
+* [Quick Melee] hits restore 1 ammo. [Rocket Punch] hits restore 100% of your ammo
+* Cost: 10,000
+
+{{al|Wing Clipper}} - Legendary Hero Item
+* 10% Ability Power
+* [Meteor Strike] pulls airborne enemies to the ground
+* Cost: 4,500
+
+{{al|Power Bank}} - Legendary Hero Item
+* 25 Health
+* 5% Ability Power
+* You can charge [Rocket Punch] indefinitely. After 2.5s of charging [Rocket Punch], become Unstoppable for the duration of that [Rocket Punch].
+* 4,000
+
+{{al|Friendly Fissure}} - Legendary Hero Item
+* 25 Health
+* 10% Ability Power
+* [Meteor Strike] Area of affect grants all other allies Overhealth Equal to 20% of your Max Life for 5s.
+* Cost: 9,000
+
+{{al|Charm Crusher}} - Legendary Hero Item
+* 15% Ability Power
+* 15% [Seismic Slam] Leap Distance
+* Cost: 11,000
+
+{{al|Quickcharger}} - Legendary Hero Item
+* 15% Ability Power
+* [Power Block] adds 10% progress for empowering [Rocket Punch]. [Power Block] no longer resets progress for empowering [Rocket Punch].
+* Cost: 12,000
+
+{{al|Dual Layer Dampener}} - Legendary Hero Item
+* 25 Armor
+* 10% Increased [Power Block] Damage Reduction
+* [Power Block] now also reduces damage against Burn and other Damage Over Time effects.
+* Cost: 4,000
+
+{{al|Zoomfist}} - Legendary Hero Item
+* 50 Armor
+* Whenever you gain Overhealth from yourself, heal for 15% of Overhealth gained over 1s and gain 15% Move Speed for 3s.
+* Cost: 9,500
+
+{{al|Power Matrix}} - Legendary Hero Item
+* 50 Armor
+* [Power Block] absorbs projectiles for the first 1s, gaining Overhealth equal to 1% of your max Life for each projectile absorbed.
+* Cost: 11,000
+}}
+</onlyinclude> {{PatchTableEnd}}
+
+{{StadiumNav}}
+
+[[Category:{{BASEPAGENAME}}]]
+[[Category:Stadium hero pages]]

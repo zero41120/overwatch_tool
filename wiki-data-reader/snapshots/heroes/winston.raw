@@ -168,7 +168,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Circuit_Breaker.png
 | ability_type = Stadium Power
 | affected_ability = Tesla Cannon
-| official_description = Electric damage is increased by 5%. Gain 15% of Electric damage as Overhealth, up to 100.
+| official_description = Electric damage is increased by 2%. Gain 15% of Electric damage as Overhealth, up to 100.
 }}
 
 {{Ability details
@@ -176,7 +176,7 @@ This is a list of hero-specific items. For a list of items available to all hero
 | ability_image = Electro_Cluster.png
 | ability_type = Stadium Power
 | affected_ability = Tesla Cannon
-| official_description = +25% [Tesla Cannon] Primary Fire Max Range.<br>[Tesla Cannon]'s Primary Fire deals 3% increased damage per enemy being hit.
+| official_description = +25% [Tesla Cannon] Primary Fire Max Range.<br>[Tesla Cannon]'s Primary Fire deals 2% increased damage per enemy being hit.
 }}
 
 {{Ability details
@@ -345,6 +345,15 @@ Zap your enemies from far, providing poking assistant to your team using {{Weapo
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
+{{PatchTableElement|2025-12-09|
+{{DevComment|Winston is a polarizing hero where in good hands he overperforms but on average he is not as threatening. We are still trying to pinpoint adjustments for Winston at higher levels but here is an initial change that will make him less threatening overall.}}
+
+{{al|Circuit Breaker}} - Power
+* Damage decreased to 2% (Down from 5%).
+
+{{al|Electro Cluster}} - Power
+* Damage decreased to 2% (Down from 3%).
+}}
 {{PatchTableElement|2025-08-26|
 * Added to the Stadium Hero roster.
 

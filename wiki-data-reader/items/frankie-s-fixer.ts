@@ -10,7 +10,7 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Heal <b class=\"stat-ap\">10</b> Life for each Ammo loaded using [Combat Roll]."
+        value: "Heal 2.5% of your max Life for each Ammo loaded using [Combat Roll] over 3s."
       }
     ],
     cost: 10000,

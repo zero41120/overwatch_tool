@@ -14,10 +14,10 @@ const record: ItemRecord = {
       },
       {
         type: "description",
-        value: "Damaging an enemy with [Swift Strike] restores 20% of your ammo."
+        value: "Using [Swift Strike] restores 20% ammo and gives 20% Attack Speed for 2.5s."
       }
     ],
-    cost: 10000,
+    cost: 12000,
     tab: "weapon",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/3/3b/Swift-Loader.png",

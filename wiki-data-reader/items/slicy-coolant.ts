@@ -15,9 +15,13 @@ const record: ItemRecord = {
       {
         type: "Deflect Duration",
         value: "1s"
+      },
+      {
+        type: "description",
+        value: "[Deflect] now deflects attacks from both sides."
       }
     ],
-    cost: 10000,
+    cost: 11000,
     tab: "survival",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/89/Slicy_Coolant.png",

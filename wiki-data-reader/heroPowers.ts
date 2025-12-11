@@ -4,6 +4,7 @@ import ashe from "./heroPowers/ashe";
 import brigitte from "./heroPowers/brigitte";
 import cassidy from "./heroPowers/cassidy";
 import dVa from "./heroPowers/d-va";
+import doomfist from "./heroPowers/doomfist";
 import freja from "./heroPowers/freja";
 import genji from "./heroPowers/genji";
 import hazard from "./heroPowers/hazard";
@@ -25,6 +26,7 @@ import soldier76 from "./heroPowers/soldier-76";
 import torbjRn from "./heroPowers/torbj-rn";
 import tracer from "./heroPowers/tracer";
 import winston from "./heroPowers/winston";
+import wuyang from "./heroPowers/wuyang";
 import zarya from "./heroPowers/zarya";
 import zenyatta from "./heroPowers/zenyatta";
 
@@ -34,6 +36,7 @@ const heroPowers: HeroPower[] = [
   ...brigitte,
   ...cassidy,
   ...dVa,
+  ...doomfist,
   ...freja,
   ...genji,
   ...hazard,
@@ -55,6 +58,7 @@ const heroPowers: HeroPower[] = [
   ...torbjRn,
   ...tracer,
   ...winston,
+  ...wuyang,
   ...zarya,
   ...zenyatta,
 ];
