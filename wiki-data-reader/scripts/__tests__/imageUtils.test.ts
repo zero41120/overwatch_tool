@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { sanitizeImageUrl } from "../lib/imageUtils.ts";
+import { sanitizeImageUrl } from "../lib/imageUtils";
 
 describe("sanitizeImageUrl", () => {
   it("removes revision suffix and query params", () => {

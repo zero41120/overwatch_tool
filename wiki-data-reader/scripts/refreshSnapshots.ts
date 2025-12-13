@@ -2,9 +2,9 @@ import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import https from "node:https";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { imageKey, normalizeImageFilename } from "./lib/imageUtils.ts";
-import { extractHeroPortraitFilename } from "./lib/heroMetadataBuilder.ts";
-import { extractAbilityTemplates } from "./lib/templateParser.ts";
+import { extractHeroPortraitFilename } from "./lib/heroMetadataBuilder";
+import { imageKey, normalizeImageFilename } from "./lib/imageUtils";
+import { extractAbilityTemplates } from "./lib/templateParser";
 
 const BASE_URL = "https://overwatch.fandom.com";
 const STADIUM_ITEMS_URL = `${BASE_URL}/wiki/Stadium/Items?action=raw`;
@@ -14,12 +14,12 @@ const ROOT_DIR = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const SNAPSHOT_DIR = path.join(ROOT_DIR, "snapshots");
 const HERO_SNAPSHOT_DIR = path.join(SNAPSHOT_DIR, "heroes");
 const IMAGE_SNAPSHOT_DIR = path.join(SNAPSHOT_DIR, "images");
-const MAX_RUNTIME_MS = 60_000;
+const MAX_RUNTIME_MS = 120_000;
 const START_TIME = Date.now();
 
 function ensureWithinDeadline() {
   if (Date.now() - START_TIME > MAX_RUNTIME_MS) {
-    throw new Error("[refresh-snapshots] exceeded 60s runtime limit");
+    throw new Error("[refresh-snapshots] exceeded 120s runtime limit");
   }
 }
 
@@ -85,14 +85,14 @@ function slugify(name: string) {
 async function readOrFetchSnapshot(fullPath: string, url: string, label: string) {
   try {
     const contents = await readFile(fullPath, "utf-8");
-    console.log(`[cache] using ${label}`);
+    console.log(`[readOrFetchSnapshot] Read "${label}" from cache.`);
     return contents;
   } catch {
     ensureWithinDeadline();
     const contents = await fetchText(url);
     await ensureDir(path.dirname(fullPath));
     await writeFile(fullPath, contents, "utf-8");
-    console.log(`Saved ${label} (${contents.length} bytes)`);
+    console.log(`[readOrFetchSnapshot] Fetched and saved "${label}" (${contents.length} bytes).`);
     return contents;
   }
 }
@@ -150,7 +150,7 @@ async function ensureImageSnapshot(request: ImageRequest) {
   const destination = path.join(IMAGE_SNAPSHOT_DIR, imageSnapshotFilename(request.filename));
   try {
     await access(destination);
-    console.log(`[images] using cached metadata for ${request.title}`);
+    console.log(`[images] Using cached metadata for "${request.title}".`);
     return;
   } catch {
     // continue to fetch
@@ -158,6 +158,7 @@ async function ensureImageSnapshot(request: ImageRequest) {
 
   const apiUrl = `${BASE_URL}/api.php?action=query&titles=${encodeURIComponent(request.title)}&prop=imageinfo&iiprop=url|extmetadata&format=json`;
   try {
+    console.log(`[images] Fetching metadata for "${request.title}"...`);
     ensureWithinDeadline();
     const payload = await fetchText(apiUrl);
     const parsed = JSON.parse(payload) as {
@@ -185,24 +186,27 @@ async function ensureImageSnapshot(request: ImageRequest) {
       fetchedAt: new Date().toISOString(),
     };
     await writeFile(destination, JSON.stringify(record, null, 2), "utf-8");
-    console.log(`[images] saved metadata for ${request.title}`);
+    console.log(`[images] Saved metadata for "${request.title}".`);
   } catch (error) {
-    console.warn(`[images] Failed to fetch ${request.title}:`, (error as Error).message);
+    console.warn(`[images] Failed to fetch "${request.title}":`, (error as Error).message);
   }
 }
 
 async function main() {
+  console.log("[refresh-snapshots] Starting snapshot refresh script.");
   await ensureDir(SNAPSHOT_DIR);
 
   const stadiumPath = path.join(SNAPSHOT_DIR, "stadium-items.raw");
   const heroTemplatePath = path.join(SNAPSHOT_DIR, "template-heroes.raw");
 
+  console.log("[refresh-snapshots] Fetching stadium items and hero templates...");
   const [stadiumRaw, heroTemplateRaw] = await Promise.all([
     readOrFetchSnapshot(stadiumPath, STADIUM_ITEMS_URL, "stadium-items.raw"),
     readOrFetchSnapshot(heroTemplatePath, HERO_TEMPLATE_URL, "template-heroes.raw"),
   ]);
 
   const heroNames = parseHeroNames(heroTemplateRaw);
+  console.log(`[refresh-snapshots] Parsed ${heroNames.length} hero names.`);
   if (!heroNames.length) {
     console.warn("No hero names parsed from template; skipping hero snapshot fetch.");
   }
@@ -212,6 +216,7 @@ async function main() {
   const heroSnapshots: HeroSnapshot[] = [];
 
   for (const heroName of heroNames) {
+    console.log(`[refresh-snapshots] Processing hero snapshot for "${heroName}"...`);
     const slug = slugify(heroName);
     const encoded = heroName.replace(/ /g, "_");
     const url = `${BASE_URL}/wiki/${encodeURIComponent(encoded)}/Stadium?action=raw`;
@@ -226,16 +231,23 @@ async function main() {
 
   const heroIndex = heroSnapshots.map(({ name, slug }) => ({ name, slug }));
   await writeFile(path.join(SNAPSHOT_DIR, "heroes.json"), JSON.stringify(heroIndex, null, 2), "utf-8");
+  console.log(`[refresh-snapshots] Wrote ${heroSnapshots.length} hero entries to "heroes.json".`);
 
   const imageRequests = new Map<string, ImageRequest>();
+  console.log("[refresh-snapshots] Collecting image requests from stadium data...");
   collectImageRequests(stadiumRaw, imageRequests);
   for (const hero of heroSnapshots) {
+    console.log(`[refresh-snapshots] Collecting image requests from hero "${hero.name}" data...`);
     collectImageRequests(hero.raw, imageRequests);
   }
 
+  console.log(`[refresh-snapshots] Found ${imageRequests.size} unique image requests. Fetching metadata...`);
   for (const request of imageRequests.values()) {
     await ensureImageSnapshot(request);
   }
+
+  console.log("[refresh-snapshots] Done.");
+  process.exit(0);
 }
 
 main().catch((error) => {

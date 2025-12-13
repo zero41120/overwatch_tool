@@ -12,26 +12,26 @@ import {
   recordDiffers,
   recordToSource,
   type HeroSnapshot,
-} from "./lib/itemBuilder.ts";
-import { buildHeroPowers } from "./lib/heroPowerBuilder.ts";
-import { buildHeroMetadata } from "./lib/heroMetadataBuilder.ts";
+} from "./lib/itemBuilder";
+import { buildHeroPowers } from "./lib/heroPowerBuilder";
+import { buildHeroMetadata } from "./lib/heroMetadataBuilder";
 import type { HeroMetadata, HeroPower } from "../types";
-import { slugifyName } from "./lib/textUtils.ts";
-import { imageKey, sanitizeImageUrl } from "./lib/imageUtils.ts";
-import { parseHeroRoles } from "./lib/heroRoleParser.ts";
-import heroPowerOverrides from "../heroPowerOverrides.ts";
+import { slugifyName } from "./lib/textUtils";
+import { imageKey, sanitizeImageUrl } from "./lib/imageUtils";
+import { parseHeroRoles } from "./lib/heroRoleParser";
+import heroPowerOverrides from "../heroPowerOverrides";
 import {
   applyHeroPowerManualFields,
   buildHeroPowerOverrideMap,
   heroPowerKey,
-} from "./lib/heroPowerOverrideUtils.ts";
+} from "./lib/heroPowerOverrideUtils";
 import {
   groupHeroPowerEntries,
   hasHeroPowerChanges,
   heroPowerModuleSource,
   heroPowersAggregatorSource,
   type HeroPowerEntry,
-} from "./lib/heroPowerOutput.ts";
+} from "./lib/heroPowerOutput";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");

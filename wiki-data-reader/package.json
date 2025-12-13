@@ -17,12 +17,12 @@
     }
   },
   "scripts": {
-    "build": "npm run update-items && vite build && tsc -p tsconfig.build.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsgo -p tsconfig.build.json && npm run update-items",
+    "typecheck": "tsgo -p tsconfig.json --noEmit",
     "clean": "rm -rf dist",
     "postinstall": "npm run build",
-    "refresh-snapshots": "TS_NODE_PROJECT=tsconfig.scripts.json TS_NODE_TRANSPILE_ONLY=1 node --experimental-specifier-resolution=node --loader ts-node/esm scripts/refreshSnapshots.ts",
-    "update-items": "TS_NODE_PROJECT=tsconfig.scripts.json TS_NODE_TRANSPILE_ONLY=1 node --experimental-specifier-resolution=node --loader ts-node/esm scripts/updateItems.ts",
+    "refresh-snapshots": "tsx scripts/refreshSnapshots.ts",
+    "update-items": "tsx scripts/updateItems.ts",
     "test": "vitest run"
   },
   "devDependencies": {

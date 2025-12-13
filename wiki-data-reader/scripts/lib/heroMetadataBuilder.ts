@@ -1,6 +1,6 @@
 import type { HeroMetadata, HeroRole } from "../../types";
-import { normalizeImageFilename, resolveIconUrl } from "./imageUtils.ts";
-import type { HeroSnapshot } from "./itemBuilder.ts";
+import { normalizeImageFilename, resolveIconUrl } from "./imageUtils";
+import type { HeroSnapshot } from "./itemBuilder";
 
 type ImageLookup = ReadonlyMap<string, string> | undefined;
 

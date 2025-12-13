@@ -1,5 +1,5 @@
 import type { HeroPower } from "../../types";
-import { slugifyName } from "./textUtils.ts";
+import { slugifyName } from "./textUtils";
 
 export type HeroPowerEntry = {
   hero: string;

@@ -1,8 +1,8 @@
 import type { HeroPower } from "../../types";
-import { resolveIconUrl } from "./imageUtils.ts";
-import type { HeroSnapshot } from "./itemBuilder.ts";
-import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser.ts";
-import { formatDescription } from "./textUtils.ts";
+import { resolveIconUrl } from "./imageUtils";
+import type { HeroSnapshot } from "./itemBuilder";
+import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser";
+import { formatDescription } from "./textUtils";
 
 type ImageLookup = ReadonlyMap<string, string> | undefined;
 

@@ -1,7 +1,7 @@
 import type { Attribute, Item, ItemRecord } from "../../types";
-import { formatDescription, normalizeBuffName, normalizeBuffValue, normalizeItemName, slugifyName } from "./textUtils.ts";
-import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser.ts";
-import { resolveIconUrl } from "./imageUtils.ts";
+import { formatDescription, normalizeBuffName, normalizeBuffValue, normalizeItemName, slugifyName } from "./textUtils";
+import { extractAbilityTemplates, type AbilityTemplate } from "./templateParser";
+import { resolveIconUrl } from "./imageUtils";
 
 export interface HeroSnapshot {
   name: string;

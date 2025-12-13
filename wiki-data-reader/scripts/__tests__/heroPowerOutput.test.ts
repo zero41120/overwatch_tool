@@ -5,7 +5,7 @@ import {
   heroPowerModuleSource,
   heroPowersAggregatorSource,
   type HeroPowerEntry,
-} from "../lib/heroPowerOutput.ts";
+} from "../lib/heroPowerOutput";
 import type { HeroPower } from "../../types";
 
 describe("groupHeroPowerEntries", () => {

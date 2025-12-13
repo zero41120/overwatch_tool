@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildGeneralItemRecords, buildHeroItemRecords, mergeExistingData, type HeroSnapshot } from "../lib/itemBuilder.ts";
+import { buildGeneralItemRecords, buildHeroItemRecords, mergeExistingData, type HeroSnapshot } from "../lib/itemBuilder";
 import type { ItemRecord } from "../../types";
 
 const SAMPLE_TEMPLATE = `

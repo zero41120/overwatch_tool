@@ -1,3 +1,5 @@
+import type { ItemRecord } from "../../types";
+
 export type TemplateFields = Record<string, string>;
 
 export type AbilityTemplate = {
