@@ -17,7 +17,7 @@
     }
   },
   "scripts": {
-    "build": "tsgo -p tsconfig.build.json && npm run update-items",
+    "build": "tsgo -p tsconfig.build.json && npm run update-items && vite build",
     "typecheck": "tsgo -p tsconfig.json --noEmit",
     "clean": "rm -rf dist",
     "postinstall": "npm run build",
