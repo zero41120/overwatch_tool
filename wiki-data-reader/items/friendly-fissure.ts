@@ -2,7 +2,7 @@ import type { ItemRecord } from "../types";
 
 const record: ItemRecord = {
   item: {
-    name: "SNAKE BITE",
+    name: "FRIENDLY FISSURE",
     attributes: [
       {
         type: "Health",
@@ -10,19 +10,18 @@ const record: ItemRecord = {
       },
       {
         type: "AP",
-        value: "15%"
+        value: "10%"
       },
       {
         type: "description",
-        value: "Using [Deadeye] slows all visible enemies by 30% for 2.5s."
+        value: "[Meteor Strike] area of effect grants all other allies Overhealth equal to 20% of your Max Life for 5s."
       }
     ],
-    cost: 10000,
+    cost: 9000,
     tab: "ability",
     rarity: "epic",
-    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a2/Snake_Bite.png",
-    character: "Cassidy",
-    id: undefined
+    iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/0b/Friendly_Fissure.png",
+    character: "Doomfist"
   }
 };
 

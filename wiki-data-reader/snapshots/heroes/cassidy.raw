@@ -209,25 +209,25 @@ This is a list of hero-specific items. For a list of items available to all hero
 These are example builds pre-built in [[Stadium]] meant to show some possibilities of what can be done in the mode.
 
 === Vigilante Gunslinger ===
-Duel the enemy with precise Revolver shots and large Fan the Hammers, enhanced with {{Weapon Power|Weapon Power}}.
+Duel the enemy with precise Revolver shots and sustained self-healing, enhanced with {{Weapon Power|Weapon Power}}.
 
 ==== Powers ====
-* {{al|Dead Man Walkin'}}
-* {{al|Full House}}
 * {{al|Quick Draw}}
+* {{al|Dead Man Walkin'}}
+* {{al|Just Roll With It}}
 * {{al|Bullseye}}
 
 ==== Early Game ====
 * {{al|Compensator}}
 * {{al|Weapon Grease}}
-* {{al|Ammo Reserves}}
+* {{al|Armored Vest}}
 * {{al|Talon Modification Module}}
 
 ==== Late Game ====
-* {{al|Stockpile}}
 * {{al|Technoleech}}
 * {{al|The Closer}}
-* {{al|Commander's Clip}}
+* {{al|Phantasmic Flux}}
+* {{al|Vanadium Injection}}
 
 ==== Flex ====
 * {{al|Jet Skates}}
@@ -235,14 +235,14 @@ Duel the enemy with precise Revolver shots and large Fan the Hammers, enhanced w
 * {{al|Frankie's Fixer}}
 * {{al|Nebula Conduit}}
 
-=== Limit Breaker ===
+=== What Time Is It? ===
 Showdown with your enemies with empowered Deadeyes, enabled by Flashbang and {{Ability Power|Ability Power}}!
 
 ==== Powers ====
-* {{al|Flash in the Pan}}
-* {{al|Sunset}}
 * {{al|Easy Rider}}
-* {{al|Sunrise}}
+* {{al|It's Twelve O'clock Somewhere}}
+* {{al|Bang Bang (Power)}}
+* {{al|Think Flasht}}
 
 ==== Early Game ====
 * {{al|Power Playbook}}
@@ -252,41 +252,42 @@ Showdown with your enemies with empowered Deadeyes, enabled by Flashbang and {{A
 
 ==== Late Game ====
 * {{al|Streamlined Poncho}}
-* {{al|Multi-Tool}}
+* {{al|Snake Bite}}
 * {{al|Improvised Dynamite}}
 * {{al|Champion's Kit}}
 
 ==== Flex ====
-* {{al|Iridescent Iris}}
+* {{al|Wanted Poster}}
 * {{al|Catalytic Crystal}}
 * {{al|Cybervenom}}
 * {{al|Martian Mender}}
 
-=== Keep Rolling ===
-When enemies rush in, utilize Combat Roll powered by {{Ability Power|Ability Power}} to deter them.
+=== Bullet Train ===
+When enemies rush in, mow them down with Fan the Hammer powered by {{Weapon Power|Weapon Power}} to deter them.
 
 ==== Powers ====
-* {{al|Just Roll With It}}
-* {{al|Barrel Roll}}
-* {{al|Bullseye}}
+* {{al|Bang Bang (Power)}}
+* {{al|Full House}}
+* {{al|Buck Wild}}
 * {{al|Think Flasht}}
 
 ==== Early Game ====
-* {{al|Power Playbook}}
-* {{al|Shady Spectacles}}
-* {{al|First Aid Kit}}
-* {{al|Streamlined Poncho}}
+* {{al|Compensator}}
+* {{al|Weapon Grease}}
+* {{al|Ammo Reserves}}
+* {{al|Stockpile}}
 
 ==== Late Game ====
-* {{al|Multi-Tool}}
-* {{al|Nano Cola}}
-* {{al|Improvised Dynamite}}
-* {{al|Champion's Kit}}
+* {{al|Commander's Clip}}
+* {{al|Vanadium Injection}}
+* {{al|Frankie's Fixer}}
+* {{al|Phantasmic Flux}}
 
 ==== Flex ====
+* {{al|Refresher}}
 * {{al|Three-Tap Tommygun}}
-* {{al|Cybervenom}}
-* {{al|Liquid Nitrogen}}
+* {{al|Nebula Conduit}}
+* {{Al|name=Eye of the Spider}}
 
 == Removed Powers and Items ==
 {{Ability details

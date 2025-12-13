@@ -1,5 +1,5 @@
 {{HeroTabs}}
-
+[[File:Doomfist Stadium.png|thumb|310x310px]]
 '''{{BASEPAGENAME}}''' is a [[hero]] in the [[Stadium]] [[game mode]].
 
 == Ability interactions ==
@@ -13,7 +13,105 @@
 * these stats are not official but were tested in-game using [[Custom Game|Custom Games]] [[Workshop]].
 
 == Hero Items ==
-This is a list of hero-specific Powers.
+This is a list of hero-specific Powers. For a list of items available to all heroes, see [[Armory]].
+
+=== Weapon ===
+<!-- Epic -->
+{{Ability details
+| ability_name = Loaded Knuckles
+| ability_image = Loaded_Knuckles.png
+| ability_type = Hero Item (Weapon)
+| official_description = [Quick Melee] hits restore 1 ammo. [Rocket Punch] hits restore 100% of your ammo.
+| stadium_rarity = Epic
+| stadium_cost = 10000
+| stadium_buffs = Armor;;25::Melee Damage;;25%
+}}
+
+=== Ability ===
+<!-- Rare -->
+{{Ability details
+| ability_name = Wing Clipper
+| ability_image = Wing_Clipper.png
+| ability_type = Hero Item (Ability)
+| official_description = [Meteor Strike] pulls airborne enemies to the ground.
+| stadium_rarity = Rare
+| stadium_cost = 4500
+| stadium_buffs = Ability Power;;10%
+}}
+
+{{Ability details
+| ability_name = Power Bank
+| ability_image = Power_Bank.png
+| ability_type = Hero Item (Ability)
+| official_description = You can charge [Rocket Punch] indefinitely. After 2.5s of charging [Rocket Punch], become Unstoppable for the duration of that [Rocket Punch].
+| stadium_rarity = Rare
+| stadium_cost = 4000
+| stadium_buffs = Health;;25::Ability Power;;5%
+}}
+
+<!-- Epic -->
+{{Ability details
+| ability_name = Friendly Fissure
+| ability_image = Friendly_Fissure.png
+| ability_type = Hero Item (Ability)
+| official_description = [Meteor Strike] area of effect grants all other allies Overhealth equal to 20% of your Max Life for 5s.
+| stadium_rarity = Epic
+| stadium_cost = 9000
+| stadium_buffs = Health;;25::Ability Power;;10%
+}}
+
+{{Ability details
+| ability_name = Chasm Crusher
+| ability_image = Chasm_Crusher.png
+| ability_type = Hero Item (Ability)
+| official_description = 
+| stadium_rarity = Epic
+| stadium_cost = 11000
+| stadium_buffs = Ability Power;;15%::[Seismic Slam] Leap Distance;;15%
+}}
+
+{{Ability details
+| ability_name = Quickcharger
+| ability_image = Quickcharger.png
+| ability_type = Hero Item (Ability)
+| official_description = [Power Block] adds 10% progress for empowering [Rocket Punch]. [Power Block] no longer resets progress for empowering [Rocket Punch].
+| stadium_rarity = Epic
+| stadium_cost = 12000
+| stadium_buffs = Ability Power;;15%
+}}
+
+=== Survival ===
+<!-- Rare -->
+{{Ability details
+| ability_name = Dual Layer Dampener
+| ability_image = Dual_Layer_Dampener.png
+| ability_type = Hero Item (Survival)
+| official_description = [Power Block] now also reduces damage against Burn and other Damage Over Time effects.
+| stadium_rarity = Rare
+| stadium_cost = 4000
+| stadium_buffs = Armor;;25::Increased [Power Block] Damage Reduction;;10%
+}}
+
+<!-- Epic -->
+{{Ability details
+| ability_name = Zoomfist
+| ability_image = Zoomfist.png
+| ability_type = Hero Item (Survival)
+| official_description = Whenever you gain Overhealth from yourself, heal for 15% of Overhealth gained over 1s and gain 15% Move Speed for 3s.
+| stadium_rarity = Epic
+| stadium_cost = 9500
+| stadium_buffs = Armor;;50
+}}
+
+{{Ability details
+| ability_name = Power Matrix (Item)
+| ability_image = Power_Matrix_Item.png
+| ability_type = Hero Item (Survival)
+| official_description = [Power Block] absorbs projectiles for the first 1s, gaining Overhealth equal to 1% of your max Life for each projectile absorbed.
+| stadium_rarity = Epic
+| stadium_cost = 11000
+| stadium_buffs = Armor;;50
+}}
 
 == Powers ==
 {{Ability details
@@ -111,6 +209,60 @@ This is a list of hero-specific Powers.
 == Example Builds ==
 These are example builds pre-built in [[Stadium]] meant to show some possibilities of what can be done in the mode.
 
+=== Big Slam Alert ===
+Slam on your enemies from the skies with earthshattering shockwaves fueled by {{Ability Power|Ability Power}}.
+
+==== Powers ====
+* {{al|Aftershock (Power)}}
+* {{al|Slam Wham}}
+* {{al|Seismic Rally}}
+* {{al|Jetforce Jab}}
+
+==== Early Game ====
+* {{al|Power Playbook}}
+* {{al|Compensator}}
+* {{al|Siphon Gloves}}
+* {{al|Chasm Crusher}}
+
+==== Late Game ====
+* {{al|Multi-Tool}}
+* {{al|Cybervenom}}
+* {{al|Iridescent Iris}}
+* {{al|Lumérico Fusion Drive}}
+
+==== Flex ====
+* {{al|Refresher}}
+* {{al|Power Matrix (Item)}}
+* {{al|Liquid Nitrogen}}
+* {{al|Divine Intervention}}
+
+=== Many Punch Man ===
+Overwhelm your enemies with a flurry of punches mixed with the iconic Uppercut, enhanced with {{Weapon Power|Weapon Power}}.
+
+==== Powers ====
+* {{al|Rising Uppercut (Power)}}
+* {{al|Jab Cross}}
+* {{al|The Best Defense}}
+* {{al|Helping Hand}}
+
+==== Early Game ====
+* {{al|Weapon Grease}}
+* {{al|Compensator}}
+* {{al|Siphon Gloves}}
+* {{al|Loaded Knuckles}}
+
+==== Late Game ====
+* {{al|Gloomgauntlet}}
+* {{al|Phantasmic Flux}}
+* {{al|Ogundimu Reduction Field}}
+* {{al|Nebula Conduit}}
+
+==== Flex ====
+* {{al|Dual Layer Dampener}}
+* {{al|Cushioned Padding}}
+* {{al|Kitsune Charm}}
+* {{al|Power Matrix (Item)}}
+
 === Hopefist ===
 Be the ultimate team player by healing your allies and protecting them with overhealth.
 
@@ -130,10 +282,10 @@ Be the ultimate team player by healing your allies and protecting them with over
 
 ==== Late game ====
 
-* {{al|Rocket Punch|text=Unknown Survival Item}}
-* {{al|Power Block|text=Unknown Survival Item}}
+* {{al|Zoomfist}}
+* {{al|Power Matrix (Item)}}
 * {{al|Martian Mender}}
-* {{al|Seismic Slam|text=Unknown Survival Item}}
+* {{al|Friendly Fissure}}
 
 ==== Flex ====
 
@@ -154,7 +306,7 @@ Be the ultimate team player by healing your allies and protecting them with over
 {{al|Rising Uppercut (Power)}} - Power
 * Ability: Your next [Quick Melee] becomes a [Rising Uppercut], dealing 10 extra damage (12s Cooldown).
 
-{{al|The Bestest Defense}} - Power
+{{al|The Best Defense}} - Power
 * [Quick Melee] hits and [Hand Cannon] critical hits trigger [The Best Defense] at 35% effectiveness.
 
 {{al|Aftershock (Power)}} - Power
@@ -203,7 +355,7 @@ Be the ultimate team player by healing your allies and protecting them with over
 * [Meteor Strike] Area of affect grants all other allies Overhealth Equal to 20% of your Max Life for 5s.
 * Cost: 9,000
 
-{{al|Charm Crusher}} - Legendary Hero Item
+{{al|Chasm Crusher}} - Legendary Hero Item
 * 15% Ability Power
 * 15% [Seismic Slam] Leap Distance
 * Cost: 11,000
@@ -224,7 +376,7 @@ Be the ultimate team player by healing your allies and protecting them with over
 * Whenever you gain Overhealth from yourself, heal for 15% of Overhealth gained over 1s and gain 15% Move Speed for 3s.
 * Cost: 9,500
 
-{{al|Power Matrix}} - Legendary Hero Item
+{{al|Power Matrix (Item)}} - Legendary Hero Item
 * 50 Armor
 * [Power Block] absorbs projectiles for the first 1s, gaining Overhealth equal to 1% of your max Life for each projectile absorbed.
 * Cost: 11,000

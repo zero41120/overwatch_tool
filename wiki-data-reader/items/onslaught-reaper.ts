@@ -17,7 +17,8 @@ const record: ItemRecord = {
     tab: "weapon",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/c5/Onslaught.png",
-    character: "Reaper"
+    character: "Reaper",
+    id: undefined
   }
 };
 

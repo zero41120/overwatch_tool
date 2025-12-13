@@ -21,7 +21,8 @@ const record: ItemRecord = {
     tab: "survival",
     rarity: "rare",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/95/Duck_and_Roll.png",
-    character: "Cassidy"
+    character: "Cassidy",
+    id: undefined
   }
 };
 

@@ -1,6 +1,6 @@
 {{HeroTabs}}
-
-'''{{BASEPAGENAME}}''' is a upcoming [[hero]] in the [[Stadium]] [[game mode]].
+[[File:Wuyang Stadium.png|thumb|310x310px]]
+'''{{BASEPAGENAME}}''' is a upcoming [[hero]] in the [[Stadium]] [[game mode]]. 
 
 == Ability interactions ==
 {{StadiumAbilityInteractions/header}}
@@ -15,6 +15,148 @@
 * some of the abilites were tested
 
 This is a list of hero-specific Powers.<ref>[https://youtu.be/r4F3jhsAHxA?si=BwYihcxtYxbS7S7P&t=423 Developer Update | Season 20: Vendetta, Winter Wonderland, Stadium, & More]</ref>
+
+== Hero Items ==
+This is a list of hero-specific Powers. For a list of items available to all heroes, see [[Armory]].
+
+=== Weapon ===
+<!-- Rare -->
+{{Ability details
+| ability_name = Oscillation Orb
+| ability_image = Oscillation_Orb.png
+| ability_type = Hero Item (Weapon)
+| official_description = Empowered Orb can be steered more freely.
+| stadium_rarity = Rare
+| stadium_cost = 4000
+| stadium_buffs = Weapon Power;;10%
+}}
+
+{{Ability details
+| ability_name = Tidefill Basin
+| ability_image = Tidefill_Basin.png
+| ability_type = Hero Item (Weapon)
+| official_description = While [Rushing Torrent] is active, gain 3 ammo and 5% Healing Resource every 1s.
+| stadium_rarity = Rare
+| stadium_cost = 4500
+| stadium_buffs = Shields;;25::Max Ammo;;15%
+}}
+
+<!-- Epic -->
+{{Ability details
+| ability_name = Oceanic Ointment
+| ability_image = Oceanic_Ointment.png
+| ability_type = Hero Item (Weapon)
+| official_description = Empowered Orb's splash can remove burn and give 50% of its splash damage as temporary Overhealth to all allies, up to 100.
+| stadium_rarity = Epic
+| stadium_cost = 9000
+| stadium_buffs = Empowered Orb Splash Radius;;35%
+}}
+
+{{Ability details
+| ability_name = Metal College Module
+| ability_image = Metal_College_Module.png
+| ability_type = Hero Item (Weapon)
+| official_description = While using [Rushing Torrent], gain 35% Attack Speed.
+| stadium_rarity = Epic
+| stadium_cost = 11000
+| stadium_buffs = Weapon Power;;15%
+}}
+
+{{Ability details
+| ability_name = Aquajet Amplifier
+| ability_image = Aquajet_Amplifier.png
+| ability_type = Hero Item (Weapon)
+| official_description = 
+| stadium_rarity = Epic
+| stadium_cost = 10000
+| stadium_buffs = Weapon Power;;10%::Active [Restorative Stream] Healing Power;;25%::[Restorative Stream] Healing Range;;25%
+}}
+
+=== Ability ===
+<!-- Rare -->
+{{Ability details
+| ability_name = Water College Hat
+| ability_image = Water_College_Hat.png
+| ability_type = Hero Item (Ability)
+| official_description = Passive [Restorative Stream] also gives 10 Overhealth per second, up to {{Ability Power|30}}.
+| stadium_rarity = Rare
+| stadium_cost = 4000
+| stadium_buffs = Shields;;25::Passive [Restorative Stream] Duration;;50%
+}}
+
+<!-- Epic -->
+{{Ability details
+| ability_name = Wuxing Waveriders
+| ability_image = Wuxing_Waveriders.png
+| ability_type = Hero Item (Ability)
+| official_description = While [Rushing Torrent] is active, float upward. Jump to cancel or press crouch to get lower.
+| stadium_rarity = Epic
+| stadium_cost = 9000
+| stadium_buffs = Weapon Power;;10%::Ability Power;;10%
+}}
+
+{{Ability details
+| ability_name = Ye Family Visor
+| ability_image = Ye_Family_Visor.png
+| ability_type = Hero Item (Ability)
+| official_description = Enemies hit by [Guardian Wave] are revealed for 5s.
+| stadium_rarity = Epic
+| stadium_cost = 10000
+| stadium_buffs = Ability Power;;15%::[Guardian Wave] Increased Healing Effect Duration;;50%
+}}
+
+=== Survival ===
+<!-- Rare -->
+{{Ability details
+| ability_name = Hydrocache
+| ability_image = Hydrocache.png
+| ability_type = Hero Item (Survival)
+| official_description = 
+| stadium_rarity = Rare
+| stadium_cost = 5500
+| stadium_buffs = Shields;;25::Weapon Power;;10%::[Restorative Stream] Max Resource;;25%
+}}
+
+{{Ability details
+| ability_name = Reservoir Refresher
+| ability_image = Reservoir_Refresher.png
+| ability_type = Hero Item (Survival)
+| official_description = For each target hit by [Guardian Wave], gain 10% Healing Resource.
+| stadium_rarity = Rare
+| stadium_cost = 5000
+| stadium_buffs = Shields;;25::Ability Power;;10%
+}}
+
+<!-- Epic -->
+{{Ability details
+| ability_name = Waterfall Wetsuit
+| ability_image = Waterfall_Wetsuit.png
+| ability_type = Hero Item (Survival)
+| official_description = For each target hit by [Guardian Wave], Wuyang gains {{Ability Power|20}} Overhealth, up to {{Ability Power|80}}.
+| stadium_rarity = Epic
+| stadium_cost = 11000
+| stadium_buffs = Shields;;25::Cooldown Reduction;;10%
+}}
+
+{{Ability details
+| ability_name = Torrential Transistor
+| ability_image = Torrential_Transistor.png
+| ability_type = Hero Item (Survival)
+| official_description = [Tidal Blast] gives allies within 12m of the target 50 temporary Overhealth ever 1s.<br>While Wuyang has Shield, gain 15% increased Ultimate Charge
+| stadium_rarity = Epic
+| stadium_cost = 10000
+| stadium_buffs = Shields;;50
+}}
+
+{{Ability details
+| ability_name = Hydro Mender
+| ability_image = Hydro_Mender.png
+| ability_type = Hero Item (Survival)
+| official_description = Restore 2% of your Shield every second.<br>While [Rushing Torrent] is active, restore an additional 10% every second.
+| stadium_rarity = Epic
+| stadium_cost = 9000
+| stadium_buffs = Shields;;25
+}}
 
 == Powers ==
 {{Ability details
@@ -103,8 +245,86 @@ This is a list of hero-specific Powers.<ref>[https://youtu.be/r4F3jhsAHxA?si=BwY
 == Example Builds ==
 These are example builds pre-built in [[Stadium]] meant to show some possibilities of what can be done in the mode.
 
-none were showen
-{{StadiumNav}}
+=== Water Machine Gun ===
+Blast away your primary fire using {{Weapon Power|Weapon Power}} while sliding around on your [Rushing Torrent].
+
+==== Powers ====
+* {{al|Wave Lance}}
+* {{al|Undertow}} 
+* {{al|Flow State}}
+* {{al|Splish Slash}} 
+
+==== Early Game ====
+* {{al|Compensator}}
+* {{al|Plasma Converter}}
+* {{al|First Aid Kit}}
+* {{al|Tidefill Basin}}
+
+==== Late Game ====
+* {{al|Hydrocache}}
+* {{al|Talon Modification Module}} 
+* {{al|Metal College Module}}
+* {{al|Eye of the Spider}}
+
+==== Flex ====
+* {{al|Super Serum}}
+* {{al|Hydro Mender}}
+* {{al|Wuxing Waveriders}}
+* {{al|Nebula Conduit}}
+
+=== Guardian of the Tides ===
+Heal your team with powerful waves that can mend their wounds instantly, using {{Ability Power|Ability Power}}.
+
+==== Powers ====
+* {{al|Storm Surge}}
+* {{al|Tidal Save}}
+* {{al|Tidekeeper}}
+* {{al|Ebb and Flow (Power)}}
+
+==== Early Game ====
+* {{al|Power Playbook}}
+* {{al|Charged Plating}}
+* {{al|Armored Vest}}
+* {{al|Water College Hat}}
+
+==== Late Game ====
+* {{al|Reservoir Refresher}}
+* {{al|Nano Cola}}
+* {{al|Ye Family Visor}}
+* {{al|Waterfall Wetsuit}}
+
+==== Flex ====
+* {{al|Champion's Kit}}
+* {{al|Phantasmic Flux}}
+* {{al|Cybervenom}}
+* {{al|Liquid Nitrogen}}
+
+=== Water Bending Master ===
+Poke your enemies from far and keep the backline safe. Surf around and heal your allies with {{Weapon Power|Weapon Power}} while shooting empowered water orbs.
+
+==== Powers ====
+* {{al|Paindrops}}
+* {{al|Flow State}}
+* {{al|Shore Up}}
+* {{al|Tidekeeper}}
+
+==== Early Game ====
+* {{al|Compensator}}
+* {{al|Plasma Converter}}
+* {{al|First Aid Kit}}
+* {{al|Oscillation Orb}}
+
+==== Late Game ====
+* {{al|Tidefill Basin}}
+* {{al|Reservoir Refresher}}
+* {{al|Oceanic Ointment}}
+* {{al|Aquajet Amplifier}}
+
+==== Flex ====
+* {{al|Eye of the Spider}}
+* {{al|Amari's Antidote}}
+* {{al|Codebreaker}}
+* {{al|Nebula Conduit}}
 
 == Balance Change Log ==
 {{PatchTableStart}}<onlyinclude>
@@ -211,7 +431,7 @@ none were showen
 * While [Rushing Torrent] is active, restore an additional 10% every second.
 * Cost: 9,000
 
-{{al|Waterfall Westsuit}} - Legendary Hero Item
+{{al|Waterfall Wetsuit}} - Legendary Hero Item
 * 25 shields
 * 10% Cooldown Reduction
 * For each target hit by [Guardian Wave], Wuyang gains 20 Overhealth, up to 80 ability power.
