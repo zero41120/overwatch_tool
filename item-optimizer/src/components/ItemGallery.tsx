@@ -52,12 +52,15 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   function handleItemClick(it: Item, e: MouseEvent<HTMLButtonElement>) {
     setSelected(it);
     if (!isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const anchorX = rect.left + rect.width / 2;
+    const anchorY = rect.bottom;
     setMobilePreview((current) => {
       if (current === it.name) {
         dispatch(clearTooltip());
         return null;
       }
-      dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }));
+      dispatch(setTooltip({ item: it, x: anchorX, y: anchorY }));
       return it.name;
     });
   }

@@ -52,3 +52,4 @@
 2025-11-09  fetch remote item icon URLs from wiki snapshots and remove local PNGs  wiki-data-reader/scripts item-optimizer/src
 
 2025-12-18  add mobile tap-to-toggle detail previews in Item Gallery  item-optimizer/src/components/ItemGallery.tsx
+2025-12-19  clamp tooltip position and anchor mobile taps to item bounds  item-optimizer/src/components/ItemGallery.tsx item-optimizer/src/utils/tooltipUtils.ts

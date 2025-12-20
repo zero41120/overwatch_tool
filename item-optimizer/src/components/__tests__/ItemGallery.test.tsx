@@ -126,7 +126,7 @@ describe("ItemGallery", () => {
     expect(localStorage.getItem("localOverrides")).toBe("{}");
   });
 
-  it("toggles tooltip on mobile tap", () => {
+  it("toggles tooltip on mobile tap and centers tooltip under the item", () => {
     const originalMatchMedia = window.matchMedia;
     window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query === "(pointer: coarse)",
@@ -145,9 +145,23 @@ describe("ItemGallery", () => {
       </Provider>,
     );
 
-    const secondItem = getByText("Two");
-    fireEvent.click(secondItem, { clientX: 10, clientY: 15 });
+    const secondItem = getByText("Two").closest("button")!;
+    vi.spyOn(secondItem, "getBoundingClientRect").mockReturnValue({
+      left: 100,
+      right: 150,
+      top: 200,
+      bottom: 240,
+      width: 50,
+      height: 40,
+      x: 100,
+      y: 200,
+      toJSON: () => ({}),
+    });
+
+    fireEvent.click(secondItem);
     expect(store.getState().tooltip?.item.name).toBe("Two");
+    expect(store.getState().tooltip?.x).toBe(125);
+    expect(store.getState().tooltip?.y).toBe(240);
     fireEvent.click(secondItem);
     expect(store.getState().tooltip).toBeNull();
 
