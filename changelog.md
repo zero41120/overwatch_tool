@@ -53,3 +53,4 @@
 
 2025-12-18  add mobile tap-to-toggle detail previews in Item Gallery  item-optimizer/src/components/ItemGallery.tsx
 2025-12-19  clamp tooltip position and anchor mobile taps to item bounds  item-optimizer/src/components/ItemGallery.tsx item-optimizer/src/utils/tooltipUtils.ts
+2025-12-20  keep Item Gallery detail sticky on mobile and disable tooltip taps  item-optimizer/src/components/ItemGallery.tsx

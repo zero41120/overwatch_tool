@@ -126,7 +126,7 @@ describe("ItemGallery", () => {
     expect(localStorage.getItem("localOverrides")).toBe("{}");
   });
 
-  it("toggles tooltip on mobile tap and centers tooltip under the item", () => {
+  it("keeps the detail panel sticky on mobile and avoids tooltip taps", () => {
     const originalMatchMedia = window.matchMedia;
     window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query === "(pointer: coarse)",
@@ -139,31 +139,19 @@ describe("ItemGallery", () => {
       dispatchEvent: vi.fn(),
     }));
 
-    const { getByText } = render(
+    const { getByText, getByTestId } = render(
       <Provider store={store}>
         <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
       </Provider>,
     );
 
-    const secondItem = getByText("Two").closest("button")!;
-    vi.spyOn(secondItem, "getBoundingClientRect").mockReturnValue({
-      left: 100,
-      right: 150,
-      top: 200,
-      bottom: 240,
-      width: 50,
-      height: 40,
-      x: 100,
-      y: 200,
-      toJSON: () => ({}),
-    });
+    expect(getByTestId("item-detail-panel")).toHaveClass("sticky");
 
+    const secondItem = getByText("Two").closest("button")!;
     fireEvent.click(secondItem);
-    expect(store.getState().tooltip?.item.name).toBe("Two");
-    expect(store.getState().tooltip?.x).toBe(125);
-    expect(store.getState().tooltip?.y).toBe(240);
-    fireEvent.click(secondItem);
+
     expect(store.getState().tooltip).toBeNull();
+    expect(getByText("ability")).toBeInTheDocument();
 
     window.matchMedia = originalMatchMedia;
   });

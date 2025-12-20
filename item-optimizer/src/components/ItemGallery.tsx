@@ -27,7 +27,6 @@ interface Props {
 
 export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [selected, setSelected] = useState(items[0]);
-  const [, setMobilePreview] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
   const [savedText, setSavedText] = useState("");
@@ -49,20 +48,11 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
     };
   }, [dispatch]);
 
-  function handleItemClick(it: Item, e: MouseEvent<HTMLButtonElement>) {
+  function handleItemClick(it: Item) {
     setSelected(it);
-    if (!isMobile) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const anchorX = rect.left + rect.width / 2;
-    const anchorY = rect.bottom;
-    setMobilePreview((current) => {
-      if (current === it.name) {
-        dispatch(clearTooltip());
-        return null;
-      }
-      dispatch(setTooltip({ item: it, x: anchorX, y: anchorY }));
-      return it.name;
-    });
+    if (isMobile) {
+      dispatch(clearTooltip());
+    }
   }
 
   const filtered = items.filter(
@@ -75,7 +65,12 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-4 sm:p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
       <div className="relative">
-        <div>
+        <div
+          className={`space-y-2 ${
+            isMobile ? "sticky top-0 z-10 bg-white dark:bg-gray-800 pb-4" : ""
+          }`}
+          data-testid="item-detail-panel"
+        >
           {selected && (
             <div className="space-y-2">
               <div className="space-y-1">
@@ -238,10 +233,20 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                 <button
                   key={idx}
                   type="button"
-                  onClick={(e) => handleItemClick(it, e)}
-                  onMouseEnter={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
-                  onMouseMove={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
-                  onMouseLeave={() => dispatch(clearTooltip())}
+                  onClick={() => handleItemClick(it)}
+                  onMouseEnter={
+                    isMobile
+                      ? undefined
+                      : (e: MouseEvent<HTMLButtonElement>) =>
+                          dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))
+                  }
+                  onMouseMove={
+                    isMobile
+                      ? undefined
+                      : (e: MouseEvent<HTMLButtonElement>) =>
+                          dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))
+                  }
+                  onMouseLeave={isMobile ? undefined : () => dispatch(clearTooltip())}
                   className="relative flex flex-col items-center gap-1 p-2 rounded border dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   {overrides[it.name] && (
