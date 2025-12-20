@@ -1,6 +1,7 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import { Provider } from "react-redux";
 import ItemGallery from "../ItemGallery";
 import store from "../../store";
@@ -123,5 +124,33 @@ describe("ItemGallery", () => {
     fireEvent.change(area, { target: { value: "{}" } });
     fireEvent.click(getByText("Save"));
     expect(localStorage.getItem("localOverrides")).toBe("{}");
+  });
+
+  it("toggles tooltip on mobile tap", () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
+      matches: query === "(pointer: coarse)",
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
+      </Provider>,
+    );
+
+    const secondItem = getByText("Two");
+    fireEvent.click(secondItem, { clientX: 10, clientY: 15 });
+    expect(store.getState().tooltip?.item.name).toBe("Two");
+    fireEvent.click(secondItem);
+    expect(store.getState().tooltip).toBeNull();
+
+    window.matchMedia = originalMatchMedia;
   });
 });

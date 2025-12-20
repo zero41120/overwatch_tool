@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { clearTooltip, setTooltip } from "../slices/tooltipSlice";
 import type { Item, ItemOverride } from "../types";
@@ -27,6 +27,7 @@ interface Props {
 
 export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const [selected, setSelected] = useState(items[0]);
+  const [, setMobilePreview] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
   const [savedText, setSavedText] = useState("");
@@ -36,6 +37,30 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
   const dispatch = useAppDispatch();
   const overrideVersion = useAppSelector((s) => s.input.present.overrideVersion);
   const overrides = useMemo(loadLocalOverrides, [overrideVersion]);
+  const isMobile = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    if (window.matchMedia?.("(pointer: coarse)")?.matches) return true;
+    return window.innerWidth < 640;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearTooltip());
+    };
+  }, [dispatch]);
+
+  function handleItemClick(it: Item, e: MouseEvent<HTMLButtonElement>) {
+    setSelected(it);
+    if (!isMobile) return;
+    setMobilePreview((current) => {
+      if (current === it.name) {
+        dispatch(clearTooltip());
+        return null;
+      }
+      dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }));
+      return it.name;
+    });
+  }
 
   const filtered = items.filter(
     (it) =>
@@ -210,7 +235,7 @@ export default function ItemGallery({ items, heroes, attrTypes }: Props) {
                 <button
                   key={idx}
                   type="button"
-                  onClick={() => setSelected(it)}
+                  onClick={(e) => handleItemClick(it, e)}
                   onMouseEnter={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
                   onMouseMove={(e) => dispatch(setTooltip({ item: it, x: e.clientX, y: e.clientY }))}
                   onMouseLeave={() => dispatch(clearTooltip())}
