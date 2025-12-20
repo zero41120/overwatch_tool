@@ -1,6 +1,7 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import { Provider } from "react-redux";
 import ItemGallery from "../ItemGallery";
 import store from "../../store";
@@ -123,5 +124,35 @@ describe("ItemGallery", () => {
     fireEvent.change(area, { target: { value: "{}" } });
     fireEvent.click(getByText("Save"));
     expect(localStorage.getItem("localOverrides")).toBe("{}");
+  });
+
+  it("keeps the detail panel sticky on mobile and avoids tooltip taps", () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
+      matches: query === "(pointer: coarse)",
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    const { getByText, getByTestId } = render(
+      <Provider store={store}>
+        <ItemGallery items={items} heroes={heroes} attrTypes={attrTypes} />
+      </Provider>,
+    );
+
+    expect(getByTestId("item-detail-panel")).toHaveClass("sticky");
+
+    const secondItem = getByText("Two").closest("button")!;
+    fireEvent.click(secondItem);
+
+    expect(store.getState().tooltip).toBeNull();
+    expect(getByText("ability")).toBeInTheDocument();
+
+    window.matchMedia = originalMatchMedia;
   });
 });

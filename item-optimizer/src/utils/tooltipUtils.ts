@@ -13,7 +13,7 @@ export interface TooltipStyleOptions {
 export function getTooltipStyle(
     x: number,
     y: number,
-    options: TooltipStyleOptions = {}
+    options: TooltipStyleOptions = {},
 ): React.CSSProperties {
     const winW = window.innerWidth;
     const winH = window.innerHeight;
@@ -28,6 +28,10 @@ export function getTooltipStyle(
     if (top + TOOLTIP_HEIGHT > winH) {
         top = y - TOOLTIP_HEIGHT - OFFSET;
     }
+    const maxLeft = Math.max(OFFSET, winW - TOOLTIP_WIDTH - OFFSET);
+    const maxTop = Math.max(OFFSET, winH - TOOLTIP_HEIGHT - OFFSET);
+    left = Math.min(Math.max(left, OFFSET), maxLeft);
+    top = Math.min(Math.max(top, OFFSET), maxTop);
     return {
         left,
         top,
