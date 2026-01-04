@@ -11,6 +11,7 @@ import InputSection from "../input_view/InputSection";
 const heroes = ["Tracer", "Mercy"];
 const heroIcons: Record<string, string> = {};
 const attrTypes = ["AP", "WP"];
+const attrCounts = { AP: 2, WP: 1 };
 const items: Item[] = [];
 
 describe("InputSection", () => {
@@ -23,6 +24,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
+          attrCounts={attrCounts}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={validate}
@@ -43,6 +45,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
+          attrCounts={attrCounts}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={validate}
@@ -61,6 +64,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
+          attrCounts={attrCounts}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={() => true}
@@ -79,6 +83,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
+          attrCounts={attrCounts}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={() => true}
@@ -96,6 +101,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
+          attrCounts={attrCounts}
           filteredItems={items}
           onSubmit={() => {}}
           validate={() => true}

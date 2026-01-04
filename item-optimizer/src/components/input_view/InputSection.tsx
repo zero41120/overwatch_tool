@@ -12,12 +12,13 @@ interface Props {
   heroes: string[];
   heroIcons: Record<string, string>;
   attrTypes: string[];
+  attrCounts: Record<string, number>;
   filteredItems: Item[];
   onSubmit: (mode: "cheapest" | "premium" | "incremental") => void;
   validate: () => boolean;
 }
 
-export default function InputSection({ heroes, heroIcons, attrTypes, filteredItems, onSubmit, validate }: Props) {
+export default function InputSection({ heroes, heroIcons, attrTypes, attrCounts, filteredItems, onSubmit, validate }: Props) {
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-4 sm:p-6  dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Configuration</h2>
@@ -41,7 +42,7 @@ export default function InputSection({ heroes, heroIcons, attrTypes, filteredIte
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <MinValueSection attrTypes={attrTypes} />
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
-        <WeightsSection attrTypes={attrTypes} />
+        <WeightsSection attrTypes={attrTypes} attrCounts={attrCounts} />
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <SubmitSection onSubmit={onSubmit} validate={validate} />
       </form>

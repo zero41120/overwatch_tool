@@ -13,15 +13,20 @@ import SliderRange from "../SliderRange";
 
 interface Props {
   attrTypes: string[];
+  attrCounts?: Record<string, number>;
 }
 
-export default function WeightsSection({ attrTypes }: Props) {
+export default function WeightsSection({ attrTypes, attrCounts = {} }: Props) {
   const weights = useAppSelector((state) => state.input.present.weights);
   const dispatch = useAppDispatch();
-  const options = attrTypes.map((t) => ({
-    value: t,
-    label: attributeValueToLabel(t),
-  }));
+  const options = attrTypes.map((t) => {
+    const count = attrCounts[t];
+    const suffix = typeof count === "number" ? ` (${count})` : "";
+    return {
+      value: t,
+      label: `${attributeValueToLabel(t)}${suffix}`,
+    };
+  });
 
   return (
     <div>

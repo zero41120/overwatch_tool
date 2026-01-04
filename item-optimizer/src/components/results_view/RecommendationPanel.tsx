@@ -242,41 +242,47 @@ export default function RecommendationPanel({ allItems, powersByHero, heroMetada
 
   return (
     <div className="space-y-8">
-      <HeroRow
-        slots={ALLY_SLOTS}
-        selections={allySelections}
-        onChange={(slotId, value) => {
-          setAllySelections((prev) => {
-            const next = { ...prev };
-            Object.keys(next).forEach((key) => {
-              if (key !== slotId && next[key] === value) next[key] = "";
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Allied Team</h3>
+        <HeroRow
+          slots={ALLY_SLOTS}
+          selections={allySelections}
+          onChange={(slotId, value) => {
+            setAllySelections((prev) => {
+              const next = { ...prev };
+              Object.keys(next).forEach((key) => {
+                if (key !== slotId && next[key] === value) next[key] = "";
+              });
+              next[slotId] = value;
+              return next;
             });
-            next[slotId] = value;
-            return next;
-          });
-        }}
-        heroesByRole={heroesByRole}
-        heroLookup={heroLookup}
-        lockedHero={selfHero}
-      />
+          }}
+          heroesByRole={heroesByRole}
+          heroLookup={heroLookup}
+          lockedHero={selfHero}
+        />
+      </div>
 
-      <HeroRow
-        slots={ENEMY_SLOTS}
-        selections={enemySelections}
-        onChange={(slotId, value) => {
-          setEnemySelections((prev) => {
-            const next = { ...prev };
-            Object.keys(next).forEach((key) => {
-              if (key !== slotId && next[key] === value) next[key] = "";
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Enemy Team</h3>
+        <HeroRow
+          slots={ENEMY_SLOTS}
+          selections={enemySelections}
+          onChange={(slotId, value) => {
+            setEnemySelections((prev) => {
+              const next = { ...prev };
+              Object.keys(next).forEach((key) => {
+                if (key !== slotId && next[key] === value) next[key] = "";
+              });
+              next[slotId] = value;
+              return next;
             });
-            next[slotId] = value;
-            return next;
-          });
-        }}
-        heroesByRole={heroesByRole}
-        heroLookup={heroLookup}
-        variant="enemy"
-      />
+          }}
+          heroesByRole={heroesByRole}
+          heroLookup={heroLookup}
+          variant="enemy"
+        />
+      </div>
 
       <RecommendationList
         title="Recommended Items"
@@ -491,7 +497,10 @@ function RecommendationCard({ entry }: { entry: RecommendationEntry }) {
             </div>
           )}
           <p className="mt-1 text-center text-xs font-semibold leading-tight">{entry.name}</p>
-          <div className="absolute top-1 right-1 rounded-full bg-emerald-900/40 px-1.5 py-0.5 text-[10px] font-bold text-emerald-200 shadow">
+          <div
+            className="absolute top-1 right-1 rounded-full bg-emerald-900/40 px-1.5 py-0.5 text-[10px] font-bold text-emerald-200 shadow"
+            data-testid="recommendation-score"
+          >
             {formattedScore}
           </div>
         </div>

@@ -41,19 +41,19 @@ describe("RecommendationPanel", () => {
       </Provider>,
     );
 
-    const enemySection = screen.getByText("Enemy Team").parentElement?.parentElement;
+    const enemySection = screen.getByText("Enemy Team").parentElement;
     if (!enemySection) throw new Error("Enemy section missing");
     const enemyPickers = within(enemySection).getAllByText("Select hero");
     fireEvent.click(enemyPickers[0]);
     fireEvent.click(await screen.findByText("Reinhardt"));
 
     await waitFor(() => {
-      expect(screen.getByText("Risky Blade")).toBeInTheDocument();
+      expect(screen.getAllByText("Risky Blade").length).toBeGreaterThan(0);
     });
 
     const cards = screen.getAllByTestId("recommendation-card");
-    const synergyCard = cards.find((card) => within(card).queryByText("Synergy Trinket"));
-    const riskyCard = cards.find((card) => within(card).queryByText("Risky Blade"));
+    const synergyCard = cards.find((card) => within(card).queryAllByText("Synergy Trinket").length > 0);
+    const riskyCard = cards.find((card) => within(card).queryAllByText("Risky Blade").length > 0);
 
     if (!synergyCard || !riskyCard) throw new Error("Missing recommendation cards");
 

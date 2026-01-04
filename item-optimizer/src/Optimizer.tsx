@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
-import { sortAttributes } from "./utils/attributeUtils";
+import { collectAttributeCountsForHero, collectAttributeTypesForHero } from "./utils/attributeUtils";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import {
@@ -28,6 +28,7 @@ export default function Optimizer() {
   const [heroMetadata, setHeroMetadata] = useState<HeroMetadata[]>([]);
   const [heroIcons, setHeroIcons] = useState<Record<string, string>>({});
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
+  const [attrCounts, setAttrCounts] = useState<Record<string, number>>({});
 
   const dispatch = useAppDispatch();
   const state = useAppSelector((s) => s.input.present);
@@ -86,22 +87,14 @@ export default function Optimizer() {
     });
     setData(items);
     const heroesSet = new Set<string>();
-    const seen = new Map<string, number>();
-    const types = new Set<string>();
     items.forEach((it) => {
       if (it.character) heroesSet.add(it.character);
-      it.attributes.forEach((a) => {
-        const count = (seen.get(a.type) ?? 0) + 1;
-        seen.set(a.type, count);
-        if (count === 2) types.add(a.type); // Only add if seen more than once
-      });
     });
     Object.entries(root.tabs.powers).forEach(([heroName, list]) => {
       if (list.length) heroesSet.add(heroName);
     });
-    types.delete("description");
-    types.delete("Editor's Note");
-    const sortedTypes = Array.from(types).sort(sortAttributes);
+    const sortedTypes = collectAttributeTypesForHero(items, hero);
+    const counts = collectAttributeCountsForHero(items, hero);
     const heroList = [...Array.from(heroesSet).sort()];
     const filteredIcons: Record<string, string> = {};
     const filteredMetadata: HeroMetadata[] = [];
@@ -114,7 +107,10 @@ export default function Optimizer() {
     setHeroIcons(filteredIcons);
     setHeroMetadata(filteredMetadata);
     setAttrTypes(sortedTypes);
-    dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
+    setAttrCounts(counts);
+    if (sortedTypes[0]) {
+      dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
+    }
   }, [hero, useOverrides, overrideVersion]);
   useEffect(() => {
     const count = equipped.filter((id) => id).length;
@@ -364,6 +360,7 @@ export default function Optimizer() {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
+          attrCounts={attrCounts}
           filteredItems={filtered}
           onSubmit={onCalculate}
           validate={validate}
