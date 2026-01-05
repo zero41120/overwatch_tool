@@ -6,40 +6,43 @@ const record: ItemRecord = {
     attributes: [
       {
         type: "WP",
-        value: "20%"
+        value: "20%",
       },
       {
         type: "description",
-        value: "[Mediblaster] deals 15% increased damage and healing to targets farther than 12m away."
-      }
+        value: "[Mediblaster] deals 15% increased damage and healing to targets farther than 12m away.",
+      },
     ],
     cost: 12000,
     tab: "weapon",
     rarity: "epic",
     iconUrl: "https://static.wikia.nocookie.net/overwatch_gamepedia/images/c/cd/Long_Range_Blaster.png",
     character: "Juno",
-    id: "i_65"
+    id: "i_65",
   },
   override: {
     name: "LONG RANGE BLASTER",
     editor_overrides: [
       {
-        applyTo: [
-          "Juno"
-        ],
+        applyTo: ["Juno"],
         attributes: [
           {
             type: "WP",
-            value: "38%"
+            value: "20%",
+          },
+          {
+            type: "Weapon Multiplier",
+            value: "15%",
           },
           {
             type: "Editor's Note",
-            value: "Assume that you can always have the 12m condition active. This is heavily based on enemy composition. Avoid this item if not achievable."
-          }
-        ]
-      }
-    ]
-  }
+            value:
+              "Assume that you can always have the 12m condition active. This is heavily based on enemy composition. Avoid this item if not achievable.",
+          },
+        ],
+      },
+    ],
+  },
 };
 
 export default record;

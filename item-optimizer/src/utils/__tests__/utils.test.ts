@@ -1,6 +1,7 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
-import { aggregate, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
+import { MEDIBLASTER_OUTPUT_ATTR } from "../junoMediblaster";
+import { aggregate, collectRelevantAttributes, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 
 describe("optimizer utils", () => {
   test("aggregate sums attributes correctly", () => {
@@ -26,6 +27,66 @@ describe("optimizer utils", () => {
     const map = aggregate(items);
     expect(map.get("AP")).toBe(8);
     expect(map.get("WP")).toBe(2);
+  });
+
+  test("aggregate includes Juno mediblaster output from WP/AS/Weapon Multiplier/MA", () => {
+    const items: Item[] = [
+      {
+        name: "A",
+        attributes: [
+          { type: "WP", value: "20%" },
+          { type: "AS", value: "10%" },
+        ],
+        cost: 0,
+        tab: "weapon",
+        rarity: "common",
+      },
+      {
+        name: "B",
+        attributes: [
+          { type: "Weapon Multiplier", value: "15%" },
+          { type: "MA", value: "25%" },
+        ],
+        cost: 0,
+        tab: "weapon",
+        rarity: "common",
+      },
+    ];
+    const map = aggregate(items, "Juno");
+    const TPS = 60;
+    const RELOAD_FRAMES = 1.5 * TPS;
+    const COCKING_FRAMES = 0.3 * TPS;
+    const RECOVERY_FRAMES = 0.45 * TPS;
+    const INTRA_BURST_INTERVAL_FRAMES = 0.03 * TPS;
+    const VOLLEY_SIZE = 12;
+    const wp = 100 + 20;
+    const wm = 1 + 15 / 100;
+    const as = 100 + 10;
+    const clipSize = Math.max(1, Math.round(180 * (1 + 25 / 100)));
+    const attackSpeedPercent = as / 100;
+    const weaponPowerPercent = wp / 100;
+    const cockingFrames = Math.ceil(COCKING_FRAMES / attackSpeedPercent);
+    let cycleFrames = RELOAD_FRAMES + cockingFrames;
+    const singleRecoveryFrame = Math.ceil(RECOVERY_FRAMES / attackSpeedPercent);
+    for (let i = 1; i <= clipSize; i++) {
+      const isFirstBulletOfVolley = (i - 1) % VOLLEY_SIZE === 0;
+      if (!isFirstBulletOfVolley) cycleFrames += INTRA_BURST_INTERVAL_FRAMES;
+      const isEndOfVolley = i % VOLLEY_SIZE === 0;
+      const hasAmmoLeft = i < clipSize;
+      if (isEndOfVolley && hasAmmoLeft) cycleFrames += singleRecoveryFrame;
+    }
+    const totalDamage = clipSize * 7.5 * wm * weaponPowerPercent;
+    const expected = totalDamage * (TPS / cycleFrames);
+    expect(map.get(MEDIBLASTER_OUTPUT_ATTR)).toBeCloseTo(expected, 5);
+  });
+
+  test("collectRelevantAttributes expands mediblaster output to WP/AS/Weapon Multiplier", () => {
+    const attrs = collectRelevantAttributes([{ type: MEDIBLASTER_OUTPUT_ATTR, weight: 1 }], false, []);
+    expect(attrs.has(MEDIBLASTER_OUTPUT_ATTR)).toBe(true);
+    expect(attrs.has("WP")).toBe(true);
+    expect(attrs.has("AS")).toBe(true);
+    expect(attrs.has("Weapon Multiplier")).toBe(true);
+    expect(attrs.has("MA")).toBe(true);
   });
 
   test("scoreFromMap multiplies weights", () => {

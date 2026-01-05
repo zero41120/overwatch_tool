@@ -60,3 +60,7 @@
 2025-11-22  add beingCountered metadata to items/powers and surface in Recommendations UI  wiki-data-reader/types.ts wiki-data-reader/scripts/lib item-optimizer/src/components/results_view/RecommendationPanel.tsx
 2025-11-20  calculate and display recommendation scores using synergy, counter, anti-synergy, and beingCountered matches  item-optimizer/src/components/results_view/RecommendationPanel.tsx
 2025-11-20  hero power write now skips prompts when no per-hero module or aggregator changes are detected  wiki-data-reader/scripts/updateItems.ts wiki-data-reader/scripts/lib/heroPowerOutput.ts
+2025-12-26  expose editor override attributes in weighting dropdown, limit to selected hero, show counts, and add coverage  item-optimizer/src/utils/attributeUtils.ts
+2026-01-04  add Juno mediblaster output attribute for weighting/min values  item-optimizer/src/utils
+2026-01-04  update Juno mediblaster output with max ammo clip size scaling  item-optimizer/src/utils/junoMediblaster.ts
+2026-01-04  prioritize Juno mediblaster output in attribute sorting  item-optimizer/src/utils/attributeUtils.ts

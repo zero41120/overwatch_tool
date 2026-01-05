@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { WeightRow, MinAttrGroup } from "../types";
+import { createSlice } from "@reduxjs/toolkit";
+import type { MinAttrGroup, WeightRow } from "../types";
 
 export interface InputState {
   hero: string;
@@ -20,7 +20,7 @@ export interface InputState {
 }
 
 const initialState: InputState = {
-  hero: "Ashe",
+  hero: "Juno",
   heroPowers: [],
   cash: 11000,
   equipped: Array(2).fill(""),
@@ -141,7 +141,9 @@ const inputSlice = createSlice({
     },
     importState(_, action: PayloadAction<InputState & { heroPower?: { hero: string; name: string } | null }>) {
       const next: InputState & { heroPower?: { hero: string; name: string } | null } = { ...action.payload };
-      const normalizedList = Array.isArray(next.heroPowers) ? next.heroPowers.filter((name): name is string => typeof name === "string") : [];
+      const normalizedList = Array.isArray(next.heroPowers)
+        ? next.heroPowers.filter((name): name is string => typeof name === "string")
+        : [];
       if (!normalizedList.length && next.heroPower && next.heroPower.hero === next.hero) {
         normalizedList.push(next.heroPower.name);
       }

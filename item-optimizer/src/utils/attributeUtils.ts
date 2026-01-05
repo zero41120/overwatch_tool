@@ -1,4 +1,5 @@
 import { ALL_HEROES, NO_HERO } from "../types";
+import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import type { Item } from "../types";
 
 export function attributeValueToLabel(value: string): string {
@@ -17,6 +18,7 @@ export function attributeValueToLabel(value: string): string {
     Shields: "Shields",
     WP: "Weapon Power",
     WPLS: "Weapon Life Steal",
+    [MEDIBLASTER_OUTPUT_ATTR]: MEDIBLASTER_OUTPUT_ATTR,
   };
   return map[value] || value;
 }
@@ -53,13 +55,31 @@ function filterItemsForHero(items: Item[], hero: string) {
 export function collectAttributeTypesForHero(items: Item[], hero: string): string[] {
   const allowed = filterItemsForHero(items, hero);
   const { types, counts } = collectTypesAndCounts(allowed);
-  return sortAttributesWithCounts(types, counts);
+  if (hero === "Juno") {
+    types.add(MEDIBLASTER_OUTPUT_ATTR);
+  }
+  const sorted = sortAttributesWithCounts(types, counts);
+  if (hero === "Juno") {
+    const idx = sorted.indexOf(MEDIBLASTER_OUTPUT_ATTR);
+    if (idx > 0) {
+      sorted.splice(idx, 1);
+      sorted.unshift(MEDIBLASTER_OUTPUT_ATTR);
+    }
+  }
+  return sorted;
 }
 
 export function collectAttributeCountsForHero(items: Item[], hero: string): Record<string, number> {
   const allowed = filterItemsForHero(items, hero);
   const { counts } = collectTypesAndCounts(allowed);
   const sortedKeys = sortAttributesWithCounts(counts.keys(), counts);
+  if (hero === "Juno") {
+    const idx = sortedKeys.indexOf(MEDIBLASTER_OUTPUT_ATTR);
+    if (idx > 0) {
+      sortedKeys.splice(idx, 1);
+      sortedKeys.unshift(MEDIBLASTER_OUTPUT_ATTR);
+    }
+  }
   const ordered: Record<string, number> = {};
   sortedKeys.forEach((key) => {
     ordered[key] = counts.get(key) ?? 0;

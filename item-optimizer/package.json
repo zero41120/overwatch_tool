@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "vite": "vite",
-    "start": "vite",
+    "start": "vite --host",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -21,6 +21,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
+    "react-router-dom": "^7.10.1",
     "redux-undo": "^1.1.0",
     "wiki-data-reader": "^0.1.0"
   },

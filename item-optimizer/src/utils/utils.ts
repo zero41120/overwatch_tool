@@ -4,8 +4,9 @@ export function parseNumeric(value: string): number {
 }
 
 import type { Item, WeightRow, MinAttrGroup } from "../types";
+import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 
-export function aggregate(items: Item[]): Map<string, number> {
+export function aggregate(items: Item[], hero?: string): Map<string, number> {
   const map = new Map<string, number>();
   items.forEach((it) => {
     it.attributes.forEach((a) => {
@@ -13,6 +14,9 @@ export function aggregate(items: Item[]): Map<string, number> {
       map.set(a.type, (map.get(a.type) ?? 0) + v);
     });
   });
+  if (hero === "Juno") {
+    map.set(MEDIBLASTER_OUTPUT_ATTR, computeMediblasterOutputFromMap(map));
+  }
   return map;
 }
 
@@ -37,8 +41,8 @@ export function rarityColor(r: Item["rarity"]) {
   }
 }
 
-export function meetsMinGroups(items: Item[], groups: MinAttrGroup[]) {
-  const map = aggregate(items);
+export function meetsMinGroups(items: Item[], groups: MinAttrGroup[], hero?: string) {
+  const map = aggregate(items, hero);
   return groups.every((g) => {
     const sum = g.attrs.reduce((s, a) => s + (map.get(a) ?? 0), 0);
     return sum >= g.value;
@@ -57,6 +61,7 @@ export function collectRelevantAttributes(
     });
   }
   set.delete("");
+  includeMediblasterInputs(set);
   return set;
 }
 

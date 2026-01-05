@@ -178,7 +178,7 @@ export default function Optimizer() {
 
     let aggregateMap = memoizedAggregates.get(key);
     if (!aggregateMap) {
-      aggregateMap = aggregate(items);
+      aggregateMap = aggregate(items, hero);
       memoizedAggregates.set(key, aggregateMap);
     }
 
@@ -188,7 +188,7 @@ export default function Optimizer() {
   }
 
   function meetsMinRequirements(items: Item[]) {
-    return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups);
+    return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero);
   }
   function onCalculate(mode: "cheapest" | "premium" | "incremental") {
     dispatch(setError(""));
@@ -297,7 +297,7 @@ export default function Optimizer() {
       dfs(0, [], 0, 0);
       if (bestCombos.length === 0) return null;
       const [best] = bestCombos.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
-      const totalMap = aggregate([...best.items, ...eqItems]);
+      const totalMap = aggregate([...best.items, ...eqItems], hero);
       const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
       return { items: best.items, cost: best.cost, score: scoreFromMap(totalMap, weights), breakdown };
     }
@@ -336,7 +336,7 @@ export default function Optimizer() {
     const build = builds[idx];
     if (!build) return;
     setBuildIndex(idx);
-    const totalMap = aggregate([...build.items, ...equippedItems()]);
+    const totalMap = aggregate([...build.items, ...equippedItems()], hero);
     const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
     setResults({
       items: build.items,

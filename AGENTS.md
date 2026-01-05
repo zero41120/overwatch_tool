@@ -7,24 +7,26 @@ These rules apply from the repository root downward. Child AGENTS.md files overr
 Overwatch item build optimizer written in React, TypeScript, Vite, and TailwindCSS. The app helps players select an optimal combination of items given gold and character limits.
 
 ## Directory Map
+
 Root directory is overwatch_tool/
+
 - overwatch_tool/AGENTS.md this file, project rules and guidelines, there is only 1 AGENTS.md file
 - overwatch_tool/memory-bank/ project context and decisions
 - overwatch_tool/changelog.md change log for features and fixes
 - overwatch_tool/item-optimizer/ main application code, you likely need to run `npm install` here first
 
-
 Data files, do not edit or read directly unless the task requires it:
+
 - data.json - canonical item data, avoid reading this file
 - overrides.json - local balance overrides
 
 ## Coding Conventions
+
 - Start by writing or updating test for the feature you are implementing. This allows you to understand the expected behavior and edge cases.
 - Test coverage should stay at or above 80 percent. Use `test:coverage` script to check.
 - Keep files small (target < 150 logical lines). When near the limit, consider splitting into smaller components or create utility functions.
 - Use functional React components with hooks.
 - Use Tailwind utility classes; avoid inline style props.
-- Use Conventional Commits (feat, fix, chore, docs).
 
 ## Memory Bank
 
