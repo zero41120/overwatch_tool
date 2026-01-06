@@ -10,6 +10,7 @@ import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import { collectAttributeCountsForHero, collectAttributeTypesForHero } from "./utils/attributeUtils";
+import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import {
@@ -209,12 +210,14 @@ export default function Optimizer() {
 
     const selectedAttrs = collectRelevantAttributes(weights, minValueEnabled, minAttrGroups);
 
+    const includesTorpedoDamage = selectedAttrs.has(TORPEDO_DAMAGE_ATTR);
     const candidate = data.filter(
       (it) =>
         allowItem(it) &&
         !equipped.includes(it.id ?? "") &&
         (!avoidEnabled || !avoid.includes(it.id ?? "")) &&
-        it.attributes.some((a) => selectedAttrs.has(a.type)),
+        (it.attributes.some((a) => selectedAttrs.has(a.type)) ||
+          (includesTorpedoDamage && itemAffectsTorpedoDamage(it))),
     );
 
     const needed = toBuy;

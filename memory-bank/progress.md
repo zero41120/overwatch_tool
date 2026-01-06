@@ -13,6 +13,7 @@
 
 **Juno torpedo program (Nov 2025)**  
 - Dedicated calculator, situational toggles, and Skyline Nanites 1.2× damage rule with streamlined UI/table layout.
+- Optimizer now exposes derived Torpedo Damage attribute for weighting and min value checks.
 
 **Wiki data reader (current)**  
 - Added `wiki-data-reader` modules and generator scripts to split legacy `data.json` into per-item TypeScript files, each embedding any override metadata.

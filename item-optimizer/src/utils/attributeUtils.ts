@@ -1,5 +1,6 @@
 import { ALL_HEROES, NO_HERO } from "../types";
 import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
+import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import type { Item } from "../types";
 
 export function attributeValueToLabel(value: string): string {
@@ -19,12 +20,14 @@ export function attributeValueToLabel(value: string): string {
     WP: "Weapon Power",
     WPLS: "Weapon Life Steal",
     [MEDIBLASTER_OUTPUT_ATTR]: MEDIBLASTER_OUTPUT_ATTR,
+    [TORPEDO_DAMAGE_ATTR]: TORPEDO_DAMAGE_ATTR,
   };
   return map[value] || value;
 }
 
 const RESERVED_ATTRS = new Set(["description", "Editor's Note"]);
 const PRIORITY = ["WP", "AP", "AS", "Health", "Armor", "Shields"];
+const JUNO_DERIVED_ATTRS = [MEDIBLASTER_OUTPUT_ATTR, TORPEDO_DAMAGE_ATTR];
 
 function collectTypesAndCounts(items: Item[]) {
   const types = new Set<string>();
@@ -56,15 +59,11 @@ export function collectAttributeTypesForHero(items: Item[], hero: string): strin
   const allowed = filterItemsForHero(items, hero);
   const { types, counts } = collectTypesAndCounts(allowed);
   if (hero === "Juno") {
-    types.add(MEDIBLASTER_OUTPUT_ATTR);
+    JUNO_DERIVED_ATTRS.forEach((attr) => types.add(attr));
   }
   const sorted = sortAttributesWithCounts(types, counts);
   if (hero === "Juno") {
-    const idx = sorted.indexOf(MEDIBLASTER_OUTPUT_ATTR);
-    if (idx > 0) {
-      sorted.splice(idx, 1);
-      sorted.unshift(MEDIBLASTER_OUTPUT_ATTR);
-    }
+    return promoteJunoDerivedAttributes(sorted);
   }
   return sorted;
 }
@@ -72,13 +71,12 @@ export function collectAttributeTypesForHero(items: Item[], hero: string): strin
 export function collectAttributeCountsForHero(items: Item[], hero: string): Record<string, number> {
   const allowed = filterItemsForHero(items, hero);
   const { counts } = collectTypesAndCounts(allowed);
-  const sortedKeys = sortAttributesWithCounts(counts.keys(), counts);
   if (hero === "Juno") {
-    const idx = sortedKeys.indexOf(MEDIBLASTER_OUTPUT_ATTR);
-    if (idx > 0) {
-      sortedKeys.splice(idx, 1);
-      sortedKeys.unshift(MEDIBLASTER_OUTPUT_ATTR);
-    }
+    JUNO_DERIVED_ATTRS.forEach((attr) => counts.set(attr, counts.get(attr) ?? 0));
+  }
+  let sortedKeys = sortAttributesWithCounts(counts.keys(), counts);
+  if (hero === "Juno") {
+    sortedKeys = promoteJunoDerivedAttributes(sortedKeys);
   }
   const ordered: Record<string, number> = {};
   sortedKeys.forEach((key) => {
@@ -114,4 +112,10 @@ export function sortAttributesWithCounts(
     if (ca !== cb) return cb - ca;
     return a.localeCompare(b);
   });
+}
+
+function promoteJunoDerivedAttributes(sorted: string[]): string[] {
+  const derived = JUNO_DERIVED_ATTRS.filter((attr) => sorted.includes(attr));
+  if (derived.length === 0) return sorted;
+  return [...derived, ...sorted.filter((attr) => !derived.includes(attr))];
 }

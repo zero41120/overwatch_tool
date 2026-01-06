@@ -1,8 +1,11 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
-import { fireEvent, render } from "@testing-library/react";
+import { configureStore } from "@reduxjs/toolkit";
+import { fireEvent, render, within } from "@testing-library/react";
 import { Provider } from "react-redux";
-import store from "../../store";
+import undoable from "redux-undo";
+import inputReducer from "../../slices/inputSlice";
+import tooltipReducer from "../../slices/tooltipSlice";
 import type { HeroMetadata, Item, ResultCombo } from "../../types";
 import ResultsSection from "../results_view/ResultsSection";
 
@@ -38,8 +41,17 @@ const heroMetadata: HeroMetadata[] = [
   { name: "Ashe", slug: "ashe", role: "damage" },
 ];
 
+const createTestStore = () =>
+  configureStore({
+    reducer: {
+      input: undoable(inputReducer),
+      tooltip: tooltipReducer,
+    },
+  });
+
 describe("ResultsSection", () => {
   it("renders placeholder when no results", () => {
+    const store = createTestStore();
     const { getByText } = render(
       <Provider store={store}>
         <ResultsSection
@@ -60,6 +72,7 @@ describe("ResultsSection", () => {
   });
 
   it("shows result details", () => {
+    const store = createTestStore();
     const { getByText } = render(
       <Provider store={store}>
         <ResultsSection
@@ -81,8 +94,9 @@ describe("ResultsSection", () => {
     expect(getByText("Cost: 40")).toBeInTheDocument();
   });
 
-  it("adds item to avoid list on click", () => {
-    const { getByLabelText } = render(
+  it("adds item to avoid list from items overview", () => {
+    const store = createTestStore();
+    const { getByText } = render(
       <Provider store={store}>
         <ResultsSection
           eqItems={eqItems}
@@ -98,13 +112,18 @@ describe("ResultsSection", () => {
         />
       </Provider>,
     );
-    fireEvent.click(getByLabelText("Avoid Shield"));
+    const overview = getByText("Items Overview").parentElement;
+    if (!overview) {
+      throw new Error("Missing items overview");
+    }
+    fireEvent.click(within(overview).getByLabelText("Avoid Shield"));
     const state = store.getState();
     expect(state.input.present.avoid).toContain("2");
     expect(state.input.present.avoidEnabled).toBe(true);
   });
 
   it("switches to recommendation tab", () => {
+    const store = createTestStore();
     const { getByText } = render(
       <Provider store={store}>
         <ResultsSection

@@ -64,3 +64,5 @@
 2026-01-04  add Juno mediblaster output attribute for weighting/min values  item-optimizer/src/utils
 2026-01-04  update Juno mediblaster output with max ammo clip size scaling  item-optimizer/src/utils/junoMediblaster.ts
 2026-01-04  prioritize Juno mediblaster output in attribute sorting  item-optimizer/src/utils/attributeUtils.ts
+2026-01-04  add Juno torpedo damage attribute for optimizer weighting/min values  item-optimizer/src/utils/junoTorpedoDamage.ts item-optimizer/src/Optimizer.tsx
+2026-01-06  add avoid action to Items Overview grid and refresh visuals  item-optimizer/src/components/results_view/ItemsOverviewTable.tsx

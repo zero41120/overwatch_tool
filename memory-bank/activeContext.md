@@ -8,4 +8,4 @@
 - Root `README.md` documents the workspace layout, snapshot workflow, and testing commands so new contributors follow the same process.
 - Snapshot workflow now caches hero/general raws plus per-image wiki metadata; `ItemRecord` includes remote `iconUrl` so the optimizer uses fandom-hosted images instead of local sprites.
 - Attribute dropdowns now derive types with `collectAttributeTypesForHero`, including hero-specific editor overrides even if only one item carries the attribute while filtering to the selected hero, and weight dropdown labels show per-attribute item counts; Recommendation panel regained Ally/Enemy headings plus a score test id, and wiki-data-reader declarations were rebuilt for type-checking.
-- Juno builds now expose a derived Mediblaster Output attribute that computes max DPS from WP/AS/Weapon Multiplier/Max Ammo clip size for weighting and minimum-value checks.
+- Juno builds now expose derived Mediblaster Output and Torpedo Damage attributes (Torpedo uses base + AP scaling + Skyline bonus) for weighting and minimum-value checks.

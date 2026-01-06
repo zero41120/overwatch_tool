@@ -1,6 +1,7 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
 import { MEDIBLASTER_OUTPUT_ATTR } from "../junoMediblaster";
+import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
 import { aggregate, collectRelevantAttributes, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 
 describe("optimizer utils", () => {
@@ -80,6 +81,30 @@ describe("optimizer utils", () => {
     expect(map.get(MEDIBLASTER_OUTPUT_ATTR)).toBeCloseTo(expected, 5);
   });
 
+  test("aggregate includes Juno torpedo damage from AP and torpedo base add", () => {
+    const items: Item[] = [
+      {
+        name: "SKYLINE NANITES",
+        attributes: [{ type: "AP", value: "10%" }],
+        cost: 0,
+        tab: "ability",
+        rarity: "epic",
+      },
+      {
+        name: "Pulsar Torpedoes",
+        attributes: [{ type: "description", value: '<b class="stat-ap">20</b> damage' }],
+        cost: 0,
+        tab: "ability",
+        rarity: "rare",
+      },
+    ];
+    const map = aggregate(items, "Juno");
+    const baseDamage = 85 + 20;
+    const raw = baseDamage * (1 + 10 / 100);
+    const expected = raw * 1.2;
+    expect(map.get(TORPEDO_DAMAGE_ATTR)).toBeCloseTo(expected, 5);
+  });
+
   test("collectRelevantAttributes expands mediblaster output to WP/AS/Weapon Multiplier", () => {
     const attrs = collectRelevantAttributes([{ type: MEDIBLASTER_OUTPUT_ATTR, weight: 1 }], false, []);
     expect(attrs.has(MEDIBLASTER_OUTPUT_ATTR)).toBe(true);
@@ -87,6 +112,12 @@ describe("optimizer utils", () => {
     expect(attrs.has("AS")).toBe(true);
     expect(attrs.has("Weapon Multiplier")).toBe(true);
     expect(attrs.has("MA")).toBe(true);
+  });
+
+  test("collectRelevantAttributes expands torpedo damage to AP", () => {
+    const attrs = collectRelevantAttributes([{ type: TORPEDO_DAMAGE_ATTR, weight: 1 }], false, []);
+    expect(attrs.has(TORPEDO_DAMAGE_ATTR)).toBe(true);
+    expect(attrs.has("AP")).toBe(true);
   });
 
   test("scoreFromMap multiplies weights", () => {

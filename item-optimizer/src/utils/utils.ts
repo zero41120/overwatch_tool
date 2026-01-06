@@ -1,10 +1,7 @@
-export function parseNumeric(value: string): number {
-  const m = value.match(/[-+]?\d+(?:\.\d+)?/);
-  return m ? parseFloat(m[0]) : 0;
-}
-
 import type { Item, WeightRow, MinAttrGroup } from "../types";
 import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
+import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
+import { parseNumeric } from "./numberUtils";
 
 export function aggregate(items: Item[], hero?: string): Map<string, number> {
   const map = new Map<string, number>();
@@ -16,6 +13,7 @@ export function aggregate(items: Item[], hero?: string): Map<string, number> {
   });
   if (hero === "Juno") {
     map.set(MEDIBLASTER_OUTPUT_ATTR, computeMediblasterOutputFromMap(map));
+    map.set(TORPEDO_DAMAGE_ATTR, computeJunoTorpedoDamage(items));
   }
   return map;
 }
@@ -62,6 +60,7 @@ export function collectRelevantAttributes(
   }
   set.delete("");
   includeMediblasterInputs(set);
+  includeTorpedoInputs(set);
   return set;
 }
 
