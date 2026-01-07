@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
 import InputSection from "./components/input_view/InputSection";
 import ItemGallery from "./components/ItemGallery";
@@ -23,6 +23,7 @@ import {
 } from "./utils/utils";
 
 export default function Optimizer() {
+  type CalcMode = "cheapest" | "premium" | "incremental";
   const [data, setData] = useState<Item[]>([]);
   const [powersByHero, setPowersByHero] = useState<Record<string, HeroPower[]>>({});
   const [heroes, setHeroes] = useState<string[]>([]);
@@ -33,11 +34,24 @@ export default function Optimizer() {
 
   const dispatch = useAppDispatch();
   const state = useAppSelector((s) => s.input.present);
-  const { hero, cash, equipped, toBuy, avoid, avoidEnabled, weights, minValueEnabled, minAttrGroups, useOverrides } =
-    state;
+  const {
+    hero,
+    cash,
+    equipped,
+    equippedEnabled,
+    toBuy,
+    avoid,
+    avoidEnabled,
+    weights,
+    minValueEnabled,
+    minAttrGroups,
+    useOverrides,
+  } = state;
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [builds, setBuilds] = useState<ResultCombo[]>([]);
   const [buildIndex, setBuildIndex] = useState(0);
+  const [lastMode, setLastMode] = useState<CalcMode | null>(null);
+  const autoRecomputeSignature = useRef("");
   // Memoize expensive calculations
   const memoizedScores = useState(new Map<string, number>())[0];
   const memoizedAggregates = useState(new Map<string, Map<string, number>>())[0];
@@ -132,6 +146,18 @@ export default function Optimizer() {
     memoizedAggregates.clear();
     memoizedEquippedItems.clear();
   }, [data, memoizedScores, memoizedAggregates, memoizedEquippedItems]);
+  useEffect(() => {
+    if (!lastMode) return;
+    const signature = JSON.stringify({
+      avoidEnabled,
+      avoid: [...avoid].sort(),
+      equippedEnabled,
+      equipped,
+    });
+    if (signature === autoRecomputeSignature.current) return;
+    autoRecomputeSignature.current = signature;
+    onCalculate(lastMode);
+  }, [avoid, avoidEnabled, equipped, equippedEnabled, lastMode]);
   function equippedItems() {
     const key = equipped
       .filter((id) => id)
@@ -191,8 +217,15 @@ export default function Optimizer() {
   function meetsMinRequirements(items: Item[]) {
     return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero);
   }
-  function onCalculate(mode: "cheapest" | "premium" | "incremental") {
+  function onCalculate(mode: CalcMode) {
     dispatch(setError(""));
+    setLastMode(mode);
+    autoRecomputeSignature.current = JSON.stringify({
+      avoidEnabled,
+      avoid: [...avoid].sort(),
+      equippedEnabled,
+      equipped,
+    });
     const preferHighCost = mode === "premium";
 
     // Validate inputs before processing

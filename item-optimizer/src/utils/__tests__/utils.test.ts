@@ -77,8 +77,8 @@ describe("optimizer utils", () => {
       if (isEndOfVolley && hasAmmoLeft) cycleFrames += singleRecoveryFrame;
     }
     const totalDamage = clipSize * 7.5 * wm * weaponPowerPercent;
-    const expected = totalDamage * (TPS / cycleFrames);
-    expect(map.get(MEDIBLASTER_OUTPUT_ATTR)).toBeCloseTo(expected, 5);
+    const expected = Math.round(totalDamage * (TPS / cycleFrames));
+    expect(map.get(MEDIBLASTER_OUTPUT_ATTR)).toBe(expected);
   });
 
   test("aggregate includes Juno torpedo damage from AP and torpedo base add", () => {
@@ -101,8 +101,8 @@ describe("optimizer utils", () => {
     const map = aggregate(items, "Juno");
     const baseDamage = 85 + 20;
     const raw = baseDamage * (1 + 10 / 100);
-    const expected = raw * 1.2;
-    expect(map.get(TORPEDO_DAMAGE_ATTR)).toBeCloseTo(expected, 5);
+    const expected = Math.round(raw * 1.2);
+    expect(map.get(TORPEDO_DAMAGE_ATTR)).toBe(expected);
   });
 
   test("collectRelevantAttributes expands mediblaster output to WP/AS/Weapon Multiplier", () => {

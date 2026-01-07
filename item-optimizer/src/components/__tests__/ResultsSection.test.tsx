@@ -122,6 +122,40 @@ describe("ResultsSection", () => {
     expect(state.input.present.avoidEnabled).toBe(true);
   });
 
+  it("pins item to equipped list from items overview", () => {
+    const store = createTestStore();
+    const { getByText } = render(
+      <Provider store={store}>
+        <ResultsSection
+          eqItems={eqItems}
+          eqCost={100}
+          cash={200}
+          builds={[results]}
+          selected={0}
+          results={results}
+          onSelect={() => {}}
+          allItems={[...eqItems, ...results.items]}
+          powersByHero={{}}
+          heroMetadata={heroMetadata}
+        />
+      </Provider>,
+    );
+    const overview = getByText("Items Overview").parentElement;
+    if (!overview) {
+      throw new Error("Missing items overview");
+    }
+    const equipButton = within(overview).getByLabelText("Equip Shield");
+    fireEvent.click(equipButton);
+    let state = store.getState();
+    expect(state.input.present.equippedEnabled).toBe(true);
+    expect(state.input.present.equipped).toContain("2");
+    expect(state.input.present.toBuy).toBe(5);
+    fireEvent.click(equipButton);
+    state = store.getState();
+    expect(state.input.present.equipped).not.toContain("2");
+    expect(state.input.present.toBuy).toBe(6);
+  });
+
   it("switches to recommendation tab", () => {
     const store = createTestStore();
     const { getByText } = render(

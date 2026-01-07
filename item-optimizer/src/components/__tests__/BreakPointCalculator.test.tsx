@@ -22,9 +22,12 @@ function renderWithStore(ui: ReactElement) {
 
 describe("BreakPointCalculator", () => {
   it("shows results after calculation", () => {
-    const { getByText, getAllByRole } = renderWithStore(
+    const { getByText, getAllByRole, store } = renderWithStore(
       <BreakPointCalculator items={[]} powersByHero={{}} />,
     );
+    act(() => {
+      store.dispatch(setHero("Ashe"));
+    });
     fireEvent.click(getByText("Calculate"));
     // there are 21 rows from 100 to 200 step 5
     const rows = getAllByRole("row");

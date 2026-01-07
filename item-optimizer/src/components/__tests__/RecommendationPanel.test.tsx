@@ -1,10 +1,13 @@
 /* @vitest-environment jsdom */
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, within, waitFor } from "@testing-library/react";
+import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import undoable from "redux-undo";
 import RecommendationPanel from "../results_view/RecommendationPanel";
-import store from "../../store";
 import type { HeroMetadata, Item } from "../../types";
+import inputReducer, { setHero } from "../../slices/inputSlice";
+import tooltipReducer from "../../slices/tooltipSlice";
 
 const heroMetadata: HeroMetadata[] = [
   { name: "Ashe", slug: "ashe", role: "damage" },
@@ -35,6 +38,13 @@ const items: Item[] = [
 
 describe("RecommendationPanel", () => {
   it("shows recommendation scores that include beingCountered penalties", async () => {
+    const store = configureStore({
+      reducer: {
+        input: undoable(inputReducer),
+        tooltip: tooltipReducer,
+      },
+    });
+    store.dispatch(setHero("Ashe"));
     render(
       <Provider store={store}>
         <RecommendationPanel allItems={items} powersByHero={{}} heroMetadata={heroMetadata} />
