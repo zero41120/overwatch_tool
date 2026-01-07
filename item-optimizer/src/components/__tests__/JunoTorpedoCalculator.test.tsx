@@ -74,4 +74,61 @@ describe("JunoTorpedoCalculator layout", () => {
     const slots = firstGrid.querySelectorAll(':scope > div.min-h-12');
     expect(slots.length).toBe(6);
   });
+
+  it("shows the mediblaster tab with situational items", async () => {
+    const items: Item[] = [
+      {
+        id: "lrb",
+        name: "LONG RANGE BLASTER",
+        cost: 8000,
+        tab: "weapon",
+        rarity: "rare",
+        attributes: [
+          { type: "WP", value: "10%" },
+          { type: "AS", value: "5%" },
+        ],
+      },
+      {
+        id: "closer",
+        name: "THE CLOSER",
+        cost: 9000,
+        tab: "weapon",
+        rarity: "epic",
+        attributes: [
+          { type: "Weapon Multiplier", value: "12%" },
+          { type: "MA", value: "10%" },
+        ],
+      },
+      {
+        id: "ad",
+        name: "AERIAL DISTRESSER",
+        cost: 7500,
+        tab: "ability",
+        rarity: "epic",
+        attributes: [{ type: "AS", value: "8%" }],
+      },
+    ];
+
+    const { store, findByText, findAllByText } = renderWithStore(
+      <BreakPointCalculator items={items} powersByHero={{ Juno: [] }} />,
+    );
+
+    await act(async () => {
+      store.dispatch(setHero("Juno"));
+    });
+
+    const mediblasterTab = await findByText("Mediblaster");
+    await act(async () => {
+      fireEvent.click(mediblasterTab);
+    });
+
+    const computeButton = await findByText("Compute breakpoints");
+    await act(async () => {
+      fireEvent.click(computeButton);
+    });
+
+    expect(await findByText("DPS")).toBeInTheDocument();
+    const situationalBadges = await findAllByText("situational");
+    expect(situationalBadges.length).toBe(3);
+  });
 });
