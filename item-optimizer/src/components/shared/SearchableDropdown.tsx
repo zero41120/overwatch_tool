@@ -27,6 +27,7 @@ export default function SearchableDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const [openUpwards, setOpenUpwards] = useState(false);
   const [search, setSearch] = useState("");
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -43,6 +44,7 @@ export default function SearchableDropdown({
     onChange(optionValue);
     setIsOpen(false);
     setSearch("");
+    setHighlightedIndex(-1);
   };
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function SearchableDropdown({
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
+        setHighlightedIndex(-1);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -80,6 +83,17 @@ export default function SearchableDropdown({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    if (filteredOptions.length === 0 && highlightedIndex !== -1) {
+      setHighlightedIndex(-1);
+      return;
+    }
+    if (highlightedIndex >= filteredOptions.length) {
+      setHighlightedIndex(Math.max(filteredOptions.length - 1, -1));
+    }
+  }, [filteredOptions.length, highlightedIndex, isOpen]);
+
   const dropdownClasses = `absolute end-0 z-10 w-full divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg max-h-[40vh] overflow-y-auto`;
 
   return (
@@ -92,6 +106,7 @@ export default function SearchableDropdown({
             const next = !isOpen;
             setIsOpen(next);
             if (next) setSearch("");
+            setHighlightedIndex(-1);
           }}
           ref={triggerRef}
         >
@@ -125,6 +140,7 @@ export default function SearchableDropdown({
             const next = !isOpen;
             setIsOpen(next);
             if (next) setSearch("");
+            setHighlightedIndex(-1);
           }}
         >
           <svg
@@ -159,8 +175,38 @@ export default function SearchableDropdown({
                 className="mx-3 my-2 w-[calc(100%-1.5rem)] rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 px-2 py-1 text-base placeholder-gray-400 dark:placeholder-gray-500"
                 placeholder="Search..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setHighlightedIndex(-1);
+                }}
                 onKeyDown={(e) => {
+                  if (e.key === "ArrowDown") {
+                    if (filteredOptions.length === 0) return;
+                    e.preventDefault();
+                    setHighlightedIndex((prev) =>
+                      prev < 0 ? 0 : (prev + 1) % filteredOptions.length,
+                    );
+                    return;
+                  }
+                  if (e.key === "ArrowUp") {
+                    if (filteredOptions.length === 0) return;
+                    e.preventDefault();
+                    setHighlightedIndex((prev) =>
+                      prev < 0
+                        ? filteredOptions.length - 1
+                        : (prev - 1 + filteredOptions.length) %
+                          filteredOptions.length,
+                    );
+                    return;
+                  }
+                  if (e.key === "Enter") {
+                    const highlighted = filteredOptions[highlightedIndex];
+                    if (highlighted) {
+                      e.preventDefault();
+                      handleSelect(highlighted.value);
+                      return;
+                    }
+                  }
                   if (e.key === "Enter" && filteredOptions.length === 1) {
                     e.preventDefault();
                     handleSelect(filteredOptions[0].value);
@@ -171,8 +217,14 @@ export default function SearchableDropdown({
                 <a
                   key={i}
                   href="#"
-                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
+                  className={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white ${
+                    i === highlightedIndex
+                      ? "bg-teal-50 text-teal-900 dark:bg-teal-900/40 dark:text-teal-100"
+                      : "text-gray-900 dark:text-gray-200"
+                  }`}
                   role="menuitem"
+                  aria-selected={i === highlightedIndex}
+                  onMouseEnter={() => setHighlightedIndex(i)}
                   onClick={(e) => {
                     e.preventDefault();
                     handleSelect(option.value);

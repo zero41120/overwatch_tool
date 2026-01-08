@@ -69,3 +69,4 @@
 2026-01-06  auto-recompute results after avoid/equip updates using last compute mode  item-optimizer/src/Optimizer.tsx
 2026-01-06  keep item count stable when pinning from Items Overview  item-optimizer/src/components/results_view/ItemsOverviewTable.tsx
 2026-01-07  add Juno mediblaster breakpoints tab with situational picks  item-optimizer/src/components/JunoTorpedoCalculator.tsx item-optimizer/src/components/juno item-optimizer/src/utils
+2026-01-07  add arrow-key navigation to searchable dropdowns  item-optimizer/src/components/shared/SearchableDropdown.tsx

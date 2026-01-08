@@ -41,6 +41,26 @@ describe("SearchableDropdown", () => {
     expect(handleChange).toHaveBeenCalledWith("1");
   });
 
+  it("highlights options with arrow keys and selects with enter", () => {
+    const handleChange = vi.fn();
+    const { getAllByRole, getByPlaceholderText } = render(
+      <SearchableDropdown
+        label="Test"
+        options={options}
+        value=""
+        onChange={handleChange}
+      />,
+    );
+    fireEvent.click(getAllByRole("button")[0]);
+    const input = getByPlaceholderText("Search...");
+    fireEvent.keyDown(input, { key: "ArrowDown" });
+    fireEvent.keyDown(input, { key: "ArrowDown" });
+    const items = getAllByRole("menuitem");
+    expect(items[1]).toHaveAttribute("aria-selected", "true");
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(handleChange).toHaveBeenCalledWith("2");
+  });
+
   it("shows an icon when provided", () => {
     const opts = [{ value: "1", label: "One", iconUrl: "icon.png" }];
     const { getAllByRole } = render(
