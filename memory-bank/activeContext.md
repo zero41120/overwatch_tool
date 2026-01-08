@@ -10,3 +10,4 @@
 - Attribute dropdowns now derive types with `collectAttributeTypesForHero`, including hero-specific editor overrides even if only one item carries the attribute while filtering to the selected hero, and weight dropdown labels show per-attribute item counts; Recommendation panel regained Ally/Enemy headings plus a score test id, and wiki-data-reader declarations were rebuilt for type-checking.
 - Juno builds now expose derived Mediblaster Output and Torpedo Damage attributes (Torpedo uses base + AP scaling + Skyline bonus) for weighting and minimum-value checks.
 - Juno breakpoint UI now includes a mediblaster tab with situational pick highlighting and DPS breakpoints alongside torpedoes.
+- Mediblaster output now optionally accounts for armor reduction (with Codebreaker armor penetration) via a new enemy-armor toggle in the weights section.

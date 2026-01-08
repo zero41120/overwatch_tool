@@ -3,7 +3,11 @@ import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_
 import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import { parseNumeric } from "./numberUtils";
 
-export function aggregate(items: Item[], hero?: string): Map<string, number> {
+type AggregateOptions = {
+  enemyHasArmor?: boolean;
+};
+
+export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
   const map = new Map<string, number>();
   items.forEach((it) => {
     it.attributes.forEach((a) => {
@@ -12,7 +16,14 @@ export function aggregate(items: Item[], hero?: string): Map<string, number> {
     });
   });
   if (hero === "Juno") {
-    map.set(MEDIBLASTER_OUTPUT_ATTR, computeMediblasterOutputFromMap(map));
+    map.set(
+      MEDIBLASTER_OUTPUT_ATTR,
+      computeMediblasterOutputFromMap({
+        map,
+        items: items.map((item) => ({ name: item.name })),
+        enemyHasArmor: opts.enemyHasArmor,
+      }),
+    );
     map.set(TORPEDO_DAMAGE_ATTR, computeJunoTorpedoDamage(items));
   }
   return map;
@@ -39,8 +50,8 @@ export function rarityColor(r: Item["rarity"]) {
   }
 }
 
-export function meetsMinGroups(items: Item[], groups: MinAttrGroup[], hero?: string) {
-  const map = aggregate(items, hero);
+export function meetsMinGroups(items: Item[], groups: MinAttrGroup[], hero?: string, opts: AggregateOptions = {}) {
+  const map = aggregate(items, hero, opts);
   return groups.every((g) => {
     const sum = g.attrs.reduce((s, a) => s + (map.get(a) ?? 0), 0);
     return sum >= g.value;

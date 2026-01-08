@@ -35,3 +35,4 @@
 - Recommendation metadata now includes an optional `beingCountered` array on both items and hero powers, preserved through the scripts and surfaced in the Recommendations UI so editors can tag threats when enemies counter a pick.
 - Recommendation cards now compute and display a signed score (synergy/counter minus anti-synergy/beingCountered) with tests covering the calculation.
 - `update-items` now compares hero power module/aggregator contents before prompting, skipping writes when nothing changed to mirror item-level change detection.
+- Mediblaster output now accounts for optional armor reduction (including Codebreaker penetration) via a new enemy-armor toggle in the weights UI.

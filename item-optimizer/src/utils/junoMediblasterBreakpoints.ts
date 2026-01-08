@@ -72,14 +72,15 @@ export function computeJunoMediblasterBreakpoints(
       hps += item.hps;
     }
 
-    const output = computeMediblasterOutputFromMap(
-      new Map([
+    const output = computeMediblasterOutputFromMap({
+      map: new Map([
         ["WP", wp],
         ["AS", as],
         ["Weapon Multiplier", weaponMultiplier],
         ["MA", ma],
       ]),
-    );
+      items: chosen.map((index) => ({ name: enabledItems[index].name })),
+    });
     const survival = survivalScore({ hp, lifesteal, dr, hps });
     const names = chosen.map((index) => enabledItems[index].name);
     const candidate: MediblasterCandidate = {

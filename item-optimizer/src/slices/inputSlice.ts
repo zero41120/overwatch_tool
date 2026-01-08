@@ -17,6 +17,7 @@ export interface InputState {
   minAttrGroups: MinAttrGroup[];
   useOverrides: boolean;
   overrideVersion: number;
+  enemyHasArmor: boolean;
 }
 
 const initialState: InputState = {
@@ -34,6 +35,7 @@ const initialState: InputState = {
   minAttrGroups: [],
   useOverrides: true,
   overrideVersion: 0,
+  enemyHasArmor: false,
 };
 
 const inputSlice = createSlice({
@@ -96,6 +98,9 @@ const inputSlice = createSlice({
     toggleUseOverrides(state) {
       state.useOverrides = !state.useOverrides;
     },
+    toggleEnemyHasArmor(state) {
+      state.enemyHasArmor = !state.enemyHasArmor;
+    },
     setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
     },
@@ -148,6 +153,9 @@ const inputSlice = createSlice({
         normalizedList.push(next.heroPower.name);
       }
       next.heroPowers = normalizedList.slice(0, 4);
+      if (typeof next.enemyHasArmor !== "boolean") {
+        next.enemyHasArmor = false;
+      }
       delete next.heroPower;
       return next;
     },
@@ -180,6 +188,7 @@ export const {
   addEquippedSlot,
   removeEquippedSlot,
   toggleUseOverrides,
+  toggleEnemyHasArmor,
   bumpOverrideVersion,
   importState,
   toggleHeroPower,

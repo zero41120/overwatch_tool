@@ -46,6 +46,7 @@ export default function Optimizer() {
     minValueEnabled,
     minAttrGroups,
     useOverrides,
+    enemyHasArmor,
   } = state;
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [builds, setBuilds] = useState<ResultCombo[]>([]);
@@ -136,6 +137,10 @@ export default function Optimizer() {
     memoizedScores.clear();
     memoizedAggregates.clear();
   }, [weights, memoizedScores, memoizedAggregates]);
+  useEffect(() => {
+    memoizedScores.clear();
+    memoizedAggregates.clear();
+  }, [enemyHasArmor, memoizedScores, memoizedAggregates]);
 
   // Clear equipped items memoization when equipped items change
   useEffect(() => {
@@ -205,7 +210,7 @@ export default function Optimizer() {
 
     let aggregateMap = memoizedAggregates.get(key);
     if (!aggregateMap) {
-      aggregateMap = aggregate(items, hero);
+      aggregateMap = aggregate(items, hero, { enemyHasArmor });
       memoizedAggregates.set(key, aggregateMap);
     }
 
@@ -215,7 +220,10 @@ export default function Optimizer() {
   }
 
   function meetsMinRequirements(items: Item[]) {
-    return !minValueEnabled || meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero);
+    return (
+      !minValueEnabled ||
+      meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero, { enemyHasArmor })
+    );
   }
   function onCalculate(mode: CalcMode) {
     dispatch(setError(""));
