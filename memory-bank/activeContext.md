@@ -13,3 +13,4 @@
 - Mediblaster output now optionally accounts for armor reduction (with Codebreaker armor penetration) via a new enemy-armor toggle in the weights section.
 - Drafted plan.md for the Mediblaster Pareto-Frontier Optimization, including DP state, pruning logic, and a verification test case.
 - Replaced the mediblaster breakpoint DFS with a Pareto-frontier DP and added the non-linear synergy regression test.
+- Replaced optimizer DFS pruning with a Pareto-frontier DP search that respects equipped/avoid items.
