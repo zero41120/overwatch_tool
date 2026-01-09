@@ -11,7 +11,7 @@ export type OptimizerParetoOptions = {
   maxItems: number;
   maxCash: number;
   costStep: number;
-  maxFrontier: number;
+  maxFrontier?: number;
   attrKeys: string[];
   considerTorpedo: boolean;
   considerMediblaster: boolean;

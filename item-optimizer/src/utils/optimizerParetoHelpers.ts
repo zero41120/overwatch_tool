@@ -87,7 +87,7 @@ export function insertProfile(
 
   list.push(candidate);
 
-  if (list.length > opts.maxFrontier) {
+  if (opts.maxFrontier !== undefined && list.length > opts.maxFrontier) {
     list.sort(
       (a, b) =>
         heuristicScore(b, opts.considerTorpedo, opts.considerMediblaster) -

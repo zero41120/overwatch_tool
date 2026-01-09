@@ -64,7 +64,7 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     maxItems: options.maxItems,
     maxCash: options.maxCash,
     costStep: options.costStep ?? 250,
-    maxFrontier: options.maxFrontier ?? 20,
+    maxFrontier: options.maxFrontier,
     attrKeys,
     considerTorpedo,
     considerMediblaster,
