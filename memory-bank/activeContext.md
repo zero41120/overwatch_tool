@@ -11,3 +11,5 @@
 - Juno builds now expose derived Mediblaster Output and Torpedo Damage attributes (Torpedo uses base + AP scaling + Skyline bonus) for weighting and minimum-value checks.
 - Juno breakpoint UI now includes a mediblaster tab with situational pick highlighting and DPS breakpoints alongside torpedoes.
 - Mediblaster output now optionally accounts for armor reduction (with Codebreaker armor penetration) via a new enemy-armor toggle in the weights section.
+- Drafted plan.md for the Mediblaster Pareto-Frontier Optimization, including DP state, pruning logic, and a verification test case.
+- Replaced the mediblaster breakpoint DFS with a Pareto-frontier DP and added the non-linear synergy regression test.

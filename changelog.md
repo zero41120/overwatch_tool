@@ -71,3 +71,4 @@
 2026-01-07  add Juno mediblaster breakpoints tab with situational picks  item-optimizer/src/components/JunoTorpedoCalculator.tsx item-optimizer/src/components/juno item-optimizer/src/utils
 2026-01-07  add arrow-key navigation to searchable dropdowns  item-optimizer/src/components/shared/SearchableDropdown.tsx
 2026-01-07  add mediblaster armor toggle and codebreaker armor penetration handling  item-optimizer/src/utils/junoMediblaster.ts item-optimizer/src/components/input_view/WeightsSection.tsx
+2026-01-08  replace Juno mediblaster breakpoint search with Pareto DP frontier pruning  item-optimizer/src/utils/junoMediblasterBreakpoints.ts item-optimizer/src/utils/__tests__/junoMediblasterBreakpoints.test.ts

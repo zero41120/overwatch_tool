@@ -1,10 +1,19 @@
 import { computeMediblasterOutputFromMap } from "./junoMediblaster";
 import type { MediblasterItem } from "./junoMediblasterItems";
+import { buildParetoProfiles } from "./junoMediblasterPareto";
+
+type MediblasterOutputEvaluator = (args: {
+  map: Map<string, number>;
+  items: { name: string }[];
+}) => number;
 
 export type MediblasterOptions = {
   minCash?: number;
   maxCash?: number;
   maxItems?: number;
+  costStep?: number;
+  maxFrontier?: number;
+  computeOutput?: MediblasterOutputEvaluator;
 };
 
 export type MediblasterCandidate = {
@@ -27,7 +36,16 @@ export function computeJunoMediblasterBreakpoints(
   const minCash = opts.minCash ?? 10000;
   const maxCash = opts.maxCash ?? 70000;
   const maxItems = opts.maxItems ?? 6;
+  const costStep = opts.costStep ?? 250;
+  const maxFrontier = opts.maxFrontier ?? 20;
   const eps = 1e-9;
+  const computeOutput: MediblasterOutputEvaluator =
+    opts.computeOutput ??
+    (({ map, items }) =>
+      computeMediblasterOutputFromMap({
+        map,
+        items,
+      }));
 
   const bestAtCost = new Map<number, MediblasterCandidate>();
 
@@ -44,71 +62,43 @@ export function computeJunoMediblasterBreakpoints(
     return false;
   }
 
-  const n = enabledItems.length;
-  const chosen: number[] = [];
+  const profiles = buildParetoProfiles(enabledItems, {
+    maxItems,
+    maxCash,
+    costStep,
+    maxFrontier,
+  });
 
-  function evaluateSelection() {
-    let cost = 0;
-    let wp = 0;
-    let as = 0;
-    let weaponMultiplier = 0;
-    let ma = 0;
-    let hp = 0;
-    let lifesteal = 0;
-    let dr = 0;
-    let hps = 0;
-
-    for (const idx of chosen) {
-      const item = enabledItems[idx];
-      cost += item.cost;
-      if (cost > maxCash) return;
-      wp += item.wp;
-      as += item.as;
-      weaponMultiplier += item.weaponMultiplier;
-      ma += item.ma;
-      hp += item.hp;
-      lifesteal += item.lifesteal;
-      dr += item.dr;
-      hps += item.hps;
-    }
-
-    const output = computeMediblasterOutputFromMap({
+  for (const prof of profiles) {
+    const names = prof.indices.map((index) => enabledItems[index].name);
+    const output = computeOutput({
       map: new Map([
-        ["WP", wp],
-        ["AS", as],
-        ["Weapon Multiplier", weaponMultiplier],
-        ["MA", ma],
+        ["WP", prof.wp],
+        ["AS", prof.as],
+        ["Weapon Multiplier", prof.weaponMultiplier],
+        ["MA", prof.ma],
       ]),
-      items: chosen.map((index) => ({ name: enabledItems[index].name })),
+      items: names.map((name) => ({ name })),
     });
-    const survival = survivalScore({ hp, lifesteal, dr, hps });
-    const names = chosen.map((index) => enabledItems[index].name);
+    const survival = survivalScore({
+      hp: prof.hp,
+      lifesteal: prof.lifesteal,
+      dr: prof.dr,
+      hps: prof.hps,
+    });
     const candidate: MediblasterCandidate = {
-      cost,
+      cost: prof.cost,
       output,
-      wp,
-      as,
-      weaponMultiplier,
-      ma,
+      wp: prof.wp,
+      as: prof.as,
+      weaponMultiplier: prof.weaponMultiplier,
+      ma: prof.ma,
       names,
       survival,
     };
-
-    const current = bestAtCost.get(cost);
-    if (better(current, candidate)) bestAtCost.set(cost, candidate);
+    const current = bestAtCost.get(candidate.cost);
+    if (better(current, candidate)) bestAtCost.set(candidate.cost, candidate);
   }
-
-  function dfs(start: number) {
-    if (chosen.length > 0) evaluateSelection();
-    if (chosen.length === maxItems) return;
-    for (let i = start; i < n; i += 1) {
-      chosen.push(i);
-      dfs(i + 1);
-      chosen.pop();
-    }
-  }
-
-  dfs(0);
 
   const costs = Array.from(bestAtCost.keys()).sort((a, b) => a - b);
   if (costs.length === 0) return [];
