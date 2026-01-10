@@ -78,6 +78,8 @@
 2026-01-10  add ComputedMetric base class with inputs/outputs metadata  item-optimizer/src/metrics/ComputedMetric.ts
 2026-01-10  add multi-output metric support for weights and scoring  item-optimizer/src/metrics item-optimizer/src/utils item-optimizer/src/components/input_view
 2026-01-10  warn when metric auto-discovery finds no modules  item-optimizer/src/metrics/metricDiscovery.ts
+2026-01-10  scope metric outputs by hero metadata  item-optimizer/src/metrics
+2026-01-10  add hero-scoped metric registry coverage for non-matching heroes  item-optimizer/src/metrics/__tests__/metricRegistry.test.ts
 2026-01-11  skip codex kanban run when all tasks are complete  scripts/codexKanban.ts
 2026-01-12  loop codex kanban runner while pending tasks remain  scripts/codexKanban.ts
 2026-01-12  auto-discover metric classes via Vite glob with discovery warnings  item-optimizer/src/metrics/metricRegistry.ts item-optimizer/src/metrics/metricDiscovery.ts
