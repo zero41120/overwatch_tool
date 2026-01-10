@@ -1,6 +1,7 @@
 # Changelog
 
 2026-01-10 Add metric optional input controls for selected metrics item-optimizer/src/components/input_view/MetricInputsSection.tsx
+2026-01-10 add optimizer metric output scoring coverage item-optimizer/src/utils/__tests__/optimizerSearch.test.ts
 2025-06-10 Initial release of Overwatch Tool /
 2025-06-10 Item optimization engine with weighted scoring and character/item restrictions src/engine
 2025-06-10 UI for selecting hero, equipped items (up to 6 slots), available cash, and item weights src/components

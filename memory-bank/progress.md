@@ -40,3 +40,5 @@
 - Added metric registry plumbing and Juno mediblaster multi-output metric wired into weights/scoring.
 - Added metric optional input UI and state wiring so metric-defined toggles and numeric params drive optimizer scoring.
 - Added derived stat map aggregation so metrics can read summed raw item stats.
+- Refactored optimizer inputs to accept selected metric outputs and generic extra-field pruning without weapon-specific DP logic.
+- Added optimizer search test coverage to ensure metric output weights drive build scoring.
