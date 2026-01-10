@@ -4,7 +4,7 @@ import { collectMetricInputAttributes, computeMetricOutputs, isMetricOutputKey }
 import type { MetricContext } from "../metrics/metricContext";
 import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
-import { parseNumeric } from "./numberUtils";
+import { buildDerivedStatMap } from "./derivedStatMap";
 
 type AggregateOptions = {
   enemyHasArmor?: boolean;
@@ -13,18 +13,13 @@ type AggregateOptions = {
 };
 
 export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
-  const map = new Map<string, number>();
-  items.forEach((it) => {
-    it.attributes.forEach((a) => {
-      const v = parseNumeric(a.value);
-      map.set(a.type, (map.get(a.type) ?? 0) + v);
-    });
-  });
+  const derivedMap = buildDerivedStatMap(items);
+  const map = new Map(derivedMap);
   if (hero === "Juno") {
     map.set(
       MEDIBLASTER_OUTPUT_ATTR,
       computeMediblasterOutputFromMap({
-        map,
+        map: derivedMap,
         items: items.map((item) => ({ name: item.name })),
         enemyHasArmor: opts.enemyHasArmor,
       }),
@@ -34,7 +29,7 @@ export function aggregate(items: Item[], hero?: string, opts: AggregateOptions =
   if (opts.metricOutputKeys && opts.metricOutputKeys.size > 0) {
     const context: MetricContext = {
       items,
-      map,
+      map: derivedMap,
       hero: hero ?? "",
       enemyHasArmor: Boolean(opts.enemyHasArmor),
     };

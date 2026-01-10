@@ -80,6 +80,7 @@
 2026-01-10  warn when metric auto-discovery finds no modules  item-optimizer/src/metrics/metricDiscovery.ts
 2026-01-10  scope metric outputs by hero metadata  item-optimizer/src/metrics
 2026-01-10  add hero-scoped metric registry coverage for non-matching heroes  item-optimizer/src/metrics/__tests__/metricRegistry.test.ts
+2026-01-10  add derived stat map builder for metric evaluation  item-optimizer/src/utils/derivedStatMap.ts
 2026-01-11  skip codex kanban run when all tasks are complete  scripts/codexKanban.ts
 2026-01-12  loop codex kanban runner while pending tasks remain  scripts/codexKanban.ts
 2026-01-12  auto-discover metric classes via Vite glob with discovery warnings  item-optimizer/src/metrics/metricRegistry.ts item-optimizer/src/metrics/metricDiscovery.ts
