@@ -73,3 +73,5 @@
 2026-01-07  add mediblaster armor toggle and codebreaker armor penetration handling  item-optimizer/src/utils/junoMediblaster.ts item-optimizer/src/components/input_view/WeightsSection.tsx
 2026-01-08  replace Juno mediblaster breakpoint search with Pareto DP frontier pruning  item-optimizer/src/utils/junoMediblasterBreakpoints.ts item-optimizer/src/utils/__tests__/junoMediblasterBreakpoints.test.ts
 2026-01-09  replace optimizer DFS pruning with Pareto DP search for optimal builds  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
+2026-01-10  add Codex SDK kanban runner script  scripts/codexKanban.ts
+2026-01-10  add ComputedMetric base class with inputs/outputs metadata  item-optimizer/src/metrics/ComputedMetric.ts
