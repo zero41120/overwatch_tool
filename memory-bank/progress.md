@@ -37,3 +37,4 @@
 - `update-items` now compares hero power module/aggregator contents before prompting, skipping writes when nothing changed to mirror item-level change detection.
 - Mediblaster output now accounts for optional armor reduction (including Codebreaker penetration) via a new enemy-armor toggle in the weights UI.
 - Added ComputedMetric base class scaffolding to support declarative metric inputs/outputs for the optimizer refactor.
+- Added metric registry plumbing and Juno mediblaster multi-output metric wired into weights/scoring.

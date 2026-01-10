@@ -1,4 +1,6 @@
 import type { Item, MinAttrGroup, ResultCombo, WeightRow } from "../types";
+import { JUNO_MEDIBLASTER_METRIC_ID } from "../metrics/JunoMediblasterMetric";
+import { getSelectedMetricOutputKeys, hasMetricOutputForMetric } from "../metrics/metricRegistry";
 import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import { aggregate, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils";
@@ -27,9 +29,14 @@ function compareCombos(a: ResultCombo, b: ResultCombo, preferHighCost: boolean) 
 }
 
 function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
+  const selectedMetricOutputs = getSelectedMetricOutputKeys(options.weights);
+  const considersMediblasterMetric =
+    options.hero === "Juno" &&
+    hasMetricOutputForMetric(JUNO_MEDIBLASTER_METRIC_ID, selectedMetricOutputs);
   if (options.maxItems === 0) {
     const map = aggregate(options.equippedItems, options.hero, {
       enemyHasArmor: options.enemyHasArmor,
+      metricOutputKeys: selectedMetricOutputs,
     });
     if (
       options.minValueEnabled &&
@@ -54,7 +61,9 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     options.minValueEnabled,
     options.minAttrGroups,
   );
-  const considerMediblaster = relevantAttrs.has(MEDIBLASTER_OUTPUT_ATTR) && Boolean(options.enemyHasArmor);
+  const considerMediblaster =
+    (relevantAttrs.has(MEDIBLASTER_OUTPUT_ATTR) || considersMediblasterMetric) &&
+    Boolean(options.enemyHasArmor);
   const considerTorpedo = relevantAttrs.has(TORPEDO_DAMAGE_ATTR);
   const attrKeys = Array.from(relevantAttrs).filter(
     (attr) => attr !== MEDIBLASTER_OUTPUT_ATTR && attr !== TORPEDO_DAMAGE_ATTR,
@@ -83,7 +92,10 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     ) {
       return;
     }
-    const map = aggregate(combined, options.hero, { enemyHasArmor: options.enemyHasArmor });
+    const map = aggregate(combined, options.hero, {
+      enemyHasArmor: options.enemyHasArmor,
+      metricOutputKeys: selectedMetricOutputs,
+    });
     combos.push({
       items: selected,
       cost: profile.cost,

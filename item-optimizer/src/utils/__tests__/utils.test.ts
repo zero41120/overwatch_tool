@@ -1,4 +1,6 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
+import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
+import { metricOutputKey } from "../../metrics/metricRegistry";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
 import { MEDIBLASTER_OUTPUT_ATTR } from "../junoMediblaster";
 import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
@@ -114,6 +116,15 @@ describe("optimizer utils", () => {
     expect(attrs.has("MA")).toBe(true);
   });
 
+  test("collectRelevantAttributes expands mediblaster metric outputs to inputs", () => {
+    const metricKey = metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "burst");
+    const attrs = collectRelevantAttributes([{ type: metricKey, weight: 1 }], false, []);
+    expect(attrs.has("WP")).toBe(true);
+    expect(attrs.has("AS")).toBe(true);
+    expect(attrs.has("Weapon Multiplier")).toBe(true);
+    expect(attrs.has("MA")).toBe(true);
+  });
+
   test("collectRelevantAttributes expands torpedo damage to AP", () => {
     const attrs = collectRelevantAttributes([{ type: TORPEDO_DAMAGE_ATTR, weight: 1 }], false, []);
     expect(attrs.has(TORPEDO_DAMAGE_ATTR)).toBe(true);
@@ -181,6 +192,9 @@ describe("optimizer utils", () => {
 describe("attribute utils", () => {
   test("attributeValueToLabel maps codes", () => {
     expect(attributeValueToLabel("ALS")).toBe("Ability Life Steal");
+    expect(attributeValueToLabel(metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "burst"))).toBe(
+      "Mediblaster: Burst Output",
+    );
     expect(attributeValueToLabel("Unknown")).toBe("Unknown");
   });
 

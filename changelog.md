@@ -75,3 +75,5 @@
 2026-01-09  replace optimizer DFS pruning with Pareto DP search for optimal builds  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
 2026-01-10  add Codex SDK kanban runner script  scripts/codexKanban.ts
 2026-01-10  add ComputedMetric base class with inputs/outputs metadata  item-optimizer/src/metrics/ComputedMetric.ts
+2026-01-10  add multi-output metric support for weights and scoring  item-optimizer/src/metrics item-optimizer/src/utils item-optimizer/src/components/input_view
+2026-01-11  skip codex kanban run when all tasks are complete  scripts/codexKanban.ts

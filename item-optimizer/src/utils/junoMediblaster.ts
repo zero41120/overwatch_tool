@@ -20,6 +20,7 @@ type MediblasterOutputFromMapArgs = {
   bullet?: number;
   items?: MediblasterOutputItem[];
   enemyHasArmor?: boolean;
+  withReload?: boolean;
 };
 
 const CODEBREAKER_NAME = "CODEBREAKER";
@@ -80,6 +81,7 @@ export function computeMediblasterOutputFromMap({
   bullet = 7.5,
   items = [],
   enemyHasArmor = false,
+  withReload = true,
 }: MediblasterOutputFromMapArgs): number {
   const wp = 100 + (map.get("WP") ?? 0);
   const wm = 1 + (map.get("Weapon Multiplier") ?? 0) / 100;
@@ -92,7 +94,7 @@ export function computeMediblasterOutputFromMap({
       weaponPower: wp,
       attackSpeed: as,
       clipSize,
-      withReload: true,
+      withReload,
       items,
       enemyHasArmor,
     }).toFixed(0),

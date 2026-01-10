@@ -12,6 +12,7 @@
 - Juno breakpoint UI now includes a mediblaster tab with situational pick highlighting and DPS breakpoints alongside torpedoes.
 - Mediblaster output now optionally accounts for armor reduction (with Codebreaker armor penetration) via a new enemy-armor toggle in the weights section.
 - Added a ComputedMetric base class for declarative metric inputs/outputs metadata in the optimizer UI refactor.
+- Added a metric registry with multi-output support plus a Juno mediblaster metric that exposes burst/sustain outputs for weighting.
 - Added a root-level Codex SDK script (`scripts/codexKanban.ts`) to feed design.md + the next kanban task into Codex for one-at-a-time execution.
 - Drafted plan.md for the Mediblaster Pareto-Frontier Optimization, including DP state, pruning logic, and a verification test case.
 - Replaced the mediblaster breakpoint DFS with a Pareto-frontier DP and added the non-linear synergy regression test.

@@ -8,6 +8,9 @@ import {
 } from "../../slices/inputSlice";
 import { attributeValueToLabel } from "../../utils/attributeUtils";
 import { MEDIBLASTER_OUTPUT_ATTR } from "../../utils/junoMediblaster";
+import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
+import type { MetricOutputDescriptor } from "../../metrics/metricRegistry";
+import { hasMetricOutputForMetric } from "../../metrics/metricRegistry";
 import NumberInput from "../shared/NumberInput";
 import SearchableDropdown from "../shared/SearchableDropdown";
 import SimpleButton from "../shared/SimpleButton";
@@ -16,22 +19,38 @@ import SliderRange from "../SliderRange";
 interface Props {
   attrTypes: string[];
   attrCounts?: Record<string, number>;
+  metricOutputs?: MetricOutputDescriptor[];
 }
 
-export default function WeightsSection({ attrTypes, attrCounts = {} }: Props) {
+export default function WeightsSection({
+  attrTypes,
+  attrCounts = {},
+  metricOutputs = [],
+}: Props) {
   const weights = useAppSelector((state) => state.input.present.weights);
   const hero = useAppSelector((state) => state.input.present.hero);
   const enemyHasArmor = useAppSelector((state) => state.input.present.enemyHasArmor);
   const dispatch = useAppDispatch();
-  const hasMediblasterWeight = weights.some((row) => row.type === MEDIBLASTER_OUTPUT_ATTR);
-  const options = attrTypes.map((t) => {
-    const count = attrCounts[t];
-    const suffix = typeof count === "number" ? ` (${count})` : "";
-    return {
-      value: t,
-      label: `${attributeValueToLabel(t)}${suffix}`,
-    };
-  });
+  const hasMediblasterWeight =
+    weights.some((row) => row.type === MEDIBLASTER_OUTPUT_ATTR) ||
+    hasMetricOutputForMetric(
+      JUNO_MEDIBLASTER_METRIC_ID,
+      weights.map((row) => row.type),
+    );
+  const options = [
+    ...attrTypes.map((t) => {
+      const count = attrCounts[t];
+      const suffix = typeof count === "number" ? ` (${count})` : "";
+      return {
+        value: t,
+        label: `${attributeValueToLabel(t)}${suffix}`,
+      };
+    }),
+    ...metricOutputs.map((output) => ({
+      value: output.outputKey,
+      label: output.displayLabel,
+    })),
+  ];
 
   return (
     <div>
@@ -127,11 +146,12 @@ export default function WeightsSection({ attrTypes, attrCounts = {} }: Props) {
       </div>
       <SimpleButton
         onClick={() => {
-          // Find the first unused attribute type
+          // Find the first unused weight option.
           const selectedTypes = weights.map((w) => w.type);
+          const optionValues = options.map((option) => option.value);
           const firstUnused =
-            attrTypes.find((t) => !selectedTypes.includes(t)) || attrTypes[0];
-          dispatch(addWeightRow(firstUnused));
+            optionValues.find((type) => !selectedTypes.includes(type)) || optionValues[0];
+          if (firstUnused) dispatch(addWeightRow(firstUnused));
         }}
         text="Add Row"
       />

@@ -1,9 +1,12 @@
 import { ALL_HEROES, NO_HERO } from "../types";
+import { getMetricOutputLabel } from "../metrics/metricRegistry";
 import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import type { Item } from "../types";
 
 export function attributeValueToLabel(value: string): string {
+  const metricLabel = getMetricOutputLabel(value);
+  if (metricLabel) return metricLabel;
   const map: Record<string, string> = {
     ALS: "Ability Life Steal",
     AP: "Ability Power",

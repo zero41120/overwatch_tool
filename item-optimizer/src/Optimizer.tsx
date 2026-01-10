@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
+import type { MetricOutputDescriptor } from "./metrics/metricRegistry";
+import { getMetricOutputsForHero, getSelectedMetricOutputKeys } from "./metrics/metricRegistry";
 import { collectAttributeCountsForHero, collectAttributeTypesForHero } from "./utils/attributeUtils";
 import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
@@ -32,6 +34,7 @@ export default function Optimizer() {
   const [heroIcons, setHeroIcons] = useState<Record<string, string>>({});
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
   const [attrCounts, setAttrCounts] = useState<Record<string, number>>({});
+  const [metricOutputs, setMetricOutputs] = useState<MetricOutputDescriptor[]>([]);
 
   const dispatch = useAppDispatch();
   const state = useAppSelector((s) => s.input.present);
@@ -49,6 +52,7 @@ export default function Optimizer() {
     useOverrides,
     enemyHasArmor,
   } = state;
+  const selectedMetricOutputs = getSelectedMetricOutputKeys(weights);
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [builds, setBuilds] = useState<ResultCombo[]>([]);
   const [buildIndex, setBuildIndex] = useState(0);
@@ -112,6 +116,7 @@ export default function Optimizer() {
     });
     const sortedTypes = collectAttributeTypesForHero(items, hero);
     const counts = collectAttributeCountsForHero(items, hero);
+    const nextMetricOutputs = getMetricOutputsForHero(hero);
     const heroList = [...Array.from(heroesSet).sort()];
     const filteredIcons: Record<string, string> = {};
     const filteredMetadata: HeroMetadata[] = [];
@@ -125,6 +130,7 @@ export default function Optimizer() {
     setHeroMetadata(filteredMetadata);
     setAttrTypes(sortedTypes);
     setAttrCounts(counts);
+    setMetricOutputs(nextMetricOutputs);
     if (sortedTypes[0]) {
       dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
     }
@@ -211,7 +217,10 @@ export default function Optimizer() {
 
     let aggregateMap = memoizedAggregates.get(key);
     if (!aggregateMap) {
-      aggregateMap = aggregate(items, hero, { enemyHasArmor });
+      aggregateMap = aggregate(items, hero, {
+        enemyHasArmor,
+        metricOutputKeys: selectedMetricOutputs,
+      });
       memoizedAggregates.set(key, aggregateMap);
     }
 
@@ -282,7 +291,10 @@ export default function Optimizer() {
     }
 
     function withBreakdown(combo: ResultCombo): ResultCombo {
-      const totalMap = aggregate([...combo.items, ...eqItems], hero, { enemyHasArmor });
+      const totalMap = aggregate([...combo.items, ...eqItems], hero, {
+        enemyHasArmor,
+        metricOutputKeys: selectedMetricOutputs,
+      });
       const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
       return { ...combo, score: scoreFromMap(totalMap, weights), breakdown };
     }
@@ -350,7 +362,10 @@ export default function Optimizer() {
     const build = builds[idx];
     if (!build) return;
     setBuildIndex(idx);
-    const totalMap = aggregate([...build.items, ...equippedItems()], hero);
+    const totalMap = aggregate([...build.items, ...equippedItems()], hero, {
+      enemyHasArmor,
+      metricOutputKeys: selectedMetricOutputs,
+    });
     const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
     setResults({
       items: build.items,
@@ -375,6 +390,7 @@ export default function Optimizer() {
           heroIcons={heroIcons}
           attrTypes={attrTypes}
           attrCounts={attrCounts}
+          metricOutputs={metricOutputs}
           filteredItems={filtered}
           onSubmit={onCalculate}
           validate={validate}

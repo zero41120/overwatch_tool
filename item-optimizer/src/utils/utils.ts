@@ -1,10 +1,13 @@
 import type { Item, WeightRow, MinAttrGroup } from "../types";
+import { collectMetricInputAttributes, computeMetricOutputs, isMetricOutputKey } from "../metrics/metricRegistry";
+import type { MetricContext } from "../metrics/metricContext";
 import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import { parseNumeric } from "./numberUtils";
 
 type AggregateOptions = {
   enemyHasArmor?: boolean;
+  metricOutputKeys?: Set<string>;
 };
 
 export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
@@ -25,6 +28,16 @@ export function aggregate(items: Item[], hero?: string, opts: AggregateOptions =
       }),
     );
     map.set(TORPEDO_DAMAGE_ATTR, computeJunoTorpedoDamage(items));
+  }
+  if (opts.metricOutputKeys && opts.metricOutputKeys.size > 0) {
+    const context: MetricContext = {
+      items,
+      map,
+      hero: hero ?? "",
+      enemyHasArmor: Boolean(opts.enemyHasArmor),
+    };
+    const outputs = computeMetricOutputs(context, opts.metricOutputKeys);
+    outputs.forEach((value, key) => map.set(key, value));
   }
   return map;
 }
@@ -64,6 +77,11 @@ export function collectRelevantAttributes(
   groups: MinAttrGroup[],
 ) {
   const set = new Set(weights.map((w) => w.type));
+  const metricInputs = collectMetricInputAttributes(set);
+  metricInputs.forEach((attr) => set.add(attr));
+  Array.from(set).forEach((value) => {
+    if (isMetricOutputKey(value)) set.delete(value);
+  });
   if (enabled) {
     groups.forEach((g) => {
       g.attrs.forEach((a) => set.add(a));
