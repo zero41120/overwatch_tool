@@ -1,4 +1,5 @@
 import type { Item, MinAttrGroup, ResultCombo, WeightRow } from "../types";
+import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../metrics/JunoMediblasterMetric";
 import { getSelectedMetricOutputKeys, hasMetricOutputForMetric } from "../metrics/metricRegistry";
 import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
@@ -14,6 +15,7 @@ export type OptimizerSearchOptions = {
   minAttrGroups: MinAttrGroup[];
   hero?: string;
   enemyHasArmor?: boolean;
+  metricInputValues?: MetricInputValuesByMetric;
   maxItems: number;
   maxCash: number;
   preferHighCost: boolean;
@@ -37,11 +39,13 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     const map = aggregate(options.equippedItems, options.hero, {
       enemyHasArmor: options.enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
+      metricInputValues: options.metricInputValues,
     });
     if (
       options.minValueEnabled &&
       !meetsMinGroups(options.equippedItems, options.minAttrGroups, options.hero, {
         enemyHasArmor: options.enemyHasArmor,
+        metricInputValues: options.metricInputValues,
       })
     ) {
       return [];
@@ -88,6 +92,7 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
       options.minValueEnabled &&
       !meetsMinGroups(combined, options.minAttrGroups, options.hero, {
         enemyHasArmor: options.enemyHasArmor,
+        metricInputValues: options.metricInputValues,
       })
     ) {
       return;
@@ -95,6 +100,7 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     const map = aggregate(combined, options.hero, {
       enemyHasArmor: options.enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
+      metricInputValues: options.metricInputValues,
     });
     combos.push({
       items: selected,

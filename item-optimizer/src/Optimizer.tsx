@@ -51,6 +51,7 @@ export default function Optimizer() {
     minAttrGroups,
     useOverrides,
     enemyHasArmor,
+    metricInputs,
   } = state;
   const selectedMetricOutputs = getSelectedMetricOutputKeys(weights);
   const [results, setResults] = useState<ResultCombo | null>(null);
@@ -148,6 +149,10 @@ export default function Optimizer() {
     memoizedScores.clear();
     memoizedAggregates.clear();
   }, [enemyHasArmor, memoizedScores, memoizedAggregates]);
+  useEffect(() => {
+    memoizedScores.clear();
+    memoizedAggregates.clear();
+  }, [metricInputs, memoizedScores, memoizedAggregates]);
 
   // Clear equipped items memoization when equipped items change
   useEffect(() => {
@@ -220,6 +225,7 @@ export default function Optimizer() {
       aggregateMap = aggregate(items, hero, {
         enemyHasArmor,
         metricOutputKeys: selectedMetricOutputs,
+        metricInputValues: metricInputs,
       });
       memoizedAggregates.set(key, aggregateMap);
     }
@@ -232,7 +238,10 @@ export default function Optimizer() {
   function meetsMinRequirements(items: Item[]) {
     return (
       !minValueEnabled ||
-      meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero, { enemyHasArmor })
+      meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero, {
+        enemyHasArmor,
+        metricInputValues: metricInputs,
+      })
     );
   }
   function onCalculate(mode: CalcMode) {
@@ -294,6 +303,7 @@ export default function Optimizer() {
       const totalMap = aggregate([...combo.items, ...eqItems], hero, {
         enemyHasArmor,
         metricOutputKeys: selectedMetricOutputs,
+        metricInputValues: metricInputs,
       });
       const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
       return { ...combo, score: scoreFromMap(totalMap, weights), breakdown };
@@ -319,6 +329,7 @@ export default function Optimizer() {
         minAttrGroups,
         hero,
         enemyHasArmor,
+        metricInputValues: metricInputs,
         maxItems: needed,
         maxCash: Math.max(...budgets),
         preferHighCost: false,
@@ -343,6 +354,7 @@ export default function Optimizer() {
       minAttrGroups,
       hero,
       enemyHasArmor,
+      metricInputValues: metricInputs,
       maxItems: needed,
       maxCash: cash - eqCost,
       preferHighCost,
@@ -365,6 +377,7 @@ export default function Optimizer() {
     const totalMap = aggregate([...build.items, ...equippedItems()], hero, {
       enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
+      metricInputValues: metricInputs,
     });
     const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
     setResults({

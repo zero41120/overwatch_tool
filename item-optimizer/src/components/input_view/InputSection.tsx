@@ -4,6 +4,7 @@ import AvoidSection from "./AvoidSection";
 import CashInput from "./CashInput";
 import EquippedSection from "./EquippedSection";
 import HeroSelect from "./HeroSelect";
+import MetricInputsSection from "./MetricInputsSection";
 import OverrideToggle from "./OverrideToggle";
 import MinValueSection from "./MinValueSection";
 import SubmitSection from "./SubmitSection";
@@ -58,6 +59,9 @@ export default function InputSection({
           attrCounts={attrCounts}
           metricOutputs={metricOutputs}
         />
+        <div className="my-4">
+          <MetricInputsSection />
+        </div>
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <SubmitSection onSubmit={onSubmit} validate={validate} />
       </form>

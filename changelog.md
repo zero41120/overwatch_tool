@@ -1,5 +1,6 @@
 # Changelog
 
+2026-01-10 Add metric optional input controls for selected metrics item-optimizer/src/components/input_view/MetricInputsSection.tsx
 2025-06-10 Initial release of Overwatch Tool /
 2025-06-10 Item optimization engine with weighted scoring and character/item restrictions src/engine
 2025-06-10 UI for selecting hero, equipped items (up to 6 slots), available cash, and item weights src/components
@@ -77,3 +78,4 @@
 2026-01-10  add ComputedMetric base class with inputs/outputs metadata  item-optimizer/src/metrics/ComputedMetric.ts
 2026-01-10  add multi-output metric support for weights and scoring  item-optimizer/src/metrics item-optimizer/src/utils item-optimizer/src/components/input_view
 2026-01-11  skip codex kanban run when all tasks are complete  scripts/codexKanban.ts
+2026-01-12  loop codex kanban runner while pending tasks remain  scripts/codexKanban.ts

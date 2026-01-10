@@ -38,3 +38,4 @@
 - Mediblaster output now accounts for optional armor reduction (including Codebreaker penetration) via a new enemy-armor toggle in the weights UI.
 - Added ComputedMetric base class scaffolding to support declarative metric inputs/outputs for the optimizer refactor.
 - Added metric registry plumbing and Juno mediblaster multi-output metric wired into weights/scoring.
+- Added metric optional input UI and state wiring so metric-defined toggles and numeric params drive optimizer scoring.

@@ -14,7 +14,25 @@ export class JunoMediblasterMetric extends ComputedMetric<
   static readonly description = "Juno mediblaster output with and without reload downtime.";
   static readonly hero = "Juno";
   static readonly inputAttributes = MEDIBLASTER_INPUT_ATTRS;
-  static readonly inputs = [] as const;
+  static readonly inputs = [
+    {
+      id: "includeReloadDowntime",
+      label: "Include Reload Downtime",
+      type: "bool",
+      defaultValue: true,
+      description: "When enabled, sustain output includes reload downtime.",
+    },
+    {
+      id: "reloadDowntimeMultiplier",
+      label: "Reload Downtime Multiplier",
+      type: "number",
+      defaultValue: 1,
+      min: 0,
+      max: 2,
+      step: 0.1,
+      description: "Scale the impact of reload downtime on sustain output.",
+    },
+  ] as const;
   static readonly outputs = [
     {
       id: "burst",
@@ -38,7 +56,7 @@ export class JunoMediblasterMetric extends ComputedMetric<
   }
 
   evaluate(
-    _inputs: MetricResolvedInputValues<typeof JunoMediblasterMetric.inputs>,
+    inputs: MetricResolvedInputValues<typeof JunoMediblasterMetric.inputs>,
   ): MetricOutputValues<typeof JunoMediblasterMetric.outputs> {
     const items = this.context.items.map((item) => ({ name: item.name }));
     const burst = computeMediblasterOutputFromMap({
@@ -47,12 +65,21 @@ export class JunoMediblasterMetric extends ComputedMetric<
       enemyHasArmor: this.context.enemyHasArmor,
       withReload: false,
     });
-    const sustain = computeMediblasterOutputFromMap({
+    const baseSustain = computeMediblasterOutputFromMap({
       map: this.context.map,
       items,
       enemyHasArmor: this.context.enemyHasArmor,
       withReload: true,
     });
+    const includeReload = Boolean(inputs.includeReloadDowntime);
+    const multiplier = Number(inputs.reloadDowntimeMultiplier ?? 1);
+    let sustain = baseSustain;
+    if (!includeReload) {
+      sustain = burst;
+    } else if (multiplier !== 1) {
+      const downtime = burst - baseSustain;
+      sustain = burst - downtime * multiplier;
+    }
     return { burst, sustain };
   }
 }

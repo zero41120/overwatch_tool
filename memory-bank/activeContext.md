@@ -17,3 +17,4 @@
 - Drafted plan.md for the Mediblaster Pareto-Frontier Optimization, including DP state, pruning logic, and a verification test case.
 - Replaced the mediblaster breakpoint DFS with a Pareto-frontier DP and added the non-linear synergy regression test.
 - Replaced optimizer DFS pruning with a Pareto-frontier DP search that respects equipped/avoid items.
+- Metric optional input controls now render from metric definitions, with input state wired through the optimizer and Juno mediblaster inputs for reload downtime tuning.

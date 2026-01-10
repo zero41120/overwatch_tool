@@ -1,4 +1,10 @@
-import type { ComputedMetric, MetricInputDefinition, MetricOutputDefinition } from "./ComputedMetric";
+import type {
+  ComputedMetric,
+  MetricInputDefinition,
+  MetricInputValue,
+  MetricInputValues,
+  MetricOutputDefinition,
+} from "./ComputedMetric";
 import { JunoMediblasterMetric } from "./JunoMediblasterMetric";
 import type { MetricContext } from "./metricContext";
 import type { WeightRow } from "../types";
@@ -14,6 +20,7 @@ export type MetricClass = {
   inputs: readonly MetricInputDefinition[];
   outputs: readonly MetricOutputDefinition[];
   inputAttributes?: readonly string[];
+  resolveInputs: (values?: MetricInputValues) => Record<string, MetricInputValue>;
 };
 
 export type MetricOutputDescriptor = MetricOutputDefinition & {
@@ -22,6 +29,16 @@ export type MetricOutputDescriptor = MetricOutputDefinition & {
   metricDescription?: string;
   outputKey: string;
   displayLabel: string;
+};
+
+export type MetricInputValuesByMetric = Record<string, MetricInputValues>;
+
+export type MetricInputGroup = {
+  metricId: string;
+  metricLabel: string;
+  metricDescription?: string;
+  inputs: readonly MetricInputDefinition[];
+  resolvedInputs: Record<string, MetricInputValue>;
 };
 
 const METRICS: MetricClass[] = [JunoMediblasterMetric];
@@ -105,9 +122,30 @@ export function hasMetricOutputForMetric(metricId: string, outputKeys: Iterable<
   return false;
 }
 
+export function getMetricInputGroupsForHero(
+  hero: string,
+  selectedOutputs: Iterable<string>,
+  inputValues?: MetricInputValuesByMetric,
+): MetricInputGroup[] {
+  const selected = new Set(selectedOutputs);
+  return METRICS.filter((metric) => metricAppliesToHero(metric, hero))
+    .filter((metric) => metric.inputs.length > 0)
+    .filter((metric) =>
+      metric.outputs.some((output) => selected.has(metricOutputKey(metric.id, output.id))),
+    )
+    .map((metric) => ({
+      metricId: metric.id,
+      metricLabel: metric.label,
+      metricDescription: metric.description,
+      inputs: metric.inputs,
+      resolvedInputs: metric.resolveInputs(inputValues?.[metric.id] ?? {}),
+    }));
+}
+
 export function computeMetricOutputs(
   context: MetricContext,
   selectedOutputs?: Set<string>,
+  inputValues?: MetricInputValuesByMetric,
 ) {
   const outputs = new Map<string, number>();
   METRICS.forEach((metric) => {
@@ -115,7 +153,7 @@ export function computeMetricOutputs(
     const outputKeys = metric.outputs.map((output) => metricOutputKey(metric.id, output.id));
     if (selectedOutputs && !outputKeys.some((key) => selectedOutputs.has(key))) return;
     const instance = new metric(context);
-    const values = instance.evaluateWithDefaults();
+    const values = instance.evaluateWithDefaults(inputValues?.[metric.id] ?? {});
     metric.outputs.forEach((output) => {
       const key = metricOutputKey(metric.id, output.id);
       if (selectedOutputs && !selectedOutputs.has(key)) return;

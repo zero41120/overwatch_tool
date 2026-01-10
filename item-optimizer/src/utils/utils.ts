@@ -1,4 +1,5 @@
 import type { Item, WeightRow, MinAttrGroup } from "../types";
+import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
 import { collectMetricInputAttributes, computeMetricOutputs, isMetricOutputKey } from "../metrics/metricRegistry";
 import type { MetricContext } from "../metrics/metricContext";
 import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
@@ -8,6 +9,7 @@ import { parseNumeric } from "./numberUtils";
 type AggregateOptions = {
   enemyHasArmor?: boolean;
   metricOutputKeys?: Set<string>;
+  metricInputValues?: MetricInputValuesByMetric;
 };
 
 export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
@@ -36,7 +38,7 @@ export function aggregate(items: Item[], hero?: string, opts: AggregateOptions =
       hero: hero ?? "",
       enemyHasArmor: Boolean(opts.enemyHasArmor),
     };
-    const outputs = computeMetricOutputs(context, opts.metricOutputKeys);
+    const outputs = computeMetricOutputs(context, opts.metricOutputKeys, opts.metricInputValues);
     outputs.forEach((value, key) => map.set(key, value));
   }
   return map;
