@@ -18,3 +18,4 @@
 - Replaced the mediblaster breakpoint DFS with a Pareto-frontier DP and added the non-linear synergy regression test.
 - Replaced optimizer DFS pruning with a Pareto-frontier DP search that respects equipped/avoid items.
 - Metric optional input controls now render from metric definitions, with input state wired through the optimizer and Juno mediblaster inputs for reload downtime tuning.
+- Derived stat maps now sum raw item stats once and feed metric evaluations.

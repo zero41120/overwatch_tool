@@ -39,3 +39,4 @@
 - Added ComputedMetric base class scaffolding to support declarative metric inputs/outputs for the optimizer refactor.
 - Added metric registry plumbing and Juno mediblaster multi-output metric wired into weights/scoring.
 - Added metric optional input UI and state wiring so metric-defined toggles and numeric params drive optimizer scoring.
+- Added derived stat map aggregation so metrics can read summed raw item stats.
