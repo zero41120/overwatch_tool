@@ -13,6 +13,7 @@ import { collectAttributeCountsForHero, collectAttributeTypesForHero } from "./u
 import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
+import { findBestBuild, findBestBuildsByBudget } from "./utils/optimizerSearch";
 import {
   aggregate,
   buildBreakdown,
@@ -280,80 +281,37 @@ export default function Optimizer() {
       return;
     }
 
-    const itemScores = candidate
-      .map((it) => ({ item: it, score: calcScore([it]) }))
-      .sort((a, b) => b.score - a.score);
-
-    function calcForCash(totalCash: number): ResultCombo | null {
-      const remainingCash = totalCash - eqCost;
-      if (remainingCash < 0) return null;
-
-      const affordableItems = itemScores.filter((info) => info.item.cost <= remainingCash);
-      if (affordableItems.length === 0) return null;
-
-      const maxItems = 50;
-      const searchItems = affordableItems.slice(0, maxItems);
-
-      const prefix: number[] = [0];
-      for (const i of searchItems) prefix.push(prefix[prefix.length - 1] + i.score);
-      let bestScore = -Infinity;
-      let bestCost = 0;
-      let bestCombos: ResultCombo[] = [];
-      const n = searchItems.length;
-      const memo = new Map<string, boolean>();
-
-      function dfs(start: number, selected: Item[], cost: number, score: number) {
-        if (n > 100 && selected.length === 0 && start > 50) return;
-
-        if (meetsMinRequirements(selected)) {
-          if (score > bestScore) {
-            bestScore = score;
-            bestCost = cost;
-            bestCombos = [{ items: [...selected], cost, score }];
-          } else if (score === bestScore) {
-            bestCombos.push({ items: [...selected], cost, score });
-            if (preferHighCost) {
-              bestCost = Math.max(bestCost, cost);
-            } else {
-              bestCost = Math.min(bestCost, cost);
-            }
-          }
-        }
-
-        if (selected.length === needed || start >= n) return;
-
-        const remaining = needed - selected.length;
-        const possible = score + (prefix[Math.min(n, start + remaining)] - prefix[start]);
-        if (possible < bestScore) return;
-
-        const key = `${start}-${selected.length}-${cost}-${Math.floor(score)}`;
-        if (memo.has(key)) return;
-        memo.set(key, true);
-        for (let i = start; i < n; i++) {
-          const info = searchItems[i];
-          if (cost + info.item.cost > remainingCash) continue;
-          selected.push(info.item);
-          dfs(i + 1, selected, cost + info.item.cost, score + info.score);
-          selected.pop();
-        }
-      }
-
-      dfs(0, [], 0, 0);
-      if (bestCombos.length === 0) return null;
-      const [best] = bestCombos.sort((a, b) => (preferHighCost ? b.cost - a.cost : a.cost - b.cost));
-      const totalMap = aggregate([...best.items, ...eqItems], hero);
+    function withBreakdown(combo: ResultCombo): ResultCombo {
+      const totalMap = aggregate([...combo.items, ...eqItems], hero, { enemyHasArmor });
       const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
-      return { items: best.items, cost: best.cost, score: scoreFromMap(totalMap, weights), breakdown };
+      return { ...combo, score: scoreFromMap(totalMap, weights), breakdown };
     }
 
     if (mode === "incremental") {
       const maxCost = candidate.reduce((m, it) => Math.max(m, it.cost), 0);
       let upper = maxCost > 0 ? maxCost * 6 : 90000;
-      const list: ResultCombo[] = [];
+      const budgets: number[] = [];
       for (let c = 10000; c <= upper; c += 1000) {
-        const res = calcForCash(c);
-        if (res) list.push(res);
+        const remaining = c - eqCost;
+        if (remaining >= 0) budgets.push(remaining);
       }
+      if (budgets.length === 0) {
+        dispatch(setError("Equipped items cost exceeds total cash"));
+        return;
+      }
+      const list = findBestBuildsByBudget({
+        items: candidate,
+        equippedItems: eqItems,
+        weights,
+        minValueEnabled,
+        minAttrGroups,
+        hero,
+        enemyHasArmor,
+        maxItems: needed,
+        maxCash: Math.max(...budgets),
+        preferHighCost: false,
+        budgets,
+      }).map(withBreakdown);
       const unique = uniqueByItems(list);
       if (unique.length === 0) {
         dispatch(setError("Insufficient cash for any purchase"));
@@ -365,14 +323,26 @@ export default function Optimizer() {
       return;
     }
 
-    const result = calcForCash(cash);
+    const result = findBestBuild({
+      items: candidate,
+      equippedItems: eqItems,
+      weights,
+      minValueEnabled,
+      minAttrGroups,
+      hero,
+      enemyHasArmor,
+      maxItems: needed,
+      maxCash: cash - eqCost,
+      preferHighCost,
+    });
     if (!result) {
       dispatch(setError("Insufficient cash for any purchase"));
       return;
     }
-    setBuilds([result]);
+    const finalResult = withBreakdown(result);
+    setBuilds([finalResult]);
     setBuildIndex(0);
-    setResults(result);
+    setResults(finalResult);
     // alternatives no longer separately stored
   }
 
