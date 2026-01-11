@@ -1,7 +1,6 @@
 import type { Item, MinAttrGroup, WeightRow } from "../types";
 import { collectMetricExtraFields } from "../metrics/metricRegistry";
 import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
-import { buildTorpedoItem, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import type { OptimizerExtraField } from "./optimizerParetoTypes";
 import { collectRelevantAttributes } from "./utils";
 
@@ -44,21 +43,6 @@ export function buildOptimizerProfileInputs({
   const attrKeys = Array.from(relevantAttrs).filter((attr) => itemAttrs.has(attr));
 
   const extraFields: OptimizerExtraField[] = [];
-  const isJuno = hero === "Juno";
-  const considerTorpedo = isJuno && relevantAttrs.has(TORPEDO_DAMAGE_ATTR);
-  if (considerTorpedo) {
-    extraFields.push({
-      id: "torpedo-base-add",
-      combine: "sum",
-      itemValue: (item) => buildTorpedoItem(item).baseAdd,
-    });
-    extraFields.push({
-      id: "torpedo-skyline",
-      combine: "max",
-      itemValue: (item) => (/^skyline\s+nanites$/i.test(item.name) ? 1 : 0),
-    });
-  }
-
   if (selectedMetricOutputs.size > 0) {
     extraFields.push(
       ...collectMetricExtraFields(hero ?? "", selectedMetricOutputs, metricInputValues),

@@ -14,9 +14,11 @@ import {
   buildRawMetricOutputDescriptors,
   getMetricOutputsForHero,
   getSelectedMetricOutputKeys,
+  hasMetricOutputForMetric,
 } from "./metrics/metricRegistry";
+import { JUNO_TORPEDO_METRIC_ID } from "./metrics/JunoTorpedoMetric";
 import { attributeValueToLabel, collectAttributeTypesForHero } from "./utils/attributeUtils";
-import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
+import { itemAffectsTorpedoDamage } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import { findBestBuilds, findBestBuildsByBudget } from "./utils/optimizerSearch";
@@ -270,14 +272,17 @@ export default function Optimizer() {
 
     const selectedAttrs = collectRelevantAttributes(weights, minValueEnabled, minAttrGroups);
 
-    const includesTorpedoDamage = selectedAttrs.has(TORPEDO_DAMAGE_ATTR);
+    const includesTorpedoMetric = hasMetricOutputForMetric(
+      JUNO_TORPEDO_METRIC_ID,
+      selectedMetricOutputs,
+    );
     const candidate = data.filter(
       (it) =>
         allowItem(it) &&
         !equipped.includes(it.id ?? "") &&
         (!avoidEnabled || !avoid.includes(it.id ?? "")) &&
         (it.attributes.some((a) => selectedAttrs.has(a.type)) ||
-          (includesTorpedoDamage && itemAffectsTorpedoDamage(it))),
+          (includesTorpedoMetric && itemAffectsTorpedoDamage(it))),
     );
 
     const needed = toBuy;

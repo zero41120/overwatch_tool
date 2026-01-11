@@ -7,7 +7,6 @@ import {
   isMetricOutputKey,
 } from "../metrics/metricRegistry";
 import type { MetricContext } from "../metrics/metricContext";
-import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import { buildDerivedStatMap } from "./derivedStatMap";
 
 type AggregateOptions = {
@@ -18,9 +17,6 @@ type AggregateOptions = {
 export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
   const derivedMap = buildDerivedStatMap(items);
   const map = new Map(derivedMap);
-  if (hero === "Juno") {
-    map.set(TORPEDO_DAMAGE_ATTR, computeJunoTorpedoDamage(items));
-  }
   if (opts.metricOutputKeys && opts.metricOutputKeys.size > 0) {
     const context: MetricContext = {
       items,
@@ -91,7 +87,6 @@ export function collectRelevantAttributes(
     });
   }
   set.delete("");
-  includeTorpedoInputs(set);
   return set;
 }
 

@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ALL_HEROES, NO_HERO, type Item } from "../../types";
 import { collectAttributeCountsForHero, collectAttributeTypes, collectAttributeTypesForHero } from "../attributeUtils";
-import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
 
 describe("collectAttributeTypes", () => {
   it("keeps override-only attributes available for weighting", () => {
@@ -63,7 +62,6 @@ describe("collectAttributeTypes", () => {
     ];
 
     expect(collectAttributeTypesForHero(items, "Juno")).toEqual([
-      TORPEDO_DAMAGE_ATTR,
       "WP",
       "Health",
       "Weapon Multiplier",
@@ -71,7 +69,6 @@ describe("collectAttributeTypes", () => {
     expect(collectAttributeTypesForHero(items, NO_HERO)).toEqual(["Health"]);
     expect(collectAttributeTypesForHero(items, ALL_HEROES)).toEqual(["WP", "Health", "Blink Power", "Weapon Multiplier"]);
     expect(collectAttributeCountsForHero(items, "Juno")).toEqual({
-      [TORPEDO_DAMAGE_ATTR]: 0,
       WP: 1,
       Health: 1,
       "Weapon Multiplier": 1,

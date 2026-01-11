@@ -1,7 +1,7 @@
 import type { Item, WeightRow } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
+import { JUNO_TORPEDO_METRIC_ID } from "../../metrics/JunoTorpedoMetric";
 import { metricOutputKey } from "../../metrics/metricRegistry";
-import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
 import { buildOptimizerProfileInputs } from "../optimizerProfileInputs";
 
 const baseItems: Item[] = [
@@ -24,11 +24,12 @@ const baseItems: Item[] = [
 ];
 
 test("buildOptimizerProfileInputs adds torpedo extras for torpedo output", () => {
+  const torpedoKey = metricOutputKey(JUNO_TORPEDO_METRIC_ID, "burst");
   const weights: WeightRow[] = [
     { type: "AP", weight: 1 },
-    { type: TORPEDO_DAMAGE_ATTR, weight: 1 },
+    { type: torpedoKey, weight: 1 },
   ];
-  const selectedMetricOutputs = new Set<string>();
+  const selectedMetricOutputs = new Set<string>([torpedoKey]);
   const { attrKeys, extraFields } = buildOptimizerProfileInputs({
     items: baseItems,
     weights,
@@ -39,7 +40,6 @@ test("buildOptimizerProfileInputs adds torpedo extras for torpedo output", () =>
   });
 
   expect(attrKeys).toContain("AP");
-  expect(attrKeys).not.toContain(TORPEDO_DAMAGE_ATTR);
   const ids = extraFields.map((field) => field.id);
   expect(ids).toEqual(expect.arrayContaining(["torpedo-base-add", "torpedo-skyline"]));
 });

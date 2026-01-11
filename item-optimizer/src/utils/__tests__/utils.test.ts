@@ -1,8 +1,8 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
+import { JUNO_TORPEDO_METRIC_ID } from "../../metrics/JunoTorpedoMetric";
 import { metricOutputKey } from "../../metrics/metricRegistry";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
-import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
 import { aggregate, collectRelevantAttributes, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 
 describe("optimizer utils", () => {
@@ -83,7 +83,7 @@ describe("optimizer utils", () => {
     expect(map.get(sustainKey)).toBe(expected);
   });
 
-  test("aggregate includes Juno torpedo damage from AP and torpedo base add", () => {
+  test("aggregate includes Juno torpedo burst output from AP and torpedo base add", () => {
     const items: Item[] = [
       {
         name: "SKYLINE NANITES",
@@ -100,11 +100,12 @@ describe("optimizer utils", () => {
         rarity: "rare",
       },
     ];
-    const map = aggregate(items, "Juno");
+    const burstKey = metricOutputKey(JUNO_TORPEDO_METRIC_ID, "burst");
+    const map = aggregate(items, "Juno", { metricOutputKeys: new Set([burstKey]) });
     const baseDamage = 85 + 20;
     const raw = baseDamage * (1 + 10 / 100);
     const expected = Math.round(raw * 1.2);
-    expect(map.get(TORPEDO_DAMAGE_ATTR)).toBe(expected);
+    expect(map.get(burstKey)).toBe(expected);
   });
 
   test("collectRelevantAttributes expands mediblaster metric outputs to inputs", () => {
@@ -116,9 +117,10 @@ describe("optimizer utils", () => {
     expect(attrs.has("MA")).toBe(true);
   });
 
-  test("collectRelevantAttributes expands torpedo damage to AP", () => {
-    const attrs = collectRelevantAttributes([{ type: TORPEDO_DAMAGE_ATTR, weight: 1 }], false, []);
-    expect(attrs.has(TORPEDO_DAMAGE_ATTR)).toBe(true);
+  test("collectRelevantAttributes expands torpedo metric outputs to AP", () => {
+    const metricKey = metricOutputKey(JUNO_TORPEDO_METRIC_ID, "burst");
+    const attrs = collectRelevantAttributes([{ type: metricKey, weight: 1 }], false, []);
+    expect(attrs.has(metricKey)).toBe(false);
     expect(attrs.has("AP")).toBe(true);
   });
 

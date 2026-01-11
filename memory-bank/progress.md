@@ -48,3 +48,4 @@
 - Weights section now lists metric outputs instead of raw stat keys, with coverage.
 - Raw attribute types are now exposed as metric output options so legacy weights keep working.
 - Juno Mediblaster output calculation now lives in the computed metric with armor/ammo inputs and metric-defined optimizer extras, removing the legacy derived-output path.
+- Juno Torpedo output now lives in a computed metric with burst/sustain outputs and metric-defined optimizer extras.

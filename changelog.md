@@ -93,3 +93,4 @@
 2026-01-13  attach per-metric values to optimizer build outputs and recompute scores from them  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
 2026-01-14  group score breakdown by metric unit types  item-optimizer/src/components/results_view/BreakdownTable.tsx item-optimizer/src/utils/utils.ts item-optimizer/src/utils/scoreUtils.ts
 2026-01-10  expose raw attribute outputs in metric selector for backward compatibility  item-optimizer/src/Optimizer.tsx item-optimizer/src/metrics/metricRegistry.ts
+2026-01-10  migrate Juno torpedo metric to computed burst/sustain outputs  item-optimizer/src/metrics/JunoTorpedoMetric.ts item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerProfileInputs.ts item-optimizer/src/utils/utils.ts
