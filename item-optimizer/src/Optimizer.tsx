@@ -17,7 +17,7 @@ import {
 } from "./metrics/metricRegistry";
 import { setRawStatMetricOutputs } from "./metrics/RawStatMetric";
 import { JUNO_TORPEDO_METRIC_ID } from "./metrics/JunoTorpedoMetric";
-import { attributeValueToLabel, collectAttributeTypesForHero } from "./utils/attributeUtils";
+import { collectAttributeTypesForHero, getRawAttributeLabel } from "./utils/attributeUtils";
 import { itemAffectsTorpedoDamage } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
@@ -118,7 +118,7 @@ export default function Optimizer() {
       if (list.length) heroesSet.add(heroName);
     });
     const sortedTypes = collectAttributeTypesForHero(items, hero);
-    setRawStatMetricOutputs(sortedTypes, attributeValueToLabel);
+    setRawStatMetricOutputs(sortedTypes, getRawAttributeLabel);
     const nextMetricOutputs = getMetricOutputsForHero(hero);
     const heroList = [...Array.from(heroesSet).sort()];
     const filteredIcons: Record<string, string> = {};

@@ -2,9 +2,7 @@ import { ALL_HEROES, NO_HERO } from "../types";
 import { getMetricOutputLabel } from "../metrics/metricRegistry";
 import type { Item } from "../types";
 
-export function attributeValueToLabel(value: string): string {
-  const metricLabel = getMetricOutputLabel(value);
-  if (metricLabel) return metricLabel;
+export function getRawAttributeLabel(value: string): string {
   const map: Record<string, string> = {
     ALS: "Ability Life Steal",
     AP: "Ability Power",
@@ -22,6 +20,12 @@ export function attributeValueToLabel(value: string): string {
     WPLS: "Weapon Life Steal",
   };
   return map[value] || value;
+}
+
+export function attributeValueToLabel(value: string): string {
+  const metricLabel = getMetricOutputLabel(value);
+  if (metricLabel) return metricLabel;
+  return getRawAttributeLabel(value);
 }
 
 const RESERVED_ATTRS = new Set(["description", "Editor's Note"]);
