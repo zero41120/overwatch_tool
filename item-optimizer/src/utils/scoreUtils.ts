@@ -28,6 +28,7 @@ export function scoreBuild(options: ScoreBuildOptions) {
       options.weights,
       options.minValueEnabled,
       options.minAttrGroups,
+      options.hero,
     ),
   };
 }

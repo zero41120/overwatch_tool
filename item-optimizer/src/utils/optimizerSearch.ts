@@ -22,7 +22,7 @@ export type OptimizerSearchOptions = {
   maxFrontier?: number;
 };
 
-type ScoredCombo = ResultCombo & { breakdown: { type: string; sum: number; contrib: number }[] };
+type ScoredCombo = ResultCombo;
 
 function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
   const selectedMetricOutputs = options.selectedMetricOutputs;

@@ -33,7 +33,7 @@ const results: ResultCombo = {
     },
   ],
   metricValues: { AP: 5 },
-  breakdown: [{ type: "AP", sum: 5, contrib: 5 }],
+  breakdown: [{ type: "AP", sum: 5, weight: 1, contrib: 5, unit: "raw" }],
 };
 
 const alternatives: ResultCombo[] = [{ score: 8, cost: 40, items: [], metricValues: {}, breakdown: [] }];

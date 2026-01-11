@@ -41,12 +41,20 @@ export interface MinAttrGroup {
 
 export type MetricValues = Record<string, number>;
 
+export interface BreakdownEntry {
+  type: string;
+  sum: number;
+  weight: number;
+  contrib: number;
+  unit: string;
+}
+
 export interface ResultCombo {
   items: Item[];
   cost: number;
   score: number;
   metricValues: MetricValues;
-  breakdown?: { type: string; sum: number; contrib: number }[];
+  breakdown?: BreakdownEntry[];
 }
 
 export const ALL_HEROES = "All Heroes";

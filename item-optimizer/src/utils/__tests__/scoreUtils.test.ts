@@ -34,7 +34,7 @@ describe("scoreBuild", () => {
     const weights: WeightRow[] = [{ type: burstKey, weight: 1.25 }];
     const expectedMap = aggregate(items, "Juno", { metricOutputKeys: selectedMetricOutputs });
     const expectedScore = scoreFromMap(expectedMap, weights);
-    const expectedBreakdown = buildBreakdown(expectedMap, weights, false, []);
+    const expectedBreakdown = buildBreakdown(expectedMap, weights, false, [], "Juno");
 
     const result = scoreBuild({
       items,
@@ -50,5 +50,7 @@ describe("scoreBuild", () => {
     expect(result.breakdown).toEqual(expectedBreakdown);
     const row = result.breakdown.find((entry) => entry.type === burstKey);
     expect(row?.contrib).toBeCloseTo((expectedMap.get(burstKey) ?? 0) * weights[0].weight);
+    expect(row?.weight).toBe(weights[0].weight);
+    expect(row?.unit).toBe("burst");
   });
 });
