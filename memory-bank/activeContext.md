@@ -23,3 +23,4 @@
 - Optimizer build outputs now include per-metric values so scores and breakdowns can be recomputed without rerunning search.
 - Added a shared scoreBuild helper to recompute weighted metric scores and breakdowns when weights change.
 - Optimizer now returns all equal-score builds so the UI can choose cheapest or premium among alternatives.
+- Weights section now selects from metric outputs only, defaulting the first row to the available outputs per hero.

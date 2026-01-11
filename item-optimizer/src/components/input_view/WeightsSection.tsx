@@ -17,14 +17,10 @@ import SimpleButton from "../shared/SimpleButton";
 import SliderRange from "../SliderRange";
 
 interface Props {
-  attrTypes: string[];
-  attrCounts?: Record<string, number>;
   metricOutputs?: MetricOutputDescriptor[];
 }
 
 export default function WeightsSection({
-  attrTypes,
-  attrCounts = {},
   metricOutputs = [],
 }: Props) {
   const weights = useAppSelector((state) => state.input.present.weights);
@@ -37,15 +33,10 @@ export default function WeightsSection({
       JUNO_MEDIBLASTER_METRIC_ID,
       weights.map((row) => row.type),
     );
+  const outputLabels = new Map(
+    metricOutputs.map((output) => [output.outputKey, output.displayLabel]),
+  );
   const options = [
-    ...attrTypes.map((t) => {
-      const count = attrCounts[t];
-      const suffix = typeof count === "number" ? ` (${count})` : "";
-      return {
-        value: t,
-        label: `${attributeValueToLabel(t)}${suffix}`,
-      };
-    }),
     ...metricOutputs.map((output) => ({
       value: output.outputKey,
       label: output.displayLabel,
@@ -55,7 +46,7 @@ export default function WeightsSection({
   return (
     <div>
       <label className="block text-sm font-medium dark:text-gray-300">
-        Attribute Weights
+        Metric Weights
       </label>
       {hero === "Juno" && hasMediblasterWeight && (
         <label className="mt-2 flex items-center gap-2 text-sm dark:text-gray-300 select-none">
@@ -81,8 +72,8 @@ export default function WeightsSection({
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                 <div className="w-full">
                   <SearchableDropdown
-                    label="Attribute Type"
-                    placeholder="Select type"
+                    label="Metric Output"
+                    placeholder="Select output"
                     options={uniqueOptions}
                     value={w.type}
                     onChange={(value) =>
@@ -92,18 +83,18 @@ export default function WeightsSection({
                   />
                 </div>
                 <div className="flex flex-col gap-2 w-full sm:w-auto">
-                  <div className="flex flex-row items-center gap-2">
-                    <NumberInput
-                      value={w.weight}
-                      onChange={(val) =>
-                        dispatch(setWeightValue({ index: idx, value: val }))
-                      }
-                      min={0}
-                      max={100}
-                      step={0.01}
-                      label={`Weight for ${attributeValueToLabel(w.type)}`}
-                      className="w-full sm:w-24"
-                    />
+                <div className="flex flex-row items-center gap-2">
+                  <NumberInput
+                    value={w.weight}
+                    onChange={(val) =>
+                      dispatch(setWeightValue({ index: idx, value: val }))
+                    }
+                    min={0}
+                    max={100}
+                    step={0.01}
+                    label={`Weight for ${w.type ? outputLabels.get(w.type) ?? attributeValueToLabel(w.type) : "output"}`}
+                    className="w-full sm:w-24"
+                  />
                     <button
                       type="button"
                       className="flex-shrink-0 rounded p-2 text-gray-400 dark:text-gray-500 hover:bg-red-50 dark:hover:bg-gray-900 hover:text-red-600 dark:hover:text-red-400"

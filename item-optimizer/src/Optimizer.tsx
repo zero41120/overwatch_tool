@@ -11,7 +11,7 @@ import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, 
 import { ALL_HEROES, NO_HERO } from "./types";
 import type { MetricOutputDescriptor } from "./metrics/metricRegistry";
 import { getMetricOutputsForHero, getSelectedMetricOutputKeys } from "./metrics/metricRegistry";
-import { collectAttributeCountsForHero, collectAttributeTypesForHero } from "./utils/attributeUtils";
+import { collectAttributeTypesForHero } from "./utils/attributeUtils";
 import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
@@ -33,7 +33,6 @@ export default function Optimizer() {
   const [heroMetadata, setHeroMetadata] = useState<HeroMetadata[]>([]);
   const [heroIcons, setHeroIcons] = useState<Record<string, string>>({});
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
-  const [attrCounts, setAttrCounts] = useState<Record<string, number>>({});
   const [metricOutputs, setMetricOutputs] = useState<MetricOutputDescriptor[]>([]);
 
   const dispatch = useAppDispatch();
@@ -114,7 +113,6 @@ export default function Optimizer() {
       if (list.length) heroesSet.add(heroName);
     });
     const sortedTypes = collectAttributeTypesForHero(items, hero);
-    const counts = collectAttributeCountsForHero(items, hero);
     const nextMetricOutputs = getMetricOutputsForHero(hero);
     const heroList = [...Array.from(heroesSet).sort()];
     const filteredIcons: Record<string, string> = {};
@@ -128,10 +126,13 @@ export default function Optimizer() {
     setHeroIcons(filteredIcons);
     setHeroMetadata(filteredMetadata);
     setAttrTypes(sortedTypes);
-    setAttrCounts(counts);
     setMetricOutputs(nextMetricOutputs);
-    if (sortedTypes[0]) {
-      dispatch(setWeightType({ index: 0, type: sortedTypes[0] }));
+    if (nextMetricOutputs[0]) {
+      const currentType = weights[0]?.type;
+      const outputKeys = new Set(nextMetricOutputs.map((output) => output.outputKey));
+      if (!currentType || !outputKeys.has(currentType)) {
+        dispatch(setWeightType({ index: 0, type: nextMetricOutputs[0].outputKey }));
+      }
     }
   }, [hero, useOverrides, overrideVersion]);
   useEffect(() => {
@@ -434,7 +435,6 @@ export default function Optimizer() {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
-          attrCounts={attrCounts}
           metricOutputs={metricOutputs}
           filteredItems={filtered}
           onSubmit={onCalculate}

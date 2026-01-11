@@ -45,3 +45,4 @@
 - Optimizer build outputs now store per-metric values so scores can be recomputed without rerunning the search.
 - Added a shared scoreBuild helper so weighted metric scores and breakdowns can be recomputed from selected outputs.
 - Optimizer now preserves all equal-score builds so the UI can pick cheapest or premium among alternatives.
+- Weights section now lists metric outputs instead of raw stat keys, with coverage.

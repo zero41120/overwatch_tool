@@ -85,6 +85,7 @@
 2026-01-10  add derived stat map builder for metric evaluation  item-optimizer/src/utils/derivedStatMap.ts
 2026-01-10  refactor optimizer inputs to accept selected metric outputs and generic profile extras  item-optimizer/src/utils/optimizerSearch.ts item-optimizer/src/utils/optimizerProfileInputs.ts item-optimizer/src/utils/optimizerPareto.ts
 2026-01-10  preserve equal-score optimizer builds for UI cost selection  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
+2026-01-10  refactor weights selector to use metric outputs  item-optimizer/src/components/input_view/WeightsSection.tsx
 2026-01-11  skip codex kanban run when all tasks are complete  scripts/codexKanban.ts
 2026-01-12  loop codex kanban runner while pending tasks remain  scripts/codexKanban.ts
 2026-01-12  auto-discover metric classes via Vite glob with discovery warnings  item-optimizer/src/metrics/metricRegistry.ts item-optimizer/src/metrics/metricDiscovery.ts

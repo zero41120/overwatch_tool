@@ -14,7 +14,6 @@ interface Props {
   heroes: string[];
   heroIcons: Record<string, string>;
   attrTypes: string[];
-  attrCounts: Record<string, number>;
   metricOutputs: MetricOutputDescriptor[];
   filteredItems: Item[];
   onSubmit: (mode: "cheapest" | "premium" | "incremental") => void;
@@ -25,7 +24,6 @@ export default function InputSection({
   heroes,
   heroIcons,
   attrTypes,
-  attrCounts,
   metricOutputs,
   filteredItems,
   onSubmit,
@@ -54,11 +52,7 @@ export default function InputSection({
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
         <MinValueSection attrTypes={attrTypes} />
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
-        <WeightsSection
-          attrTypes={attrTypes}
-          attrCounts={attrCounts}
-          metricOutputs={metricOutputs}
-        />
+        <WeightsSection metricOutputs={metricOutputs} />
         <div className="my-4">
           <MetricInputsSection />
         </div>
