@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import BreakPointCalculator from "./components/BreakPointCalculator";
 import InputSection from "./components/input_view/InputSection";
 import ItemGallery from "./components/ItemGallery";
@@ -17,14 +17,10 @@ import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import { findBestBuild, findBestBuildsByBudget } from "./utils/optimizerSearch";
 import { buildOptimizerProfileInputs } from "./utils/optimizerProfileInputs";
+import { scoreBuild } from "./utils/scoreUtils";
 import {
-  aggregate,
-  buildBreakdown,
   collectRelevantAttributes,
-  mapFromMetricValues,
   meetsMinGroups,
-  metricValuesFromMap,
-  scoreFromMap,
   uniqueByItems,
 } from "./utils/utils";
 
@@ -56,7 +52,7 @@ export default function Optimizer() {
     enemyHasArmor,
     metricInputs,
   } = state;
-  const selectedMetricOutputs = getSelectedMetricOutputKeys(weights);
+  const selectedMetricOutputs = useMemo(() => getSelectedMetricOutputKeys(weights), [weights]);
   const [results, setResults] = useState<ResultCombo | null>(null);
   const [builds, setBuilds] = useState<ResultCombo[]>([]);
   const [buildIndex, setBuildIndex] = useState(0);
@@ -143,23 +139,43 @@ export default function Optimizer() {
   }, [dispatch, equipped, toBuy]);
   // Recompute scores and breakdowns when weights or minimums change.
   useEffect(() => {
+    const eqItems = equippedItems();
     setBuilds((prev) => {
       if (prev.length === 0) return prev;
       return prev.map((build) => {
-        const map = mapFromMetricValues(build.metricValues);
-        return { ...build, score: scoreFromMap(map, weights) };
+        const { score, metricValues, breakdown } = scoreBuild({
+          items: [...build.items, ...eqItems],
+          hero,
+          weights,
+          minValueEnabled,
+          minAttrGroups,
+          enemyHasArmor,
+          metricOutputKeys: selectedMetricOutputs,
+          metricInputValues: metricInputs,
+        });
+        return { ...build, score, metricValues, breakdown };
       });
     });
     setResults((prev) => {
       if (!prev) return prev;
-      const map = mapFromMetricValues(prev.metricValues);
+      const { score, metricValues, breakdown } = scoreBuild({
+        items: [...prev.items, ...eqItems],
+        hero,
+        weights,
+        minValueEnabled,
+        minAttrGroups,
+        enemyHasArmor,
+        metricOutputKeys: selectedMetricOutputs,
+        metricInputValues: metricInputs,
+      });
       return {
         ...prev,
-        score: scoreFromMap(map, weights),
-        breakdown: buildBreakdown(map, weights, minValueEnabled, minAttrGroups),
+        score,
+        metricValues,
+        breakdown,
       };
     });
-  }, [weights, minValueEnabled, minAttrGroups]);
+  }, [weights, minValueEnabled, minAttrGroups, hero, enemyHasArmor, metricInputs, selectedMetricOutputs]);
 
   useEffect(() => {
     memoizedEquippedItems.clear();
@@ -267,14 +283,16 @@ export default function Optimizer() {
         dispatch(setError("Minimum attribute values not met"));
         return;
       }
-      const totalMap = aggregate(eqItems, hero, {
+      const { score, metricValues, breakdown } = scoreBuild({
+        items: eqItems,
+        hero,
+        weights,
+        minValueEnabled,
+        minAttrGroups,
         enemyHasArmor,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
-      const metricValues = metricValuesFromMap(totalMap);
-      const score = scoreFromMap(totalMap, weights);
-      const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
       setBuilds([{ items: [], cost: 0, score, metricValues, breakdown }]);
       setBuildIndex(0);
       setResults({ items: [], cost: 0, score, metricValues, breakdown });
@@ -297,9 +315,17 @@ export default function Optimizer() {
     });
 
     function withBreakdown(combo: ResultCombo): ResultCombo {
-      const totalMap = mapFromMetricValues(combo.metricValues);
-      const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
-      return { ...combo, score: scoreFromMap(totalMap, weights), breakdown };
+      const { score, metricValues, breakdown } = scoreBuild({
+        items: [...combo.items, ...eqItems],
+        hero,
+        weights,
+        minValueEnabled,
+        minAttrGroups,
+        enemyHasArmor,
+        metricOutputKeys: selectedMetricOutputs,
+        metricInputValues: metricInputs,
+      });
+      return { ...combo, score, metricValues, breakdown };
     }
 
     if (mode === "incremental") {
@@ -373,13 +399,22 @@ export default function Optimizer() {
     const build = builds[idx];
     if (!build) return;
     setBuildIndex(idx);
-    const totalMap = mapFromMetricValues(build.metricValues);
-    const breakdown = buildBreakdown(totalMap, weights, minValueEnabled, minAttrGroups);
+    const eqItems = equippedItems();
+    const { score, metricValues, breakdown } = scoreBuild({
+      items: [...build.items, ...eqItems],
+      hero,
+      weights,
+      minValueEnabled,
+      minAttrGroups,
+      enemyHasArmor,
+      metricOutputKeys: selectedMetricOutputs,
+      metricInputValues: metricInputs,
+    });
     setResults({
       items: build.items,
       cost: build.cost,
-      score: scoreFromMap(totalMap, weights),
-      metricValues: build.metricValues,
+      score,
+      metricValues,
       breakdown,
     });
   }

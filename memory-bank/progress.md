@@ -43,3 +43,4 @@
 - Refactored optimizer inputs to accept selected metric outputs and generic extra-field pruning without weapon-specific DP logic.
 - Added optimizer search test coverage to ensure metric output weights drive build scoring.
 - Optimizer build outputs now store per-metric values so scores can be recomputed without rerunning the search.
+- Added a shared scoreBuild helper so weighted metric scores and breakdowns can be recomputed from selected outputs.

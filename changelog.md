@@ -1,5 +1,6 @@
 # Changelog
 
+2026-01-10 recompute weighted metric scores and breakdowns from selected outputs item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/scoreUtils.ts
 2026-01-10 Add metric optional input controls for selected metrics item-optimizer/src/components/input_view/MetricInputsSection.tsx
 2026-01-10 add optimizer metric output scoring coverage item-optimizer/src/utils/__tests__/optimizerSearch.test.ts
 2025-06-10 Initial release of Overwatch Tool /
