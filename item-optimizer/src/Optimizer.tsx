@@ -11,11 +11,11 @@ import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, 
 import { ALL_HEROES, NO_HERO } from "./types";
 import type { MetricOutputDescriptor } from "./metrics/metricRegistry";
 import {
-  buildRawMetricOutputDescriptors,
   getMetricOutputsForHero,
   getSelectedMetricOutputKeys,
   hasMetricOutputForMetric,
 } from "./metrics/metricRegistry";
+import { setRawStatMetricOutputs } from "./metrics/RawStatMetric";
 import { JUNO_TORPEDO_METRIC_ID } from "./metrics/JunoTorpedoMetric";
 import { attributeValueToLabel, collectAttributeTypesForHero } from "./utils/attributeUtils";
 import { itemAffectsTorpedoDamage } from "./utils/junoTorpedoDamage";
@@ -118,9 +118,8 @@ export default function Optimizer() {
       if (list.length) heroesSet.add(heroName);
     });
     const sortedTypes = collectAttributeTypesForHero(items, hero);
-    const computedMetricOutputs = getMetricOutputsForHero(hero);
-    const rawMetricOutputs = buildRawMetricOutputDescriptors(sortedTypes, attributeValueToLabel);
-    const nextMetricOutputs = [...computedMetricOutputs, ...rawMetricOutputs];
+    setRawStatMetricOutputs(sortedTypes, attributeValueToLabel);
+    const nextMetricOutputs = getMetricOutputsForHero(hero);
     const heroList = [...Array.from(heroesSet).sort()];
     const filteredIcons: Record<string, string> = {};
     const filteredMetadata: HeroMetadata[] = [];

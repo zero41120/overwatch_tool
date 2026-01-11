@@ -34,11 +34,14 @@ function metricAppliesToHero(metric: MetricClass, hero: string) {
 }
 
 export function metricOutputKey(metricId: string, outputId: string) {
+  if (metricId === RAW_METRIC_ID) return outputId;
   return `${METRIC_OUTPUT_PREFIX}${metricId}:${outputId}`;
 }
 
 export function parseMetricOutputKey(value: string) {
-  if (!value.startsWith(METRIC_OUTPUT_PREFIX)) return null;
+  if (!value.startsWith(METRIC_OUTPUT_PREFIX)) {
+    return { metricId: RAW_METRIC_ID, outputId: value };
+  }
   const trimmed = value.slice(METRIC_OUTPUT_PREFIX.length);
   const [metricId, outputId] = trimmed.split(":");
   if (!metricId || !outputId) return null;
@@ -69,24 +72,6 @@ export function buildMetricOutputDescriptors(
 
 export function getMetricOutputsForHero(hero: string) {
   return buildMetricOutputDescriptors(METRICS, hero);
-}
-
-export function buildRawMetricOutputDescriptors(
-  attrTypes: string[],
-  labeler: (value: string) => string = (value) => value,
-): MetricOutputDescriptor[] {
-  return attrTypes.map((attr) => {
-    const label = labeler(attr);
-    return {
-      id: attr,
-      label,
-      unit: "raw",
-      metricId: RAW_METRIC_ID,
-      metricLabel: RAW_METRIC_LABEL,
-      outputKey: attr,
-      displayLabel: label,
-    };
-  });
 }
 
 export function getMetricOutputLabel(value: string) {

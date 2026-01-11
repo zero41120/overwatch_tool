@@ -27,3 +27,4 @@
 - Score breakdown panel now groups rows by metric unit type with value, weight, and contribution details.
 - Raw attribute types now surface as metric outputs for backward-compatible weighting alongside computed metrics.
 - Juno torpedo damage now lives in a computed metric with burst/sustain outputs and metric-defined optimizer extras.
+- Flat stat calculations (Weapon Power, Attack Speed, etc.) are now migrated to the `RawStatMetric` class and integrated into the standard metric discovery and UI workflow.

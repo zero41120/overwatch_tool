@@ -57,6 +57,7 @@ export abstract class ComputedMetric<
   static readonly id: string;
   static readonly label: string;
   static readonly description?: string;
+  static readonly hero?: string | readonly string[];
   static readonly inputs: readonly MetricInputDefinition[] = [];
   static readonly outputs: readonly MetricOutputDefinition[] = [];
 

@@ -6,7 +6,6 @@ import {
   RAW_METRIC_ID,
   RAW_METRIC_LABEL,
   buildMetricOutputDescriptors,
-  buildRawMetricOutputDescriptors,
   getMetricOutputsForHero,
   metricOutputKey,
 } from "../metricRegistry";
@@ -153,29 +152,4 @@ test("metric registry filters hero-scoped outputs", () => {
   expect(outputIds(outputsForJuno)).toEqual(["demo-auto", "hero-only", "multi-hero"]);
   expect(outputIds(outputsForReaper)).toEqual(["demo-auto", "multi-hero"]);
   expect(outputIds(outputsForMercy)).toEqual(["demo-auto"]);
-});
-
-test("raw attribute descriptors expose raw outputs for weighting", () => {
-  const outputs = buildRawMetricOutputDescriptors(["AP", "WP"], (value) => `Label ${value}`);
-
-  expect(outputs).toEqual([
-    expect.objectContaining({
-      id: "AP",
-      label: "Label AP",
-      unit: "raw",
-      metricId: RAW_METRIC_ID,
-      metricLabel: RAW_METRIC_LABEL,
-      outputKey: "AP",
-      displayLabel: "Label AP",
-    }),
-    expect.objectContaining({
-      id: "WP",
-      label: "Label WP",
-      unit: "raw",
-      metricId: RAW_METRIC_ID,
-      metricLabel: RAW_METRIC_LABEL,
-      outputKey: "WP",
-      displayLabel: "Label WP",
-    }),
-  ]);
 });
