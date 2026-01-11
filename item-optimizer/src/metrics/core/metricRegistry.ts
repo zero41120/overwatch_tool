@@ -6,8 +6,8 @@ import type {
   MetricInputValuesByMetric,
   MetricOutputDescriptor,
 } from "./metricTypes";
-import type { WeightRow } from "../types";
-import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
+import type { WeightRow } from "../../types";
+import type { OptimizerExtraField } from "../../utils/optimizerParetoTypes";
 
 export const METRIC_OUTPUT_PREFIX = "metric:";
 export const RAW_METRIC_ID = "raw";
@@ -21,7 +21,7 @@ export type {
 } from "./metricTypes";
 
 const METRICS = loadMetricClasses(
-  import.meta.glob("./**/*Metric.ts", { eager: true }) as Record<
+  import.meta.glob("../*Metric.ts", { eager: true }) as Record<
     string,
     Record<string, unknown>
   >,

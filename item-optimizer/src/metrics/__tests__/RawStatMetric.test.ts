@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { RawStatMetric, setRawStatMetricOutputs } from "../RawStatMetric";
-import type { MetricContext } from "../metricContext";
+import type { MetricContext } from "../core/metricContext";
 
 describe("RawStatMetric", () => {
   it("evaluates to values from context map", () => {

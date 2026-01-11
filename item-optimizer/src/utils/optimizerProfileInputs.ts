@@ -1,6 +1,6 @@
 import type { Item, MinAttrGroup, WeightRow } from "../types";
-import { collectMetricExtraFields } from "../metrics/metricRegistry";
-import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
+import { collectMetricExtraFields } from "../metrics/core/metricRegistry";
+import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
 import type { OptimizerExtraField } from "./optimizerParetoTypes";
 import { collectRelevantAttributes } from "./utils";
 

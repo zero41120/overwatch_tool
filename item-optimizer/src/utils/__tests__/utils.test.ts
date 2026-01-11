@@ -1,7 +1,7 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
 import { JUNO_TORPEDO_METRIC_ID } from "../../metrics/JunoTorpedoMetric";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
 import { aggregate, collectRelevantAttributes, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 

@@ -6,8 +6,8 @@ import { vi } from "vitest";
 import store from "../../store";
 import type { Item } from "../../types";
 import { ALL_HEROES, NO_HERO } from "../../types";
-import type { MetricOutputDescriptor } from "../../metrics/metricRegistry";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import type { MetricOutputDescriptor } from "../../metrics/core/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import InputSection from "../input_view/InputSection";
 
 const heroes = ["Tracer", "Mercy"];

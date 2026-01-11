@@ -1,6 +1,6 @@
 import type { Item } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import { aggregate } from "../utils";
 
 test("aggregate includes multiple outputs for a metric when selected", () => {

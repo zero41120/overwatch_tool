@@ -1,5 +1,5 @@
 import type { Item, MinAttrGroup, ResultCombo, WeightRow } from "../types";
-import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
+import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
 import { aggregate, meetsMinGroups, metricValuesFromMap, scoreFromMap } from "./utils";
 import { buildOptimizerProfiles } from "./optimizerPareto";
 import type { OptimizerExtraField } from "./optimizerParetoTypes";

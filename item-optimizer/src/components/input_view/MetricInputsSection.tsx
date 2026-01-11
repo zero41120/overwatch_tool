@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import type { MetricInputDefinition, MetricInputValue } from "../../metrics/ComputedMetric";
+import type { MetricInputDefinition, MetricInputValue } from "../../metrics/core/ComputedMetric";
 import {
   getMetricInputGroupsForHero,
   getSelectedMetricOutputKeys,
-} from "../../metrics/metricRegistry";
+} from "../../metrics/core/metricRegistry";
 import {
   clearMetricInputsForMetric,
   setMetricInputValue,

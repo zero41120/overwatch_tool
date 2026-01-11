@@ -5,7 +5,7 @@ import { act, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import undoable from "redux-undo";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import inputReducer, { setWeightType } from "../../slices/inputSlice";
 import tooltipReducer from "../../slices/tooltipSlice";
 import MetricInputsSection from "../input_view/MetricInputsSection";

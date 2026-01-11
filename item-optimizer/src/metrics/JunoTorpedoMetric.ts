@@ -1,6 +1,6 @@
-import type { MetricResolvedInputValues, MetricOutputValues } from "./ComputedMetric";
-import { ComputedMetric } from "./ComputedMetric";
-import type { MetricContext } from "./metricContext";
+import type { MetricResolvedInputValues, MetricOutputValues } from "./core/ComputedMetric";
+import { ComputedMetric } from "./core/ComputedMetric";
+import type { MetricContext } from "./core/metricContext";
 import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
 import {
   buildTorpedoItem,

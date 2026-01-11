@@ -1,5 +1,5 @@
 import type { Item, MinAttrGroup, WeightRow } from "../types";
-import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
+import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
 import { aggregate, buildBreakdown, metricValuesFromMap, scoreFromMap } from "./utils";
 
 export type ScoreBuildOptions = {

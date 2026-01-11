@@ -1,7 +1,7 @@
 import type { Item, WeightRow } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
 import { JUNO_TORPEDO_METRIC_ID } from "../../metrics/JunoTorpedoMetric";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import { buildOptimizerProfileInputs } from "../optimizerProfileInputs";
 
 const baseItems: Item[] = [

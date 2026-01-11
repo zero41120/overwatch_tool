@@ -9,12 +9,12 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
-import type { MetricOutputDescriptor } from "./metrics/metricRegistry";
+import type { MetricOutputDescriptor } from "./metrics/core/metricRegistry";
 import {
   getMetricOutputsForHero,
   getSelectedMetricOutputKeys,
   hasMetricOutputForMetric,
-} from "./metrics/metricRegistry";
+} from "./metrics/core/metricRegistry";
 import { setRawStatMetricOutputs } from "./metrics/RawStatMetric";
 import { JUNO_TORPEDO_METRIC_ID } from "./metrics/JunoTorpedoMetric";
 import { collectAttributeTypesForHero, getRawAttributeLabel } from "./utils/attributeUtils";

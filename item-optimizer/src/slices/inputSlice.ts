@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { MetricInputValue } from "../metrics/ComputedMetric";
+import type { MetricInputValue } from "../metrics/core/ComputedMetric";
 import type { MinAttrGroup, WeightRow } from "../types";
 
 export interface InputState {

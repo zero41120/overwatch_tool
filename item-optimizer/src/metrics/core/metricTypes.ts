@@ -6,7 +6,7 @@ import type {
   MetricOutputDefinition,
 } from "./ComputedMetric";
 import type { MetricContext } from "./metricContext";
-import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
+import type { OptimizerExtraField } from "../../utils/optimizerParetoTypes";
 
 export type MetricClass = {
   new (context: MetricContext): ComputedMetric;

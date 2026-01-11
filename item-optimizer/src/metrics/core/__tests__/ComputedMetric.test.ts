@@ -1,8 +1,5 @@
-import {
-  ComputedMetric,
-  type MetricResolvedInputValues,
-  type MetricOutputValues,
-} from "../ComputedMetric";
+import { ComputedMetric } from "../ComputedMetric";
+import type { MetricContext } from "../metricContext";
 
 class DemoMetric extends ComputedMetric<
   typeof DemoMetric.inputs,

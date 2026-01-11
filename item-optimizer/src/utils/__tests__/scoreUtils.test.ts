@@ -1,6 +1,6 @@
 import type { Item, WeightRow } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import { aggregate, buildBreakdown, scoreFromMap } from "../utils";
 import { scoreBuild } from "../scoreUtils";
 

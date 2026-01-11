@@ -6,7 +6,7 @@ import {
   setWeightValue,
 } from "../../slices/inputSlice";
 import { attributeValueToLabel } from "../../utils/attributeUtils";
-import type { MetricOutputDescriptor } from "../../metrics/metricRegistry";
+import type { MetricOutputDescriptor } from "../../metrics/core/metricRegistry";
 import NumberInput from "../shared/NumberInput";
 import SearchableDropdown from "../shared/SearchableDropdown";
 import SimpleButton from "../shared/SimpleButton";

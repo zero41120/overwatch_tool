@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import { ComputedMetric } from "../ComputedMetric";
-import { JUNO_MEDIBLASTER_METRIC_ID } from "../JunoMediblasterMetric";
+import { JUNO_MEDIBLASTER_METRIC_ID } from "../../JunoMediblasterMetric";
 import { loadMetricClasses } from "../metricDiscovery";
 import {
   RAW_METRIC_ID,

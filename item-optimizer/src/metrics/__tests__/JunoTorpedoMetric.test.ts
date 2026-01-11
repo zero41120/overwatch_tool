@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { buildDerivedStatMap } from "../../utils/derivedStatMap";
 import type { Item } from "../../types";
-import { JunoTorpedoMetric } from "../JunoTorpedoMetric";
-import type { MetricContext } from "../metricContext";
+import type { MetricContext } from "../core/metricContext";
+import { JUNO_TORPEDO_METRIC_ID, JunoTorpedoMetric } from "../JunoTorpedoMetric";
+import { metricOutputKey } from "../core/metricRegistry";
 
 describe("JunoTorpedoMetric", () => {
   const items: Item[] = [

@@ -1,5 +1,5 @@
 import { ALL_HEROES, NO_HERO } from "../types";
-import { getMetricOutputLabel } from "../metrics/metricRegistry";
+import { getMetricOutputLabel } from "../metrics/core/metricRegistry";
 import type { Item } from "../types";
 
 export function getRawAttributeLabel(value: string): string {

@@ -1,12 +1,12 @@
 import type { Item, WeightRow, MinAttrGroup, MetricValues } from "../types";
-import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
+import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
 import {
   collectMetricInputAttributes,
   computeMetricOutputs,
   getMetricOutputsForHero,
   isMetricOutputKey,
-} from "../metrics/metricRegistry";
-import type { MetricContext } from "../metrics/metricContext";
+} from "../metrics/core/metricRegistry";
+import type { MetricContext } from "../metrics/core/metricContext";
 import { buildDerivedStatMap } from "./derivedStatMap";
 
 type AggregateOptions = {

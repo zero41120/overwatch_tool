@@ -1,6 +1,6 @@
-import type { MetricOutputDefinition } from "./ComputedMetric";
-import { ComputedMetric } from "./ComputedMetric";
-import type { MetricContext } from "./metricContext";
+import type { MetricOutputDefinition } from "./core/ComputedMetric";
+import { ComputedMetric } from "./core/ComputedMetric";
+import type { MetricContext } from "./core/metricContext";
 
 export const RAW_METRIC_ID = "raw";
 export const RAW_METRIC_LABEL = "Raw Stats";

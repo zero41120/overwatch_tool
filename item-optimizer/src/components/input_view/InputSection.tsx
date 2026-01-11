@@ -1,5 +1,5 @@
 import type { Item } from "../../types";
-import type { MetricOutputDescriptor } from "../../metrics/metricRegistry";
+import type { MetricOutputDescriptor } from "../../metrics/core/metricRegistry";
 import AvoidSection from "./AvoidSection";
 import CashInput from "./CashInput";
 import EquippedSection from "./EquippedSection";

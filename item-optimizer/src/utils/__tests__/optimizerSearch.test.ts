@@ -1,5 +1,5 @@
 import type { Item, WeightRow } from "../../types";
-import { metricOutputKey } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
 import { aggregate, scoreFromMap } from "../utils";
 import { findBestBuilds } from "../optimizerSearch";
