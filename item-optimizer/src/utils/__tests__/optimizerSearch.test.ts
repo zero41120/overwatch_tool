@@ -2,9 +2,15 @@ import type { Item, WeightRow } from "../../types";
 import { metricOutputKey } from "../../metrics/metricRegistry";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
 import { aggregate, scoreFromMap } from "../utils";
-import { findBestBuild } from "../optimizerSearch";
+import { findBestBuilds } from "../optimizerSearch";
 
-describe("findBestBuild", () => {
+describe("findBestBuilds", () => {
+  const comboKey = (combo: Item[]) =>
+    combo
+      .map((item) => item.id)
+      .sort()
+      .join(",");
+
   test("selects the optimal build with equipped and avoid items", () => {
     const items: Item[] = [
       {
@@ -80,23 +86,24 @@ describe("findBestBuild", () => {
       });
     });
 
-    let expectedBest: Item[] = [];
     let expectedScore = -Infinity;
-    let expectedCost = 0;
+    const expectedBest: Item[][] = [];
 
     combos.forEach((combo) => {
       const cost = combo.reduce((sum, item) => sum + item.cost, 0);
       if (cost > maxCash) return;
       const map = aggregate([...combo, ...equippedItems], hero);
       const score = scoreFromMap(map, weights);
-      if (score > expectedScore || (score === expectedScore && cost < expectedCost)) {
+      if (score > expectedScore) {
         expectedScore = score;
-        expectedCost = cost;
-        expectedBest = combo;
+        expectedBest.length = 0;
+        expectedBest.push(combo);
+      } else if (score === expectedScore) {
+        expectedBest.push(combo);
       }
     });
 
-    const result = findBestBuild({
+    const results = findBestBuilds({
       items: candidates,
       equippedItems,
       weights,
@@ -106,20 +113,18 @@ describe("findBestBuild", () => {
       hero,
       maxItems,
       maxCash,
-      preferHighCost: false,
       attrKeys: ["WP", "AS"],
       extraFields: [],
       costStep: 1,
     });
 
-    const resultIds = result?.items.map((item) => item.id).sort();
-    const expectedIds = expectedBest.map((item) => item.id).sort();
-    expect(resultIds).toEqual(expectedIds);
-    expect(result).not.toBeNull();
-    if (result) {
-      const map = aggregate([...expectedBest, ...equippedItems], hero);
+    const resultKeys = results.map((combo) => comboKey(combo.items)).sort();
+    const expectedKeys = expectedBest.map((combo) => comboKey(combo)).sort();
+    expect(resultKeys).toEqual(expectedKeys);
+    results.forEach((result) => {
+      const map = aggregate([...result.items, ...equippedItems], hero);
       expect(result.metricValues.WP).toBe(map.get("WP") ?? 0);
-    }
+    });
   });
 
   test("uses selected metric outputs and weights when scoring builds", () => {
@@ -171,23 +176,24 @@ describe("findBestBuild", () => {
     const combos: Item[][] = [[]];
     items.forEach((item) => combos.push([item]));
 
-    let expectedBest: Item[] = [];
     let expectedScore = -Infinity;
-    let expectedCost = Number.POSITIVE_INFINITY;
+    const expectedBest: Item[][] = [];
 
     combos.forEach((combo) => {
       const cost = combo.reduce((sum, item) => sum + item.cost, 0);
       if (cost > maxCash) return;
       const map = aggregate(combo, hero, { metricOutputKeys: selectedMetricOutputs });
       const score = scoreFromMap(map, weights);
-      if (score > expectedScore || (score === expectedScore && cost < expectedCost)) {
+      if (score > expectedScore) {
         expectedScore = score;
-        expectedCost = cost;
-        expectedBest = combo;
+        expectedBest.length = 0;
+        expectedBest.push(combo);
+      } else if (score === expectedScore) {
+        expectedBest.push(combo);
       }
     });
 
-    const result = findBestBuild({
+    const results = findBestBuilds({
       items,
       equippedItems: [],
       weights,
@@ -197,20 +203,65 @@ describe("findBestBuild", () => {
       hero,
       maxItems,
       maxCash,
-      preferHighCost: false,
       attrKeys: ["WP", "AS", "Weapon Multiplier", "MA"],
       extraFields: [],
       costStep: 1,
     });
 
-    const resultIds = result?.items.map((item) => item.id).sort();
-    const expectedIds = expectedBest.map((item) => item.id).sort();
-    expect(resultIds).toEqual(expectedIds);
-    expect(result).not.toBeNull();
-    if (result) {
-      const map = aggregate(expectedBest, hero, { metricOutputKeys: selectedMetricOutputs });
+    const resultKeys = results.map((combo) => comboKey(combo.items)).sort();
+    const expectedKeys = expectedBest.map((combo) => comboKey(combo)).sort();
+    expect(resultKeys).toEqual(expectedKeys);
+    results.forEach((result) => {
+      const map = aggregate(result.items, hero, { metricOutputKeys: selectedMetricOutputs });
       expect(result.metricValues[burstKey]).toBe(map.get(burstKey) ?? 0);
       expect(result.metricValues[sustainKey]).toBe(map.get(sustainKey) ?? 0);
-    }
+    });
+  });
+
+  test("returns all builds tied for the top score", () => {
+    const items: Item[] = [
+      {
+        id: "low",
+        name: "Low",
+        cost: 5,
+        tab: "weapon",
+        rarity: "common",
+        attributes: [{ type: "WP", value: "10" }],
+      },
+      {
+        id: "high",
+        name: "High",
+        cost: 15,
+        tab: "weapon",
+        rarity: "common",
+        attributes: [{ type: "WP", value: "10" }],
+      },
+      {
+        id: "other",
+        name: "Other",
+        cost: 1,
+        tab: "weapon",
+        rarity: "common",
+        attributes: [{ type: "WP", value: "5" }],
+      },
+    ];
+
+    const results = findBestBuilds({
+      items,
+      equippedItems: [],
+      weights: [{ type: "WP", weight: 1 }],
+      selectedMetricOutputs: new Set(),
+      minValueEnabled: false,
+      minAttrGroups: [],
+      hero: "Juno",
+      maxItems: 1,
+      maxCash: 20,
+      attrKeys: ["WP"],
+      extraFields: [],
+      costStep: 1,
+    });
+
+    const resultKeys = results.map((combo) => comboKey(combo.items)).sort();
+    expect(resultKeys).toEqual(["high", "low"]);
   });
 });

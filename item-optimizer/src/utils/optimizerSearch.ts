@@ -16,7 +16,6 @@ export type OptimizerSearchOptions = {
   metricInputValues?: MetricInputValuesByMetric;
   maxItems: number;
   maxCash: number;
-  preferHighCost: boolean;
   attrKeys: string[];
   extraFields?: OptimizerExtraField[];
   costStep?: number;
@@ -24,11 +23,6 @@ export type OptimizerSearchOptions = {
 };
 
 type ScoredCombo = ResultCombo & { breakdown: { type: string; sum: number; contrib: number }[] };
-
-function compareCombos(a: ResultCombo, b: ResultCombo, preferHighCost: boolean) {
-  if (a.score !== b.score) return a.score > b.score;
-  return preferHighCost ? a.cost > b.cost : a.cost < b.cost;
-}
 
 function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
   const selectedMetricOutputs = options.selectedMetricOutputs;
@@ -99,10 +93,23 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
   return combos;
 }
 
-export function findBestBuild(options: OptimizerSearchOptions): ResultCombo | null {
+export function findBestBuilds(options: OptimizerSearchOptions): ResultCombo[] {
   const combos = evaluateProfiles(options);
-  if (combos.length === 0) return null;
-  return combos.reduce((best, next) => (compareCombos(next, best, options.preferHighCost) ? next : best));
+  if (combos.length === 0) return [];
+  let bestScore = -Infinity;
+  const best: ResultCombo[] = [];
+  combos.forEach((combo) => {
+    if (combo.score > bestScore) {
+      bestScore = combo.score;
+      best.length = 0;
+      best.push(combo);
+      return;
+    }
+    if (combo.score === bestScore) {
+      best.push(combo);
+    }
+  });
+  return best;
 }
 
 export function findBestBuildsByBudget(
@@ -111,18 +118,22 @@ export function findBestBuildsByBudget(
   const combos = evaluateProfiles(options).sort((a, b) => a.cost - b.cost);
   if (combos.length === 0) return [];
   const results: ResultCombo[] = [];
-  let currentBest: ResultCombo | null = null;
+  let currentBestScore = -Infinity;
+  let currentBest: ResultCombo[] = [];
   let idx = 0;
   options.budgets.forEach((budget) => {
     while (idx < combos.length && combos[idx].cost <= budget) {
       const candidate = combos[idx];
-      if (!currentBest || compareCombos(candidate, currentBest, options.preferHighCost)) {
-        currentBest = candidate;
+      if (candidate.score > currentBestScore) {
+        currentBestScore = candidate.score;
+        currentBest = [candidate];
+      } else if (candidate.score === currentBestScore) {
+        currentBest.push(candidate);
       }
       idx += 1;
     }
-    if (currentBest) {
-      results.push(currentBest);
+    if (currentBest.length > 0) {
+      results.push(...currentBest);
     }
   });
   return results;

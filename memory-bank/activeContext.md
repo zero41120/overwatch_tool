@@ -22,3 +22,4 @@
 - Optimizer search now accepts selected metric outputs plus generic extra-field profile inputs, keeping DP free of weapon-specific logic.
 - Optimizer build outputs now include per-metric values so scores and breakdowns can be recomputed without rerunning search.
 - Added a shared scoreBuild helper to recompute weighted metric scores and breakdowns when weights change.
+- Optimizer now returns all equal-score builds so the UI can choose cheapest or premium among alternatives.

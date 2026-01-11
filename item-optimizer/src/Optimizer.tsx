@@ -15,12 +15,13 @@ import { collectAttributeCountsForHero, collectAttributeTypesForHero } from "./u
 import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
-import { findBestBuild, findBestBuildsByBudget } from "./utils/optimizerSearch";
+import { findBestBuilds, findBestBuildsByBudget } from "./utils/optimizerSearch";
 import { buildOptimizerProfileInputs } from "./utils/optimizerProfileInputs";
 import { scoreBuild } from "./utils/scoreUtils";
 import {
   collectRelevantAttributes,
   meetsMinGroups,
+  rankBestCombos,
   uniqueByItems,
 } from "./utils/utils";
 
@@ -352,7 +353,6 @@ export default function Optimizer() {
         metricInputValues: metricInputs,
         maxItems: needed,
         maxCash: Math.max(...budgets),
-        preferHighCost: false,
         attrKeys: optimizerProfileInputs.attrKeys,
         extraFields: optimizerProfileInputs.extraFields,
         budgets,
@@ -368,7 +368,7 @@ export default function Optimizer() {
       return;
     }
 
-    const result = findBestBuild({
+    const results = findBestBuilds({
       items: candidate,
       equippedItems: eqItems,
       weights,
@@ -380,18 +380,19 @@ export default function Optimizer() {
       metricInputValues: metricInputs,
       maxItems: needed,
       maxCash: cash - eqCost,
-      preferHighCost,
       attrKeys: optimizerProfileInputs.attrKeys,
       extraFields: optimizerProfileInputs.extraFields,
     });
-    if (!result) {
+    if (results.length === 0) {
       dispatch(setError("Insufficient cash for any purchase"));
       return;
     }
-    const finalResult = withBreakdown(result);
-    setBuilds([finalResult]);
+    const scored = results.map(withBreakdown);
+    const { best, alternatives } = rankBestCombos(scored, preferHighCost);
+    const ordered = [best, ...alternatives];
+    setBuilds(ordered);
     setBuildIndex(0);
-    setResults(finalResult);
+    setResults(ordered[0]);
     // alternatives no longer separately stored
   }
 
