@@ -1,4 +1,4 @@
-import type { Item, WeightRow, MinAttrGroup } from "../types";
+import type { Item, WeightRow, MinAttrGroup, MetricValues } from "../types";
 import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
 import { collectMetricInputAttributes, computeMetricOutputs, isMetricOutputKey } from "../metrics/metricRegistry";
 import type { MetricContext } from "../metrics/metricContext";
@@ -45,6 +45,18 @@ export function scoreFromMap(map: Map<string, number>, weights: WeightRow[]) {
     total += (map.get(w.type) ?? 0) * w.weight;
   });
   return total;
+}
+
+export function metricValuesFromMap(map: Map<string, number>): MetricValues {
+  const values: MetricValues = {};
+  map.forEach((value, key) => {
+    values[key] = value;
+  });
+  return values;
+}
+
+export function mapFromMetricValues(values: MetricValues): Map<string, number> {
+  return new Map(Object.entries(values));
 }
 
 export function rarityColor(r: Item["rarity"]) {

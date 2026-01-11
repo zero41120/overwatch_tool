@@ -101,7 +101,7 @@ describe("Optimizer", () => {
       store.dispatch(toggleUseOverrides());
     });
     await waitFor(() => {
-      expect(clearSpy.mock.calls.length).toBeGreaterThanOrEqual(initialCalls + 3);
+      expect(clearSpy.mock.calls.length).toBeGreaterThanOrEqual(initialCalls + 1);
     });
     await act(async () => {
       store.dispatch(toggleUseOverrides());

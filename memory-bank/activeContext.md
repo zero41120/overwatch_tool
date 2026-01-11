@@ -19,3 +19,5 @@
 - Replaced optimizer DFS pruning with a Pareto-frontier DP search that respects equipped/avoid items.
 - Metric optional input controls now render from metric definitions, with input state wired through the optimizer and Juno mediblaster inputs for reload downtime tuning.
 - Derived stat maps now sum raw item stats once and feed metric evaluations.
+- Optimizer search now accepts selected metric outputs plus generic extra-field profile inputs, keeping DP free of weapon-specific logic.
+- Optimizer build outputs now include per-metric values so scores and breakdowns can be recomputed without rerunning search.

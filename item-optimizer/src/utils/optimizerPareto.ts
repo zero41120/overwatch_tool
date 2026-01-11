@@ -10,7 +10,9 @@ export function buildOptimizerProfiles(items: Item[], opts: OptimizerParetoOptio
 
   const attrIndex = new Map<string, number>();
   opts.attrKeys.forEach((key, idx) => attrIndex.set(key, idx));
-  const metas = items.map((item) => buildItemMeta(item, opts.attrKeys, attrIndex));
+  const extraFields = opts.extraFields ?? [];
+  const metas = items.map((item) => buildItemMeta(item, opts.attrKeys, attrIndex, extraFields));
+  const extraFieldCount = extraFields.length;
 
   const dp: OptimizerProfile[][][] = Array.from({ length: opts.maxItems + 1 }, () =>
     Array.from({ length: scaledBudget + 1 }, () => []),
@@ -20,9 +22,7 @@ export function buildOptimizerProfiles(items: Item[], opts: OptimizerParetoOptio
     {
       cost: 0,
       attrs: Array(opts.attrKeys.length).fill(0) as number[],
-      torpedoBaseAdd: 0,
-      hasSkyline: false,
-      hasCodebreaker: false,
+      extras: Array(extraFieldCount).fill(0) as number[],
       indices: [],
     },
   ];
@@ -39,14 +39,18 @@ export function buildOptimizerProfiles(items: Item[], opts: OptimizerParetoOptio
         const target = dp[k][w];
         for (const profile of sourceProfiles) {
           const attrs = profile.attrs.map((value, i) => value + meta.attrs[i]);
+          const extras = profile.extras.map((value, i) => {
+            const field = extraFields[i];
+            if (!field) return value;
+            if (field.combine === "max") return Math.max(value, meta.extras[i] ?? 0);
+            return value + (meta.extras[i] ?? 0);
+          });
           insertProfile(
             target,
             {
               cost: profile.cost + meta.cost,
               attrs,
-              torpedoBaseAdd: profile.torpedoBaseAdd + meta.torpedoBaseAdd,
-              hasSkyline: profile.hasSkyline || meta.hasSkyline,
-              hasCodebreaker: profile.hasCodebreaker || meta.hasCodebreaker,
+              extras,
               indices: [...profile.indices, index],
             },
             opts,

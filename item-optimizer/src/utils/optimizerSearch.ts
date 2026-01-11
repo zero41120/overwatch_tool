@@ -1,16 +1,14 @@
 import type { Item, MinAttrGroup, ResultCombo, WeightRow } from "../types";
 import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
-import { JUNO_MEDIBLASTER_METRIC_ID } from "../metrics/JunoMediblasterMetric";
-import { getSelectedMetricOutputKeys, hasMetricOutputForMetric } from "../metrics/metricRegistry";
-import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
-import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
-import { aggregate, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils";
+import { aggregate, meetsMinGroups, metricValuesFromMap, scoreFromMap } from "./utils";
 import { buildOptimizerProfiles } from "./optimizerPareto";
+import type { OptimizerExtraField } from "./optimizerParetoTypes";
 
 export type OptimizerSearchOptions = {
   items: Item[];
   equippedItems: Item[];
   weights: WeightRow[];
+  selectedMetricOutputs: Set<string>;
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   hero?: string;
@@ -19,6 +17,8 @@ export type OptimizerSearchOptions = {
   maxItems: number;
   maxCash: number;
   preferHighCost: boolean;
+  attrKeys: string[];
+  extraFields?: OptimizerExtraField[];
   costStep?: number;
   maxFrontier?: number;
 };
@@ -31,16 +31,14 @@ function compareCombos(a: ResultCombo, b: ResultCombo, preferHighCost: boolean) 
 }
 
 function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
-  const selectedMetricOutputs = getSelectedMetricOutputKeys(options.weights);
-  const considersMediblasterMetric =
-    options.hero === "Juno" &&
-    hasMetricOutputForMetric(JUNO_MEDIBLASTER_METRIC_ID, selectedMetricOutputs);
+  const selectedMetricOutputs = options.selectedMetricOutputs;
   if (options.maxItems === 0) {
     const map = aggregate(options.equippedItems, options.hero, {
       enemyHasArmor: options.enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: options.metricInputValues,
     });
+    const metricValues = metricValuesFromMap(map);
     if (
       options.minValueEnabled &&
       !meetsMinGroups(options.equippedItems, options.minAttrGroups, options.hero, {
@@ -55,32 +53,19 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
         items: [],
         cost: 0,
         score: scoreFromMap(map, options.weights),
+        metricValues,
         breakdown: [],
       },
     ];
   }
-
-  const relevantAttrs = collectRelevantAttributes(
-    options.weights,
-    options.minValueEnabled,
-    options.minAttrGroups,
-  );
-  const considerMediblaster =
-    (relevantAttrs.has(MEDIBLASTER_OUTPUT_ATTR) || considersMediblasterMetric) &&
-    Boolean(options.enemyHasArmor);
-  const considerTorpedo = relevantAttrs.has(TORPEDO_DAMAGE_ATTR);
-  const attrKeys = Array.from(relevantAttrs).filter(
-    (attr) => attr !== MEDIBLASTER_OUTPUT_ATTR && attr !== TORPEDO_DAMAGE_ATTR,
-  );
 
   const profiles = buildOptimizerProfiles(options.items, {
     maxItems: options.maxItems,
     maxCash: options.maxCash,
     costStep: options.costStep ?? 250,
     maxFrontier: options.maxFrontier,
-    attrKeys,
-    considerTorpedo,
-    considerMediblaster,
+    attrKeys: options.attrKeys,
+    extraFields: options.extraFields,
   });
 
   const combos: ScoredCombo[] = [];
@@ -106,6 +91,7 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
       items: selected,
       cost: profile.cost,
       score: scoreFromMap(map, options.weights),
+      metricValues: metricValuesFromMap(map),
       breakdown: [],
     });
   });

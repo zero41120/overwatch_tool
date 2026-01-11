@@ -115,6 +115,11 @@ describe("findBestBuild", () => {
     const resultIds = result?.items.map((item) => item.id).sort();
     const expectedIds = expectedBest.map((item) => item.id).sort();
     expect(resultIds).toEqual(expectedIds);
+    expect(result).not.toBeNull();
+    if (result) {
+      const map = aggregate([...expectedBest, ...equippedItems], hero);
+      expect(result.metricValues.WP).toBe(map.get("WP") ?? 0);
+    }
   });
 
   test("uses selected metric outputs and weights when scoring builds", () => {
@@ -201,5 +206,11 @@ describe("findBestBuild", () => {
     const resultIds = result?.items.map((item) => item.id).sort();
     const expectedIds = expectedBest.map((item) => item.id).sort();
     expect(resultIds).toEqual(expectedIds);
+    expect(result).not.toBeNull();
+    if (result) {
+      const map = aggregate(expectedBest, hero, { metricOutputKeys: selectedMetricOutputs });
+      expect(result.metricValues[burstKey]).toBe(map.get(burstKey) ?? 0);
+      expect(result.metricValues[sustainKey]).toBe(map.get(sustainKey) ?? 0);
+    }
   });
 });

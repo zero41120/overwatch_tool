@@ -39,10 +39,13 @@ export interface MinAttrGroup {
   value: number;
 }
 
+export type MetricValues = Record<string, number>;
+
 export interface ResultCombo {
   items: Item[];
   cost: number;
   score: number;
+  metricValues: MetricValues;
   breakdown?: { type: string; sum: number; contrib: number }[];
 }
 
