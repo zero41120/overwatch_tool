@@ -6,12 +6,24 @@ import { vi } from "vitest";
 import store from "../../store";
 import type { Item } from "../../types";
 import { ALL_HEROES, NO_HERO } from "../../types";
+import type { MetricOutputDescriptor } from "../../metrics/metricRegistry";
+import { metricOutputKey } from "../../metrics/metricRegistry";
 import InputSection from "../input_view/InputSection";
 
 const heroes = ["Tracer", "Mercy"];
 const heroIcons: Record<string, string> = {};
 const attrTypes = ["AP", "WP"];
-const attrCounts = { AP: 2, WP: 1 };
+const metricOutputs: MetricOutputDescriptor[] = [
+  {
+    metricId: "demo",
+    metricLabel: "Demo",
+    outputKey: metricOutputKey("demo", "score"),
+    displayLabel: "Demo: Score",
+    id: "score",
+    label: "Score",
+    unit: "raw",
+  },
+];
 const items: Item[] = [];
 
 describe("InputSection", () => {
@@ -24,7 +36,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
-          attrCounts={attrCounts}
+          metricOutputs={metricOutputs}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={validate}
@@ -45,7 +57,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
-          attrCounts={attrCounts}
+          metricOutputs={metricOutputs}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={validate}
@@ -64,7 +76,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
-          attrCounts={attrCounts}
+          metricOutputs={metricOutputs}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={() => true}
@@ -83,7 +95,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
-          attrCounts={attrCounts}
+          metricOutputs={metricOutputs}
           filteredItems={items}
           onSubmit={onSubmit}
           validate={() => true}
@@ -101,7 +113,7 @@ describe("InputSection", () => {
           heroes={heroes}
           heroIcons={heroIcons}
           attrTypes={attrTypes}
-          attrCounts={attrCounts}
+          metricOutputs={metricOutputs}
           filteredItems={items}
           onSubmit={() => {}}
           validate={() => true}

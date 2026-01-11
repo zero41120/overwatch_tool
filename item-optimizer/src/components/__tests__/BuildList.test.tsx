@@ -9,8 +9,8 @@ import type { Item, ResultCombo } from "../../types";
 
 const eqItems: Item[] = [];
 const builds: ResultCombo[] = [
-  { cost: 10, score: 0, items: [], breakdown: [] },
-  { cost: 20, score: 0, items: [], breakdown: [] },
+  { cost: 10, score: 0, items: [], metricValues: {}, breakdown: [] },
+  { cost: 20, score: 0, items: [], metricValues: {}, breakdown: [] },
 ];
 
 describe("BuildList", () => {

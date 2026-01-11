@@ -20,6 +20,9 @@ import reducer, {
   toggleUseOverrides,
   bumpOverrideVersion,
   importState,
+  setMetricInputValue,
+  clearMetricInputValue,
+  clearMetricInputsForMetric,
 } from "../inputSlice";
 
 const initialState = reducer(undefined, { type: "init" } as any);
@@ -114,6 +117,23 @@ test("toggleUseOverrides flips boolean", () => {
 test("bumpOverrideVersion increments counter", () => {
   const state = reducer(initialState, bumpOverrideVersion());
   expect(state.overrideVersion).toBe(1);
+});
+
+test("metric input actions set and clear values", () => {
+  let state = reducer(
+    initialState,
+    setMetricInputValue({ metricId: "demo", inputId: "enabled", value: true }),
+  );
+  expect(state.metricInputs.demo.enabled).toBe(true);
+  state = reducer(
+    state,
+    setMetricInputValue({ metricId: "demo", inputId: "multiplier", value: 2 }),
+  );
+  expect(state.metricInputs.demo.multiplier).toBe(2);
+  state = reducer(state, clearMetricInputValue({ metricId: "demo", inputId: "enabled" }));
+  expect(state.metricInputs.demo.enabled).toBeUndefined();
+  state = reducer(state, clearMetricInputsForMetric("demo"));
+  expect(state.metricInputs.demo).toBeUndefined();
 });
 
 test("importState replaces entire state", () => {

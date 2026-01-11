@@ -1,9 +1,15 @@
+import type { Item } from "../types";
+
+export type OptimizerExtraField = {
+  id: string;
+  combine: "sum" | "max";
+  itemValue: (item: Item) => number;
+};
+
 export type OptimizerProfile = {
   cost: number;
   attrs: number[];
-  torpedoBaseAdd: number;
-  hasSkyline: boolean;
-  hasCodebreaker: boolean;
+  extras: number[];
   indices: number[];
 };
 
@@ -13,6 +19,5 @@ export type OptimizerParetoOptions = {
   costStep: number;
   maxFrontier?: number;
   attrKeys: string[];
-  considerTorpedo: boolean;
-  considerMediblaster: boolean;
+  extraFields?: OptimizerExtraField[];
 };

@@ -12,11 +12,15 @@
     "install-all": "npm install -ws",
     "start": "npm run build -w wiki-data-reader && npm run start -w item-optimizer",
     "refresh-snapshots": "npm run refresh-snapshots -w wiki-data-reader",
-    "update-items": "npm run update-items -w wiki-data-reader"
+    "update-items": "npm run update-items -w wiki-data-reader",
+    "codex:kanban": "ts-node scripts/codexKanban.ts",
+    "test:codex": "node --test --loader tsx scripts/__tests__/codexKanban.test.ts"
   },
   "devDependencies": {
+    "@openai/codex-sdk": "^0.80.0",
     "@typescript/native-preview": "^7.0.0-dev.20251212.1",
     "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
     "tsx": "^4.21.0"
   }
 }

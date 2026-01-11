@@ -127,7 +127,8 @@ describe("JunoTorpedoCalculator layout", () => {
       fireEvent.click(computeButton);
     });
 
-    expect(await findByText("DPS")).toBeInTheDocument();
+    const dpsCells = await findAllByText(/DPS \d+/);
+    expect(dpsCells.length).toBeGreaterThan(0);
     const situationalBadges = await findAllByText("situational");
     expect(situationalBadges.length).toBe(3);
   });
