@@ -10,6 +10,8 @@ import type { MetricContext } from "./metricContext";
 import type { WeightRow } from "../types";
 
 export const METRIC_OUTPUT_PREFIX = "metric:";
+export const RAW_METRIC_ID = "raw";
+export const RAW_METRIC_LABEL = "Raw Stats";
 
 export type MetricClass = {
   new (context: MetricContext): ComputedMetric;
@@ -85,6 +87,24 @@ export function buildMetricOutputDescriptors(
 
 export function getMetricOutputsForHero(hero: string) {
   return buildMetricOutputDescriptors(METRICS, hero);
+}
+
+export function buildRawMetricOutputDescriptors(
+  attrTypes: string[],
+  labeler: (value: string) => string = (value) => value,
+): MetricOutputDescriptor[] {
+  return attrTypes.map((attr) => {
+    const label = labeler(attr);
+    return {
+      id: attr,
+      label,
+      unit: "raw",
+      metricId: RAW_METRIC_ID,
+      metricLabel: RAW_METRIC_LABEL,
+      outputKey: attr,
+      displayLabel: label,
+    };
+  });
 }
 
 export function getMetricOutputLabel(value: string) {

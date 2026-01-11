@@ -25,3 +25,4 @@
 - Optimizer now returns all equal-score builds so the UI can choose cheapest or premium among alternatives.
 - Weights section now selects from metric outputs only, defaulting the first row to the available outputs per hero.
 - Score breakdown panel now groups rows by metric unit type with value, weight, and contribution details.
+- Raw attribute types now surface as metric outputs for backward-compatible weighting alongside computed metrics.

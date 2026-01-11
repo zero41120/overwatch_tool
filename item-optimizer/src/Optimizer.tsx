@@ -10,8 +10,12 @@ import { setError, setToBuy, setWeightType } from "./slices/inputSlice";
 import type { HeroMetadata, HeroPower, Item, ItemOverride, ItemRarity, ItemTab, ResultCombo, RootData } from "./types";
 import { ALL_HEROES, NO_HERO } from "./types";
 import type { MetricOutputDescriptor } from "./metrics/metricRegistry";
-import { getMetricOutputsForHero, getSelectedMetricOutputKeys } from "./metrics/metricRegistry";
-import { collectAttributeTypesForHero } from "./utils/attributeUtils";
+import {
+  buildRawMetricOutputDescriptors,
+  getMetricOutputsForHero,
+  getSelectedMetricOutputKeys,
+} from "./metrics/metricRegistry";
+import { attributeValueToLabel, collectAttributeTypesForHero } from "./utils/attributeUtils";
 import { itemAffectsTorpedoDamage, TORPEDO_DAMAGE_ATTR } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
@@ -113,7 +117,9 @@ export default function Optimizer() {
       if (list.length) heroesSet.add(heroName);
     });
     const sortedTypes = collectAttributeTypesForHero(items, hero);
-    const nextMetricOutputs = getMetricOutputsForHero(hero);
+    const computedMetricOutputs = getMetricOutputsForHero(hero);
+    const rawMetricOutputs = buildRawMetricOutputDescriptors(sortedTypes, attributeValueToLabel);
+    const nextMetricOutputs = [...computedMetricOutputs, ...rawMetricOutputs];
     const heroList = [...Array.from(heroesSet).sort()];
     const filteredIcons: Record<string, string> = {};
     const filteredMetadata: HeroMetadata[] = [];
