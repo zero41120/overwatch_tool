@@ -25,7 +25,6 @@ type MediblasterOutputFromMapArgs = {
   items?: MediblasterOutputItem[];
   enemyHasArmor?: boolean;
   withReload?: boolean;
-  ammoScalingMultiplier?: number;
 };
 
 const CODEBREAKER_NAME = "CODEBREAKER";
@@ -87,13 +86,12 @@ export function computeMediblasterOutputFromMap({
   items = [],
   enemyHasArmor = false,
   withReload = true,
-  ammoScalingMultiplier = 1,
 }: MediblasterOutputFromMapArgs): number {
   const wp = 100 + (map.get("WP") ?? 0);
   const wm = 1 + (map.get("Weapon Multiplier") ?? 0) / 100;
   const as = 100 + (map.get("AS") ?? 0);
   const maxAmmoBonus = (map.get("MA") ?? 0) / 100;
-  const scaledMaxAmmo = 1 + maxAmmoBonus * ammoScalingMultiplier;
+  const scaledMaxAmmo = 1 + maxAmmoBonus;
   const clipSize = Math.max(1, Math.round(180 * scaledMaxAmmo));
   return Number(
     mediblasterOutput({
@@ -126,16 +124,6 @@ export class JunoMediblasterMetric extends ComputedMetric<
       type: "bool",
       defaultValue: false,
       description: "Apply armor reduction (Codebreaker mitigates the reduction).",
-    },
-    {
-      id: "ammoScalingMultiplier",
-      label: "Ammo Scaling Multiplier",
-      type: "number",
-      defaultValue: 1,
-      min: 0,
-      max: 2,
-      step: 0.1,
-      description: "Scale max ammo bonuses from MA (0 disables ammo scaling).",
     },
     {
       id: "includeReloadDowntime",
@@ -194,20 +182,17 @@ export class JunoMediblasterMetric extends ComputedMetric<
   ): MetricOutputValues<typeof JunoMediblasterMetric.outputs> {
     const items = this.context.items.map((item) => ({ name: item.name }));
     const enemyHasArmor = Boolean(inputs.enemyHasArmor);
-    const ammoScalingMultiplier = Number(inputs.ammoScalingMultiplier ?? 1);
     const burst = computeMediblasterOutputFromMap({
       map: this.context.map,
       items,
       enemyHasArmor,
       withReload: false,
-      ammoScalingMultiplier,
     });
     const baseSustain = computeMediblasterOutputFromMap({
       map: this.context.map,
       items,
       enemyHasArmor,
       withReload: true,
-      ammoScalingMultiplier,
     });
     const includeReload = Boolean(inputs.includeReloadDowntime);
     const multiplier = Number(inputs.reloadDowntimeMultiplier ?? 1);

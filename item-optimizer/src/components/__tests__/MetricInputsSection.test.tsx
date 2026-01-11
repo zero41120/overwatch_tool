@@ -30,7 +30,6 @@ describe("MetricInputsSection", () => {
     const { store } = renderWithStore();
 
     expect(screen.queryByLabelText("Enemy Has Armor")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Ammo Scaling Multiplier")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Include Reload Downtime")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Reload Downtime Multiplier")).not.toBeInTheDocument();
 
@@ -44,16 +43,11 @@ describe("MetricInputsSection", () => {
     });
 
     const armorToggle = screen.getByLabelText("Enemy Has Armor");
-    const ammoMultiplier = screen.getByLabelText("Ammo Scaling Multiplier");
     const reloadToggle = screen.getByLabelText("Include Reload Downtime");
     const reloadMultiplier = screen.getByLabelText("Reload Downtime Multiplier");
 
     expect(armorToggle).toBeInTheDocument();
     expect(armorToggle).not.toBeChecked();
-    expect(ammoMultiplier).toBeInTheDocument();
-    expect(ammoMultiplier).toHaveAttribute("min", "0");
-    expect(ammoMultiplier).toHaveAttribute("max", "2");
-    expect(ammoMultiplier).toHaveValue(1);
     expect(reloadToggle).toBeInTheDocument();
     expect(reloadToggle).toBeChecked();
     expect(reloadMultiplier).toBeInTheDocument();
