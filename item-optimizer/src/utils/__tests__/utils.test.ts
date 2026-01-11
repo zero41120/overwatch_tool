@@ -2,7 +2,6 @@ import type { Item, MinAttrGroup, WeightRow } from "../../types";
 import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
 import { metricOutputKey } from "../../metrics/metricRegistry";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
-import { MEDIBLASTER_OUTPUT_ATTR } from "../junoMediblaster";
 import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
 import { aggregate, collectRelevantAttributes, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 
@@ -32,7 +31,7 @@ describe("optimizer utils", () => {
     expect(map.get("WP")).toBe(2);
   });
 
-  test("aggregate includes Juno mediblaster output from WP/AS/Weapon Multiplier/MA", () => {
+  test("aggregate includes Juno mediblaster sustain output from WP/AS/Weapon Multiplier/MA", () => {
     const items: Item[] = [
       {
         name: "A",
@@ -55,7 +54,8 @@ describe("optimizer utils", () => {
         rarity: "common",
       },
     ];
-    const map = aggregate(items, "Juno");
+    const sustainKey = metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "sustain");
+    const map = aggregate(items, "Juno", { metricOutputKeys: new Set([sustainKey]) });
     const TPS = 60;
     const RELOAD_FRAMES = 1.5 * TPS;
     const COCKING_FRAMES = 0.3 * TPS;
@@ -80,7 +80,7 @@ describe("optimizer utils", () => {
     }
     const totalDamage = clipSize * 7.5 * wm * weaponPowerPercent;
     const expected = Math.round(totalDamage * (TPS / cycleFrames));
-    expect(map.get(MEDIBLASTER_OUTPUT_ATTR)).toBe(expected);
+    expect(map.get(sustainKey)).toBe(expected);
   });
 
   test("aggregate includes Juno torpedo damage from AP and torpedo base add", () => {
@@ -105,15 +105,6 @@ describe("optimizer utils", () => {
     const raw = baseDamage * (1 + 10 / 100);
     const expected = Math.round(raw * 1.2);
     expect(map.get(TORPEDO_DAMAGE_ATTR)).toBe(expected);
-  });
-
-  test("collectRelevantAttributes expands mediblaster output to WP/AS/Weapon Multiplier", () => {
-    const attrs = collectRelevantAttributes([{ type: MEDIBLASTER_OUTPUT_ATTR, weight: 1 }], false, []);
-    expect(attrs.has(MEDIBLASTER_OUTPUT_ATTR)).toBe(true);
-    expect(attrs.has("WP")).toBe(true);
-    expect(attrs.has("AS")).toBe(true);
-    expect(attrs.has("Weapon Multiplier")).toBe(true);
-    expect(attrs.has("MA")).toBe(true);
   });
 
   test("collectRelevantAttributes expands mediblaster metric outputs to inputs", () => {

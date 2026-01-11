@@ -8,9 +8,9 @@
 - Root `README.md` documents the workspace layout, snapshot workflow, and testing commands so new contributors follow the same process.
 - Snapshot workflow now caches hero/general raws plus per-image wiki metadata; `ItemRecord` includes remote `iconUrl` so the optimizer uses fandom-hosted images instead of local sprites.
 - Attribute dropdowns now derive types with `collectAttributeTypesForHero`, including hero-specific editor overrides even if only one item carries the attribute while filtering to the selected hero, and weight dropdown labels show per-attribute item counts; Recommendation panel regained Ally/Enemy headings plus a score test id, and wiki-data-reader declarations were rebuilt for type-checking.
-- Juno builds now expose derived Mediblaster Output and Torpedo Damage attributes (Torpedo uses base + AP scaling + Skyline bonus) for weighting and minimum-value checks.
+- Juno builds now expose Torpedo Damage as a derived attribute (base + AP scaling + Skyline bonus) while Mediblaster outputs are handled via computed metrics.
 - Juno breakpoint UI now includes a mediblaster tab with situational pick highlighting and DPS breakpoints alongside torpedoes.
-- Mediblaster output now optionally accounts for armor reduction (with Codebreaker armor penetration) via a new enemy-armor toggle in the weights section.
+- Mediblaster metric inputs now cover armor reduction and ammo scaling, with optimizer extras pulled from metric metadata instead of weight toggles.
 - Added a ComputedMetric base class for declarative metric inputs/outputs metadata in the optimizer UI refactor.
 - Added a metric registry with multi-output support plus a Juno mediblaster metric that exposes burst/sustain outputs for weighting.
 - Added a root-level Codex SDK script (`scripts/codexKanban.ts`) to feed design.md + the next kanban task into Codex for one-at-a-time execution.

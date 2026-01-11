@@ -1,7 +1,6 @@
 import type { Item, MinAttrGroup, WeightRow } from "../types";
-import { JUNO_MEDIBLASTER_METRIC_ID } from "../metrics/JunoMediblasterMetric";
-import { hasMetricOutputForMetric } from "../metrics/metricRegistry";
-import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
+import { collectMetricExtraFields } from "../metrics/metricRegistry";
+import type { MetricInputValuesByMetric } from "../metrics/metricRegistry";
 import { buildTorpedoItem, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import type { OptimizerExtraField } from "./optimizerParetoTypes";
 import { collectRelevantAttributes } from "./utils";
@@ -10,18 +9,16 @@ type OptimizerProfileInputOptions = {
   items: Item[];
   weights: WeightRow[];
   selectedMetricOutputs: Set<string>;
+  metricInputValues?: MetricInputValuesByMetric;
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   hero?: string;
-  enemyHasArmor?: boolean;
 };
 
 export type OptimizerProfileInputs = {
   attrKeys: string[];
   extraFields: OptimizerExtraField[];
 };
-
-const CODEBREAKER_NAME = "CODEBREAKER";
 
 function buildItemAttributeSet(items: Item[]) {
   const set = new Set<string>();
@@ -37,10 +34,10 @@ export function buildOptimizerProfileInputs({
   items,
   weights,
   selectedMetricOutputs,
+  metricInputValues,
   minValueEnabled,
   minAttrGroups,
   hero,
-  enemyHasArmor,
 }: OptimizerProfileInputOptions): OptimizerProfileInputs {
   const relevantAttrs = collectRelevantAttributes(weights, minValueEnabled, minAttrGroups);
   const itemAttrs = buildItemAttributeSet(items);
@@ -62,17 +59,10 @@ export function buildOptimizerProfileInputs({
     });
   }
 
-  const considerMediblaster =
-    isJuno &&
-    Boolean(enemyHasArmor) &&
-    (relevantAttrs.has(MEDIBLASTER_OUTPUT_ATTR) ||
-      hasMetricOutputForMetric(JUNO_MEDIBLASTER_METRIC_ID, selectedMetricOutputs));
-  if (considerMediblaster) {
-    extraFields.push({
-      id: "mediblaster-codebreaker",
-      combine: "max",
-      itemValue: (item) => (item.name.toUpperCase() === CODEBREAKER_NAME ? 1 : 0),
-    });
+  if (selectedMetricOutputs.size > 0) {
+    extraFields.push(
+      ...collectMetricExtraFields(hero ?? "", selectedMetricOutputs, metricInputValues),
+    );
   }
 
   return { attrKeys, extraFields };

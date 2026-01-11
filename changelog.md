@@ -79,6 +79,7 @@
 2026-01-10  add Codex SDK kanban runner script  scripts/codexKanban.ts
 2026-01-10  add ComputedMetric base class with inputs/outputs metadata  item-optimizer/src/metrics/ComputedMetric.ts
 2026-01-10  add multi-output metric support for weights and scoring  item-optimizer/src/metrics item-optimizer/src/utils item-optimizer/src/components/input_view
+2026-01-10  migrate Juno mediblaster metric to computed outputs with armor/ammo inputs  item-optimizer/src/metrics/JunoMediblasterMetric.ts item-optimizer/src/metrics/metricRegistry.ts item-optimizer/src/utils/optimizerProfileInputs.ts
 2026-01-10  warn when metric auto-discovery finds no modules  item-optimizer/src/metrics/metricDiscovery.ts
 2026-01-10  scope metric outputs by hero metadata  item-optimizer/src/metrics
 2026-01-10  add hero-scoped metric registry coverage for non-matching heroes  item-optimizer/src/metrics/__tests__/metricRegistry.test.ts

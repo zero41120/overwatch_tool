@@ -12,7 +12,6 @@ export type OptimizerSearchOptions = {
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   hero?: string;
-  enemyHasArmor?: boolean;
   metricInputValues?: MetricInputValuesByMetric;
   maxItems: number;
   maxCash: number;
@@ -28,7 +27,6 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
   const selectedMetricOutputs = options.selectedMetricOutputs;
   if (options.maxItems === 0) {
     const map = aggregate(options.equippedItems, options.hero, {
-      enemyHasArmor: options.enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: options.metricInputValues,
     });
@@ -36,7 +34,6 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     if (
       options.minValueEnabled &&
       !meetsMinGroups(options.equippedItems, options.minAttrGroups, options.hero, {
-        enemyHasArmor: options.enemyHasArmor,
         metricInputValues: options.metricInputValues,
       })
     ) {
@@ -70,14 +67,12 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     if (
       options.minValueEnabled &&
       !meetsMinGroups(combined, options.minAttrGroups, options.hero, {
-        enemyHasArmor: options.enemyHasArmor,
         metricInputValues: options.metricInputValues,
       })
     ) {
       return;
     }
     const map = aggregate(combined, options.hero, {
-      enemyHasArmor: options.enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: options.metricInputValues,
     });

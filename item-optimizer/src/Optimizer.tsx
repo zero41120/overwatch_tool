@@ -53,7 +53,6 @@ export default function Optimizer() {
     minValueEnabled,
     minAttrGroups,
     useOverrides,
-    enemyHasArmor,
     metricInputs,
   } = state;
   const selectedMetricOutputs = useMemo(() => getSelectedMetricOutputKeys(weights), [weights]);
@@ -157,7 +156,6 @@ export default function Optimizer() {
           weights,
           minValueEnabled,
           minAttrGroups,
-          enemyHasArmor,
           metricOutputKeys: selectedMetricOutputs,
           metricInputValues: metricInputs,
         });
@@ -172,7 +170,6 @@ export default function Optimizer() {
         weights,
         minValueEnabled,
         minAttrGroups,
-        enemyHasArmor,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
@@ -183,7 +180,7 @@ export default function Optimizer() {
         breakdown,
       };
     });
-  }, [weights, minValueEnabled, minAttrGroups, hero, enemyHasArmor, metricInputs, selectedMetricOutputs]);
+  }, [weights, minValueEnabled, minAttrGroups, hero, metricInputs, selectedMetricOutputs]);
 
   useEffect(() => {
     memoizedEquippedItems.clear();
@@ -243,7 +240,6 @@ export default function Optimizer() {
     return (
       !minValueEnabled ||
       meetsMinGroups([...items, ...equippedItems()], minAttrGroups, hero, {
-        enemyHasArmor,
         metricInputValues: metricInputs,
       })
     );
@@ -297,7 +293,6 @@ export default function Optimizer() {
         weights,
         minValueEnabled,
         minAttrGroups,
-        enemyHasArmor,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
@@ -316,10 +311,10 @@ export default function Optimizer() {
       items: candidate,
       weights,
       selectedMetricOutputs,
+      metricInputValues: metricInputs,
       minValueEnabled,
       minAttrGroups,
       hero,
-      enemyHasArmor,
     });
 
     function withBreakdown(combo: ResultCombo): ResultCombo {
@@ -329,7 +324,6 @@ export default function Optimizer() {
         weights,
         minValueEnabled,
         minAttrGroups,
-        enemyHasArmor,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
@@ -356,7 +350,6 @@ export default function Optimizer() {
         minValueEnabled,
         minAttrGroups,
         hero,
-        enemyHasArmor,
         metricInputValues: metricInputs,
         maxItems: needed,
         maxCash: Math.max(...budgets),
@@ -383,7 +376,6 @@ export default function Optimizer() {
       minValueEnabled,
       minAttrGroups,
       hero,
-      enemyHasArmor,
       metricInputValues: metricInputs,
       maxItems: needed,
       maxCash: cash - eqCost,
@@ -414,7 +406,6 @@ export default function Optimizer() {
       weights,
       minValueEnabled,
       minAttrGroups,
-      enemyHasArmor,
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: metricInputs,
     });

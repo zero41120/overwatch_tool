@@ -55,7 +55,9 @@ test("buildOptimizerProfileInputs adds mediblaster extras for metric outputs wit
     minValueEnabled: false,
     minAttrGroups: [],
     hero: "Juno",
-    enemyHasArmor: true,
+    metricInputValues: {
+      [JUNO_MEDIBLASTER_METRIC_ID]: { enemyHasArmor: true },
+    },
   });
 
   const ids = extraFields.map((field) => field.id);

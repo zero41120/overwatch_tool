@@ -4,5 +4,4 @@ export type MetricContext = {
   items: Item[];
   map: Map<string, number>;
   hero: string;
-  enemyHasArmor: boolean;
 };

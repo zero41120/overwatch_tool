@@ -1,49 +1,31 @@
-import type {
-  ComputedMetric,
-  MetricInputDefinition,
-  MetricInputValue,
-  MetricInputValues,
-  MetricOutputDefinition,
-} from "./ComputedMetric";
-import { JunoMediblasterMetric } from "./JunoMediblasterMetric";
 import type { MetricContext } from "./metricContext";
+import { loadMetricClasses } from "./metricDiscovery";
+import type {
+  MetricClass,
+  MetricInputGroup,
+  MetricInputValuesByMetric,
+  MetricOutputDescriptor,
+} from "./metricTypes";
 import type { WeightRow } from "../types";
+import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
 
 export const METRIC_OUTPUT_PREFIX = "metric:";
 export const RAW_METRIC_ID = "raw";
 export const RAW_METRIC_LABEL = "Raw Stats";
 
-export type MetricClass = {
-  new (context: MetricContext): ComputedMetric;
-  id: string;
-  label: string;
-  description?: string;
-  hero?: string | readonly string[];
-  inputs: readonly MetricInputDefinition[];
-  outputs: readonly MetricOutputDefinition[];
-  inputAttributes?: readonly string[];
-  resolveInputs: (values?: MetricInputValues) => Record<string, MetricInputValue>;
-};
+export type {
+  MetricClass,
+  MetricInputGroup,
+  MetricInputValuesByMetric,
+  MetricOutputDescriptor,
+} from "./metricTypes";
 
-export type MetricOutputDescriptor = MetricOutputDefinition & {
-  metricId: string;
-  metricLabel: string;
-  metricDescription?: string;
-  outputKey: string;
-  displayLabel: string;
-};
-
-export type MetricInputValuesByMetric = Record<string, MetricInputValues>;
-
-export type MetricInputGroup = {
-  metricId: string;
-  metricLabel: string;
-  metricDescription?: string;
-  inputs: readonly MetricInputDefinition[];
-  resolvedInputs: Record<string, MetricInputValue>;
-};
-
-const METRICS: MetricClass[] = [JunoMediblasterMetric];
+const METRICS = loadMetricClasses(
+  import.meta.glob("./**/*Metric.ts", { eager: true }) as Record<
+    string,
+    Record<string, unknown>
+  >,
+);
 
 function metricAppliesToHero(metric: MetricClass, hero: string) {
   if (!metric.hero) return true;
@@ -181,4 +163,24 @@ export function computeMetricOutputs(
     });
   });
   return outputs;
+}
+
+export function collectMetricExtraFields(
+  hero: string,
+  selectedOutputs: Set<string>,
+  inputValues?: MetricInputValuesByMetric,
+): OptimizerExtraField[] {
+  const extras: OptimizerExtraField[] = [];
+  METRICS.forEach((metric) => {
+    if (!metricAppliesToHero(metric, hero)) return;
+    const outputKeys = metric.outputs.map((output) => metricOutputKey(metric.id, output.id));
+    if (!outputKeys.some((key) => selectedOutputs.has(key))) return;
+    if (typeof metric.getOptimizerExtraFields !== "function") return;
+    const resolvedInputs = metric.resolveInputs(inputValues?.[metric.id] ?? {});
+    const metricExtras = metric.getOptimizerExtraFields(resolvedInputs);
+    if (metricExtras?.length) {
+      metricExtras.forEach((extra) => extras.push(extra));
+    }
+  });
+  return extras;
 }

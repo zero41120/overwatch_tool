@@ -18,7 +18,6 @@ export interface InputState {
   minAttrGroups: MinAttrGroup[];
   useOverrides: boolean;
   overrideVersion: number;
-  enemyHasArmor: boolean;
   metricInputs: Record<string, Record<string, MetricInputValue>>;
 }
 
@@ -37,7 +36,6 @@ const initialState: InputState = {
   minAttrGroups: [],
   useOverrides: true,
   overrideVersion: 0,
-  enemyHasArmor: false,
   metricInputs: {},
 };
 
@@ -100,9 +98,6 @@ const inputSlice = createSlice({
     },
     toggleUseOverrides(state) {
       state.useOverrides = !state.useOverrides;
-    },
-    toggleEnemyHasArmor(state) {
-      state.enemyHasArmor = !state.enemyHasArmor;
     },
     setMetricInputValue(
       state,
@@ -180,11 +175,11 @@ const inputSlice = createSlice({
         normalizedList.push(next.heroPower.name);
       }
       next.heroPowers = normalizedList.slice(0, 4);
-      if (typeof next.enemyHasArmor !== "boolean") {
-        next.enemyHasArmor = false;
-      }
       if (!next.metricInputs || typeof next.metricInputs !== "object") {
         next.metricInputs = {};
+      }
+      if ("enemyHasArmor" in next) {
+        delete (next as { enemyHasArmor?: unknown }).enemyHasArmor;
       }
       delete next.heroPower;
       return next;
@@ -218,7 +213,6 @@ export const {
   addEquippedSlot,
   removeEquippedSlot,
   toggleUseOverrides,
-  toggleEnemyHasArmor,
   setMetricInputValue,
   clearMetricInputValue,
   clearMetricInputsForMetric,

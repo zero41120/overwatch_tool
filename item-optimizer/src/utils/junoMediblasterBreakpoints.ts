@@ -1,4 +1,4 @@
-import { computeMediblasterOutputFromMap } from "./junoMediblaster";
+import { computeMediblasterOutputFromMap } from "../metrics/JunoMediblasterMetric";
 import type { MediblasterItem } from "./junoMediblasterItems";
 import { buildParetoProfiles } from "./junoMediblasterPareto";
 

@@ -7,12 +7,10 @@ import {
   isMetricOutputKey,
 } from "../metrics/metricRegistry";
 import type { MetricContext } from "../metrics/metricContext";
-import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import { buildDerivedStatMap } from "./derivedStatMap";
 
 type AggregateOptions = {
-  enemyHasArmor?: boolean;
   metricOutputKeys?: Set<string>;
   metricInputValues?: MetricInputValuesByMetric;
 };
@@ -21,14 +19,6 @@ export function aggregate(items: Item[], hero?: string, opts: AggregateOptions =
   const derivedMap = buildDerivedStatMap(items);
   const map = new Map(derivedMap);
   if (hero === "Juno") {
-    map.set(
-      MEDIBLASTER_OUTPUT_ATTR,
-      computeMediblasterOutputFromMap({
-        map: derivedMap,
-        items: items.map((item) => ({ name: item.name })),
-        enemyHasArmor: opts.enemyHasArmor,
-      }),
-    );
     map.set(TORPEDO_DAMAGE_ATTR, computeJunoTorpedoDamage(items));
   }
   if (opts.metricOutputKeys && opts.metricOutputKeys.size > 0) {
@@ -36,7 +26,6 @@ export function aggregate(items: Item[], hero?: string, opts: AggregateOptions =
       items,
       map: derivedMap,
       hero: hero ?? "",
-      enemyHasArmor: Boolean(opts.enemyHasArmor),
     };
     const outputs = computeMetricOutputs(context, opts.metricOutputKeys, opts.metricInputValues);
     outputs.forEach((value, key) => map.set(key, value));
@@ -102,7 +91,6 @@ export function collectRelevantAttributes(
     });
   }
   set.delete("");
-  includeMediblasterInputs(set);
   includeTorpedoInputs(set);
   return set;
 }

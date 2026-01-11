@@ -4,13 +4,9 @@ import {
   removeWeightRow,
   setWeightType,
   setWeightValue,
-  toggleEnemyHasArmor,
 } from "../../slices/inputSlice";
 import { attributeValueToLabel } from "../../utils/attributeUtils";
-import { MEDIBLASTER_OUTPUT_ATTR } from "../../utils/junoMediblaster";
-import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
 import type { MetricOutputDescriptor } from "../../metrics/metricRegistry";
-import { hasMetricOutputForMetric } from "../../metrics/metricRegistry";
 import NumberInput from "../shared/NumberInput";
 import SearchableDropdown from "../shared/SearchableDropdown";
 import SimpleButton from "../shared/SimpleButton";
@@ -24,15 +20,7 @@ export default function WeightsSection({
   metricOutputs = [],
 }: Props) {
   const weights = useAppSelector((state) => state.input.present.weights);
-  const hero = useAppSelector((state) => state.input.present.hero);
-  const enemyHasArmor = useAppSelector((state) => state.input.present.enemyHasArmor);
   const dispatch = useAppDispatch();
-  const hasMediblasterWeight =
-    weights.some((row) => row.type === MEDIBLASTER_OUTPUT_ATTR) ||
-    hasMetricOutputForMetric(
-      JUNO_MEDIBLASTER_METRIC_ID,
-      weights.map((row) => row.type),
-    );
   const outputLabels = new Map(
     metricOutputs.map((output) => [output.outputKey, output.displayLabel]),
   );
@@ -48,17 +36,6 @@ export default function WeightsSection({
       <label className="block text-sm font-medium dark:text-gray-300">
         Metric Weights
       </label>
-      {hero === "Juno" && hasMediblasterWeight && (
-        <label className="mt-2 flex items-center gap-2 text-sm dark:text-gray-300 select-none">
-          <input
-            type="checkbox"
-            checked={enemyHasArmor}
-            onChange={() => dispatch(toggleEnemyHasArmor())}
-            className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
-          />
-          Enemy has armor (Mediblaster output)
-        </label>
-      )}
       <div className="space-y-4 mt-1 mb-4">
         {weights.map((w, idx) => {
           const selectedTypes = weights

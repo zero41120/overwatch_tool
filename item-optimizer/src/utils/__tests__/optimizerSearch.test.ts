@@ -73,7 +73,8 @@ describe("findBestBuilds", () => {
     const avoid = new Set(["c"]);
     const candidates = items.filter((item) => !avoid.has(item.id ?? ""));
 
-    const weights: WeightRow[] = [{ type: "Mediblaster Output", weight: 1 }];
+    const sustainKey = metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "sustain");
+    const weights: WeightRow[] = [{ type: sustainKey, weight: 1 }];
     const hero = "Juno";
     const maxItems = 2;
     const maxCash = 10;
@@ -92,7 +93,9 @@ describe("findBestBuilds", () => {
     combos.forEach((combo) => {
       const cost = combo.reduce((sum, item) => sum + item.cost, 0);
       if (cost > maxCash) return;
-      const map = aggregate([...combo, ...equippedItems], hero);
+      const map = aggregate([...combo, ...equippedItems], hero, {
+        metricOutputKeys: new Set([sustainKey]),
+      });
       const score = scoreFromMap(map, weights);
       if (score > expectedScore) {
         expectedScore = score;
@@ -107,7 +110,7 @@ describe("findBestBuilds", () => {
       items: candidates,
       equippedItems,
       weights,
-      selectedMetricOutputs: new Set(),
+      selectedMetricOutputs: new Set([sustainKey]),
       minValueEnabled: false,
       minAttrGroups: [],
       hero,
@@ -122,7 +125,9 @@ describe("findBestBuilds", () => {
     const expectedKeys = expectedBest.map((combo) => comboKey(combo)).sort();
     expect(resultKeys).toEqual(expectedKeys);
     results.forEach((result) => {
-      const map = aggregate([...result.items, ...equippedItems], hero);
+      const map = aggregate([...result.items, ...equippedItems], hero, {
+        metricOutputKeys: new Set([sustainKey]),
+      });
       expect(result.metricValues.WP).toBe(map.get("WP") ?? 0);
     });
   });

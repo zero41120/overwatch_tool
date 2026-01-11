@@ -1,6 +1,5 @@
 import { ALL_HEROES, NO_HERO } from "../types";
 import { getMetricOutputLabel } from "../metrics/metricRegistry";
-import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
 import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
 import type { Item } from "../types";
 
@@ -22,7 +21,6 @@ export function attributeValueToLabel(value: string): string {
     Shields: "Shields",
     WP: "Weapon Power",
     WPLS: "Weapon Life Steal",
-    [MEDIBLASTER_OUTPUT_ATTR]: MEDIBLASTER_OUTPUT_ATTR,
     [TORPEDO_DAMAGE_ATTR]: TORPEDO_DAMAGE_ATTR,
   };
   return map[value] || value;
@@ -30,7 +28,7 @@ export function attributeValueToLabel(value: string): string {
 
 const RESERVED_ATTRS = new Set(["description", "Editor's Note"]);
 const PRIORITY = ["WP", "AP", "AS", "Health", "Armor", "Shields"];
-const JUNO_DERIVED_ATTRS = [MEDIBLASTER_OUTPUT_ATTR, TORPEDO_DAMAGE_ATTR];
+const JUNO_DERIVED_ATTRS = [TORPEDO_DAMAGE_ATTR];
 
 function collectTypesAndCounts(items: Item[]) {
   const types = new Set<string>();

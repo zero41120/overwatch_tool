@@ -1,6 +1,5 @@
 import type { Item } from "../../types";
 import { buildDerivedStatMap } from "../derivedStatMap";
-import { MEDIBLASTER_OUTPUT_ATTR } from "../junoMediblaster";
 
 test("buildDerivedStatMap sums raw stats only", () => {
   const items: Item[] = [
@@ -33,5 +32,5 @@ test("buildDerivedStatMap sums raw stats only", () => {
   expect(map.get("AP")).toBe(5);
   expect(map.get("AS")).toBe(3);
   expect(map.has("description")).toBe(false);
-  expect(map.has(MEDIBLASTER_OUTPUT_ATTR)).toBe(false);
+  expect(map.has("Mediblaster Output")).toBe(false);
 });

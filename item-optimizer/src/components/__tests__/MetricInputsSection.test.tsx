@@ -29,6 +29,8 @@ describe("MetricInputsSection", () => {
   it("renders metric inputs only when a metric output is selected", () => {
     const { store } = renderWithStore();
 
+    expect(screen.queryByLabelText("Enemy Has Armor")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Ammo Scaling Multiplier")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Include Reload Downtime")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Reload Downtime Multiplier")).not.toBeInTheDocument();
 
@@ -41,14 +43,22 @@ describe("MetricInputsSection", () => {
       );
     });
 
-    const toggle = screen.getByLabelText("Include Reload Downtime");
-    const multiplier = screen.getByLabelText("Reload Downtime Multiplier");
+    const armorToggle = screen.getByLabelText("Enemy Has Armor");
+    const ammoMultiplier = screen.getByLabelText("Ammo Scaling Multiplier");
+    const reloadToggle = screen.getByLabelText("Include Reload Downtime");
+    const reloadMultiplier = screen.getByLabelText("Reload Downtime Multiplier");
 
-    expect(toggle).toBeInTheDocument();
-    expect(toggle).toBeChecked();
-    expect(multiplier).toBeInTheDocument();
-    expect(multiplier).toHaveAttribute("min", "0");
-    expect(multiplier).toHaveAttribute("max", "2");
-    expect(multiplier).toHaveValue(1);
+    expect(armorToggle).toBeInTheDocument();
+    expect(armorToggle).not.toBeChecked();
+    expect(ammoMultiplier).toBeInTheDocument();
+    expect(ammoMultiplier).toHaveAttribute("min", "0");
+    expect(ammoMultiplier).toHaveAttribute("max", "2");
+    expect(ammoMultiplier).toHaveValue(1);
+    expect(reloadToggle).toBeInTheDocument();
+    expect(reloadToggle).toBeChecked();
+    expect(reloadMultiplier).toBeInTheDocument();
+    expect(reloadMultiplier).toHaveAttribute("min", "0");
+    expect(reloadMultiplier).toHaveAttribute("max", "2");
+    expect(reloadMultiplier).toHaveValue(1);
   });
 });
