@@ -1,30 +1,32 @@
-import type { Item, WeightRow, MinAttrGroup } from "../types";
-import { computeMediblasterOutputFromMap, includeMediblasterInputs, MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
-import { computeJunoTorpedoDamage, includeTorpedoInputs, TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
-import { parseNumeric } from "./numberUtils";
+import type { Item, WeightRow, MinAttrGroup, MetricValues } from "../types";
+import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
+import {
+  collectMetricInputAttributes,
+  computeMetricOutputs,
+  getMetricOutputsForHero,
+  isMetricOutputKey,
+} from "../metrics/core/metricRegistry";
+import type { MetricContext } from "../metrics/core/metricContext";
+import { buildDerivedStatMap } from "./derivedStatMap";
 
 type AggregateOptions = {
-  enemyHasArmor?: boolean;
+  metricOutputKeys?: Set<string>;
+  metricInputValues?: MetricInputValuesByMetric;
+  heroPowers?: string[];
 };
 
 export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
-  const map = new Map<string, number>();
-  items.forEach((it) => {
-    it.attributes.forEach((a) => {
-      const v = parseNumeric(a.value);
-      map.set(a.type, (map.get(a.type) ?? 0) + v);
-    });
-  });
-  if (hero === "Juno") {
-    map.set(
-      MEDIBLASTER_OUTPUT_ATTR,
-      computeMediblasterOutputFromMap({
-        map,
-        items: items.map((item) => ({ name: item.name })),
-        enemyHasArmor: opts.enemyHasArmor,
-      }),
-    );
-    map.set(TORPEDO_DAMAGE_ATTR, computeJunoTorpedoDamage(items));
+  const derivedMap = buildDerivedStatMap(items);
+  const map = new Map(derivedMap);
+  if (opts.metricOutputKeys && opts.metricOutputKeys.size > 0) {
+    const context: MetricContext = {
+      items,
+      map: derivedMap,
+      hero: hero ?? "",
+      heroPowers: opts.heroPowers,
+    };
+    const outputs = computeMetricOutputs(context, opts.metricOutputKeys, opts.metricInputValues);
+    outputs.forEach((value, key) => map.set(key, value));
   }
   return map;
 }
@@ -35,6 +37,18 @@ export function scoreFromMap(map: Map<string, number>, weights: WeightRow[]) {
     total += (map.get(w.type) ?? 0) * w.weight;
   });
   return total;
+}
+
+export function metricValuesFromMap(map: Map<string, number>): MetricValues {
+  const values: MetricValues = {};
+  map.forEach((value, key) => {
+    values[key] = value;
+  });
+  return values;
+}
+
+export function mapFromMetricValues(values: MetricValues): Map<string, number> {
+  return new Map(Object.entries(values));
 }
 
 export function rarityColor(r: Item["rarity"]) {
@@ -64,14 +78,17 @@ export function collectRelevantAttributes(
   groups: MinAttrGroup[],
 ) {
   const set = new Set(weights.map((w) => w.type));
+  const metricInputs = collectMetricInputAttributes(set);
+  metricInputs.forEach((attr) => set.add(attr));
+  Array.from(set).forEach((value) => {
+    if (isMetricOutputKey(value)) set.delete(value);
+  });
   if (enabled) {
     groups.forEach((g) => {
       g.attrs.forEach((a) => set.add(a));
     });
   }
   set.delete("");
-  includeMediblasterInputs(set);
-  includeTorpedoInputs(set);
   return set;
 }
 
@@ -80,17 +97,31 @@ export function buildBreakdown(
   weights: WeightRow[],
   enabled: boolean,
   groups: MinAttrGroup[],
+  hero?: string,
 ) {
   const attrs = collectRelevantAttributes(weights, enabled, groups);
-  const rows: { type: string; sum: number; contrib: number }[] = [];
+  const units = new Map<string, string>();
+  if (hero) {
+    getMetricOutputsForHero(hero).forEach((output) => {
+      units.set(output.outputKey, output.unit);
+    });
+  }
+  const resolveUnit = (type: string) => units.get(type) ?? "raw";
+  const rows: { type: string; sum: number; weight: number; contrib: number; unit: string }[] = [];
   weights.forEach((w) => {
     const sum = map.get(w.type) ?? 0;
-    rows.push({ type: w.type, sum, contrib: sum * w.weight });
+    rows.push({
+      type: w.type,
+      sum,
+      weight: w.weight,
+      contrib: sum * w.weight,
+      unit: resolveUnit(w.type),
+    });
     attrs.delete(w.type);
   });
   attrs.forEach((type) => {
     const sum = map.get(type) ?? 0;
-    rows.push({ type, sum, contrib: 0 });
+    rows.push({ type, sum, weight: 0, contrib: 0, unit: resolveUnit(type) });
   });
   return rows;
 }

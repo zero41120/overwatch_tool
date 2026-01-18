@@ -111,8 +111,3 @@ export function computeJunoTorpedoDamage(items: Item[], baseDamage = TORPEDO_BAS
   const raw = base * (1 + ap / 100);
   return Number((hasSkyline ? raw * 1.2 : raw).toFixed(0));
 }
-
-export function includeTorpedoInputs(set: Set<string>) {
-  if (!set.has(TORPEDO_DAMAGE_ATTR)) return;
-  set.add("AP");
-}

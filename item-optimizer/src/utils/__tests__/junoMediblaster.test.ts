@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computeMediblasterOutputFromMap } from "../junoMediblaster";
+import { computeMediblasterOutputFromMap } from "../../metrics/JunoMediblasterMetric";
 
 describe("computeMediblasterOutputFromMap", () => {
   it("reduces output when armor is present and codebreaker offsets the reduction", () => {

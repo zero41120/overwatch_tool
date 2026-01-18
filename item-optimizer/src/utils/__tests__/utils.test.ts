@@ -1,7 +1,8 @@
 import type { Item, MinAttrGroup, WeightRow } from "../../types";
+import { JUNO_MEDIBLASTER_METRIC_ID } from "../../metrics/JunoMediblasterMetric";
+import { JUNO_TORPEDO_METRIC_ID } from "../../metrics/JunoTorpedoMetric";
+import { metricOutputKey } from "../../metrics/core/metricRegistry";
 import { attributeValueToLabel, sortAttributes } from "../attributeUtils";
-import { MEDIBLASTER_OUTPUT_ATTR } from "../junoMediblaster";
-import { TORPEDO_DAMAGE_ATTR } from "../junoTorpedoDamage";
 import { aggregate, collectRelevantAttributes, meetsMinGroups, rarityColor, scoreFromMap, uniqueByItems } from "../utils";
 
 describe("optimizer utils", () => {
@@ -30,7 +31,7 @@ describe("optimizer utils", () => {
     expect(map.get("WP")).toBe(2);
   });
 
-  test("aggregate includes Juno mediblaster output from WP/AS/Weapon Multiplier/MA", () => {
+  test("aggregate includes Juno mediblaster sustain output from WP/AS/Weapon Multiplier/MA", () => {
     const items: Item[] = [
       {
         name: "A",
@@ -53,7 +54,8 @@ describe("optimizer utils", () => {
         rarity: "common",
       },
     ];
-    const map = aggregate(items, "Juno");
+    const sustainKey = metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "sustain");
+    const map = aggregate(items, "Juno", { metricOutputKeys: new Set([sustainKey]) });
     const TPS = 60;
     const RELOAD_FRAMES = 1.5 * TPS;
     const COCKING_FRAMES = 0.3 * TPS;
@@ -77,11 +79,11 @@ describe("optimizer utils", () => {
       if (isEndOfVolley && hasAmmoLeft) cycleFrames += singleRecoveryFrame;
     }
     const totalDamage = clipSize * 7.5 * wm * weaponPowerPercent;
-    const expected = Math.round(totalDamage * (TPS / cycleFrames));
-    expect(map.get(MEDIBLASTER_OUTPUT_ATTR)).toBe(expected);
+    const expected = Math.round(totalDamage * (TPS / cycleFrames) * 0.35);
+    expect(map.get(sustainKey)).toBe(expected);
   });
 
-  test("aggregate includes Juno torpedo damage from AP and torpedo base add", () => {
+  test("aggregate includes Juno torpedo burst output from AP and torpedo base add", () => {
     const items: Item[] = [
       {
         name: "SKYLINE NANITES",
@@ -98,25 +100,27 @@ describe("optimizer utils", () => {
         rarity: "rare",
       },
     ];
-    const map = aggregate(items, "Juno");
+    const burstKey = metricOutputKey(JUNO_TORPEDO_METRIC_ID, "burst");
+    const map = aggregate(items, "Juno", { metricOutputKeys: new Set([burstKey]) });
     const baseDamage = 85 + 20;
     const raw = baseDamage * (1 + 10 / 100);
     const expected = Math.round(raw * 1.2);
-    expect(map.get(TORPEDO_DAMAGE_ATTR)).toBe(expected);
+    expect(map.get(burstKey)).toBe(expected);
   });
 
-  test("collectRelevantAttributes expands mediblaster output to WP/AS/Weapon Multiplier", () => {
-    const attrs = collectRelevantAttributes([{ type: MEDIBLASTER_OUTPUT_ATTR, weight: 1 }], false, []);
-    expect(attrs.has(MEDIBLASTER_OUTPUT_ATTR)).toBe(true);
+  test("collectRelevantAttributes expands mediblaster metric outputs to inputs", () => {
+    const metricKey = metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "burst");
+    const attrs = collectRelevantAttributes([{ type: metricKey, weight: 1 }], false, []);
     expect(attrs.has("WP")).toBe(true);
     expect(attrs.has("AS")).toBe(true);
     expect(attrs.has("Weapon Multiplier")).toBe(true);
     expect(attrs.has("MA")).toBe(true);
   });
 
-  test("collectRelevantAttributes expands torpedo damage to AP", () => {
-    const attrs = collectRelevantAttributes([{ type: TORPEDO_DAMAGE_ATTR, weight: 1 }], false, []);
-    expect(attrs.has(TORPEDO_DAMAGE_ATTR)).toBe(true);
+  test("collectRelevantAttributes expands torpedo metric outputs to AP", () => {
+    const metricKey = metricOutputKey(JUNO_TORPEDO_METRIC_ID, "burst");
+    const attrs = collectRelevantAttributes([{ type: metricKey, weight: 1 }], false, []);
+    expect(attrs.has(metricKey)).toBe(false);
     expect(attrs.has("AP")).toBe(true);
   });
 
@@ -181,6 +185,9 @@ describe("optimizer utils", () => {
 describe("attribute utils", () => {
   test("attributeValueToLabel maps codes", () => {
     expect(attributeValueToLabel("ALS")).toBe("Ability Life Steal");
+    expect(attributeValueToLabel(metricOutputKey(JUNO_MEDIBLASTER_METRIC_ID, "burst"))).toBe(
+      "Mediblaster: Burst Output",
+    );
     expect(attributeValueToLabel("Unknown")).toBe("Unknown");
   });
 

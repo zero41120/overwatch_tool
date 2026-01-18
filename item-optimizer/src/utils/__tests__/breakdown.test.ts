@@ -10,8 +10,8 @@ test("buildBreakdown adds min attributes", () => {
   const groups: MinAttrGroup[] = [{ attrs: ["WP"], value: 5 }];
   const rows = buildBreakdown(map, weights, true, groups);
   expect(rows).toEqual([
-    { type: "AP", sum: 5, contrib: 5 },
-    { type: "WP", sum: 3, contrib: 0 },
+    { type: "AP", sum: 5, weight: 1, contrib: 5, unit: "raw" },
+    { type: "WP", sum: 3, weight: 0, contrib: 0, unit: "raw" },
   ]);
 });
 
@@ -23,5 +23,5 @@ test("buildBreakdown ignores groups when disabled", () => {
   const weights: WeightRow[] = [{ type: "AP", weight: 1 }];
   const groups: MinAttrGroup[] = [{ attrs: ["WP"], value: 5 }];
   const rows = buildBreakdown(map, weights, false, groups);
-  expect(rows).toEqual([{ type: "AP", sum: 5, contrib: 5 }]);
+  expect(rows).toEqual([{ type: "AP", sum: 5, weight: 1, contrib: 5, unit: "raw" }]);
 });

@@ -32,10 +32,11 @@ const results: ResultCombo = {
       attributes: [],
     },
   ],
-  breakdown: [{ type: "AP", sum: 5, contrib: 5 }],
+  metricValues: { AP: 5 },
+  breakdown: [{ type: "AP", sum: 5, weight: 1, contrib: 5, unit: "raw" }],
 };
 
-const alternatives: ResultCombo[] = [{ score: 8, cost: 40, items: [], breakdown: [] }];
+const alternatives: ResultCombo[] = [{ score: 8, cost: 40, items: [], metricValues: {}, breakdown: [] }];
 const heroMetadata: HeroMetadata[] = [
   { name: "Juno", slug: "juno", role: "support" },
   { name: "Ashe", slug: "ashe", role: "damage" },

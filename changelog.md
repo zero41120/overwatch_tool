@@ -1,5 +1,8 @@
 # Changelog
 
+2026-01-10 recompute weighted metric scores and breakdowns from selected outputs item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/scoreUtils.ts
+2026-01-10 Add metric optional input controls for selected metrics item-optimizer/src/components/input_view/MetricInputsSection.tsx
+2026-01-10 add optimizer metric output scoring coverage item-optimizer/src/utils/__tests__/optimizerSearch.test.ts
 2025-06-10 Initial release of Overwatch Tool /
 2025-06-10 Item optimization engine with weighted scoring and character/item restrictions src/engine
 2025-06-10 UI for selecting hero, equipped items (up to 6 slots), available cash, and item weights src/components
@@ -73,3 +76,23 @@
 2026-01-07  add mediblaster armor toggle and codebreaker armor penetration handling  item-optimizer/src/utils/junoMediblaster.ts item-optimizer/src/components/input_view/WeightsSection.tsx
 2026-01-08  replace Juno mediblaster breakpoint search with Pareto DP frontier pruning  item-optimizer/src/utils/junoMediblasterBreakpoints.ts item-optimizer/src/utils/__tests__/junoMediblasterBreakpoints.test.ts
 2026-01-09  replace optimizer DFS pruning with Pareto DP search for optimal builds  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
+2026-01-10  add Codex SDK kanban runner script  scripts/codexKanban.ts
+2026-01-10  add ComputedMetric base class with inputs/outputs metadata  item-optimizer/src/metrics/ComputedMetric.ts
+2026-01-10  add multi-output metric support for weights and scoring  item-optimizer/src/metrics item-optimizer/src/utils item-optimizer/src/components/input_view
+2026-01-10  migrate Juno mediblaster metric to computed outputs with armor/ammo inputs  item-optimizer/src/metrics/JunoMediblasterMetric.ts item-optimizer/src/metrics/metricRegistry.ts item-optimizer/src/utils/optimizerProfileInputs.ts
+2026-01-10  warn when metric auto-discovery finds no modules  item-optimizer/src/metrics/metricDiscovery.ts
+2026-01-10  scope metric outputs by hero metadata  item-optimizer/src/metrics
+2026-01-10  add hero-scoped metric registry coverage for non-matching heroes  item-optimizer/src/metrics/__tests__/metricRegistry.test.ts
+2026-01-10  add derived stat map builder for metric evaluation  item-optimizer/src/utils/derivedStatMap.ts
+2026-01-10  refactor optimizer inputs to accept selected metric outputs and generic profile extras  item-optimizer/src/utils/optimizerSearch.ts item-optimizer/src/utils/optimizerProfileInputs.ts item-optimizer/src/utils/optimizerPareto.ts
+2026-01-10  preserve equal-score optimizer builds for UI cost selection  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
+2026-01-10  refactor weights selector to use metric outputs  item-optimizer/src/components/input_view/WeightsSection.tsx
+2026-01-11  skip codex kanban run when all tasks are complete  scripts/codexKanban.ts
+2026-01-12  loop codex kanban runner while pending tasks remain  scripts/codexKanban.ts
+2026-01-12  auto-discover metric classes via Vite glob with discovery warnings  item-optimizer/src/metrics/metricRegistry.ts item-optimizer/src/metrics/metricDiscovery.ts
+2026-01-13  attach per-metric values to optimizer build outputs and recompute scores from them  item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerSearch.ts
+2026-01-14  group score breakdown by metric unit types  item-optimizer/src/components/results_view/BreakdownTable.tsx item-optimizer/src/utils/utils.ts item-optimizer/src/utils/scoreUtils.ts
+2026-01-10  expose raw attribute outputs in metric selector for backward compatibility  item-optimizer/src/Optimizer.tsx item-optimizer/src/metrics/metricRegistry.ts
+2026-01-10  migrate Juno torpedo metric to computed burst/sustain outputs  item-optimizer/src/metrics/JunoTorpedoMetric.ts item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerProfileInputs.ts item-optimizer/src/utils/utils.ts
+2026-01-17  move optimizer DP search to a web worker with progress feedback  item-optimizer/src/Optimizer.tsx item-optimizer/src/workers/optimizerWorker.ts item-optimizer/src/components/input_view/SubmitSection.tsx item-optimizer/src/utils/optimizerPareto.ts
+2026-01-15 add hero power selection to mediblaster metric scoring (Stinger bonus) 

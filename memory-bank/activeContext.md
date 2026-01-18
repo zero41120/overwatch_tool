@@ -8,9 +8,27 @@
 - Root `README.md` documents the workspace layout, snapshot workflow, and testing commands so new contributors follow the same process.
 - Snapshot workflow now caches hero/general raws plus per-image wiki metadata; `ItemRecord` includes remote `iconUrl` so the optimizer uses fandom-hosted images instead of local sprites.
 - Attribute dropdowns now derive types with `collectAttributeTypesForHero`, including hero-specific editor overrides even if only one item carries the attribute while filtering to the selected hero, and weight dropdown labels show per-attribute item counts; Recommendation panel regained Ally/Enemy headings plus a score test id, and wiki-data-reader declarations were rebuilt for type-checking.
-- Juno builds now expose derived Mediblaster Output and Torpedo Damage attributes (Torpedo uses base + AP scaling + Skyline bonus) for weighting and minimum-value checks.
+- Juno builds now expose Torpedo Damage as a derived attribute (base + AP scaling + Skyline bonus) while Mediblaster outputs are handled via computed metrics.
 - Juno breakpoint UI now includes a mediblaster tab with situational pick highlighting and DPS breakpoints alongside torpedoes.
-- Mediblaster output now optionally accounts for armor reduction (with Codebreaker armor penetration) via a new enemy-armor toggle in the weights section.
+- Mediblaster metric inputs now cover armor reduction and ammo scaling, with optimizer extras pulled from metric metadata instead of weight toggles.
+- Added a ComputedMetric base class for declarative metric inputs/outputs metadata in the optimizer UI refactor.
+- Added a metric registry with multi-output support plus a Juno mediblaster metric that exposes burst/sustain outputs for weighting.
+- Added a root-level Codex SDK script (`scripts/codexKanban.ts`) to feed design.md + the next kanban task into Codex for one-at-a-time execution.
 - Drafted plan.md for the Mediblaster Pareto-Frontier Optimization, including DP state, pruning logic, and a verification test case.
 - Replaced the mediblaster breakpoint DFS with a Pareto-frontier DP and added the non-linear synergy regression test.
 - Replaced optimizer DFS pruning with a Pareto-frontier DP search that respects equipped/avoid items.
+- Metric optional input controls now render from metric definitions, with input state wired through the optimizer and Juno mediblaster inputs for reload downtime tuning.
+- Derived stat maps now sum raw item stats once and feed metric evaluations.
+- Hero power selection is now passed into metric evaluation; Juno mediblaster output applies the Stinger bonus when selected.
+- Juno mediblaster metric now scales DPS by a weapon accuracy input (default 35%), excluding Stinger bonus; reload downtime multiplier input removed.
+- Optimizer search now accepts selected metric outputs plus generic extra-field profile inputs, keeping DP free of weapon-specific logic.
+- Optimizer build outputs now include per-metric values so scores and breakdowns can be recomputed without rerunning search.
+- Added a shared scoreBuild helper to recompute weighted metric scores and breakdowns when weights change.
+- Optimizer now returns all equal-score builds so the UI can choose cheapest or premium among alternatives.
+- Weights section now selects from metric outputs only, defaulting the first row to the available outputs per hero.
+- Score breakdown panel now groups rows by metric unit type with value, weight, and contribution details.
+- Raw attribute types now surface as metric outputs for backward-compatible weighting alongside computed metrics.
+- Juno torpedo damage now lives in a computed metric with burst/sustain outputs and metric-defined optimizer extras.
+- Flat stat calculations (Weapon Power, Attack Speed, etc.) are now migrated to the `RawStatMetric` class and integrated into the standard metric discovery and UI workflow.
+- Fixed an issue where raw stats appeared with a double prefix ("Raw Stats: Raw Stats: ") by refactoring attribute label lookup to avoid circular metric name resolution.
+- Optimizer Pareto DP runs inside a web worker with progress updates to avoid blocking the UI during long searches.

@@ -1,40 +1,45 @@
 import type { Item, MinAttrGroup, ResultCombo, WeightRow } from "../types";
-import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
-import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
-import { aggregate, collectRelevantAttributes, meetsMinGroups, scoreFromMap } from "./utils";
+import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
+import { aggregate, meetsMinGroups, metricValuesFromMap, scoreFromMap } from "./utils";
 import { buildOptimizerProfiles } from "./optimizerPareto";
+import type { OptimizerExtraField, OptimizerProgress } from "./optimizerParetoTypes";
 
 export type OptimizerSearchOptions = {
   items: Item[];
   equippedItems: Item[];
   weights: WeightRow[];
+  selectedMetricOutputs: Set<string>;
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   hero?: string;
-  enemyHasArmor?: boolean;
+  heroPowers?: string[];
+  metricInputValues?: MetricInputValuesByMetric;
   maxItems: number;
   maxCash: number;
-  preferHighCost: boolean;
+  attrKeys: string[];
+  extraFields?: OptimizerExtraField[];
   costStep?: number;
   maxFrontier?: number;
+  onProgress?: (progress: OptimizerProgress) => void;
+  progressInterval?: number;
 };
 
-type ScoredCombo = ResultCombo & { breakdown: { type: string; sum: number; contrib: number }[] };
-
-function compareCombos(a: ResultCombo, b: ResultCombo, preferHighCost: boolean) {
-  if (a.score !== b.score) return a.score > b.score;
-  return preferHighCost ? a.cost > b.cost : a.cost < b.cost;
-}
+type ScoredCombo = ResultCombo;
 
 function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
+  const selectedMetricOutputs = options.selectedMetricOutputs;
   if (options.maxItems === 0) {
     const map = aggregate(options.equippedItems, options.hero, {
-      enemyHasArmor: options.enemyHasArmor,
+      metricOutputKeys: selectedMetricOutputs,
+      metricInputValues: options.metricInputValues,
+      heroPowers: options.heroPowers,
     });
+    const metricValues = metricValuesFromMap(map);
     if (
       options.minValueEnabled &&
       !meetsMinGroups(options.equippedItems, options.minAttrGroups, options.hero, {
-        enemyHasArmor: options.enemyHasArmor,
+        metricInputValues: options.metricInputValues,
+        heroPowers: options.heroPowers,
       })
     ) {
       return [];
@@ -44,30 +49,21 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
         items: [],
         cost: 0,
         score: scoreFromMap(map, options.weights),
+        metricValues,
         breakdown: [],
       },
     ];
   }
-
-  const relevantAttrs = collectRelevantAttributes(
-    options.weights,
-    options.minValueEnabled,
-    options.minAttrGroups,
-  );
-  const considerMediblaster = relevantAttrs.has(MEDIBLASTER_OUTPUT_ATTR) && Boolean(options.enemyHasArmor);
-  const considerTorpedo = relevantAttrs.has(TORPEDO_DAMAGE_ATTR);
-  const attrKeys = Array.from(relevantAttrs).filter(
-    (attr) => attr !== MEDIBLASTER_OUTPUT_ATTR && attr !== TORPEDO_DAMAGE_ATTR,
-  );
 
   const profiles = buildOptimizerProfiles(options.items, {
     maxItems: options.maxItems,
     maxCash: options.maxCash,
     costStep: options.costStep ?? 250,
     maxFrontier: options.maxFrontier,
-    attrKeys,
-    considerTorpedo,
-    considerMediblaster,
+    attrKeys: options.attrKeys,
+    extraFields: options.extraFields,
+    onProgress: options.onProgress,
+    progressInterval: options.progressInterval,
   });
 
   const combos: ScoredCombo[] = [];
@@ -78,16 +74,22 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     if (
       options.minValueEnabled &&
       !meetsMinGroups(combined, options.minAttrGroups, options.hero, {
-        enemyHasArmor: options.enemyHasArmor,
+        metricInputValues: options.metricInputValues,
+        heroPowers: options.heroPowers,
       })
     ) {
       return;
     }
-    const map = aggregate(combined, options.hero, { enemyHasArmor: options.enemyHasArmor });
+    const map = aggregate(combined, options.hero, {
+      metricOutputKeys: selectedMetricOutputs,
+      metricInputValues: options.metricInputValues,
+      heroPowers: options.heroPowers,
+    });
     combos.push({
       items: selected,
       cost: profile.cost,
       score: scoreFromMap(map, options.weights),
+      metricValues: metricValuesFromMap(map),
       breakdown: [],
     });
   });
@@ -95,10 +97,23 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
   return combos;
 }
 
-export function findBestBuild(options: OptimizerSearchOptions): ResultCombo | null {
+export function findBestBuilds(options: OptimizerSearchOptions): ResultCombo[] {
   const combos = evaluateProfiles(options);
-  if (combos.length === 0) return null;
-  return combos.reduce((best, next) => (compareCombos(next, best, options.preferHighCost) ? next : best));
+  if (combos.length === 0) return [];
+  let bestScore = -Infinity;
+  const best: ResultCombo[] = [];
+  combos.forEach((combo) => {
+    if (combo.score > bestScore) {
+      bestScore = combo.score;
+      best.length = 0;
+      best.push(combo);
+      return;
+    }
+    if (combo.score === bestScore) {
+      best.push(combo);
+    }
+  });
+  return best;
 }
 
 export function findBestBuildsByBudget(
@@ -107,18 +122,22 @@ export function findBestBuildsByBudget(
   const combos = evaluateProfiles(options).sort((a, b) => a.cost - b.cost);
   if (combos.length === 0) return [];
   const results: ResultCombo[] = [];
-  let currentBest: ResultCombo | null = null;
+  let currentBestScore = -Infinity;
+  let currentBest: ResultCombo[] = [];
   let idx = 0;
   options.budgets.forEach((budget) => {
     while (idx < combos.length && combos[idx].cost <= budget) {
       const candidate = combos[idx];
-      if (!currentBest || compareCombos(candidate, currentBest, options.preferHighCost)) {
-        currentBest = candidate;
+      if (candidate.score > currentBestScore) {
+        currentBestScore = candidate.score;
+        currentBest = [candidate];
+      } else if (candidate.score === currentBestScore) {
+        currentBest.push(candidate);
       }
       idx += 1;
     }
-    if (currentBest) {
-      results.push(currentBest);
+    if (currentBest.length > 0) {
+      results.push(...currentBest);
     }
   });
   return results;

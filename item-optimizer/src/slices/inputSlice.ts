@@ -1,5 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import type { MetricInputValue } from "../metrics/core/ComputedMetric";
 import type { MinAttrGroup, WeightRow } from "../types";
 
 export interface InputState {
@@ -17,7 +18,7 @@ export interface InputState {
   minAttrGroups: MinAttrGroup[];
   useOverrides: boolean;
   overrideVersion: number;
-  enemyHasArmor: boolean;
+  metricInputs: Record<string, Record<string, MetricInputValue>>;
 }
 
 const initialState: InputState = {
@@ -35,7 +36,7 @@ const initialState: InputState = {
   minAttrGroups: [],
   useOverrides: true,
   overrideVersion: 0,
-  enemyHasArmor: false,
+  metricInputs: {},
 };
 
 const inputSlice = createSlice({
@@ -98,8 +99,29 @@ const inputSlice = createSlice({
     toggleUseOverrides(state) {
       state.useOverrides = !state.useOverrides;
     },
-    toggleEnemyHasArmor(state) {
-      state.enemyHasArmor = !state.enemyHasArmor;
+    setMetricInputValue(
+      state,
+      action: PayloadAction<{ metricId: string; inputId: string; value: MetricInputValue }>,
+    ) {
+      const { metricId, inputId, value } = action.payload;
+      if (!state.metricInputs[metricId]) {
+        state.metricInputs[metricId] = {};
+      }
+      state.metricInputs[metricId][inputId] = value;
+    },
+    clearMetricInputValue(
+      state,
+      action: PayloadAction<{ metricId: string; inputId: string }>,
+    ) {
+      const { metricId, inputId } = action.payload;
+      if (!state.metricInputs[metricId]) return;
+      delete state.metricInputs[metricId][inputId];
+      if (Object.keys(state.metricInputs[metricId]).length === 0) {
+        delete state.metricInputs[metricId];
+      }
+    },
+    clearMetricInputsForMetric(state, action: PayloadAction<string>) {
+      delete state.metricInputs[action.payload];
     },
     setWeightType(state, action: PayloadAction<{ index: number; type: string }>) {
       state.weights[action.payload.index].type = action.payload.type;
@@ -153,8 +175,11 @@ const inputSlice = createSlice({
         normalizedList.push(next.heroPower.name);
       }
       next.heroPowers = normalizedList.slice(0, 4);
-      if (typeof next.enemyHasArmor !== "boolean") {
-        next.enemyHasArmor = false;
+      if (!next.metricInputs || typeof next.metricInputs !== "object") {
+        next.metricInputs = {};
+      }
+      if ("enemyHasArmor" in next) {
+        delete (next as { enemyHasArmor?: unknown }).enemyHasArmor;
       }
       delete next.heroPower;
       return next;
@@ -188,7 +213,9 @@ export const {
   addEquippedSlot,
   removeEquippedSlot,
   toggleUseOverrides,
-  toggleEnemyHasArmor,
+  setMetricInputValue,
+  clearMetricInputValue,
+  clearMetricInputsForMetric,
   bumpOverrideVersion,
   importState,
   toggleHeroPower,

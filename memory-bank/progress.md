@@ -36,3 +36,19 @@
 - Recommendation cards now compute and display a signed score (synergy/counter minus anti-synergy/beingCountered) with tests covering the calculation.
 - `update-items` now compares hero power module/aggregator contents before prompting, skipping writes when nothing changed to mirror item-level change detection.
 - Mediblaster output now accounts for optional armor reduction (including Codebreaker penetration) via a new enemy-armor toggle in the weights UI.
+- Added ComputedMetric base class scaffolding to support declarative metric inputs/outputs for the optimizer refactor.
+- Added metric registry plumbing and Juno mediblaster multi-output metric wired into weights/scoring.
+- Added metric optional input UI and state wiring so metric-defined toggles and numeric params drive optimizer scoring.
+- Added derived stat map aggregation so metrics can read summed raw item stats.
+- Refactored optimizer inputs to accept selected metric outputs and generic extra-field pruning without weapon-specific DP logic.
+- Added optimizer search test coverage to ensure metric output weights drive build scoring.
+- Optimizer build outputs now store per-metric values so scores can be recomputed without rerunning the search.
+- Added a shared scoreBuild helper so weighted metric scores and breakdowns can be recomputed from selected outputs.
+- Optimizer now preserves all equal-score builds so the UI can pick cheapest or premium among alternatives.
+- Weights section now lists metric outputs instead of raw stat keys, with coverage.
+- Raw attribute types are now exposed as metric output options so legacy weights keep working.
+- Juno Mediblaster output calculation now lives in the computed metric with armor/ammo inputs and metric-defined optimizer extras, removing the legacy derived-output path.
+- Juno Torpedo output now lives in a computed metric with burst/sustain outputs and metric-defined optimizer extras.
+- Migrated flat stat calculations (Weapon Power, Attack Speed, etc.) to the `RawStatMetric` class so they are handled via the unified metric discovery system.
+- Fixed a double-labeling issue where raw stats were prefixed with "Raw Stats: Raw Stats: " by separating raw label lookup from metric label lookup.
+- Optimizer Pareto DP search now runs in a web worker with progress feedback to keep the UI responsive during long computations.

@@ -1,9 +1,8 @@
 import { ALL_HEROES, NO_HERO } from "../types";
-import { MEDIBLASTER_OUTPUT_ATTR } from "./junoMediblaster";
-import { TORPEDO_DAMAGE_ATTR } from "./junoTorpedoDamage";
+import { getMetricOutputLabel } from "../metrics/core/metricRegistry";
 import type { Item } from "../types";
 
-export function attributeValueToLabel(value: string): string {
+export function getRawAttributeLabel(value: string): string {
   const map: Record<string, string> = {
     ALS: "Ability Life Steal",
     AP: "Ability Power",
@@ -19,15 +18,18 @@ export function attributeValueToLabel(value: string): string {
     Shields: "Shields",
     WP: "Weapon Power",
     WPLS: "Weapon Life Steal",
-    [MEDIBLASTER_OUTPUT_ATTR]: MEDIBLASTER_OUTPUT_ATTR,
-    [TORPEDO_DAMAGE_ATTR]: TORPEDO_DAMAGE_ATTR,
   };
   return map[value] || value;
 }
 
+export function attributeValueToLabel(value: string): string {
+  const metricLabel = getMetricOutputLabel(value);
+  if (metricLabel) return metricLabel;
+  return getRawAttributeLabel(value);
+}
+
 const RESERVED_ATTRS = new Set(["description", "Editor's Note"]);
 const PRIORITY = ["WP", "AP", "AS", "Health", "Armor", "Shields"];
-const JUNO_DERIVED_ATTRS = [MEDIBLASTER_OUTPUT_ATTR, TORPEDO_DAMAGE_ATTR];
 
 function collectTypesAndCounts(items: Item[]) {
   const types = new Set<string>();
@@ -58,26 +60,14 @@ function filterItemsForHero(items: Item[], hero: string) {
 export function collectAttributeTypesForHero(items: Item[], hero: string): string[] {
   const allowed = filterItemsForHero(items, hero);
   const { types, counts } = collectTypesAndCounts(allowed);
-  if (hero === "Juno") {
-    JUNO_DERIVED_ATTRS.forEach((attr) => types.add(attr));
-  }
   const sorted = sortAttributesWithCounts(types, counts);
-  if (hero === "Juno") {
-    return promoteJunoDerivedAttributes(sorted);
-  }
   return sorted;
 }
 
 export function collectAttributeCountsForHero(items: Item[], hero: string): Record<string, number> {
   const allowed = filterItemsForHero(items, hero);
   const { counts } = collectTypesAndCounts(allowed);
-  if (hero === "Juno") {
-    JUNO_DERIVED_ATTRS.forEach((attr) => counts.set(attr, counts.get(attr) ?? 0));
-  }
-  let sortedKeys = sortAttributesWithCounts(counts.keys(), counts);
-  if (hero === "Juno") {
-    sortedKeys = promoteJunoDerivedAttributes(sortedKeys);
-  }
+  const sortedKeys = sortAttributesWithCounts(counts.keys(), counts);
   const ordered: Record<string, number> = {};
   sortedKeys.forEach((key) => {
     ordered[key] = counts.get(key) ?? 0;
@@ -112,10 +102,4 @@ export function sortAttributesWithCounts(
     if (ca !== cb) return cb - ca;
     return a.localeCompare(b);
   });
-}
-
-function promoteJunoDerivedAttributes(sorted: string[]): string[] {
-  const derived = JUNO_DERIVED_ATTRS.filter((attr) => sorted.includes(attr));
-  if (derived.length === 0) return sorted;
-  return [...derived, ...sorted.filter((attr) => !derived.includes(attr))];
 }
