@@ -12,6 +12,7 @@ type OptimizerProfileInputOptions = {
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   hero?: string;
+  heroPowers?: string[];
 };
 
 export type OptimizerProfileInputs = {

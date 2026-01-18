@@ -22,8 +22,10 @@ import { itemAffectsTorpedoDamage } from "./utils/junoTorpedoDamage";
 import { loadLocalOverrides } from "./utils/localOverrides";
 import { resolveOverrideAttributes } from "./utils/overrideUtils";
 import { findBestBuilds, findBestBuildsByBudget } from "./utils/optimizerSearch";
+import type { OptimizerSearchOptions } from "./utils/optimizerSearch";
 import { buildOptimizerProfileInputs } from "./utils/optimizerProfileInputs";
 import { scoreBuild } from "./utils/scoreUtils";
+import type { OptimizerProgress } from "./utils/optimizerParetoTypes";
 import {
   collectRelevantAttributes,
   meetsMinGroups,
@@ -31,8 +33,31 @@ import {
   uniqueByItems,
 } from "./utils/utils";
 
+type CalcMode = "cheapest" | "premium" | "incremental";
+
+type OptimizerWorkerMessage =
+  | {
+      type: "progress";
+      requestId: number;
+      progress: OptimizerProgress;
+    }
+  | {
+      type: "result";
+      requestId: number;
+      results: ResultCombo[];
+    }
+  | {
+      type: "error";
+      requestId: number;
+      error: string;
+    };
+
+type OptimizerWorkerSearchOptions = Omit<
+  OptimizerSearchOptions,
+  "attrKeys" | "extraFields" | "onProgress" | "progressInterval"
+>;
+
 export default function Optimizer() {
-  type CalcMode = "cheapest" | "premium" | "incremental";
   const [data, setData] = useState<Item[]>([]);
   const [powersByHero, setPowersByHero] = useState<Record<string, HeroPower[]>>({});
   const [heroes, setHeroes] = useState<string[]>([]);
@@ -40,11 +65,18 @@ export default function Optimizer() {
   const [heroIcons, setHeroIcons] = useState<Record<string, string>>({});
   const [attrTypes, setAttrTypes] = useState<string[]>([]);
   const [metricOutputs, setMetricOutputs] = useState<MetricOutputDescriptor[]>([]);
+  const [isCalculating, setIsCalculating] = useState(false);
+  const [progress, setProgress] = useState<OptimizerProgress | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+  const requestIdRef = useRef(0);
+  const pendingHandlerRef = useRef<((results: ResultCombo[]) => void) | null>(null);
+  const supportsWorker = typeof Worker !== "undefined";
 
   const dispatch = useAppDispatch();
   const state = useAppSelector((s) => s.input.present);
   const {
     hero,
+    heroPowers,
     cash,
     equipped,
     equippedEnabled,
@@ -157,6 +189,7 @@ export default function Optimizer() {
           weights,
           minValueEnabled,
           minAttrGroups,
+          heroPowers,
           metricOutputKeys: selectedMetricOutputs,
           metricInputValues: metricInputs,
         });
@@ -171,6 +204,7 @@ export default function Optimizer() {
         weights,
         minValueEnabled,
         minAttrGroups,
+        heroPowers,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
@@ -181,7 +215,7 @@ export default function Optimizer() {
         breakdown,
       };
     });
-  }, [weights, minValueEnabled, minAttrGroups, hero, metricInputs, selectedMetricOutputs]);
+  }, [weights, minValueEnabled, minAttrGroups, hero, heroPowers, metricInputs, selectedMetricOutputs]);
 
   useEffect(() => {
     memoizedEquippedItems.clear();
@@ -201,6 +235,12 @@ export default function Optimizer() {
     autoRecomputeSignature.current = signature;
     onCalculate(lastMode);
   }, [avoid, avoidEnabled, equipped, equippedEnabled, lastMode]);
+
+  useEffect(() => {
+    return () => {
+      workerRef.current?.terminate();
+    };
+  }, []);
   function equippedItems() {
     const key = equipped
       .filter((id) => id)
@@ -245,9 +285,45 @@ export default function Optimizer() {
       })
     );
   }
+
+  function startWorker(handler: (results: ResultCombo[]) => void) {
+    if (!supportsWorker) return null;
+    if (workerRef.current) workerRef.current.terminate();
+    const worker = new Worker(new URL("./workers/optimizerWorker.ts", import.meta.url), {
+      type: "module",
+    });
+    worker.onmessage = (event: MessageEvent<OptimizerWorkerMessage>) => {
+      const message = event.data;
+      if (message.requestId !== requestIdRef.current) return;
+      if (message.type === "progress") {
+        setProgress(message.progress);
+        return;
+      }
+      setIsCalculating(false);
+      setProgress(null);
+      pendingHandlerRef.current = null;
+      if (message.type === "result") {
+        handler(message.results);
+        return;
+      }
+      dispatch(setError(message.error || "Optimizer failed to run"));
+    };
+    workerRef.current = worker;
+    pendingHandlerRef.current = handler;
+    requestIdRef.current += 1;
+    return { worker, requestId: requestIdRef.current };
+  }
+
   function onCalculate(mode: CalcMode) {
     dispatch(setError(""));
     setLastMode(mode);
+    if (workerRef.current) {
+      workerRef.current.terminate();
+      workerRef.current = null;
+    }
+    pendingHandlerRef.current = null;
+    setIsCalculating(false);
+    setProgress(null);
     autoRecomputeSignature.current = JSON.stringify({
       avoidEnabled,
       avoid: [...avoid].sort(),
@@ -297,6 +373,7 @@ export default function Optimizer() {
         weights,
         minValueEnabled,
         minAttrGroups,
+        heroPowers,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
@@ -311,16 +388,6 @@ export default function Optimizer() {
       return;
     }
 
-    const optimizerProfileInputs = buildOptimizerProfileInputs({
-      items: candidate,
-      weights,
-      selectedMetricOutputs,
-      metricInputValues: metricInputs,
-      minValueEnabled,
-      minAttrGroups,
-      hero,
-    });
-
     function withBreakdown(combo: ResultCombo): ResultCombo {
       const { score, metricValues, breakdown } = scoreBuild({
         items: [...combo.items, ...eqItems],
@@ -328,15 +395,54 @@ export default function Optimizer() {
         weights,
         minValueEnabled,
         minAttrGroups,
+        heroPowers,
         metricOutputKeys: selectedMetricOutputs,
         metricInputValues: metricInputs,
       });
       return { ...combo, score, metricValues, breakdown };
     }
+    const handleResults = (list: ResultCombo[]) => {
+      if (mode === "incremental") {
+        const unique = uniqueByItems(list.map(withBreakdown));
+        if (unique.length === 0) {
+          dispatch(setError("Insufficient cash for any purchase"));
+          return;
+        }
+        setBuilds(unique);
+        setBuildIndex(unique.length - 1);
+        setResults(unique[unique.length - 1]);
+        return;
+      }
+
+      if (list.length === 0) {
+        dispatch(setError("Insufficient cash for any purchase"));
+        return;
+      }
+      const scored = list.map(withBreakdown);
+      const { best, alternatives } = rankBestCombos(scored, preferHighCost);
+      const ordered = [best, ...alternatives];
+      setBuilds(ordered);
+      setBuildIndex(0);
+      setResults(ordered[0]);
+    };
+
+    const searchOptions: OptimizerWorkerSearchOptions = {
+      items: candidate,
+      equippedItems: eqItems,
+      weights,
+      selectedMetricOutputs,
+      minValueEnabled,
+      minAttrGroups,
+      hero,
+      heroPowers,
+      metricInputValues: metricInputs,
+      maxItems: needed,
+      maxCash: mode === "incremental" ? 0 : cash - eqCost,
+    };
 
     if (mode === "incremental") {
       const maxCost = candidate.reduce((m, it) => Math.max(m, it.cost), 0);
-      let upper = maxCost > 0 ? maxCost * 6 : 90000;
+      const upper = maxCost > 0 ? maxCost * 6 : 90000;
       const budgets: number[] = [];
       for (let c = 10000; c <= upper; c += 1000) {
         const remaining = c - eqCost;
@@ -346,56 +452,78 @@ export default function Optimizer() {
         dispatch(setError("Equipped items cost exceeds total cash"));
         return;
       }
-      const list = findBestBuildsByBudget({
+      searchOptions.maxCash = Math.max(...budgets);
+      const progressInterval = Math.max(1, Math.floor(candidate.length / 20));
+      setIsCalculating(true);
+      setProgress({ phase: "profiles", completed: 0, total: candidate.length });
+      if (supportsWorker) {
+        const workerInfo = startWorker(handleResults);
+        if (!workerInfo) return;
+        workerInfo.worker.postMessage({
+          requestId: workerInfo.requestId,
+          mode,
+          options: searchOptions,
+          budgets,
+          progressInterval,
+        });
+        return;
+      }
+
+      const optimizerProfileInputs = buildOptimizerProfileInputs({
         items: candidate,
-        equippedItems: eqItems,
         weights,
         selectedMetricOutputs,
+        metricInputValues: metricInputs,
         minValueEnabled,
         minAttrGroups,
         hero,
-        metricInputValues: metricInputs,
-        maxItems: needed,
-        maxCash: Math.max(...budgets),
+        heroPowers,
+      });
+      const list = findBestBuildsByBudget({
+        ...searchOptions,
         attrKeys: optimizerProfileInputs.attrKeys,
         extraFields: optimizerProfileInputs.extraFields,
         budgets,
-      }).map(withBreakdown);
-      const unique = uniqueByItems(list);
-      if (unique.length === 0) {
-        dispatch(setError("Insufficient cash for any purchase"));
-        return;
-      }
-      setBuilds(unique);
-      setBuildIndex(unique.length - 1);
-      setResults(unique[unique.length - 1]);
+      });
+      setIsCalculating(false);
+      setProgress(null);
+      handleResults(list);
       return;
     }
 
-    const results = findBestBuilds({
+    const progressInterval = Math.max(1, Math.floor(candidate.length / 20));
+    setIsCalculating(true);
+    setProgress({ phase: "profiles", completed: 0, total: candidate.length });
+    if (supportsWorker) {
+      const workerInfo = startWorker(handleResults);
+      if (!workerInfo) return;
+      workerInfo.worker.postMessage({
+        requestId: workerInfo.requestId,
+        mode,
+        options: searchOptions,
+        progressInterval,
+      });
+      return;
+    }
+
+    const optimizerProfileInputs = buildOptimizerProfileInputs({
       items: candidate,
-      equippedItems: eqItems,
       weights,
       selectedMetricOutputs,
+      metricInputValues: metricInputs,
       minValueEnabled,
       minAttrGroups,
       hero,
-      metricInputValues: metricInputs,
-      maxItems: needed,
-      maxCash: cash - eqCost,
+      heroPowers,
+    });
+    const results = findBestBuilds({
+      ...searchOptions,
       attrKeys: optimizerProfileInputs.attrKeys,
       extraFields: optimizerProfileInputs.extraFields,
     });
-    if (results.length === 0) {
-      dispatch(setError("Insufficient cash for any purchase"));
-      return;
-    }
-    const scored = results.map(withBreakdown);
-    const { best, alternatives } = rankBestCombos(scored, preferHighCost);
-    const ordered = [best, ...alternatives];
-    setBuilds(ordered);
-    setBuildIndex(0);
-    setResults(ordered[0]);
+    setIsCalculating(false);
+    setProgress(null);
+    handleResults(results);
     // alternatives no longer separately stored
   }
 
@@ -410,6 +538,7 @@ export default function Optimizer() {
       weights,
       minValueEnabled,
       minAttrGroups,
+      heroPowers,
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: metricInputs,
     });
@@ -427,6 +556,12 @@ export default function Optimizer() {
   const filtered = data.filter(allowItem);
   const eqItems = equippedItems();
   const eqCost = eqItems.reduce((s, it) => s + it.cost, 0);
+  const progressPercent =
+    progress && progress.total > 0
+      ? Math.min(100, Math.round((progress.completed / progress.total) * 100))
+      : null;
+  const progressLabel =
+    progress && progress.total > 0 ? `${progress.completed} / ${progress.total}` : null;
 
   return (
     <div className="p-0 sm:p-0 lg:p-8 space-y-2">
@@ -440,6 +575,9 @@ export default function Optimizer() {
           filteredItems={filtered}
           onSubmit={onCalculate}
           validate={validate}
+          isCalculating={isCalculating}
+          progressPercent={progressPercent}
+          progressLabel={progressLabel}
         />
         <div className="relative z-10">
           <ResultsSection

@@ -31,7 +31,7 @@ describe("MetricInputsSection", () => {
 
     expect(screen.queryByLabelText("Enemy Has Armor")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Include Reload Downtime")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Reload Downtime Multiplier")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Weapon Accuracy (%)")).not.toBeInTheDocument();
 
     act(() => {
       store.dispatch(
@@ -44,15 +44,15 @@ describe("MetricInputsSection", () => {
 
     const armorToggle = screen.getByLabelText("Enemy Has Armor");
     const reloadToggle = screen.getByLabelText("Include Reload Downtime");
-    const reloadMultiplier = screen.getByLabelText("Reload Downtime Multiplier");
+    const weaponAccuracy = screen.getByLabelText("Weapon Accuracy (%)");
 
     expect(armorToggle).toBeInTheDocument();
     expect(armorToggle).not.toBeChecked();
     expect(reloadToggle).toBeInTheDocument();
     expect(reloadToggle).toBeChecked();
-    expect(reloadMultiplier).toBeInTheDocument();
-    expect(reloadMultiplier).toHaveAttribute("min", "0");
-    expect(reloadMultiplier).toHaveAttribute("max", "2");
-    expect(reloadMultiplier).toHaveValue(1);
+    expect(weaponAccuracy).toBeInTheDocument();
+    expect(weaponAccuracy).toHaveAttribute("min", "0");
+    expect(weaponAccuracy).toHaveAttribute("max", "100");
+    expect(weaponAccuracy).toHaveValue(35);
   });
 });

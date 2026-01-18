@@ -1,9 +1,9 @@
-import type { MetricResolvedInputValues, MetricOutputValues } from "./core/ComputedMetric";
+import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
+import type { MetricOutputValues, MetricResolvedInputValues } from "./core/ComputedMetric";
 import { ComputedMetric } from "./core/ComputedMetric";
 import type { MetricContext } from "./core/metricContext";
-import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
 
-export const MEDIBLASTER_INPUT_ATTRS = ["WP", "AS", "Weapon Multiplier", "MA"] as const;
+export const MEDIBLASTER_INPUT_ATTRS = ["WP", "AS", "Weapon Multiplier", "MA", "AP"] as const;
 
 type MediblasterOutputItem = {
   name: string;
@@ -28,6 +28,7 @@ type MediblasterOutputFromMapArgs = {
 };
 
 const CODEBREAKER_NAME = "CODEBREAKER";
+const STINGER_POWER_NAME = "Stinger";
 
 function hasCodebreaker(items: MediblasterOutputItem[]) {
   return items.some((item) => item.name.toUpperCase() === CODEBREAKER_NAME);
@@ -78,6 +79,11 @@ function mediblasterOutput({
   const totalDamage = clipSize * effectiveBulletDamage;
 
   return totalDamage * (TPS / cycleFrames);
+}
+
+function hasPower(powers: string[] | undefined, name: string): boolean {
+  if (!powers?.length) return false;
+  return powers.some((power) => power.toLowerCase() === name.toLowerCase());
 }
 
 export function computeMediblasterOutputFromMap({
@@ -133,14 +139,14 @@ export class JunoMediblasterMetric extends ComputedMetric<
       description: "When enabled, sustain output includes reload downtime.",
     },
     {
-      id: "reloadDowntimeMultiplier",
-      label: "Reload Downtime Multiplier",
+      id: "weaponAccuracy",
+      label: "Weapon Accuracy (%)",
       type: "number",
-      defaultValue: 1,
+      defaultValue: 35,
       min: 0,
-      max: 2,
-      step: 0.1,
-      description: "Scale the impact of reload downtime on sustain output.",
+      max: 100,
+      step: 1,
+      description: "Scales mediblaster DPS by the expected accuracy percentage.",
     },
   ] as const;
   static readonly outputs = [
@@ -194,15 +200,21 @@ export class JunoMediblasterMetric extends ComputedMetric<
       enemyHasArmor,
       withReload: true,
     });
+    const accuracyPercent = Number(inputs.weaponAccuracy ?? 35);
+    const accuracyMultiplier = accuracyPercent / 100;
+    const accuracyBurst = burst * accuracyMultiplier;
+    const accuracySustain = baseSustain * accuracyMultiplier;
     const includeReload = Boolean(inputs.includeReloadDowntime);
-    const multiplier = Number(inputs.reloadDowntimeMultiplier ?? 1);
-    let sustain = baseSustain;
+    let sustain = accuracySustain;
     if (!includeReload) {
-      sustain = burst;
-    } else if (multiplier !== 1) {
-      const downtime = burst - baseSustain;
-      sustain = burst - downtime * multiplier;
+      sustain = accuracyBurst;
     }
-    return { burst, sustain };
+    const stingerBonus = hasPower(this.context.heroPowers, STINGER_POWER_NAME)
+      ? 10 * (1 + (this.context.map.get("AP") ?? 0) / 100)
+      : 0;
+    return {
+      burst: Math.round(accuracyBurst + stingerBonus),
+      sustain: Math.round(sustain + stingerBonus),
+    };
   }
 }

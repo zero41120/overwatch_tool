@@ -19,6 +19,8 @@
 - Replaced optimizer DFS pruning with a Pareto-frontier DP search that respects equipped/avoid items.
 - Metric optional input controls now render from metric definitions, with input state wired through the optimizer and Juno mediblaster inputs for reload downtime tuning.
 - Derived stat maps now sum raw item stats once and feed metric evaluations.
+- Hero power selection is now passed into metric evaluation; Juno mediblaster output applies the Stinger bonus when selected.
+- Juno mediblaster metric now scales DPS by a weapon accuracy input (default 35%), excluding Stinger bonus; reload downtime multiplier input removed.
 - Optimizer search now accepts selected metric outputs plus generic extra-field profile inputs, keeping DP free of weapon-specific logic.
 - Optimizer build outputs now include per-metric values so scores and breakdowns can be recomputed without rerunning search.
 - Added a shared scoreBuild helper to recompute weighted metric scores and breakdowns when weights change.
@@ -29,3 +31,4 @@
 - Juno torpedo damage now lives in a computed metric with burst/sustain outputs and metric-defined optimizer extras.
 - Flat stat calculations (Weapon Power, Attack Speed, etc.) are now migrated to the `RawStatMetric` class and integrated into the standard metric discovery and UI workflow.
 - Fixed an issue where raw stats appeared with a double prefix ("Raw Stats: Raw Stats: ") by refactoring attribute label lookup to avoid circular metric name resolution.
+- Optimizer Pareto DP runs inside a web worker with progress updates to avoid blocking the UI during long searches.

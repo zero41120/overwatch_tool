@@ -1,16 +1,12 @@
-import type { MetricResolvedInputValues, MetricOutputValues } from "./core/ComputedMetric";
+import { buildTorpedoItem, computeJunoTorpedoDamage, TORPEDO_BASE_DAMAGE } from "../utils/junoTorpedoDamage";
+import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
+import type { MetricOutputValues, MetricResolvedInputValues } from "./core/ComputedMetric";
 import { ComputedMetric } from "./core/ComputedMetric";
 import type { MetricContext } from "./core/metricContext";
-import type { OptimizerExtraField } from "../utils/optimizerParetoTypes";
-import {
-  buildTorpedoItem,
-  computeJunoTorpedoDamage,
-  TORPEDO_BASE_DAMAGE,
-} from "../utils/junoTorpedoDamage";
 
 export const JUNO_TORPEDO_METRIC_ID = "juno-torpedo";
 
-const DEFAULT_TORPEDO_COOLDOWN_SECONDS = 8;
+const DEFAULT_TORPEDO_COOLDOWN_SECONDS = 10;
 
 export class JunoTorpedoMetric extends ComputedMetric<
   typeof JunoTorpedoMetric.inputs,
@@ -82,10 +78,7 @@ export class JunoTorpedoMetric extends ComputedMetric<
   ): MetricOutputValues<typeof JunoTorpedoMetric.outputs> {
     const baseDamage = Number(inputs.baseDamage ?? TORPEDO_BASE_DAMAGE);
     const burst = computeJunoTorpedoDamage(this.context.items, baseDamage);
-    const cooldownSeconds = Math.max(
-      0.1,
-      Number(inputs.cooldownSeconds ?? DEFAULT_TORPEDO_COOLDOWN_SECONDS),
-    );
+    const cooldownSeconds = Math.max(0.1, Number(inputs.cooldownSeconds ?? DEFAULT_TORPEDO_COOLDOWN_SECONDS));
     return {
       burst,
       sustain: burst / cooldownSeconds,

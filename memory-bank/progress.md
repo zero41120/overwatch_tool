@@ -51,3 +51,4 @@
 - Juno Torpedo output now lives in a computed metric with burst/sustain outputs and metric-defined optimizer extras.
 - Migrated flat stat calculations (Weapon Power, Attack Speed, etc.) to the `RawStatMetric` class so they are handled via the unified metric discovery system.
 - Fixed a double-labeling issue where raw stats were prefixed with "Raw Stats: Raw Stats: " by separating raw label lookup from metric label lookup.
+- Optimizer Pareto DP search now runs in a web worker with progress feedback to keep the UI responsive during long computations.

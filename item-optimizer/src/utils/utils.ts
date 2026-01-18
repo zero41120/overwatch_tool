@@ -12,6 +12,7 @@ import { buildDerivedStatMap } from "./derivedStatMap";
 type AggregateOptions = {
   metricOutputKeys?: Set<string>;
   metricInputValues?: MetricInputValuesByMetric;
+  heroPowers?: string[];
 };
 
 export function aggregate(items: Item[], hero?: string, opts: AggregateOptions = {}): Map<string, number> {
@@ -22,6 +23,7 @@ export function aggregate(items: Item[], hero?: string, opts: AggregateOptions =
       items,
       map: derivedMap,
       hero: hero ?? "",
+      heroPowers: opts.heroPowers,
     };
     const outputs = computeMetricOutputs(context, opts.metricOutputKeys, opts.metricInputValues);
     outputs.forEach((value, key) => map.set(key, value));

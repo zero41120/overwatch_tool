@@ -5,6 +5,7 @@ import { aggregate, buildBreakdown, metricValuesFromMap, scoreFromMap } from "./
 export type ScoreBuildOptions = {
   items: Item[];
   hero?: string;
+  heroPowers?: string[];
   weights: WeightRow[];
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
@@ -16,6 +17,7 @@ export function scoreBuild(options: ScoreBuildOptions) {
   const map = aggregate(options.items, options.hero, {
     metricOutputKeys: options.metricOutputKeys,
     metricInputValues: options.metricInputValues,
+    heroPowers: options.heroPowers,
   });
   return {
     map,

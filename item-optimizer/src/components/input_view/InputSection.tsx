@@ -18,6 +18,9 @@ interface Props {
   filteredItems: Item[];
   onSubmit: (mode: "cheapest" | "premium" | "incremental") => void;
   validate: () => boolean;
+  isCalculating: boolean;
+  progressPercent: number | null;
+  progressLabel: string | null;
 }
 
 export default function InputSection({
@@ -28,6 +31,9 @@ export default function InputSection({
   filteredItems,
   onSubmit,
   validate,
+  isCalculating,
+  progressPercent,
+  progressLabel,
 }: Props) {
   return (
     <div className="glass-card space-y-6 rounded-xl shadow-lg p-4 sm:p-6  dark:border-gray-700">
@@ -57,7 +63,13 @@ export default function InputSection({
           <MetricInputsSection />
         </div>
         <hr className="my-4 border-gray-300 dark:border-gray-600" />
-        <SubmitSection onSubmit={onSubmit} validate={validate} />
+        <SubmitSection
+          onSubmit={onSubmit}
+          validate={validate}
+          isCalculating={isCalculating}
+          progressPercent={progressPercent}
+          progressLabel={progressLabel}
+        />
       </form>
     </div>
   );

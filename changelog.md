@@ -94,3 +94,5 @@
 2026-01-14  group score breakdown by metric unit types  item-optimizer/src/components/results_view/BreakdownTable.tsx item-optimizer/src/utils/utils.ts item-optimizer/src/utils/scoreUtils.ts
 2026-01-10  expose raw attribute outputs in metric selector for backward compatibility  item-optimizer/src/Optimizer.tsx item-optimizer/src/metrics/metricRegistry.ts
 2026-01-10  migrate Juno torpedo metric to computed burst/sustain outputs  item-optimizer/src/metrics/JunoTorpedoMetric.ts item-optimizer/src/Optimizer.tsx item-optimizer/src/utils/optimizerProfileInputs.ts item-optimizer/src/utils/utils.ts
+2026-01-17  move optimizer DP search to a web worker with progress feedback  item-optimizer/src/Optimizer.tsx item-optimizer/src/workers/optimizerWorker.ts item-optimizer/src/components/input_view/SubmitSection.tsx item-optimizer/src/utils/optimizerPareto.ts
+2026-01-15 add hero power selection to mediblaster metric scoring (Stinger bonus) 

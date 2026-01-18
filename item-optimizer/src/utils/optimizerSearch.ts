@@ -2,7 +2,7 @@ import type { Item, MinAttrGroup, ResultCombo, WeightRow } from "../types";
 import type { MetricInputValuesByMetric } from "../metrics/core/metricRegistry";
 import { aggregate, meetsMinGroups, metricValuesFromMap, scoreFromMap } from "./utils";
 import { buildOptimizerProfiles } from "./optimizerPareto";
-import type { OptimizerExtraField } from "./optimizerParetoTypes";
+import type { OptimizerExtraField, OptimizerProgress } from "./optimizerParetoTypes";
 
 export type OptimizerSearchOptions = {
   items: Item[];
@@ -12,6 +12,7 @@ export type OptimizerSearchOptions = {
   minValueEnabled: boolean;
   minAttrGroups: MinAttrGroup[];
   hero?: string;
+  heroPowers?: string[];
   metricInputValues?: MetricInputValuesByMetric;
   maxItems: number;
   maxCash: number;
@@ -19,6 +20,8 @@ export type OptimizerSearchOptions = {
   extraFields?: OptimizerExtraField[];
   costStep?: number;
   maxFrontier?: number;
+  onProgress?: (progress: OptimizerProgress) => void;
+  progressInterval?: number;
 };
 
 type ScoredCombo = ResultCombo;
@@ -29,12 +32,14 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     const map = aggregate(options.equippedItems, options.hero, {
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: options.metricInputValues,
+      heroPowers: options.heroPowers,
     });
     const metricValues = metricValuesFromMap(map);
     if (
       options.minValueEnabled &&
       !meetsMinGroups(options.equippedItems, options.minAttrGroups, options.hero, {
         metricInputValues: options.metricInputValues,
+        heroPowers: options.heroPowers,
       })
     ) {
       return [];
@@ -57,6 +62,8 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     maxFrontier: options.maxFrontier,
     attrKeys: options.attrKeys,
     extraFields: options.extraFields,
+    onProgress: options.onProgress,
+    progressInterval: options.progressInterval,
   });
 
   const combos: ScoredCombo[] = [];
@@ -68,6 +75,7 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
       options.minValueEnabled &&
       !meetsMinGroups(combined, options.minAttrGroups, options.hero, {
         metricInputValues: options.metricInputValues,
+        heroPowers: options.heroPowers,
       })
     ) {
       return;
@@ -75,6 +83,7 @@ function evaluateProfiles(options: OptimizerSearchOptions): ScoredCombo[] {
     const map = aggregate(combined, options.hero, {
       metricOutputKeys: selectedMetricOutputs,
       metricInputValues: options.metricInputValues,
+      heroPowers: options.heroPowers,
     });
     combos.push({
       items: selected,

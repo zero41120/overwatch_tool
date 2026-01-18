@@ -40,6 +40,9 @@ describe("InputSection", () => {
           filteredItems={items}
           onSubmit={onSubmit}
           validate={validate}
+          isCalculating={false}
+          progressPercent={null}
+          progressLabel={null}
         />
       </Provider>,
     );
@@ -61,6 +64,9 @@ describe("InputSection", () => {
           filteredItems={items}
           onSubmit={onSubmit}
           validate={validate}
+          isCalculating={false}
+          progressPercent={null}
+          progressLabel={null}
         />
       </Provider>,
     );
@@ -80,6 +86,9 @@ describe("InputSection", () => {
           filteredItems={items}
           onSubmit={onSubmit}
           validate={() => true}
+          isCalculating={false}
+          progressPercent={null}
+          progressLabel={null}
         />
       </Provider>,
     );
@@ -99,6 +108,9 @@ describe("InputSection", () => {
           filteredItems={items}
           onSubmit={onSubmit}
           validate={() => true}
+          isCalculating={false}
+          progressPercent={null}
+          progressLabel={null}
         />
       </Provider>,
     );
@@ -117,11 +129,35 @@ describe("InputSection", () => {
           filteredItems={items}
           onSubmit={() => {}}
           validate={() => true}
+          isCalculating={false}
+          progressPercent={null}
+          progressLabel={null}
         />
       </Provider>,
     );
     fireEvent.click(getByRole("button", { name: /Hero|Ashe/i }));
     expect(getByText(NO_HERO)).toBeInTheDocument();
     expect(getByText(ALL_HEROES)).toBeInTheDocument();
+  });
+
+  it("renders progress percentage while calculating", () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <InputSection
+          heroes={heroes}
+          heroIcons={heroIcons}
+          attrTypes={attrTypes}
+          metricOutputs={metricOutputs}
+          filteredItems={items}
+          onSubmit={() => {}}
+          validate={() => true}
+          isCalculating={true}
+          progressPercent={42}
+          progressLabel={"7 / 16"}
+        />
+      </Provider>,
+    );
+    expect(getByText(/42%/i)).toBeInTheDocument();
+    expect(getByText(/7 \/ 16/i)).toBeInTheDocument();
   });
 });

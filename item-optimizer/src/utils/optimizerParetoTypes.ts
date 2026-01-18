@@ -13,6 +13,12 @@ export type OptimizerProfile = {
   indices: number[];
 };
 
+export type OptimizerProgress = {
+  phase: "profiles";
+  completed: number;
+  total: number;
+};
+
 export type OptimizerParetoOptions = {
   maxItems: number;
   maxCash: number;
@@ -20,4 +26,6 @@ export type OptimizerParetoOptions = {
   maxFrontier?: number;
   attrKeys: string[];
   extraFields?: OptimizerExtraField[];
+  onProgress?: (progress: OptimizerProgress) => void;
+  progressInterval?: number;
 };

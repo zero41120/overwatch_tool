@@ -79,7 +79,7 @@ describe("optimizer utils", () => {
       if (isEndOfVolley && hasAmmoLeft) cycleFrames += singleRecoveryFrame;
     }
     const totalDamage = clipSize * 7.5 * wm * weaponPowerPercent;
-    const expected = Math.round(totalDamage * (TPS / cycleFrames));
+    const expected = Math.round(totalDamage * (TPS / cycleFrames) * 0.35);
     expect(map.get(sustainKey)).toBe(expected);
   });
 
